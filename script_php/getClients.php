@@ -12,7 +12,7 @@
 	    	}
 			
 			header('Content-Type: application/json');
-	    	echo 'json_programs({"items":'.json_encode($rows).'})';   
+	    	echo json_encode($rows);   
 	               
 	    	if($result!=null){
 				$result->close();

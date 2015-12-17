@@ -7,8 +7,5 @@ if ($mysqli->connect_errno) {
 	echo "Failed to connect to DataBase...";
 	exit();
 }
-else
-{
-	echo "Connected.";
-}
+
 ?>
