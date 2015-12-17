@@ -1,13 +1,22 @@
-$(document).ready(function(){
-	console.log("Entro");
-	$.ajax({
+
+
+function loaddata() {
+	console.log("Debug");
+   $.ajax({
       dataType: "json",
-      url: "../script_php/getClients.php", //Relative or absolute path to response.php file
+      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getClients.php", //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
+	    console.log("Ciao");
         console.log(data);
+        return false;
+      },
+      error: function(xhr){
+	      console.log(xhr.status);
+	      console.log(data);
         return false;
       }
     });
-    return false;
-});
+    
+    //return false;
+}

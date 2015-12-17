@@ -1,13 +1,21 @@
 
 	
 <?php
-	include 'connessione-db.php';
-	
-	$query="USE my_provejoppi;";
-	$result = $mysqli->query($query);
-	$query="SELECT * FROM clienti;";
-	$result = $mysqli->query($query);       
-	$array = mysql_fetch_row($result);      
-	echo json_encode($array);
 
+			include 'connessione-db.php';
+			$qry = "SELECT * FROM clienti;";
+	        
+			$mysqli->query('SET CHARACTER SET utf8');
+	    	$result = $mysqli->query($qry);
+	    	while($row = $result->fetch_assoc()) {
+				$rows[] = $row;
+	    	}
+			
+			header('Content-Type: application/json');
+	    	echo 'json_programs({"items":'.json_encode($rows).'})';   
+	               
+	    	if($result!=null){
+				$result->close();
+			}
+			
 ?>

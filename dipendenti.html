@@ -1,0 +1,79 @@
+<html>
+	<head>
+	
+		<title>Gestionale</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, 
+initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+		
+		<!-- Compiled and minified CSS -->
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+	  <link rel="stylesheet" href="css/style.css">
+	      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
+	   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	  <!-- Compiled and minified JavaScript -->
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+	  <script src="js/clients.js" type="text/javascript" ></script>
+
+	</head>
+	
+	<body>
+		<nav class="section green">
+			
+		    <div class="nav-wrapper green">
+		      <div class="col s12">
+		        <a href="index.html" class="breadcrumb">Home</a>
+		        <a href="#!" class="breadcrumb">Elenco Dipendenti</a>
+		      </div>
+		    </div>
+	  	</nav>
+	  	<div class="section col s12 m12 l12" >	
+		  	<div class="nav-wrapper">
+		      <form>
+		        <div class="input-field">
+		          <input id="search" type="search" required>
+		          <label for="search"><i class="material-icons green-text">search</i></label>
+		        </div>
+		      </form>
+		    </div>
+		  <ul class="col s10 m10 l10 collection with-header" id="elenco">
+	        <li class="collection-item"><div>Alvin 1<a href="#!" class="secondary-content"><i class="material-icons green-text">call_received</i></a></div></li>
+	        <li class="collection-item"><div>Alvin 2<a href="#!" class="secondary-content"><i class="material-icons green-text">call_received</i></a></div></li>
+	        <li class="collection-item"><div>Alvin 3<a href="#!" class="secondary-content"><i class="material-icons green-text">call_received</i></a></div></li>
+	        <li class="collection-item"><div>Alvin 4<a href="#!" class="secondary-content"><i class="material-icons green-text">call_received</i></a></div></li>
+	      </ul>
+	  	</div>
+	  	<div class="divider"></div>
+	  	<div class="section col s12 m12 l12">
+		  	<div class="row">
+			  	<div class="col s12 m2 l2">
+			  		<i class="large material-icons green-text">account_circle</i>
+			  	</div>
+			  	<div class="col s12 m4 l4">
+			  		<p><i class="info small material-icons green-text">account_circle</i>   Alvin 1</p>
+			  		<p><i class="info small material-icons green-text">place</i>Indirizzo-Città-CAP-Provincia</p>
+			  		<p><i class="info small material-icons green-text">phone</i>012345667</p>
+			  		<p><i class="info small material-icons green-text">code</i>AAL563SL45Q78L</p>
+			  	</div>
+			  	<div class="col s12 m4 l4">
+				  	<p><i class="info small material-icons green-text">email</i>alvin@gmail.com</p>
+			  		<p><i class="info small material-icons green-text">public</i>www.alvin.it</p>	
+			  	</div>
+			  	<div class="col s12 m2 l2">
+				  	 <a class="btn-floating btn-medium waves-effect waves-light green" title="Modifica Cliente"><i class="small material-icons">edit</i></a>				  	 <a class="btn-floating btn-medium waves-effect waves-light green" title="Elimina Cliente"><i class="small material-icons">delete</i></a>
+			  	</div>
+		  	</div>
+	  	</div>
+	  	 <footer class="page-footer green">
+           <div class="footer-copyright">
+            <div class="container">
+            © 2014 Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div>
+        </footer>
+		<script>
+			loaddata();
+		</script>
+	</body>
+</html>
