@@ -98,17 +98,28 @@ function explodeClient(cliente){
 }
 
 function deleteCliente(){
-	alert(id);
-	$.ajax({
-      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/deleteClient.php", //Relative or absolute path to response.php file
-      type:"POST",
-      data:{'id': id},
-      success: function(data) {
-	      populateList("");
-	  },
-      error: function(xhr){
-	     console.log(xhr.status);
-      }
-    });
+	$.confirm({
+				title: 'Elimino Cliente',
+				confirmButton: 'Elimina',
+				cancelButton: 'Annulla',
+				content: 'Sei sicuro di voler eliminare il Cliente?',
+				theme: 'supervan',
+				confirmButtonClass: 'btn-info',
+				animation:'RotateY',
+				animationSpeed: 1000,
+				confirm: function () {
+					$.ajax({
+				      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/deleteClient.php", //Relative or absolute path to response.php file
+				      type:"POST",
+				      data:{'id': id},
+				      success: function(data) {
+					      populateList("");
+					  },
+				      error: function(xhr){
+					     console.log(xhr.status);
+				      }
+				    });
+				 }
+			});
 
 }
