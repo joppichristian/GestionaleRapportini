@@ -14,3 +14,7 @@
 .info{
 	margin-right: 10%;
 }
+
+.list{
+	overflow: scroll;
+}

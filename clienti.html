@@ -28,42 +28,39 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 		      </div>
 		    </div>
 	  	</nav>
-	  	<div class="section col s12 m12 l12" >	
+	  	<div class="section list col s12 m12 l12" style="height: 55%;">	
 		  	<div class="nav-wrapper">
 		      <form>
 		        <div class="input-field">
 		          <input id="search" type="search" required>
 		          <label for="search"><i class="material-icons blue-text">search</i></label>
-		        </div>
+		          <i id="start_search" class="small material-icons blue-text">refresh</i>	        
+		         </div>
 		      </form>
 		    </div>
-		  <ul class="col s10 m10 l10 collection with-header" id="elenco">
-	        <li class="collection-item"><div>Alvin 1<a href="#!" class="secondary-content"><i class="material-icons blue-text">call_received</i></a></div></li>
-	        <li class="collection-item"><div>Alvin 2<a href="#!" class="secondary-content"><i class="material-icons blue-text">call_received</i></a></div></li>
-	        <li class="collection-item"><div>Alvin 3<a href="#!" class="secondary-content"><i class="material-icons blue-text">call_received</i></a></div></li>
-	        <li class="collection-item"><div>Alvin 4<a href="#!" class="secondary-content"><i class="material-icons blue-text">call_received</i></a></div></li>
-	      </ul>
+		  <ul class="col s10 m10 l10 collection with-header" id="elenco" ></ul>
 	  	</div>
 	  	<div class="divider"></div>
 	  	<div class="section col s12 m12 l12">
-		  	<div class="row">
-			  	<div class="col s12 m2 l2">
-			  		<i class="large material-icons blue-text">account_circle</i>
+		  	<div class="row" id="info">
+			  	<div class="col s12 m2 l2" id="logo_cliente"></div>
+			  	<div class="col s12 m4 l4">
+			  		<p id="nominativo"></p>
+			  		<p id="indirizzi" ></p>
+			  		<p id="telefono" ></p>
+			  		<p id="codice_fiscale"></p>
 			  	</div>
 			  	<div class="col s12 m4 l4">
-			  		<p><i class="info small material-icons blue-text">account_circle</i>Alvin 1</p>
-			  		<p><i class="info small material-icons blue-text">place</i>Indirizzo-Città-CAP-Provincia</p>
-			  		<p><i class="info small material-icons blue-text">phone</i>012345667</p>
-			  		<p><i class="info small material-icons blue-text">code</i>AAL563SL45Q78L</p>
-			  	</div>
-			  	<div class="col s12 m4 l4">
-				  	<p><i class="info small material-icons blue-text">email</i>alvin@gmail.com</p>
-			  		<p><i class="info small material-icons blue-text">public</i>www.alvin.it</p>
+				  	<p id="email"></p>
+			  		<p id="site"></p>
 			   	</div>
 			  	<div class="col s12 m2 l2">
-				  	 <a class="btn-floating btn-medium waves-effect waves-light blue" title="Modifica Cliente"><i class="small material-icons">edit</i></a>				  	 <a class="btn-floating btn-medium waves-effect waves-light blue" title="Elimina Cliente"><i class="small material-icons">delete</i></a>
+				  	 <a  class="btn-floating btn-medium waves-effect waves-light blue" title="Modifica Cliente"><i id="modify" class="small material-icons">edit</i></a>				  	 <a class="btn-floating btn-medium waves-effect waves-light blue" title="Elimina Cliente"><i id="delete" class="small material-icons">delete</i></a>
 			  	</div>
+			  	
+
 		  	</div>
+		  
 	  	</div>
 	  	 <footer class="page-footer blue">
            <div class="footer-copyright">
@@ -73,8 +70,5 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
             </div>
           </div>
         </footer>
-		<script>
-			loaddata();
-		</script>
 	</body>
 </html>
