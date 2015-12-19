@@ -94,6 +94,8 @@ function explodeClient(cliente){
        $("#email").append('<i class="info small material-icons blue-text">email</i>'+cliente['email']);
     if(cliente['codice_fiscale'] != null) 
        $("#site").append('<i class="info small material-icons blue-text">public</i>'+cliente['site']);
+      if(cliente['note'] != null) 
+       $("#note").append('<i class="info small material-icons blue-text">chat_bubble</i>'+cliente['note']);
 
 }
 
