@@ -18,3 +18,11 @@
 .list{
 	overflow: scroll;
 }
+
+.login_form{
+	position: absolute;
+	top:50%;
+	left:50%;
+	margin-left: -250px !important;
+	margin-top: -125px !important; 
+}
