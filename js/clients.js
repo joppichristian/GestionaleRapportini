@@ -71,6 +71,7 @@ function explodeClient(cliente){
 	$("#codice_fiscale").empty();
 	$("#email").empty();
 	$("#site").empty();
+	$("#note").empty();
 	$("#logo_cliente").empty();
 	if(cliente['tipologia'] == 'p'){
 		$("#logo_cliente").append('<i id="logo_cliente" class="large material-icons blue-text">account_circle</i>');
