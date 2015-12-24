@@ -32,7 +32,7 @@
 						die(mysqli_error($mysqli));
 					}
 		    	
-		    	echo ("success");
+		    	echo "success";
 			}else{
 				echo "request error";
 			}

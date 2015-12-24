@@ -53,10 +53,12 @@ $(document).ready(function(){
 			   alert(response);
 			   Materialize.toast('Cliente inserito', 4000);
 			   window.location.replace("http://stackoverflow.com");
+			   return false;
 			},
-		   error: function(response){
-			   console.log(response);
-			   window.location.replace("http://stackoverflow.com");
+		   error: function (XMLHttpRequest, textStatus, errorThrown){
+			    alert(textStatus);
+			    window.location.replace("http://stackoverflow.com");
+			    return false;
 
 			}
 		});		
