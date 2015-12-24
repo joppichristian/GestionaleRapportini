@@ -76,8 +76,27 @@
      box-shadow: 0 1px 0 0 #2196f3;
    }
 
-
-
+   .input-field textarea.materialize-textarea:focus + label {
+     color: #2196f3;
+   }
+   /* label underline focus color */
+   .input-field textarea.materialize-textarea:focus {
+     border-bottom: 1px solid #2196f3;
+     box-shadow: 0 1px 0 0 #2196f3;
+   }
+   /* valid color */
+   .input-field textarea.materialize-textarea.valid {
+     border-bottom: 1px solid #2196f3;
+     box-shadow: 0 1px 0 0 #2196f3;
+   }
+   /* invalid color */
+   .input-field textarea.materialize-textarea.invalid {
+     border-bottom: 1px solid #2196f3;
+     box-shadow: 0 1px 0 0 #2196f3;
+   }
+   .dropdown-content li>a, .dropdown-content li>span{
+	   color:#2196f3;
+   }
    /* icon prefix focus color */
    .input-field .prefix.active {
      color: #2196f3;

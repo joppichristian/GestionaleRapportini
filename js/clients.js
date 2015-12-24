@@ -68,7 +68,9 @@ function explodeClient(cliente){
 	$("#nominativo").empty();
 	$("#indirizzi").empty();
 	$("#telefono").empty();
+	$("#cellulare").empty();
 	$("#codice_fiscale").empty();
+	$("#partita_iva").empty();
 	$("#email").empty();
 	$("#site").empty();
 	$("#note").empty();
@@ -76,26 +78,29 @@ function explodeClient(cliente){
 	if(cliente['tipologia'] == 'p'){
 		$("#logo_cliente").append('<i id="logo_cliente" class="large material-icons blue-text">account_circle</i>');
 		$("#nominativo").append('<i class="info small material-icons blue-text">account_circle</i>'+cliente['nominativo']);
-		if(cliente['codice_fiscale'] != null) 
-			$("#codice_fiscale").append('<i class="info small material-icons blue-text">code</i>'+cliente['codice_fiscale']);
-	}
+			}
 	else
 	{
 		$("#logo_cliente").append('<i id="logo_cliente" class="large material-icons blue-text">business</i>');
 		$("#nominativo").append('<i class="info small material-icons blue-text">business</i>'+cliente['nominativo']);
-		if(cliente['partita_iva'] != null) 
-			$("#codice_fiscale").append('<i class="info small material-icons blue-text">code</i>'+cliente['partita_iva']);
 	}
 	
-    if(cliente['indirizzo'] != null && cliente['citta'] != null && cliente['cap'] != null && cliente['provincia'] != null)
+    if(cliente['indirizzo'] != null && cliente['citta'] != null && cliente['cap'] != null && cliente['provincia'] != null && cliente['indirizzo'] != "" && cliente['citta'] != "" && cliente['cap'] != "" && cliente['provincia'] != "")
        $("#indirizzi").append('<i class="info small material-icons blue-text">place</i>'+cliente['indirizzo']+' - '+cliente['citta']+' - '+cliente['cap']+ ' - '+cliente['provincia']);
-	if(cliente['telefono'] != null) 
+	if(cliente['telefono'] != null && cliente['telefono'] != "") 
        $("#telefono").append('<i class="info small material-icons blue-text">phone</i>'+cliente['telefono']);
-    if(cliente['email'] != null) 
+	if(cliente['cellulare'] != null && cliente['cellulare'] != "") 
+       $("#cellulare").append('<i class="info small material-icons blue-text">phone_iphone</i>'+cliente['cellulare']);
+    if(cliente['codice_fiscale'] != null && cliente['codice_fiscale'] != "") {
+		$("#codice_fiscale").append('<i class="info small material-icons blue-text">code</i>'+cliente['codice_fiscale']);
+		}
+	if(cliente['partita_iva'] != null && cliente['partita_iva'] != "") 
+		$("#partita_iva").append('<i class="info small material-icons blue-text">code</i>'+cliente['partita_iva']);
+    if(cliente['email'] != null && cliente['email'] != "") 
        $("#email").append('<i class="info small material-icons blue-text">email</i>'+cliente['email']);
-    if(cliente['codice_fiscale'] != null) 
+    if(cliente['site'] != null && cliente['site'] != "") 
        $("#site").append('<i class="info small material-icons blue-text">public</i>'+cliente['site']);
-      if(cliente['note'] != null) 
+      if(cliente['note'] != null && cliente['note'] != "") 
        $("#note").append('<i class="info small material-icons blue-text">chat_bubble</i>'+cliente['note']);
 
 }
