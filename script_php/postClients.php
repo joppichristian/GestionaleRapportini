@@ -20,28 +20,7 @@
 				$note = str_replace("'", "\'",$_POST['note']);
 				$tipologia = $_POST['tipologia'];
 				
-				if(empty($indirizzo))
-					$indirizzo = null;
-				if(empty($citta))
-					$citta = null;
-				if($cap == "")
-					$cap = null;
-				if($provincia == "")
-					$provincia = null;
-				if($telefono == "")
-					$telefono = null;
-				if($cellulare == "")
-					$cellulare = null;
-				if($cf == "")
-					$cf = null;
-				if($piva == "")
-					$piva = null;
-				if($email == "")
-					$email = null;
-				if($site == "")
-					$site = null;
-				if($note == "")
-					$note = null;
+		
 				
 					
 				
@@ -53,7 +32,7 @@
 						die(mysqli_error($mysqli));
 					}
 		    	
-		    	echo "success";
+		    	echo ("success");
 			}else{
 				echo "request error";
 			}

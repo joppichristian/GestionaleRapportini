@@ -31,7 +31,6 @@ $(document).ready(function(){
 		var sito = $("#site").val();
 		var note = $("#note").val();
 		var tipologia = $("#tipologia").val();
-		alert(nominativo + "," + indirizzo + "," + citta + "," + cap + "," +provincia + "," + telefono + "," + cellulare + "," + codice_fiscale + "," + p_iva + "," + email + "," + sito + "," + note + "," + tipologia);
 		$.ajax({
 	      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/postClients.php", //Relative or absolute path to response.php file
 	      type:"POST",
@@ -48,22 +47,19 @@ $(document).ready(function(){
 		      "email":email,
 		      "site":sito,
 		      "note":note,
-		      "tipologia":tipologia,
+		      "tipologia":tipologia
 		   },
-	      success: function(response) {
-		   		alert("Inserito");   
-		   		return true;
-		   },
-	      error: function(xhr){
-		     alert(xhr.status);
-		     return false;
-	      }
-	    });
-	    /*
-	    $("#aggiungi_cliente").attr("action","http://www.trentinoannuncia.com/portale_artigiani/script_php/postClients.php");
-	    $("#aggiungi_cliente").submit();
-	    */
+		   success: function(response){
+			   alert(response);
+			   Materialize.toast('Cliente inserito', 4000);
+			   window.location.replace("http://stackoverflow.com");
+			},
+		   error: function(response){
+			   console.log(response);
+			   window.location.replace("http://stackoverflow.com");
+
+			}
+		});		
 	
-	}) ;
-	
+	});
 });
