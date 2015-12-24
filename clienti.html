@@ -44,7 +44,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 		  <ul class="col s10 m10 l10 collection with-header" id="elenco" ></ul>
 	  	</div>
 	  	<div class="divider"></div>
-	  	<div class="section col s12 m12 l12">
+	  	<div class="section col s12 m12 l12" >
 		  	<div class="row" id="info">
 			  	<div class="col s12 m2 l2" id="logo_cliente"></div>
 			  	<div class="col s12 m4 l4">
@@ -66,8 +66,81 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 			  	
 
 		  	</div>
-		  
+		  	<form class="col s12" id="modifica_cliente" method="post" >
+		      <div class="row">
+		        <div class="input-field col s12 m6 l6">
+		          <i class="material-icons prefix blue-text">account_circle</i>
+		          <input id="form_nominativo" type="text" name="nominativo" class="validate">
+		          <label id="label_nominativo" class="blue-text" for="form_nominativo ">Nominativo</label>
+		        </div>
+		         <div class="input-field col s12 m6 l6">
+		          <i class="material-icons prefix blue-text">place</i>
+		          <input id="form_indirizzo" type="text" name="indirizzo" class="validate">
+		          <label class="blue-text" for="form_indirizzo">Indirizzo</label>
+		         </div>
+		         <div class="input-field col s12 m6 l6">
+			      <i class="material-icons prefix blue-text">place</i>   
+		          <input id="form_citta" type="text" name="citta" class="validate">
+		          <label class="blue-text" for="form_citta">Citt&agrave;</label>
+		          </div>
+		         <div class="input-field col s12 m6 l6">
+			      <i class="material-icons prefix blue-text">place</i>
+		          <input id="form_cap" type="text" name="cap" class="validate">
+		          <label class="blue-text" for="form_cap">CAP</label>
+		          </div>
+		         <div class="input-field col s12 m6 l6">
+			      <i class="material-icons prefix blue-text">place</i>
+		          <input id="form_prov" type="text" name="provincia" class="validate">
+		          <label class="blue-text" for="form_prov">Provincia</label>
+		         </div>
+		        <div class="input-field col s12 m6 l6">
+		          <i class="material-icons prefix blue-text">phone</i>
+		          <input id="form_telephone" type="tel" name="telefono" class="validate">
+		          <label class="blue-text" for="form_telephone">Telefono</label>
+		        </div>
+		        <div class="input-field col s12 m6 l6">
+		          <i class="material-icons prefix blue-text">phone_iphone</i>
+		          <input id="form_mobile" type="tel" name="cellulare" class="validate">
+		          <label class="blue-text" for="form_mobile">Cellulare</label>
+		        </div>
+		         <div class="input-field col s12 m6 l6">
+		          <i class="material-icons prefix blue-text">code</i>
+		          <input id="form_code" type="text" name="cf" class="validate">
+		          <label class="blue-text" for="form_code">Codice fiscale</label>
+		        </div>
+		        <div class="input-field col s12 m6 l6" id="div_iva">
+		          <i class="material-icons prefix blue-text">code</i>
+		          <input id="form_iva" type="text" name="piva" class="validate">
+		          <label class="blue-text" for="form_iva">Partita IVA</label>
+		        </div>
+		         <div class="input-field col s12 m6 l6">
+		          <i class="material-icons prefix blue-text">email</i>
+		          <input id="form_email" name="email" type="email" class="validate">
+		          <label class="blue-text" for="form_email">Email</label>
+		        </div>
+		         <div class="input-field col s12 m6 l6">
+		          <i class="material-icons prefix blue-text">public</i>
+		          <input id="form_site" type="url" name="site" class="validate">
+		          <label class="blue-text" for="form_site">Sito Web</label>
+		        </div>
+		        <div class="input-field col s12 m12 l12">
+			      <i class="material-icons prefix blue-text">chat_bubble</i>
+		          <textarea id="form_note" name="note" class="materialize-textarea"></textarea>
+		          <label class="blue-text" for="form_note">Note</label>
+		        </div>
+		        <div class="input-field col s12" style="text-align: right;margin-bottom: 2%;">
+			        <button class="btn waves-effect waves-light blue white-text" id="invia_dati" type="submit" name="submit">
+			        <i class="material-icons right">done</i>
+					</button>
+					<button class="btn waves-effect waves-light blue white-text" type="reset" name="clear">
+			        <i class="material-icons right">clear</i>
+					</button>
+		        </div>
+		        <h6 class="blue-text col s12 m12 l12">(*) : campo obbligatorio</h6>
+		      </div>
+		    </form>
 	  	</div>
+	  		
 	  	 <footer class="page-footer blue">
            <div class="footer-copyright">
             <div class="container">

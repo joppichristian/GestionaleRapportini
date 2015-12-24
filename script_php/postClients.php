@@ -20,19 +20,33 @@
 				$note = str_replace("'", "\'",$_POST['note']);
 				$tipologia = $_POST['tipologia'];
 				
-		
-				
-					
+		/*
+				$nominativo = "Pippo 123";
+				$indirizzo = "";
+				$citta = "";
+				$cap = "";
+				$provincia = "";
+				$telefono = "";
+				$cellulare = "";
+				$cf = "";
+				$piva = "";
+				$email = "";
+				$site = "";
+				$note = "";
+				$tipologia = "a";
+				*/	
 				
 				$sql = "INSERT INTO clienti (nominativo,indirizzo,citta,cap,provincia,telefono,cellulare,codice_fiscale,partita_iva,email,sito,note,tipologia)
 				VALUES ('".$nominativo."','".$indirizzo."','".$citta."','".$cap."','".$provincia."','".$telefono."','".$cellulare."','".$cf."','".$piva."','".$email."','".$site."','".$note."','".$tipologia."');";
 				$mysqli->query('SET CHARACTER SET utf8');
 
 				if (!mysqli_query($mysqli,$sql)){
-						die(mysqli_error($mysqli));
+						echo mysqli_error($mysqli);
 					}
-		    	
-		    	echo "success";
+				$response_array['status'] = 'success';  
+		    	header('Content-type: application/json');
+				echo json_encode($response_array);
+
 			}else{
 				echo "request error";
 			}

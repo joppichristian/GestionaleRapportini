@@ -1,12 +1,32 @@
 var json = new Array();
-var index;
+var index=0;
 var id=0;
 
 $(document).ready(function() {
+	$("#info").show();
+	$("#modifica_cliente").hide();
 	$("#start_search").click( function() {
 		var tmp = $("#search").val();
 		tmp = "nominativo like '%"+tmp+"%'";
 		populateList(tmp);
+	});
+	$("#modify").click( function() {
+		$("#modifica_cliente").show();
+		$("#info").hide();
+		$("#form_nominativo").val(json[index]['nominativo']);
+		$("#form_nominativo").focus();
+		$("#form_indirizzo").text();
+		$("#form_citta").text();
+		$("#form_cap").text();
+		$("#form_prov").text();
+		$("#form_telephone").text();
+		$("#form_mobile").text();
+		$("#form_code").text();
+		$("#form_iva").text();
+		$("#form_email").text();
+		$("#form_site").text();
+		$("#form_note").text();
+
 	});
 	$("#delete").click( function() {
 		deleteCliente();
