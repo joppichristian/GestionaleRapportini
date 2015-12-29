@@ -43,9 +43,7 @@
 				if (!mysqli_query($mysqli,$sql)){
 						echo mysqli_error($mysqli);
 					}
-				$response_array['status'] = 'success';  
-		    	header('Content-type: application/json');
-				echo json_encode($response_array);
+				echo json_encode("success");
 
 			}else{
 				echo "request error";

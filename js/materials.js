@@ -4,23 +4,23 @@ var id=0;
 
 $(document).ready(function() {
 	$("#info").show();
-	$("#modifica_cliente").hide();
+	$("#modifica_materiale").hide();
 	$("#start_search").click( function() {
 		var tmp = $("#search").val();
-		tmp = "nominativo like '%"+tmp+"%'";
+		tmp = "descrizione like '%"+tmp+"%' or codice like '%"+tmp+"%'";
 		populateList(tmp);
 	});
 	$("#modify").click( function() {
 		completaForm();	
 	});
 	$("#invia_dati").click( function() {
-		modifyCliente();	
+		modifyMateriale();	
 	});
 	$("#annulla_modify").click( function() {
 		explodeClient(json[0]);	
 	});
 	$("#delete").click( function() {
-		deleteCliente();
+		deleteMateriale();
 	});
 	populateList("");
 
@@ -36,7 +36,7 @@ function populateList(filter){
 		q = " ";
 	$.ajax({
       dataType: "json",
-      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getClients.php?q= "+ q, //Relative or absolute path to response.php file
+      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getMaterials.php?q= "+ q, //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
 	    json = data;
@@ -47,11 +47,9 @@ function populateList(filter){
 
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item";
-	        if(data[i]['tipologia'] == 'p'){
-		        elementi[i].innerHTML = '<div><i class="info small material-icons blue-text">account_circle</i>'+data[i]['nominativo']+'<a href="#!" class="secondary-content"><i class="explode material-icons blue-text">call_received</i></a></div>	';
-		    }else{
-		        elementi[i].innerHTML = '<div><i class="info small material-icons blue-text">business</i>'+data[i]['nominativo']+'<a href="#!" class="secondary-content"><i class="explode material-icons blue-text">call_received</i></a></div>	';
-	        }
+	        
+		    elementi[i].innerHTML = '<div><i class="info small material-icons red-text">local_play</i>'+data[i]['codice']+' - '+data[i]['descrizione']+'<a href="#!" class="secondary-content"><i class="explode material-icons red-text">call_received</i></a></div>	';
+	        
 
 	    	$("#elenco").append(elementi[i]);
 
@@ -59,7 +57,7 @@ function populateList(filter){
 	    }
 	    id = data[0]['id'];
 
-		explodeClient(data[0]);
+		explodeMaterial(data[0]);
 		$(".explode").click(function(){
 	        index = $(".explode").index(this);
 	        id = json[index]['id'];      
@@ -75,55 +73,35 @@ function populateList(filter){
     //return false;
 
 }
-function explodeClient(cliente){
-	$("#modifica_cliente").hide();
+function explodeMaterial(materiale){
+	$("#modifica_materiale").hide();
 	$("#info").show();
-	$("#nominativo").empty();
-	$("#indirizzi").empty();
-	$("#telefono").empty();
-	$("#cellulare").empty();
-	$("#codice_fiscale").empty();
-	$("#partita_iva").empty();
-	$("#email").empty();
-	$("#site").empty();
+	$("#codice").empty();
+	$("#descrizione").empty();
+	$("#prezzo").empty();
+	$("#costo").empty();
 	$("#note").empty();
-	$("#logo_cliente").empty();
-	if(cliente['tipologia'] == 'p'){
-		$("#logo_cliente").append('<i id="logo_cliente" class="large material-icons blue-text">account_circle</i>');
-		$("#nominativo").append('<i class="info small material-icons blue-text">account_circle</i>'+cliente['nominativo']);
-			}
-	else
-	{
-		$("#logo_cliente").append('<i id="logo_cliente" class="large material-icons blue-text">business</i>');
-		$("#nominativo").append('<i class="info small material-icons blue-text">business</i>'+cliente['nominativo']);
-	}
-
-    if(cliente['indirizzo'] != null && cliente['citta'] != null && cliente['cap'] != null && cliente['provincia'] != null && cliente['indirizzo'] != "" && cliente['citta'] != "" && cliente['cap'] != "" && cliente['provincia'] != "")
-       $("#indirizzi").append('<i class="info small material-icons blue-text">place</i>'+cliente['indirizzo']+' - '+cliente['citta']+' - '+cliente['cap']+ ' - '+cliente['provincia']);
-	if(cliente['telefono'] != null && cliente['telefono'] != "")
-       $("#telefono").append('<i class="info small material-icons blue-text">phone</i>'+cliente['telefono']);
-	if(cliente['cellulare'] != null && cliente['cellulare'] != "")
-       $("#cellulare").append('<i class="info small material-icons blue-text">phone_iphone</i>'+cliente['cellulare']);
-    if(cliente['codice_fiscale'] != null && cliente['codice_fiscale'] != "") {
-		$("#codice_fiscale").append('<i class="info small material-icons blue-text">code</i>'+cliente['codice_fiscale']);
-		}
-	if(cliente['partita_iva'] != null && cliente['partita_iva'] != "")
-		$("#partita_iva").append('<i class="info small material-icons blue-text">code</i>'+cliente['partita_iva']);
-    if(cliente['email'] != null && cliente['email'] != "")
-       $("#email").append('<i class="info small material-icons blue-text">email</i>'+cliente['email']);
-    if(cliente['sito'] != null && cliente['sito'] != "")
-       $("#site").append('<i class="info small material-icons blue-text">public</i>'+cliente['sito']);
-      if(cliente['note'] != null && cliente['note'] != "")
-       $("#note").append('<i class="info small material-icons blue-text">chat_bubble</i>'+cliente['note']);
+	$("#logo_materiale").empty();
+	
+	$("#logo_materiale").append('<i id="logo_materiale" class="large material-icons red-text">local_play</i>');
+	$("#descrizione").append('<i class="info small material-icons red-text">dehaze</i>'+materiale['descrizione']);
+    if(materiale['codice'] != null && materiale['codice'] != "")
+       $("#codice").append('<i class="info small material-icons red-text">code</i>'+materiale['codice']);
+	if(materiale['prezzo'] != null && materiale['prezzo'] != "")
+       $("#prezzo").append('<i class="info small material-icons red-text">attach_money</i>'+materiale['prezzo']+ '&euro;');
+    if(materiale['costo'] != null && materiale['costo'] != "") 
+		$("#costo").append('<i class="info small material-icons red-text">attach_money</i>'+materiale['costo']+ '&euro;');
+      if(materiale['note'] != null && materiale['note'] != "")
+       $("#note").append('<i class="info small material-icons red-text">chat_bubble</i>'+materiale['note']);
 
 }
 
-function deleteCliente(){
+function deleteMateriale(){
 	$.confirm({
-				title: 'Elimino Cliente',
+				title: 'Elimino Materiale',
 				confirmButton: 'Elimina',
 				cancelButton: 'Annulla',
-				content: 'Sei sicuro di voler eliminare il Cliente?',
+				content: 'Sei sicuro di voler eliminare il Materiale?',
 				theme: 'supervan',
 				confirmButtonClass: 'btn-info',
 				animation:'RotateY',
@@ -146,11 +124,7 @@ function deleteCliente(){
 }
 
 function completaForm(){
-	if(json[index]['tipologia'] == 'p')
-		$("#div_iva").hide();
-	else
-		$("#div_iva").show();
-	$("#modifica_cliente").show();
+	$("#modifica_materiale").show();
 	$("#info").hide();
 	$("#form_nominativo").val(json[index]['nominativo']);
 	$("#form_indirizzo").val(json[index]['indirizzo']);
@@ -178,7 +152,7 @@ function completaForm(){
 	$("#form_nominativo").focus();
 	
 	}
-function modifyCliente(){
+function modifyMateriale(){
 	var nominativo = $("#form_nominativo").val();
 	var indirizzo = $("#form_indirizzo").val();
 	var citta = $("#form_citta").val();
