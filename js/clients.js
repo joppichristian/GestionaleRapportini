@@ -11,22 +11,13 @@ $(document).ready(function() {
 		populateList(tmp);
 	});
 	$("#modify").click( function() {
-		$("#modifica_cliente").show();
-		$("#info").hide();
-		$("#form_nominativo").val(json[index]['nominativo']);
-		$("#form_nominativo").focus();
-		$("#form_indirizzo").text();
-		$("#form_citta").text();
-		$("#form_cap").text();
-		$("#form_prov").text();
-		$("#form_telephone").text();
-		$("#form_mobile").text();
-		$("#form_code").text();
-		$("#form_iva").text();
-		$("#form_email").text();
-		$("#form_site").text();
-		$("#form_note").text();
-
+		completaForm();	
+	});
+	$("#invia_dati").click( function() {
+		modifyCliente();	
+	});
+	$("#annulla_modify").click( function() {
+		explodeClient(json[0]);	
 	});
 	$("#delete").click( function() {
 		deleteCliente();
@@ -71,8 +62,8 @@ function populateList(filter){
 		explodeClient(data[0]);
 		$(".explode").click(function(){
 	        index = $(".explode").index(this);
-	        id = json[index]['id'];
-	        explodeClient(json[index]);
+	        id = json[index]['id'];      
+	        explodeClient(json[index]);      
         });
       },
       error: function(xhr){
@@ -85,6 +76,8 @@ function populateList(filter){
 
 }
 function explodeClient(cliente){
+	$("#modifica_cliente").hide();
+	$("#info").show();
 	$("#nominativo").empty();
 	$("#indirizzi").empty();
 	$("#telefono").empty();
@@ -118,8 +111,8 @@ function explodeClient(cliente){
 		$("#partita_iva").append('<i class="info small material-icons blue-text">code</i>'+cliente['partita_iva']);
     if(cliente['email'] != null && cliente['email'] != "")
        $("#email").append('<i class="info small material-icons blue-text">email</i>'+cliente['email']);
-    if(cliente['site'] != null && cliente['site'] != "")
-       $("#site").append('<i class="info small material-icons blue-text">public</i>'+cliente['site']);
+    if(cliente['sito'] != null && cliente['sito'] != "")
+       $("#site").append('<i class="info small material-icons blue-text">public</i>'+cliente['sito']);
       if(cliente['note'] != null && cliente['note'] != "")
        $("#note").append('<i class="info small material-icons blue-text">chat_bubble</i>'+cliente['note']);
 
@@ -150,4 +143,84 @@ function deleteCliente(){
 				 }
 			});
 
+}
+
+function completaForm(){
+	if(json[index]['tipologia'] == 'p')
+		$("#div_iva").hide();
+	else
+		$("#div_iva").show();
+	$("#modifica_cliente").show();
+	$("#info").hide();
+	$("#form_nominativo").val(json[index]['nominativo']);
+	$("#form_indirizzo").val(json[index]['indirizzo']);
+	$("#form_indirizzo").focus();
+	$("#form_citta").val(json[index]['citta']);
+	$("#form_citta").focus();
+	$("#form_cap").val(json[index]['cap']);
+	$("#form_cap").focus();
+	$("#form_prov").val(json[index]['provincia']);
+	$("#form_prov").focus();
+	$("#form_telephone").val(json[index]['telefono']);
+	$("#form_telephone").focus();
+	$("#form_mobile").val(json[index]['cellulare']);
+	$("#form_mobile").focus();
+	$("#form_code").val(json[index]['codice_fiscale']);
+	$("#form_code").focus();
+	$("#form_iva").val(json[index]['partita_iva']);
+	$("#form_iva").focus();
+	$("#form_email").val(json[index]['email']);
+	$("#form_email").focus();
+	$("#form_site").val(json[index]['sito']);
+	$("#form_site").focus();
+	$("#form_note").val(json[index]['note']);
+	$("#form_note").focus();
+	$("#form_nominativo").focus();
+	
+	}
+function modifyCliente(){
+	var nominativo = $("#form_nominativo").val();
+	var indirizzo = $("#form_indirizzo").val();
+	var citta = $("#form_citta").val();
+	var cap = $("#form_cap").val();
+	var provincia = $("#form_prov").val();
+	var telefono = $("#form_telephone").val();
+	var cellulare = $("#form_mobile").val();
+	var codice_fiscale = $("#form_code").val();
+	var p_iva = $("#form_iva").val();
+	var email = $("#form_email").val();
+	var sito = $("#form_site").val();
+	var note = $("#form_note").val();
+
+	$.ajax({
+	     url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/updateClients.php", //Relative or absolute path to response.php file
+	      type:"POST",
+	      data:{
+		      'nominativo': nominativo,
+		      'indirizzo':indirizzo,
+		      'citta':citta,
+		      'cap':cap,
+		      'provincia':provincia,
+		      'telefono':telefono,
+		      'cellulare':cellulare,
+		      'cf':codice_fiscale,
+		      'piva':p_iva,
+		      'email':email,
+		      'site':sito,
+		      'note':note,
+		      'id':json[index]['id']
+		   },
+		   success: function(data){
+			   alert("success");
+			   Materialize.toast('Cliente inserito', 4000);
+			   window.location.replace("http://stackoverflow.com");
+			   return false;
+			},
+		   error: function (XMLHttpRequest, textStatus, errorThrown){
+			    alert(textStatus);
+			    window.location.replace("http://stackoverflow.com");
+			    return false;
+
+			}
+		});		
 }
