@@ -25,8 +25,10 @@ $(document).ready(function(){
 
 
 function addCliente(){
-		if($("#nominativo").val() == "")
+		if($("#nominativo").val() == ""){
+			Materialize.toast('Nominativo o Ragione Sociale Obbligatoria', 2000);
 			return false;
+		}
 		var nominativo = $("#nominativo").val();
 		var indirizzo = $("#indirizzo").val();
 		var citta = $("#citta").val();
