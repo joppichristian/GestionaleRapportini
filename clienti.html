@@ -66,8 +66,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 			  	
 
 		  	</div>
-		  	<form class="col s12" id="modifica_cliente" method="post" >
-		      <div class="row">
+			<div class="row" id="modifica_cliente">
 		        <div class="input-field col s12 m6 l6">
 		          <i class="material-icons prefix blue-text">account_circle</i>
 		          <input id="form_nominativo" type="text" name="nominativo" class="validate">
@@ -129,7 +128,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 		          <label class="blue-text" for="form_note">Note</label>
 		        </div>
 		        <div class="input-field col s12" style="text-align: right;margin-bottom: 2%;">
-			        <button class="btn waves-effect waves-light blue white-text" id="invia_dati" type="submit" name="submit">
+			        <button class="btn waves-effect waves-light blue white-text" id="invia_dati" type="button" name="submit">
 			        <i class="material-icons right">done</i>
 					</button>
 					<button class="btn waves-effect waves-light blue white-text" id="annulla_modify" type="button" name="clear">
@@ -138,7 +137,6 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 		        </div>
 		        <h6 class="blue-text col s12 m12 l12">(*) : campo obbligatorio</h6>
 		      </div>
-		    </form>
 	  	</div>
 	  		
 	  	 <footer class="page-footer blue">

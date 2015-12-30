@@ -212,12 +212,11 @@ function modifyCliente(){
 		      'id':json[index]['id']
 		   },
 		   success: function(data){
-			   alert("success");
+			   Materialize.toast('Cliente modificato', 2000,'',function(){explodeClient(json[0]);});
 			   return false;
 			},
 		   error: function (XMLHttpRequest, textStatus, errorThrown){
-			    alert(textStatus);
-			    window.location.replace("http://stackoverflow.com");
+		   		Materialize.toast('Errore di modifica', 2000);
 			    return false;
 
 			}

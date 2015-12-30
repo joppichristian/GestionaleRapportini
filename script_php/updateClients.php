@@ -52,10 +52,7 @@
 				if (!mysqli_query($mysqli,$sqlUpdate)){
 					echo mysqli_error($mysqli);
 				}
-				else{
-					echo json_encode("success");
-
-				}
+				echo json_encode("success");
 				
 
 	}else{

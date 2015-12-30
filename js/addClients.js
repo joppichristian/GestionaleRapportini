@@ -1,3 +1,5 @@
+var response;
+
 $(document).ready(function(){
 	$('select').material_select();
 	$("#div_iva").hide();
@@ -17,6 +19,7 @@ $(document).ready(function(){
 	}) ;
 	$("#invia_dati").on("click",function(){
 		addCliente();
+
 	});
 });
 
@@ -56,14 +59,15 @@ function addCliente(){
 		      'note':note,
 		      'tipologia':tipologia
 		   },
-		   success: function(data){
-			   alert("success");
-			  return true;
+		   success: function(data){		   
+		   		Materialize.toast('Cliente inserito', 2000,'',function(){window.location.href = 'clienti.html'});
+			   return false;
 			},
 		   error: function (XMLHttpRequest, textStatus, errorThrown){
-			    alert(textStatus);
+			   Materialize.toast('Errore di inserimento', 2000);
 			    return false;
 
 			}
 		});		
+		return false;
 }
