@@ -195,6 +195,7 @@ function modifyCliente(){
 	$.ajax({
 	     url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/updateClients.php", //Relative or absolute path to response.php file
 	      type:"POST",
+	      async:false,
 	      data:{
 		      'nominativo': nominativo,
 		      'indirizzo':indirizzo,

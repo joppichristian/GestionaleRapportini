@@ -40,6 +40,7 @@ function addCliente(){
 		$.ajax({
 	      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/postClients.php", //Relative or absolute path to response.php file
 	      type:"POST",
+	      async:false,
 	      data:{
 		      'nominativo': nominativo,
 		      'indirizzo':indirizzo,
@@ -57,13 +58,10 @@ function addCliente(){
 		   },
 		   success: function(data){
 			   alert("success");
-			   Materialize.toast('Cliente inserito', 4000);
-			   window.location.replace("http://stackoverflow.com");
-			   return false;
+			  return true;
 			},
 		   error: function (XMLHttpRequest, textStatus, errorThrown){
 			    alert(textStatus);
-			    window.location.replace("http://stackoverflow.com");
 			    return false;
 
 			}

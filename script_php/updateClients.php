@@ -53,7 +53,8 @@
 					echo mysqli_error($mysqli);
 				}
 				else{
-					echo "success";
+					echo json_encode("success");
+
 				}
 				
 
