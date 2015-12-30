@@ -90,31 +90,31 @@ function explodeClient(cliente){
 	$("#logo_cliente").empty();
 	if(cliente['tipologia'] == 'p'){
 		$("#logo_cliente").append('<i id="logo_cliente" class="large material-icons blue-text">account_circle</i>');
-		$("#nominativo").append('<i class="info small material-icons blue-text">account_circle</i>'+cliente['nominativo']);
+		$("#nominativo").append('<div class="blue-text" style="margin-left:15%;">Nominativo </div><i class="info small material-icons blue-text">account_circle</i> '+cliente['nominativo']);
 			}
 	else
 	{
 		$("#logo_cliente").append('<i id="logo_cliente" class="large material-icons blue-text">business</i>');
-		$("#nominativo").append('<i class="info small material-icons blue-text">business</i>'+cliente['nominativo']);
+		$("#nominativo").append('<div class="blue-text" style="margin-left:15%;">Ragione Sociale </div><i class="info small material-icons blue-text">business</i>'+cliente['nominativo']);
 	}
 
     if(cliente['indirizzo'] != null && cliente['citta'] != null && cliente['cap'] != null && cliente['provincia'] != null && cliente['indirizzo'] != "" && cliente['citta'] != "" && cliente['cap'] != "" && cliente['provincia'] != "")
-       $("#indirizzi").append('<i class="info small material-icons blue-text">place</i>'+cliente['indirizzo']+' - '+cliente['citta']+' - '+cliente['cap']+ ' - '+cliente['provincia']);
+       $("#indirizzi").append('<div class="blue-text" style="margin-left:15%;">Indirizzo </div><i class="info small material-icons blue-text">place</i>'+cliente['indirizzo']+' - '+cliente['citta']+' - '+cliente['cap']+ ' - '+cliente['provincia']);
 	if(cliente['telefono'] != null && cliente['telefono'] != "")
-       $("#telefono").append('<i class="info small material-icons blue-text">phone</i>'+cliente['telefono']);
+       $("#telefono").append('<div class="blue-text" style="margin-left:15%;">Telefono </div><i class="info small material-icons blue-text">phone</i>'+cliente['telefono']);
 	if(cliente['cellulare'] != null && cliente['cellulare'] != "")
-       $("#cellulare").append('<i class="info small material-icons blue-text">phone_iphone</i>'+cliente['cellulare']);
+       $("#cellulare").append('<div class="blue-text" style="margin-left:15%;">Cellulare </div><i class="info small material-icons blue-text">phone_iphone</i>'+cliente['cellulare']);
     if(cliente['codice_fiscale'] != null && cliente['codice_fiscale'] != "") {
-		$("#codice_fiscale").append('<i class="info small material-icons blue-text">code</i>'+cliente['codice_fiscale']);
+		$("#codice_fiscale").append('<div class="blue-text" style="margin-left:15%;">Codice Fiscale </div><i class="info small material-icons blue-text">code</i>'+cliente['codice_fiscale']);
 		}
 	if(cliente['partita_iva'] != null && cliente['partita_iva'] != "")
-		$("#partita_iva").append('<i class="info small material-icons blue-text">code</i>'+cliente['partita_iva']);
+		$("#partita_iva").append('<div class="blue-text" style="margin-left:15%;">Partita Iva </div><i class="info small material-icons blue-text">code</i>'+cliente['partita_iva']);
     if(cliente['email'] != null && cliente['email'] != "")
-       $("#email").append('<i class="info small material-icons blue-text">email</i>'+cliente['email']);
+       $("#email").append('<div class="blue-text" style="margin-left:15%;">Email </div> <i class="info small material-icons blue-text">email</i>'+cliente['email']);
     if(cliente['sito'] != null && cliente['sito'] != "")
-       $("#site").append('<i class="info small material-icons blue-text">public</i>'+cliente['sito']);
+       $("#site").append('<div class="blue-text" style="margin-left:15%;">Sito Web </div><i class="info small material-icons blue-text">public</i>'+cliente['sito']);
       if(cliente['note'] != null && cliente['note'] != "")
-       $("#note").append('<i class="info small material-icons blue-text">chat_bubble</i>'+cliente['note']);
+       $("#note").append('<div class="blue-text" style="margin-left:15%;">Note </div><i class="info small material-icons blue-text">chat_bubble</i>'+cliente['note']);
 
 }
 
@@ -134,6 +134,7 @@ function deleteCliente(){
 				      type:"POST",
 				      data:{'id': id},
 				      success: function(data) {
+					      Materialize.toast('Cliente eliminato', 2000);
 					      populateList("");
 					  },
 				      error: function(xhr){
@@ -212,7 +213,7 @@ function modifyCliente(){
 		      'id':json[index]['id']
 		   },
 		   success: function(data){
-			   Materialize.toast('Cliente modificato', 2000,'',function(){explodeClient(json[0]);});
+			   Materialize.toast('Cliente modificato', 2000,'',function(){populateList("");});
 			   return false;
 			},
 		   error: function (XMLHttpRequest, textStatus, errorThrown){
