@@ -18,11 +18,15 @@ function controlla_login(user,psw){
 
   var stringaR = "u="+user+"&p="+psw;
   var query = "http://www.trentinoannuncia.com/portale_artigiani/script_php/login.php?"+stringaR ;
-  alert("la quesry :   "+query);
+  //alert("la quesry :   "+query);
   $.ajax({
 			 	   data:{format: "json"},
 			 	   dataType: "jsonp",
-			 	   url: query
+			 	   url: query,
+			 	   async:false,
+           error: function(xhr, textStatus, errorThrown){
+             alert('request failed');
+           }
   });
 	//alert("query categoria =" + query);
 			 	// This function is called once the call is satisfied
@@ -41,32 +45,36 @@ function controlla_login(user,psw){
                id_a=item.ID_azienda;
 
 				 		});
-            accedi_db_dedicato(name,psw,id_a);
+            accedi_db_dedicato(id_a);
 
           }else{
             alert("username e/o password errata!!");
           }
   }
 }
-function accedi_db_dedicato(u_nome, u_psw, u_azienda){
+function accedi_db_dedicato(u_azienda){
   var stringaR = "a="+u_azienda;
   var query = "http://www.trentinoannuncia.com/portale_artigiani/script_php/azienda_dedicata.php?"+stringaR ;
-  alert("la quesry :   "+query);
+  alert("la query :   "+query);
   $.ajax({
 			 	   data:{format: "json"},
 			 	   dataType: "jsonp",
-			 	   url: query
+			 	   url: query,
+			 	   async:false,
+           error: function(xhr, textStatus, errorThrown){
+             alert('request failed');
+           }
   });
 	//alert("query categoria =" + query);
 			 	// This function is called once the call is satisfied
-	json_user= function (data) {
-
+	json_azienda= function (data) {
+          alert("successo!!!! DB ");
 			 		if(data!=null && data.items!=null) {
 
             var r_sociale="";
             var nomedb="";
             $.each(data.items, function(i,item){
-               r_sociale=item.ragiona_sociale;
+               r_sociale=item.ragione_sociale;
                nomedb=item.nome_db;
                alert("il nome del db dedicato e :"+nomedb);
 				 		});
@@ -75,6 +83,4 @@ function accedi_db_dedicato(u_nome, u_psw, u_azienda){
             alert("username e/o password errata!!");
           }
   }
-
-
 }
