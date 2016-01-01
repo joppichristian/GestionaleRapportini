@@ -19,9 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET")
 	{
 	//echo 'Prova1';
 
-		
+
     $user=  $_GET['u'];
     $psw= $_GET['p'];
+
     $qry = "SELECT * FROM Azienda_utente WHERE username='".$user."' AND password='".$psw."';";
 
 
@@ -34,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET")
     	}
 
 		header('Content-Type: application/json');
-		echo 'json_user({"items":'.json_encode($rows).'})';
+		echo json_encode($rows);
 		if($result1!=null){
 			$result1->close();
 		}

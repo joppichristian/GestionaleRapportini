@@ -24,17 +24,17 @@ if ($_SERVER['REQUEST_METHOD'] == "GET")
 
 
       $mysqli->query('SET CHARACTER SET utf8');
-    	$result1 = $mysqli->query($qry);
+    	$result2 = $mysqli->query($qry);
 
-    	while($row = $result1->fetch_assoc())
+    	while($row = $result2->fetch_assoc())
 		{
       $rows[] = $row;
     	}
 
 		header('Content-Type: application/json');
-		echo 'json_user({"items":'.json_encode($rows).'})';
-		if($result1!=null){
-			$result1->close();
+		echo json_encode($rows);
+		if($result2!=null){
+			$result2->close();
 		}
 
 	}
