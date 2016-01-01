@@ -88,9 +88,11 @@ function accedi_db_dedicato(u_azienda){
                }else{
                  alert("campo nel database non  trovato: "+ cont);
                }
+               return false;
          },
            error: function(xhr){
             alert("errore: "+xhr.status);
+            return false;
            }
          });
 }
