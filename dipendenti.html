@@ -6,14 +6,19 @@
 initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 		
 		<!-- Compiled and minified CSS -->
-	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
-	  <link rel="stylesheet" href="css/style.css">
-	      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+	  	<link rel="stylesheet" href="css/style.css">
+	  	<link rel="stylesheet" href="css/form_green.css">
+	    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	     <link rel="stylesheet" type="text/css" href="css/jquery-confirm.css">
 	
-	   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	  <!-- Compiled and minified JavaScript -->
-	  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
-	  <script src="js/clients.js" type="text/javascript" ></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<!-- Compiled and minified JavaScript -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+		<script src="js/dipendenti.js" type="text/javascript" ></script>
+		<script type="text/javascript" src="js/jquery-confirm.js"></script>
+		<script src="js/getCookie.js" type="text/javascript" ></script>
+
 
 	</head>
 	
@@ -22,48 +27,93 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 			
 		    <div class="nav-wrapper green">
 		      <div class="col s12">
-		        <a href="index.html" class="breadcrumb">Home</a>
+		        <a href="menu_page.html" class="breadcrumb">Home</a>
 		        <a href="#!" class="breadcrumb">Elenco Dipendenti</a>
 		      </div>
 		    </div>
 	  	</nav>
-	  	<div class="section col s12 m12 l12" >	
-		  	<div class="nav-wrapper">
-		      <form>
+	  	<div class="section list col s12 m12 l12">
+	  	<form>
 		        <div class="input-field">
 		          <input id="search" type="search" required>
 		          <label for="search"><i class="material-icons green-text">search</i></label>
-		        </div>
-		      </form>
-		    </div>
-		  <ul class="col s10 m10 l10 collection with-header" id="elenco">
-	        <li class="collection-item"><div>Alvin 1<a href="#!" class="secondary-content"><i class="material-icons green-text">call_received</i></a></div></li>
-	        <li class="collection-item"><div>Alvin 2<a href="#!" class="secondary-content"><i class="material-icons green-text">call_received</i></a></div></li>
-	        <li class="collection-item"><div>Alvin 3<a href="#!" class="secondary-content"><i class="material-icons green-text">call_received</i></a></div></li>
-	        <li class="collection-item"><div>Alvin 4<a href="#!" class="secondary-content"><i class="material-icons green-text">call_received</i></a></div></li>
-	      </ul>
+		          <i id="start_search" class="small material-icons green-text">refresh</i>	        
+		         </div>
+		 </form>
+	  	</div>
+	  	<div class="section list col s12 m12 l12" style="height: 35%;">	
+		  <ul class="col s10 m10 l10 collection with-header" id="elenco" ></ul>
 	  	</div>
 	  	<div class="divider"></div>
-	  	<div class="section col s12 m12 l12">
-		  	<div class="row">
-			  	<div class="col s12 m2 l2">
-			  		<i class="large material-icons green-text">account_circle</i>
+	  	<div class="section col s12">
+				      <ul class="tabs green-text">
+				        <li class="tab col s3 green-text"><a class="active green-text" href="#info">Informazioni Anagrafiche</a></li>
+				        <li class="tab col s3 green-text"><a class="green-text" href="#rules">Privilegi e Informazioni di Accesso</a></li>
+				    </ul>
+				</div>
+	  	<div class="section col s12 m12 l12" >
+		  		
+		  		<div class="row" id="info">
+		  			
+			  	<div class="col s12 m2 l2" id="logo_dipendente"></div>
+			  	<div class="col s12 m4 l4">
+			  		<p id="nominativo"></p>
+			  		<p id="telefono" ></p>
+			  		<p id="cellulare" ></p>
 			  	</div>
 			  	<div class="col s12 m4 l4">
-			  		<p><i class="info small material-icons green-text">account_circle</i>   Alvin 1</p>
-			  		<p><i class="info small material-icons green-text">place</i>Indirizzo-Città-CAP-Provincia</p>
-			  		<p><i class="info small material-icons green-text">phone</i>012345667</p>
-			  		<p><i class="info small material-icons green-text">code</i>AAL563SL45Q78L</p>
-			  	</div>
-			  	<div class="col s12 m4 l4">
-				  	<p><i class="info small material-icons green-text">email</i>alvin@gmail.com</p>
-			  		<p><i class="info small material-icons green-text">public</i>www.alvin.it</p>	
-			  	</div>
+			  		<p id="iban"></p>
+			  		<p id="note"></p>
+			   	</div>
 			  	<div class="col s12 m2 l2">
-				  	 <a class="btn-floating btn-medium waves-effect waves-light green" title="Modifica Cliente"><i class="small material-icons">edit</i></a>				  	 <a class="btn-floating btn-medium waves-effect waves-light green" title="Elimina Cliente"><i class="small material-icons">delete</i></a>
+				  	 <a  class="btn-floating btn-medium waves-effect waves-light green" title="Modifica Dipendente"><i id="modify" class="small material-icons">edit</i></a>				  	 <a class="btn-floating btn-medium waves-effect waves-light green" title="Elimina Dipendente"><i id="delete" class="small material-icons">delete</i></a>					<a class="btn-floating btn-medium waves-effect waves-light green" href="addDipendente.html" title="Aggiungi Dipendente"><i class="small material-icons">add</i></a>
 			  	</div>
+			  	
+
 		  	</div>
+			<div class="row" id="modifica_dipendente">
+				 <div class="input-field col s12 m6 l6">
+		          <i class="material-icons prefix green-text">account_circle</i>
+		          <input id="form_nome" type="text" name="nome" class="validate">
+		          <label id="label_nome" class="green-text" for="nome">Nome</label>
+		        </div>
+		        <div class="input-field col s12 m6 l6">
+		          <i class="material-icons prefix green-text">account_circle</i>
+		          <input id="form_cognome" type="text" name="nominativo" class="validate">
+		          <label class="green-text" for="form_cognome">Cognome</label>
+		        </div>
+		        <div class="input-field col s12 m6 l6">
+		          <i class="material-icons prefix green-text">phone</i>
+		          <input id="form_telephone" type="tel" name="telefono" class="validate">
+		          <label class="green-text" for="form_telephone">Telefono</label>
+		        </div>
+		        <div class="input-field col s12 m6 l6">
+		          <i class="material-icons prefix green-text">phone_iphone</i>
+		          <input id="form_mobile" type="tel" name="cellulare" class="validate">
+		          <label class="green-text" for="form_mobile">Cellulare</label>
+		        </div>
+		         <div class="input-field col s12 m6 l6">
+		          <i class="material-icons prefix green-text">credit_card</i>
+		          <input id="form_iban" type="text" name="iban" class="validate">
+		          <label class="green-text" for="form_iban">IBAN</label>
+		        </div>
+		        <div class="input-field col s12 m12 l12">
+			      <i class="material-icons prefix green-text">chat_bubble</i>
+		          <textarea id="form_note" name="note" class="materialize-textarea"></textarea>
+		          <label class="green-text" for="form_note">Note</label>
+		        </div>
+		        <div class="input-field col s12" style="text-align: right;margin-bottom: 2%;">
+			        <button class="btn waves-effect waves-light green white-text" id="invia_dati" type="button" name="submit">
+			        <i class="material-icons right">done</i>
+					</button>
+					<button class="btn waves-effect waves-light green white-text" id="annulla_modify" type="button" name="clear">
+			        <i class="material-icons right">clear</i>
+					</button>
+		        </div>
+		        <h6 class="green-text col s12 m12 l12">(*) : campo obbligatorio</h6>
+		      </div>
 	  	</div>
+	  		
 	  	 <footer class="page-footer green">
            <div class="footer-copyright">
             <div class="container">
@@ -72,8 +122,5 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
             </div>
           </div>
         </footer>
-		<script>
-			loaddata();
-		</script>
 	</body>
 </html>

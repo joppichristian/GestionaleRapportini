@@ -1,0 +1,93 @@
+<html>
+	<head>
+			<meta name="viewport" content="width=device-width, user-scalable=no,
+initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+		<title>Gestionale</title>
+		
+		<!-- Compiled and minified CSS -->
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+	  <link rel="stylesheet" href="css/style.css">
+	   <link rel="stylesheet" href="css/form_green.css">
+	      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
+	   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	  <!-- Compiled and minified JavaScript -->
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+	 
+	 <script src="js/addDipendenti.js" ></script>
+	 <script src="js/getCookie.js" type="text/javascript" ></script>
+
+	</head>
+	
+	<body>
+		<nav class="section green">
+			
+		    <div class="nav-wrapper green">
+		      <div class="col s12">
+		        <a href="menu_page.html" class="breadcrumb">Home</a>
+		        <a href="#!" class="breadcrumb">Aggiungi Dipendente</a>
+		      </div>
+		    </div>
+	  	</nav>
+	  	<div class="section col s12 m12 l12" >
+		  	<div class="col s12 m3 l3">
+		  		<i id="icon_prefix" class="large material-icons green-text">directions_walk</i>
+		  	</div>
+	  	</div>
+	  	<div class="section nav-wrapper">
+	  	   <div class="row">
+		    <form class="col s12" id="aggiungi_cliente" method="post" >
+		      <div class="row">
+			  	<div class="input-field col s12 m6 l6">
+		          <i class="material-icons prefix green-text">account_circle</i>
+		          <input id="nome" type="text" name="nome" class="validate">
+		          <label id="label_nome" class="green-text" for="nome">Nome</label>
+		        </div>
+		        <div class="input-field col s12 m6 l6">
+		          <i class="material-icons prefix green-text">account_circle</i>
+		          <input id="cognome" type="text" name="nominativo" class="validate">
+		          <label class="green-text" for="cognome">Cognome</label>
+		        </div>
+		        <div class="input-field col s12 m6 l6">
+		          <i class="material-icons prefix green-text">phone</i>
+		          <input id="telephone" type="tel" name="telefono" class="validate">
+		          <label class="green-text" for="telephone">Telefono</label>
+		        </div>
+		        <div class="input-field col s12 m6 l6">
+		          <i class="material-icons prefix green-text">phone_iphone</i>
+		          <input id="mobile" type="tel" name="cellulare" class="validate">
+		          <label class="green-text" for="mobile">Cellulare</label>
+		        </div>
+		         <div class="input-field col s12 m6 l6">
+		          <i class="material-icons prefix green-text">credit_card</i>
+		          <input id="iban" type="text" name="iban" class="validate">
+		          <label class="green-text" for="iban">IBAN</label>
+		        </div>
+		        <div class="input-field col s12 m12 l12">
+			      <i class="material-icons prefix green-text">chat_bubble</i>
+		          <textarea id="note" name="note" class="materialize-textarea"></textarea>
+		          <label class="green-text" for="note">Note</label>
+		        </div>
+		        <div class="input-field col s12" style="text-align: right;margin-bottom: 2%;">
+			        <button class="btn waves-effect waves-light green white-text" id="invia_dati" type="button" name="submit">
+			        <i class="material-icons right">done</i>
+					</button>
+					<button class="btn waves-effect waves-light green white-text" id="annulla_modify" type="button" name="clear">
+			        <i class="material-icons right">clear</i>
+					</button>
+		        </div>
+		        <h6 class="green-text col s12 m12 l12">(*) : campo obbligatorio</h6>
+		      </div>
+		    </form>
+		  </div>
+	  	</div>
+	  	<footer class="page-footer green">
+           <div class="footer-copyright">
+            <div class="container">
+            © 2014 Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div>
+        </footer>  
+	</body>
+</html>
