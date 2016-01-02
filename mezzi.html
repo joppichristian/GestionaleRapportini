@@ -8,35 +8,35 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 		<!-- Compiled and minified CSS -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
 	  	<link rel="stylesheet" href="css/style.css">
-	  	<link rel="stylesheet" href="css/form_red.css">
+	  	<link rel="stylesheet" href="css/form_brown.css">
 	    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	     <link rel="stylesheet" type="text/css" href="css/jquery-confirm.css">
 	
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<!-- Compiled and minified JavaScript -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
-		<script src="js/materials.js" type="text/javascript" ></script>
+		<script src="js/mezzi.js" type="text/javascript" ></script>
 		<script type="text/javascript" src="js/jquery-confirm.js"></script>
 		<script src="js/getCookie.js" type="text/javascript" ></script>
 
 	</head>
 	
 	<body>
-		<nav class="section red">
+		<nav class="section brown">
 			
-		    <div class="nav-wrapper red">
+		    <div class="nav-wrapper brown">
 		      <div class="col s12">
 		        <a href="menu_page.html" class="breadcrumb">Home</a>
-		        <a href="#!" class="breadcrumb">Elenco Materiali</a>
+		        <a href="#!" class="breadcrumb">Elenco Mezzi</a>
 		      </div>
 		    </div>
 	  	</nav>
 	  	<div class="section list col s12 m12 l12">
 	  	<form>
 		        <div class="input-field">
-		          <input id="search" type="search" required>
-		          <label for="search"><i class="material-icons red-text">search</i></label>
-		          <i id="start_search" class="small material-icons red-text">refresh</i>	        
+		          <input id="search" type="search" requibrown>
+		          <label for="search"><i class="material-icons brown-text">search</i></label>
+		          <i id="start_search" class="small material-icons brown-text">refresh</i>	        
 		         </div>
 		 </form>
 	  	</div>
@@ -46,61 +46,55 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 	  	<div class="divider"></div>
 	  	<div class="section col s12 m12 l12" >
 		  	<div class="row" id="info">
-			  	<div class="col s12 m2 l2" id="logo_materiale"></div>
+			  	<div class="col s12 m2 l2" id="logo_mezzo"></div>
 			  	<div class="col s12 m4 l4">
-			  		<p id="codice"></p>
 			  		<p id="descrizione" ></p>
-			  					  	</div>
-			  	<div class="col s12 m4 l4">
-				  	<p id="costo" ></p>
+			  		<p id="costo" ></p>
+			  	</div>
+			  	<div class="col s12 m4 l4">  	
 			  		<p id="prezzo" ></p>
 			  		<p id="note"></p>
 			   	</div>
 			  	<div class="col s12 m2 l2">
-				  	 <a  class="btn-floating btn-medium waves-effect waves-light red" title="Modifica Materiale"><i id="modify" class="small material-icons">edit</i></a>				  	 <a class="btn-floating btn-medium waves-effect waves-light red" title="Elimina Materiale"><i id="delete" class="small material-icons">delete</i></a>					<a class="btn-floating btn-medium waves-effect waves-light red" href="addMateriali.html" title="Aggiungi Materiale"><i class="small material-icons">add</i></a>
+				  	 <a  class="btn-floating btn-medium waves-effect waves-light brown" title="Modifica Mezzo"><i id="modify" class="small material-icons">edit</i></a>				  	 <a class="btn-floating btn-medium waves-effect waves-light brown" title="Elimina Mezzo"><i id="delete" class="small material-icons">delete</i></a>					<a class="btn-floating btn-medium waves-effect waves-light brown" href="addMezzi.html" title="Aggiungi Mezzo"><i class="small material-icons">add</i></a>
 			  	</div>
 			  	
 
 		  	</div>
-		      <div class="row" id="modifica_materiale">
+		      <div class="row" id="modifica_mezzo">
 		         <div class="input-field col s12 m6 l6">
-		          <i class="material-icons prefix red-text">code</i>
-		          <input id="form_codice" type="text" name="codice" class="validate">
-		          <label class="red-text" for="form_codice">Codice</label>
-		         </div>
-		         <div class="input-field col s12 m6 l6">
-		          <i class="material-icons prefix red-text">dehaze</i>
+		          <i class="material-icons prefix brown-text">dehaze</i>
 		          <input id="form_descrizione" type="text" name="descrizione" class="validate">
-		          <label class="red-text" for="form_descrizione ">Descrizione</label>
+		          <label class="brown-text" for="form_descrizione ">Descrizione</label>
 		        </div>
 		         <div class="input-field col s12 m6 l6">
-			      <i class="material-icons prefix red-text">attach_money</i>   
+			      <i class="material-icons prefix brown-text">attach_money</i>   
 		          <input id="form_prezzo" type="text" name="prezzo" class="validate">
-		          <label class="red-text" for="form_prezzo">Prezzo</label>
+		          <label class="brown-text" for="form_prezzo">Prezzo</label>
 		          </div>
 		         <div class="input-field col s12 m6 l6">
-			      <i class="material-icons prefix red-text">attach_money</i>
+			      <i class="material-icons prefix brown-text">attach_money</i>
 		          <input id="form_costo" type="text" name="costo" class="validate">
-		          <label class="red-text" for="form_costo">Costo</label>
+		          <label class="brown-text" for="form_costo">Costo</label>
 		          </div>
 		        <div class="input-field col s12 m12 l12">
-			      <i class="material-icons prefix red-text">chat_bubble</i>
+			      <i class="material-icons prefix brown-text">chat_bubble</i>
 		          <textarea id="form_note" name="note" class="materialize-textarea"></textarea>
-		          <label class="red-text" for="form_note">Note</label>
+		          <label class="brown-text" for="form_note">Note</label>
 		        </div>
 		        <div class="input-field col s12" style="text-align: right;margin-bottom: 2%;">
-			        <button class="btn waves-effect waves-light red white-text" id="invia_dati" type="button" name="submit">
+			        <button class="btn waves-effect waves-light brown white-text" id="invia_dati" type="button" name="submit">
 			        <i class="material-icons right">done</i>
 					</button>
-					<button class="btn waves-effect waves-light red white-text" id="annulla_modify" type="button" name="clear">
+					<button class="btn waves-effect waves-light brown white-text" id="annulla_modify" type="button" name="clear">
 			        <i class="material-icons right">clear</i>
 					</button>
 		        </div>
-		        <h6 class="red-text col s12 m12 l12">(*) : campo obbligatorio</h6>
+		        <h6 class="brown-text col s12 m12 l12">(*) : campo obbligatorio</h6>
 		      </div>
 	  	</div>
 	  		
-	  	 <footer class="page-footer red">
+	  	 <footer class="page-footer brown">
            <div class="footer-copyright">
             <div class="container">
             © 2014 Copyright Text
