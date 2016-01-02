@@ -10,8 +10,8 @@ function check(form)/*function to check userid & password*/
       var password = form.password.value;
       controlla_login(username, password);
     }else{
-      //Materialize.toast('Non hai compilato tutti i campi', 4000);
-      window.alert("Non hai compilato tutti i campi");
+      Materialize.toast('Non hai compilato tutti i campi', 2000);
+      //window.alert("Non hai compilato tutti i campi");
     }
 }
 
@@ -47,6 +47,7 @@ function controlla_login(user,psw){
             setCookie("password", psw, 30);
             accedi_db_dedicato(id_a);
           }else{
+            Materialize.toast('Username e/o Password Errata', 2000);
             //alert("username e/o password errata!! i valori trovati sono: "+ cont);
           }
 
@@ -99,7 +100,7 @@ function accedi_db_dedicato(u_azienda){
 
 function callPage(){
      //setCookie("username", user, 30);
-     Materialize.toast('Login avvenuto con successo!', 2000,'',function(){window.location.href = 'index.html'});
+     Materialize.toast('Login avvenuto con successo!', 2000,'',function(){window.location.href = 'menu_page.html'});
      //location.href = "index.html";
    //alert("troviamo il db ora!! nome_db: ");
 }
