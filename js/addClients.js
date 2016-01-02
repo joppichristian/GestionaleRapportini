@@ -63,7 +63,7 @@ function addCliente(){
 		      'email':email,
 		      'site':sito,
 		      'note':note,
-		      'tipologia':tipologia
+		      'tipologia':tipologia,
 		      'db':getCookie('nomeDB')
 		   },
 		   success: function(data){		   
