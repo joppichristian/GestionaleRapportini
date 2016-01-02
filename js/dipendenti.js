@@ -6,6 +6,7 @@ $(document).ready(function() {
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
 	$('ul.tabs').tabs();
+	$('div.indicator').css("background-color","#4caf50");
 	$("#info").show();
 	$("#modifica_dipendente").hide();
 	$("#start_search").click( function() {
