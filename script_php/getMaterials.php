@@ -2,9 +2,11 @@
 	
 <?php
 
-			include 'connessione-db.php';
+			
 			if ($_SERVER['REQUEST_METHOD'] == "GET"){
 				$query = $_GET['q'];
+				$db = $_GET['db'];
+				include 'connessione-db.php';
 				
 				$qry = "SELECT * FROM materiali ".$query.";";
 				$mysqli->query('SET CHARACTER SET utf8');

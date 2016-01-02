@@ -1,6 +1,9 @@
 var response;
 
 $(document).ready(function(){
+	if(getCookie('nomeDB')=="")
+		window.location.replace("index.html");
+
 	$('select').material_select();
 	$("#div_iva").hide();
 	$("#tipologia").on("change",function(){
@@ -42,6 +45,7 @@ function addCliente(){
 		var sito = $("#site").val();
 		var note = $("#note").val();
 		var tipologia = $("#tipologia").val();
+		
 		$.ajax({
 	      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/postClients.php", //Relative or absolute path to response.php file
 	      type:"POST",
@@ -60,6 +64,7 @@ function addCliente(){
 		      'site':sito,
 		      'note':note,
 		      'tipologia':tipologia
+		      'db':getCookie('nomeDB')
 		   },
 		   success: function(data){		   
 		   		Materialize.toast('Cliente inserito', 2000,'',function(){window.location.href = 'clienti.html'});

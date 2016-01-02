@@ -1,6 +1,9 @@
 var response;
 
 $(document).ready(function(){
+	if(getCookie('nomeDB')=="")
+		window.location.replace("index.html");
+
 	$("#invia_dati").on("click",function(){
 		addMateriale();
 
@@ -18,7 +21,6 @@ function addMateriale(){
 		var prezzo = $("#prezzo").val();
 		var costo = $("#costo").val();
 		var note = $("#note").val();
-		alert(descrizione + "," +codice + "," +prezzo + "," +costo + "," +note);
 		$.ajax({
 	      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/postMaterials.php", //Relative or absolute path to response.php file
 	      type:"POST",
@@ -28,7 +30,8 @@ function addMateriale(){
 		      'descrizione':descrizione,
 		      'prezzo':prezzo,
 		      'costo':costo,
-		      'note':note
+		      'note':note,
+		      'db':getCookie('nomeDB')
 		   },
 		   success: function(data){		   
 		   		Materialize.toast('Materiale inserito', 2000,'',function(){window.location.href = 'materiali.html'});

@@ -2,9 +2,11 @@
 	
 <?php
 
-			include 'connessione-db.php';
+			
 			if ($_SERVER['REQUEST_METHOD'] == "POST"){
 				$id = $_POST['id'];
+				$db = $_POST['db'];
+				include 'connessione-db.php';
 				
 				$qry = "DELETE FROM clienti WHERE ID = ".$id.";";
 				$mysqli->query('SET CHARACTER SET utf8');

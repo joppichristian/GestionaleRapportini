@@ -2,10 +2,10 @@
 	
 <?php
 
-			include 'connessione-db.php';
+			
 			
 			if ($_SERVER['REQUEST_METHOD'] == "POST"){
-				
+				$db = $_POST['db'];
 				$nominativo = str_replace("'", "\'",$_POST['nominativo']);
 				$indirizzo = str_replace("'", "\'",$_POST['indirizzo']);
 				$citta = str_replace("'", "\'",$_POST['citta']);
@@ -20,6 +20,7 @@
 				$note = str_replace("'", "\'",$_POST['note']);
 				$tipologia = $_POST['tipologia'];
 				
+				include 'connessione-db.php';
 		/*
 				$nominativo = "Pippo 123";
 				$indirizzo = "";

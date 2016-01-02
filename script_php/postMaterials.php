@@ -2,15 +2,17 @@
 	
 <?php
 
-			include 'connessione-db.php';
 			
 			if ($_SERVER['REQUEST_METHOD'] == "POST"){
+				
 				
 				$codice = str_replace("'", "\'",$_POST['codice']);
 				$descrizione = str_replace("'", "\'",$_POST['descrizione']);
 				$prezzo = $_POST['prezzo'];
 				$costo = $_POST['costo'];
 				$note = str_replace("'", "\'",$_POST['note']);
+				$db = $_POST['db'];
+				include 'connessione-db.php';
 			
 		/*
 				$codice = "NSTISO1M";				

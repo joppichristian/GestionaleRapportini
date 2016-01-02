@@ -3,6 +3,9 @@ var index=0;
 var id=0;
 
 $(document).ready(function() {
+	if(getCookie('nomeDB')=="")
+		window.location.replace("index.html");
+
 	$("#info").show();
 	$("#modifica_materiale").hide();
 	$("#start_search").click( function() {
@@ -36,7 +39,7 @@ function populateList(filter){
 		q = " ";
 	$.ajax({
       dataType: "json",
-      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getMaterials.php?q= "+ q, //Relative or absolute path to response.php file
+      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getMaterials.php?q= "+ q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
 	    json = data;
@@ -109,7 +112,7 @@ function deleteMateriale(){
 					$.ajax({
 				      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/deleteMaterial.php", //Relative or absolute path to response.php file
 				      type:"POST",
-				      data:{'id': id},
+				      data:{'id': id,'db':getCookie('nomeDB')},
 				      success: function(data) {
 					      Materialize.toast('Materiale eliminato', 2000);
 					      populateList("");
@@ -159,7 +162,8 @@ function modifyMateriale(){
 		      'prezzo':prezzo,
 		      'costo':costo,
 		      'note':note,
-		      'id':json[index]['id']
+		      'id':json[index]['id'],
+		      'db':getCookie('nomeDB')
 		   },
 		   success: function(data){
 			   Materialize.toast('Materiale modificato', 2000,'',function(){populateList("");});

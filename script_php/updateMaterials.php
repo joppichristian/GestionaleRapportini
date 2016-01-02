@@ -9,7 +9,8 @@
 				$prezzo = str_replace("'", "\'",$_POST['prezzo']);
 				$costo = str_replace("'", "\'",$_POST['costo']);
 				$note = str_replace("'", "\'",$_POST['note']);
-				
+				$db = $_POST['db'];
+				include 'connessione-db.php';	
 			
 				
 				$sqlUpdate = "UPDATE materiali SET descrizione = '".$descrizione. "' , 

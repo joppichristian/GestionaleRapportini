@@ -1,14 +1,4 @@
 
-$( document ).ready(function() {
-    //alert( "ready!" );
-    var user= getCookie("username");
-    alert("user: "+user);
-    var psw = getCookie("password");
-    alert("psw: "+psw);
-    var nomeDb = getCookie("nomeDB");
-    alert("nome db: "+nomeDb);
-});
-//var x = document.cookie;
 
 function getCookie(cname) {
     var name = cname + "=";

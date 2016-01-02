@@ -1,5 +1,4 @@
 <?php
-	include "connessione-db.php";
 	
 	if($_SERVER["REQUEST_METHOD"] == "POST"){
 			
@@ -17,6 +16,9 @@
 				$site = str_replace("'", "\'",$_POST['site']);
 				$note = str_replace("'", "\'",$_POST['note']);
 				
+				
+				$db = $_POST['db'];
+				include 'connessione-db.php';
 				/*
 				
 				$nominativo = "Christian Joppi";
