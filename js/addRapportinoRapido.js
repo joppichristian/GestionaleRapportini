@@ -73,13 +73,19 @@ function populateListClient(filter){
 	    	$("#elenco_clienti").append(elementi[i]);
 	    	id_Cl = data[0]['id'];
 	    	
-			$(".select_clients").click(function(){
-		        index_Cl = $(".select_clients").index(this);
-		        id_Cl = json_clienti[index_Cl]['id']; 
-		        cliente_selezionato = id_Cl;         
-	        });
+			
 
 	    	}
+	    	$(".select_clients").click(function(){
+		    	$("#cliente_selezionato").empty();
+		        index_Cl = $(".select_clients").index(this);
+		        id_Cl = json_clienti[index_Cl]['id']; 
+		        cliente_selezionato = id_Cl; 
+		        var cliente_chip = document.createElement('div');
+				cliente_chip.className= "chip";
+				cliente_chip.innerHTML=json_clienti[index_Cl]['nominativo'];
+				$("#cliente_selezionato").append(cliente_chip);
+	        });
 		}
 	});
 }
