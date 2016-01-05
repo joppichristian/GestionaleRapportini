@@ -39,7 +39,6 @@ function controlla_login(user,psw){
             //alert("id azienda: "+id_a);
             cont=cont+1;
           }
-          alert("il count: "+cont);
           if(cont == 1){
             //alert("registrazione avvenuta con successo!! id azienda: "+id_a);
             setCookie("username", user, 30);
