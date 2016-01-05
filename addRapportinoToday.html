@@ -8,7 +8,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 		<!-- Compiled and minified CSS -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
 	  	<link rel="stylesheet" href="css/style.css">
-	  	<link rel="stylesheet" href="css/form_red.css">
+	  	<link rel="stylesheet" href="css/form_purple.css">
 	    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	     <link rel="stylesheet" type="text/css" href="css/jquery-confirm.css">
 	
@@ -17,6 +17,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 		<script src="js/addRapportinoRapido.js" type="text/javascript" ></script>
 		<script type="text/javascript" src="js/jquery-confirm.js"></script>
+		<script type="text/javascript" src="js/getCookie.js"></script>
 
 
 	</head>
@@ -32,12 +33,12 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 		    </div>
 	  	</nav>
 	  	<div class="row section">
-		  	<div class="col s12 m6 l6">
+		  	<div class="col s12 m12 l12">
 			  	<div class="section purple-text">Clienti</div>
 			  	<div class="section col s12 m12 l12">
 				  	<form>
 					        <div class="input-field">
-					          <input id="search_cliente" type="search" required>
+					          <input id="search_cliente" type="search" requipurple>
 					          <label for="search"><i class="material-icons purple-text">search</i></label>
 					          <i id="start_search" class="small material-icons purple-text">refresh</i>	        
 					         </div>
@@ -47,53 +48,87 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 			  		<ul class="col s12 m12 l12 collection with-header" id="elenco_clienti" ></ul>
 		  		</div>
 		  	</div>
-		  	<div class="col s12 m6 l6">
-			  	<div class="section purple-text">Materiali</div>
-			  	<div class="section col s12 m12 l12">
-				  	<form>
+	  	</div>
+		 <div class="divider"></div>
+		 <div class="row section">
+			<div class="col s12 m12 l12">
+				<div class="input-field col s11 m11 l11">
+		          <i class="material-icons prefix purple-text">access_time</i>
+		          <input id="ora_inizio" type="text" name="ora_inizio" class="validate">
+		          <label class="purple-text" for="ora_inizio">Ora Inizio</label>
+		        </div>
+		        <div class="col s1 m1 l1">
+					<a  class="btn-floating btn-medium waves-effect waves-light purple" title="Imposta ad ora"><i id="time_now_inizio" class="small material-icons">system_update_alt</i></a>
+		        </div>
+			</div>
+			<div class="col s12 m12 l12">
+				<div class="input-field col s11 m11 l11">
+		          <i class="material-icons prefix purple-text">access_time</i>
+		          <input id="ora_fine" type="text" name="ora_fine" class="validate">
+		          <label class="purple-text" for="ora_fine">Ora Fine</label>
+		        </div>
+		        <div class="col s1 m1 l1">
+					<a  class="btn-floating btn-medium waves-effect waves-light purple" title="Imposta ad ora"><i id="time_now_fine" class="small material-icons">system_update_alt</i></a>
+		        </div>
+			</div>
+		 </div>
+		 <div class="row section" id="elenco_utilizzi_materiali">
+			 
+		 </div>
+		 <div class="row section" id="elenco_utilizzi_mezzi">
+			 
+		 </div>
+		 <div class="row section">
+			<div class="col s12 m12 l12">
+			 <a  class="btn-floating btn-medium waves-effect waves-light purple" title="Mostra Materiali"><i id="show_materiali" class="small material-icons">local_play</i></a>
+			 <a  class="btn-floating btn-medium waves-effect waves-light purple" title="Mostra Mezzi"><i id="show_mezzi" class="small material-icons">directions_bus</i></a>
+		 	</div>
+		 </div>
+		 <div class="row materiali">
+		 	<div class="col s12 m12 l12">
+				<div class="section purple-text">Materiali</div>
+			  		<div class="section col s12 m12 l12">
+				  		<form>
 					        <div class="input-field">
-					          <input id="search_cliente" type="search" required>
+					          <input id="search_materiali" type="search" requipurple>
 					          <label for="search"><i class="material-icons purple-text">search</i></label>
 					          <i id="start_search" class="small material-icons purple-text">refresh</i>	        
 					         </div>
-					 </form>
-				</div>
-			  	<div class="section list col s12 m12 l12" style="height: 35%;">	
-			  		<ul class="col s12 m12 l12 collection with-header" id="elenco_materiali" ></ul>
-		  		</div>
+					 	</form>
+					</div>
+					<div class="section list col s12 m12 l12" style="height: 35%;">	
+			  			<ul class="col s12 m12 l12 collection with-header" id="elenco_materiali" ></ul>
+		  			</div>
 		  	</div>
-		  	<div class="col s12 m6 l6">
-			  	<div class="section purple-text">Mezzi</div>
+		  	<div class="input-field col s12" style="text-align: right;margin-bottom: 2%;">
+			        <button class="btn waves-effect waves-light purple white-text" id="conferma_materiali" type="button" >
+			        <i class="material-icons right">done</i>
+					</button>
+		        </div>
+		 </div>
+		 <div class="row mezzi">
+		 	<div class="col s12 m12 l12">
+			  <div class="section purple-text">Mezzi</div>			  
 			  	<div class="section col s12 m12 l12">
-				  	<form>
-					        <div class="input-field">
-					          <input id="search_cliente" type="search" required>
-					          <label for="search"><i class="material-icons purple-text">search</i></label>
-					          <i id="start_search" class="small material-icons purple-text">refresh</i>	        
-					         </div>
-					 </form>
+				 	<form>
+						<div class="input-field">
+					       	<input id="search_mezzi" type="search" requipurple>
+					        <label for="search"><i class="material-icons purple-text">search</i></label>
+					        <i id="start_search" class="small material-icons purple-text">refresh</i>	        
+					   	</div>
+					</form>
 				</div>
 			  	<div class="section list col s12 m12 l12" style="height: 35%;">	
 			  		<ul class="col s12 m12 l12 collection with-header" id="elenco_mezzi" ></ul>
-		  		</div>
+		  		</div>	
 		  	</div>
-		  	<div class="col s12 m6 l6">
-			  	<div class="section purple-text">Dipendenti</div>
-			  	<div class="section col s12 m12 l12">
-				  	<form>
-					        <div class="input-field">
-					          <input id="search_cliente" type="search" required>
-					          <label for="search"><i class="material-icons purple-text">search</i></label>
-					          <i id="start_search" class="small material-icons purple-text">refresh</i>	        
-					         </div>
-					 </form>
-				</div>
-			  	<div class="section list col s12 m12 l12" style="height: 35%;">	
-			  		<ul class="col s12 m12 l12 collection with-header" id="elenco_dipendenti" ></ul>
-		  		</div>
-		  	</div>
+		  	<div class="input-field col s12" style="text-align: right;margin-bottom: 2%;">
+			        <button class="btn waves-effect waves-light purple white-text" id="conferma_mezzi" type="button" >
+			        <i class="material-icons right">done</i>
+					</button>
+		        </div>
 	  	</div>
-	  	<div class="divider"></div>
+	  	
 	  	 <footer class="page-footer purple">
            <div class="footer-copyright">
             <div class="container">
