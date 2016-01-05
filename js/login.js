@@ -19,8 +19,6 @@ function controlla_login(user,psw){
 
   var stringaR = "u="+user+"&p="+psw;
   var query = "http://www.trentinoannuncia.com/portale_artigiani/script_php/login.php?"+stringaR ;
-  //alert("la quesry :   "+query);
-//alert("prima della chiamata:"+stringaR);
   $.ajax({
       url: query,
       async:false,
@@ -41,7 +39,7 @@ function controlla_login(user,psw){
             //alert("id azienda: "+id_a);
             cont=cont+1;
           }
-          alert("il count: "+count);
+          alert("il count: "+cont);
           if(cont == 1){
             //alert("registrazione avvenuta con successo!! id azienda: "+id_a);
             setCookie("username", user, 30);
