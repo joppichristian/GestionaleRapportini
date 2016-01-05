@@ -11,6 +11,8 @@ var materiali_selezionati = new Array();
 var mezzi_selezionati = new Array();
 
 $(document).ready(function(){
+	if(getCookie('nomeDB')=="")
+		window.location.replace("index.html");
 	populateListClient("");
 	populateListMaterials("");
 	populateListMezzi("");	
