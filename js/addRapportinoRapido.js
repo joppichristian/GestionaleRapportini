@@ -6,13 +6,69 @@ var json_mezzi = new Array();
 var id_Cl,id_Me,id_Ma;
 var index_Cl,index_Me,index_Ma;
 
-var cliente_selezionato;
+var cliente_selezionato = -1;
 var materiali_selezionati = new Array();
 var mezzi_selezionati = new Array();
 
 $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
+	$('#schermata_dati').hide();
+	$('#schermata_materiali').hide();
+	$('#schermata_mezzi').hide();
+	$('#cliente_selezionato_new_page').hide();
+	$("#to_date").click(function(){
+		if(cliente_selezionato != -1){
+			$('#cliente_selezionato_new_page').show();
+			$('#schermata_clienti').hide();
+			$('#schermata_dati').show();
+			$('#schermata_materiali').hide();
+			$('#schermata_mezzi').hide();
+		}
+		else
+			Materialize.toast("Seleziona un cliente!",2000);
+	});
+	$("#to_materiali").click(function(){
+		if($('#ora_inizio').val() != '' && $('#ora_fine').val() != ''){
+			$('#schermata_clienti').hide();
+			$('#schermata_dati').hide();
+			$('#schermata_materiali').show();
+			$('#schermata_mezzi').hide();
+		}
+		else
+			Materialize.toast("Inserisci un'ora di inizio e un'ora di fine!",2000);
+	});
+	$("#to_mezzi").click(function(){
+		
+		$('#schermata_clienti').hide();
+		$('#schermata_dati').hide();
+		$('#schermata_materiali').hide();
+		$('#schermata_mezzi').show();
+	});
+	$("#back_ore").click(function(){
+		
+		$('#schermata_clienti').hide();
+		$('#schermata_dati').show();
+		$('#schermata_materiali').hide();
+		$('#schermata_mezzi').hide();
+	});
+	$("#back_clienti").click(function(){
+		
+		$('#schermata_clienti').show();
+		$('#schermata_dati').hide();
+		$('#schermata_materiali').hide();
+		$('#schermata_mezzi').hide();
+	});
+	$("#back_materiali").click(function(){
+		
+		$('#schermata_clienti').hide();
+		$('#schermata_dati').hide();
+		$('#schermata_materiali').show();
+		$('#schermata_mezzi').hide();
+	});
+	$('#complete').click(function(){
+		Materialize.toast("Rapportino inserito",2000,"",function(){window.location.replace("menu_page.html");})
+	});
 	populateListClient("");
 	populateListMaterials("");
 	populateListMezzi("");	
@@ -28,22 +84,6 @@ $(document).ready(function(){
 		$("#ora_fine").val(now.getHours()+':'+now.getMinutes());
 		$("#ora_fine").focus();
 
-	});
-	$("#show_materiali").click(function(){
-		$(".materiali").show();
-		$(".mezzi").hide();
-	});
-	$("#show_mezzi").click(function(){
-		$(".mezzi").show();
-		$(".materiali").hide();
-	});
-	$("#conferma_materiali").click(function(){
-		$(".materiali").hide();
-		console.log(materiali_selezionati);
-	});
-	$("#conferma_mezzi").click(function(){
-		$(".mezzi").hide();
-		console.log(mezzi_selezionati);
 	});
 
 })
@@ -80,6 +120,7 @@ function populateListClient(filter){
 	    	}
 	    	$(".select_clients").click(function(){
 		    	$("#cliente_selezionato").empty();
+		    	$("#cliente_selezionato_second_page").empty();
 		        index_Cl = $(".select_clients").index(this);
 		        id_Cl = json_clienti[index_Cl]['id']; 
 		        cliente_selezionato = id_Cl; 
@@ -87,6 +128,10 @@ function populateListClient(filter){
 				cliente_chip.className= "chip";
 				cliente_chip.innerHTML=json_clienti[index_Cl]['nominativo'];
 				$("#cliente_selezionato").append(cliente_chip);
+				var cliente_chip_2 = document.createElement('div');
+				cliente_chip_2.className= "chip";
+				cliente_chip_2.innerHTML=json_clienti[index_Cl]['nominativo'];
+				$("#cliente_selezionato_new_page").append(cliente_chip_2);
 	        });
 		}
 	});
