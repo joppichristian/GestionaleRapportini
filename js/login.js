@@ -30,10 +30,14 @@ function controlla_login(user,psw){
           //var name="";
           //var psw="";
           var id_a="";
+          var id_dip="";
+          var admin="";
            $("#elenco").empty();
           var cont=0;
           for(var i = 0; i < data.length; i++) {
             id_a = data[i]['ID_azienda'];
+            id_dip = data[i]['id_dipendente'];
+            admin = data[i]['amministratore'];
             //var name = data[i]['username'];
             //var psw = data[i]['password'];
             //alert("id azienda: "+id_a);
@@ -43,6 +47,8 @@ function controlla_login(user,psw){
             //alert("registrazione avvenuta con successo!! id azienda: "+id_a);
             setCookie("username", user, 30);
             setCookie("password", psw, 30);
+            setCookie("id_dipendente", id_dip, 30);
+            setCookie("amministratore", admin, 30);
             accedi_db_dedicato(id_a);
           }else{
             Materialize.toast('Username e/o Password Errata', 2000);
