@@ -6,7 +6,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
   <link rel="stylesheet" href="css/style.css">
-   <link rel="stylesheet" href="css/form_blue.css">
+   <link rel="stylesheet" href="css/form_orange.css">
       <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -22,8 +22,8 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 
 	<body>
     <!--sezione header menu-->
-    <nav class="section purple">
-			  <div class="nav-wrapper purple">
+    <nav class="section orange">
+			  <div class="nav-wrapper orange">
 		      <div class="col s12">
 		        <a href="menu_page.html" class="breadcrumb">Home</a>
 		        <a href="#!" class="breadcrumb">Rapportini</a>
@@ -36,8 +36,8 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
         <!--sezione selezione cliente o dipendenti-->
         <div class="input-field col s12 m12 l12">
           <select id="tipologia" name="tipologia">
-            <option value="d" class="blue-text">Dipendenti</option>
-            <option value="c" class="blue-text">Clienti</option>
+            <option value="d" class="orange-text">Dipendenti</option>
+            <option value="c" class="orange-text">Clienti</option>
           </select>
           <label>Tipologia</label>
        </div>
@@ -48,12 +48,12 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 	  	     <form>
 		           <div class="input-field">
 		               <input id="search" type="search" required>
-		               <label for="search"><i class="material-icons green-text">search</i></label>
-		               <i id="start_search" class="small material-icons green-text">refresh</i>
+		               <label for="search"><i class="material-icons orange-text">search</i></label>
+		               <!--<i id="start_search" class="small material-icons orange-text">refresh</i>-->
 		           </div>
 		         </form>
 	  	  </div>
-	  	  <div class="section list col s12 m12 l12" style="height: 50%;">
+	  	  <div class="section list col s12 m12 l12" style="height: 55%;">
 		      <ul class="col s10 m10 l10 collection with-header" id="elenco" ></ul>
 	  	  </div>
       </div>
@@ -61,6 +61,15 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 
 
     </div>
+
+    <footer class="page-footer orange">
+         <div class="footer-copyright">
+          <div class="container">
+          © 2014 Copyright Text
+          <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+          </div>
+        </div>
+    </footer>
 
   </body>
 

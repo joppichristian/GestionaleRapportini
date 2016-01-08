@@ -1,0 +1,104 @@
+<li class="collection-item avatar">
+      <i class="green accent-4 material-icons circle">access_time</i>
+      <span class="title">Data : Lun 3-01-2016</span>
+      <p>Ore Totali : 5
+      </p>
+      <a id="pulsante_list" style="position: absolute; top: 16px; right: 5%;" class="btn-floating red"><i class="large mdi-navigation-menu"></i></a>
+    <!--   <a href="#!" style="position: absolute; top: 16px; right: 16px;" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>-->
+</li>-->
+
+<li id="id_insert_item" class="grey lighten-3 collection-item avatar">
+      <!--<i class="material-icons circle">access_time</i>-->
+      <label class="orange-text" for="ora_inizio">Dipendente</label>
+      <input id="ora_inizio" type="text" name="ora_inizio" class="validate" value="Mario Rossi" >
+
+      <label class="orange-text" for="ora_inizio">Ora Inizio</label>
+      <input id="ora_inizio" type="text" name="ora_inizio" class="validate" value="8:30" >
+
+      <label class="orange-text" for="ora_inizio">Ora Fine</label>
+      <input id="ora_inizio" type="text" name="ora_inizio" class="validate" value="14:30">
+
+      <label class="orange-text" for="ora_inizio">Pausa</label>
+      <input id="ora_inizio" type="text" name="ora_inizio" class="validate" value="0:30">
+
+      <label class="orange-text" for="ora_inizio">Descrizione</label>
+      <input id="ora_inizio" type="text" name="ora_inizio" class="validate" value="posatura tubi e tinteggiatura">
+
+      <a class="btn-floating red"><i class="large material-icons">mode_edit</i></a>
+      <a class="btn-floating red"><i class="large material-icons">delete</i></a>
+
+
+
+
+</li>
+
+<li id="botton_insert_item" class="grey lighten-2 collection-item avatar">
+      <label class="orange-text" for="ora_inizio">Nuovo Rapportino</label>
+      <p>Clicca sul pulsante e compila i campi</p>
+      <a id="add_list" style="position: absolute; top: 16px; right: 5%;" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>
+      <!--<i class="material-icons circle">access_time</i>-->
+</li>
+
+
+<li id="new_insert_item" class="grey lighten-3 collection-item avatar">
+      <!--<i class="material-icons circle">access_time</i>-->
+      <label class="orange-text" for="ora_inizio">Dipendente</label>
+      <input id="ora_inizio" type="text" name="ora_inizio" class="validate"  >
+
+      <label class="orange-text" for="ora_inizio">Ora Inizio</label>
+      <input id="ora_inizio" type="text" name="ora_inizio" class="validate">
+
+      <label class="orange-text" for="ora_inizio">Ora Fine</label>
+      <input id="ora_inizio" type="text" name="ora_inizio" class="validate">
+
+      <label class="orange-text" for="ora_inizio">Pausa</label>
+      <input id="ora_inizio" type="text" name="ora_inizio" class="validate">
+
+      <label class="orange-text" for="ora_inizio">Descrizione</label>
+      <input id="ora_inizio" type="text" name="ora_inizio" class="validate">
+
+
+
+      <a class="btn-floating red"><i class="large material-icons">done</i></a>
+
+      <!--<span class="title">Data :</span>
+      <p>Ore Totali :
+      </p>
+       <a href="#!" style="position: absolute; top: 16px; right: 16px;" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>-->
+</li>
+
+<li class="collection-item avatar">
+      <i class="material-icons circle">access_time</i>
+      <span class="title">Data:  Mer 5-01-2016</span>
+      <p>Ore Totali : --
+      </p>
+      <a id="pulsante_list" style="position: absolute; top: 16px; right: 5%;" class="btn-floating red"><i class="large mdi-navigation-menu"></i></a>
+    <!--   <a href="#!" style="position: absolute; top: 16px; right: 16px;" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>-->
+</li>
+
+<li class="collection-item avatar">
+      <i class="material-icons circle">access_time</i>
+      <span class="title">Data:  Gio 6-01-2016</span>
+      <p>Ore Totali : --
+      </p>
+      <a id="pulsante_list" style="position: absolute; top: 16px; right: 5%;" class="btn-floating red"><i class="large mdi-navigation-menu"></i></a>
+    <!--   <a href="#!" style="position: absolute; top: 16px; right: 16px;" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>-->
+</li>
+
+<li class="collection-item avatar">
+      <i class="material-icons circle">access_time</i>
+      <span class="title">Data:  Ven 7-01-2016</span>
+      <p>Ore Totali : --
+      </p>
+      <a id="pulsante_list" style="position: absolute; top: 16px; right: 5%;" class="btn-floating red"><i class="large mdi-navigation-menu"></i></a>
+    <!--   <a href="#!" style="position: absolute; top: 16px; right: 16px;" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>-->
+</li>
+
+<li class="collection-item avatar">
+      <i class="material-icons circle">access_time</i>
+      <span class="title">Data:  Sab 8-01-2016</span>
+      <p>Ore Totali : --
+      </p>
+      <a id="pulsante_list" style="position: absolute; top: 16px; right: 5%;" class="btn-floating red"><i class="large mdi-navigation-menu"></i></a>
+    <!--   <a href="#!" style="position: absolute; top: 16px; right: 16px;" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>-->
+</li>
