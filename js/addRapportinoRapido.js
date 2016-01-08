@@ -85,7 +85,22 @@ $(document).ready(function(){
 		$("#ora_fine").focus();
 
 	});
-
+	$("#show_materiali").click(function(){
+		$(".materiali").show();
+		$(".mezzi").hide();
+	});
+	$("#show_mezzi").click(function(){
+		$(".mezzi").show();
+		$(".materiali").hide();
+	});
+	$("#conferma_materiali").click(function(){
+		$(".materiali").hide();
+		console.log(materiali_selezionati);
+	});
+	$("#conferma_mezzi").click(function(){
+		$(".mezzi").hide();
+		console.log(mezzi_selezionati);
+	});
 })
 
 function populateListClient(filter){
