@@ -17,57 +17,43 @@ $(document).ready(function(){
 	$('#schermata_materiali').hide();
 	$('#schermata_mezzi').hide();
 	$('#cliente_selezionato_new_page').hide();
+	$("#elenco_utilizzi_materiali").hide();
+	$("#elenco_utilizzi_mezzi").hide();
 	$("#to_date").click(function(){
 		if(cliente_selezionato != -1){
 			$('#cliente_selezionato_new_page').show();
 			$('#schermata_clienti').hide();
 			$('#schermata_dati').show();
-			$('#schermata_materiali').hide();
-			$('#schermata_mezzi').hide();
 		}
 		else
 			Materialize.toast("Seleziona un cliente!",2000);
 	});
-	$("#to_materiali").click(function(){
-		if($('#ora_inizio').val() != '' && $('#ora_fine').val() != ''){
-			$('#schermata_clienti').hide();
-			$('#schermata_dati').hide();
-			$('#schermata_materiali').show();
-			$('#schermata_mezzi').hide();
-		}
-		else
-			Materialize.toast("Inserisci un'ora di inizio e un'ora di fine!",2000);
-	});
-	$("#to_mezzi").click(function(){
-		
-		$('#schermata_clienti').hide();
-		$('#schermata_dati').hide();
-		$('#schermata_materiali').hide();
-		$('#schermata_mezzi').show();
-	});
-	$("#back_ore").click(function(){
-		
-		$('#schermata_clienti').hide();
-		$('#schermata_dati').show();
-		$('#schermata_materiali').hide();
-		$('#schermata_mezzi').hide();
-	});
 	$("#back_clienti").click(function(){
-		
+		$('#cliente_selezionato_new_page').hide();
 		$('#schermata_clienti').show();
 		$('#schermata_dati').hide();
-		$('#schermata_materiali').hide();
-		$('#schermata_mezzi').hide();
-	});
-	$("#back_materiali").click(function(){
-		
-		$('#schermata_clienti').hide();
-		$('#schermata_dati').hide();
-		$('#schermata_materiali').show();
-		$('#schermata_mezzi').hide();
 	});
 	$('#complete').click(function(){
-		Materialize.toast("Rapportino inserito",2000,"",function(){window.location.replace("menu_page.html");})
+		if($('#ora_inizio').val() != '' && $('#ora_fine').val() != '' && $('#pausa').val() >= 0 && $('#pausa').val() <= 120 ){
+			aggiungiRapportino();
+		}
+		else
+		{
+			if($('#pausa').val() >= 0 && $('#pausa').val() <= 120)
+				Materialize.toast("Inserisci un'ora di inizio e un'ora di fine valida!",2000);	
+			else
+				Materialize.toast("Inserisci una pausa valida tra 0 e 120 minuti",2000);	
+		}
+			
+	});
+	$("#search_cliente").on('input',function(){
+		populateListClient($("#search_cliente").val());
+	});
+	$("#search_materiale").on('input',function(){
+		populateListMaterials($("#search_materiale").val());
+	});
+	$("#search_mezzo").on('input',function(){
+		populateListMezzi($("#search_mezzo").val());
 	});
 	populateListClient("");
 	populateListMaterials("");
@@ -104,14 +90,9 @@ $(document).ready(function(){
 })
 
 function populateListClient(filter){
-	var q;
-	if(filter != "")
-		q = "WHERE " + filter;
-	else
-		q = " ";
 	$.ajax({
       dataType: "json",
-      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getClients.php?q="+ q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getClients.php?q="+filter+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
 	    json_clienti = data;
@@ -152,14 +133,9 @@ function populateListClient(filter){
 	});
 }
 function populateListMaterials(filter){
-	var q;
-	if(filter != "")
-		q = "WHERE " + filter;
-	else
-		q = " ";
 	$.ajax({
       dataType: "json",
-      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getMaterials.php?q= "+ q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getMaterials.php?q="+ filter+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
 	    json_materiali = data;
@@ -170,7 +146,7 @@ function populateListMaterials(filter){
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item";
 	        
-	        elementi[i].innerHTML = '<div><i class="info small material-icons purple-text">local_play</i>'+data[i]['codice']+' - '+data[i]['descrizione']+'<a href="#!" class="secondary-content"><i class="select_materials material-icons purple-text">add</i></a></div>	';
+	        elementi[i].innerHTML = '<div><i class="info small material-icons purple-text">local_play</i>'+(data[i]['codice']+' - '+data[i]['descrizione']).substr(0,24)+'<a href="#!" class="secondary-content"><i class="select_materials material-icons purple-text">add</i></a></div>	';
 	    	
 	    	
 	    	$("#elenco_materiali").append(elementi[i]);
@@ -204,14 +180,9 @@ function populateListMaterials(filter){
 	});
 }
 function populateListMezzi(filter){
-	var q;
-	if(filter != "")
-		q = "WHERE " + filter;
-	else
-		q = " ";
 	$.ajax({
       dataType: "json",
-      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getMezzi.php?q= "+ q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getMezzi.php?q="+ filter+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
 	    json_mezzi = data;
@@ -255,6 +226,12 @@ function populateListMezzi(filter){
     });
  }
 function updateListUtilizzi(){
+	$("#elenco_utilizzi_materiali").show();
+	$("#elenco_utilizzi_mezzi").show();
+	if(materiali_selezionati.length == 0)
+		$("#elenco_utilizzi_materiali").hide();
+	if(mezzi_selezionati.length == 0)
+		$("#elenco_utilizzi_mezzi").hide();
 	$("#elenco_utilizzi_materiali").empty();
 	$("#elenco_utilizzi_mezzi").empty();
 	var chip = new Array();
@@ -294,4 +271,26 @@ function removeMezzo(i){
 		 mezzi_selezionati.splice(i,1);
 	}
 }
-
+function aggiungiRapportino(){
+	$.ajax({
+      type:"POST",
+      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/postRapportinoRapido.php", //Relative or absolute path to response.php file
+      async:false,
+      data:{
+	  	'ora_inizio': $('#ora_inizio').val(),
+	  	'ora_fine': $('#ora_fine').val(),
+	  	'pausa': $('#pausa').val(),
+	  	'note':$('#note').val(),
+	  	'dipendente':getCookie('id_dipendente'),
+	  	'cliente':cliente_selezionato,
+	  	'db':getCookie('nomeDB'),
+	  	'materiali':materiali_selezionati,
+	  	'mezzi':mezzi_selezionati
+	  },
+      success: function(data) {
+	    console.log(data);
+	  	Materialize.toast("Rapportino inserito",2000,"",function(){window.location.replace("menu_page.html");})
+		}
+	});
+	
+}

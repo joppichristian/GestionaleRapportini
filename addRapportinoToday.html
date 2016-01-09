@@ -38,9 +38,8 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 			  	<div class="section col s12 m12 l12">
 				  	<form>
 					        <div class="input-field">
-					          <input id="search_cliente" type="search" requipurple>
-					          <label for="search"><i class="material-icons purple-text">search</i></label>
-					          <i id="start_search" class="small material-icons purple-text">refresh</i>	        
+					          <input id="search_cliente" type="search" required>
+					          <label for="search_cliente"><i class="material-icons purple-text">search</i></label>
 					         </div>
 					 </form>
 				</div>
@@ -84,9 +83,10 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 					<div class="col s12 m12 l12">
 						<div class="input-field col s11 m11 l11">
 					      <i class="material-icons prefix purple-text">local_cafe</i>
-				          <input id="pausa" type="text" name="pausa" class="validate">
+				          <input id="pausa" type="number" name="pausa" step="5" min="0" value="0" max="120" class="validate">
 				          <label class="purple-text" for="note">Pausa</label>
 				       </div>
+				       
 					</div>
 					<div class="col s12 m12 l12">
 						<div class="input-field col s11 m11 l11">
@@ -104,26 +104,25 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 					 
 				 </div>
 				 <div class="row">
-					<div class="col s12 m12 l12">
+					<div class="input-field col s12 m12 l12">
 					 <button class="btn waves-effect waves-light purple white-text" id="show_materiali" type="button" >
-					        <i class="small material-icons">local_play</i>
-					        Mostra Materiali
+					        <i class="small material-icons">add</i>
+					        Materiali
 					</button>
 					 <button class="btn waves-effect waves-light purple white-text" id="show_mezzi" type="button" >
-					 		<i class="small material-icons">directions_bus</i>
-					        Mostra Mezzi
+					 		<i class="small material-icons">add</i>
+					        Mezzi
 					</button>
 					</div>
+				 </div>
+				 <div class="row">
 					<div class="row section materiali">
-						<div class="section list col s12 m12 l12">
-							<form>
-							        <div class="input-field">
-							        <input id="search" type="search" requipurple>
-							        <label for="search"><i class="material-icons purple-text">search</i></label>
-							    <i id="start_search" class="small material-icons purple-text">refresh</i>	        
+							
+							        <div class="input-field col s12 m12 l12">
+							        <input id="search_materiale" type="search" required>
+							        <label for="search_materiale"><i class="material-icons purple-text">search</i></label>
 							         </div>
-							</form>
-						 </div>
+
 						 <div class="section list col s12 m12 l12" style="height: 35%;">	
 							  <ul class="col s12 m12 l12 collection with-header" id="elenco_materiali" ></ul>
 						 </div>
@@ -134,15 +133,10 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 			        	</div>
 					</div>
 					<div class="row section mezzi">
-						<div class="section list col s12 m12 l12">
-						  	<form>
-							        <div class="input-field">
-							          <input id="search" type="search" required>
-							          <label for="search"><i class="material-icons purple-text">search</i></label>
-							          <i id="start_search" class="small material-icons purple-text">refresh</i>	        
+							     <div class="input-field col s12 m12 l12">
+							          <input id="search_mezzo" type="search" required>
+							          <label for="search_mezzo"><i class="material-icons purple-text">search</i></label>
 							         </div>
-							 </form>
-						 </div>
 						  	<div class="section list col s12 m12 l12" style="height: 35%;">	
 							  <ul class="col s12 m12 l12 collection with-header" id="elenco_mezzi" ></ul>
 						  	</div>
@@ -153,8 +147,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 			        	</div>
 					</div>
 				 </div>
-			 </div>
-			 <div class="row">
+				 <div class="row">
 		  		<div class="input-field col s12" style="text-align: right;margin-bottom: 2%;">
 				    <button class="btn waves-effect waves-light purple white-text" id="back_clienti" type="button" >Indietro
 						</button>
@@ -162,7 +155,10 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 						</button>
 						
 				</div>
+				 </div>
 	  		</div>
+			 </div>
+			 
 		</div>
 		 </div>
 		 <footer class="page-footer purple">
