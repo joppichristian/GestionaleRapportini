@@ -14,13 +14,13 @@ $(document).ready(function() {
 		populateList(tmp);
 	});
 	$("#modify").click( function() {
-		completaForm();	
+		completaForm();
 	});
 	$("#invia_dati").click( function() {
-		modifyCliente();	
+		modifyCliente();
 	});
 	$("#annulla_modify").click( function() {
-		explodeClient(json[0]);	
+		explodeClient(json[0]);
 	});
 	$("#delete").click( function() {
 		deleteCliente();
@@ -65,8 +65,8 @@ function populateList(filter){
 		explodeClient(data[0]);
 		$(".explode").click(function(){
 	        index = $(".explode").index(this);
-	        id = json[index]['id'];      
-	        explodeClient(json[index]);      
+	        id = json[index]['id'];
+	        explodeClient(json[index]);
         });
       },
       error: function(xhr){
@@ -180,7 +180,7 @@ function completaForm(){
 	$("#form_note").val(json[index]['note']);
 	$("#form_note").focus();
 	$("#form_nominativo").focus();
-	
+
 	}
 function modifyCliente(){
 	var nominativo = $("#form_nominativo").val();
@@ -225,5 +225,5 @@ function modifyCliente(){
 			    return false;
 
 			}
-		});		
+		});
 }

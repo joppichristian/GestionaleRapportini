@@ -1,3 +1,7 @@
+var json = new Array();
+var index=0;
+var id=0;
+
 $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
@@ -96,9 +100,20 @@ function populateRapportino(filter){
 						//GENERO ELEMENTO!!
 						elementi[i] = document.createElement('li');
 		        elementi[i].className ="collection-item avatar";
-						elementi[i].innerHTML = '<i class="green accent-4 material-icons circle">access_time</i><span class="title">Data : '+myDate+ '</span><p>Ore Totali : 5</p><a id="pulsante_list" style="position: absolute; top: 16px; right: 5%;" class="btn-floating red"><i class="large mdi-navigation-menu"></i></a>';
+						elementi[i].innerHTML = '<i class="green accent-4 material-icons circle">access_time</i><span class="title">Data : '+myDate+ '</span><p>Ore Totali : 5</p><a style="position: absolute; top: 16px; right: 5%;" class="btn-floating red"><i class=" dettaglio_list large mdi-navigation-menu"></i></a>';
 						$("#lista_rap").append(elementi[i]);
 					}
+
+					id = data[0]['id'];
+					explodeRapportino(data[0]);
+					$(".dettaglio_list").click(function(){
+						alert("fino a qui");
+				        index = $(".dettaglio_list").index(this);
+				        id = json[index]['id'];
+								alert("index: "+index+" id: "+id);
+								alert(json[index]['note']);
+				        explodeRapportino(json[index]);
+			        });
 
 
 					//alert("ora inizio"+data[i]['inizio']);
@@ -164,7 +179,9 @@ alert("allorha"+q);
 
 }
 
-
+function explodeRapportino(rapportino){
+	alert("on click su rapportino : "+rapportino['note']);
+}
 
 function getFirstData(){
 	var today = new Date();
@@ -230,7 +247,7 @@ function returnRangeDate(d1){
 		}
 	fine= dataFine[2]+"-"+dataFine[1]+"-"+giorno;
 
-	if((d1 > inizio)&&(d1 < fine)){
+	if((d1 >= inizio)&&(d1 <= fine)){
 		return true;
 	}else{
 		return false;
