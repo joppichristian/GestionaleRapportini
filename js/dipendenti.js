@@ -9,9 +9,8 @@ $(document).ready(function() {
 	$('div.indicator').css("background-color","#4caf50");
 	$("#info").show();
 	$("#modifica_dipendente").hide();
-	$("#start_search").click( function() {
+	$("#search").on('input',function() {
 		var tmp = $("#search").val();
-		tmp = "nome like '%"+tmp+"%' or cognome like '%"+tmp+"%' ";
 		populateList(tmp);
 	});
 	$("#modify").click( function() {
@@ -32,15 +31,9 @@ $(document).ready(function() {
 
 
 function populateList(filter){
-
-	var q;
-	if(filter != "")
-		q = "WHERE " + filter;
-	else
-		q = " ";
 	$.ajax({
       dataType: "json",
-      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getEmployee.php?q= "+ q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getEmployee.php?q="+ filter+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
 	    json = data;

@@ -8,9 +8,8 @@ $(document).ready(function() {
 
 	$("#info").show();
 	$("#modifica_materiale").hide();
-	$("#start_search").click( function() {
+	$("#search").on('input', function() {
 		var tmp = $("#search").val();
-		tmp = "descrizione like '%"+tmp+"%' or codice like '%"+tmp+"%'";
 		populateList(tmp);
 	});
 	$("#modify").click( function() {
@@ -31,15 +30,9 @@ $(document).ready(function() {
 
 
 function populateList(filter){
-
-	var q;
-	if(filter != "")
-		q = "WHERE " + filter;
-	else
-		q = " ";
 	$.ajax({
       dataType: "json",
-      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getMaterials.php?q= "+ q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getMaterials.php?q="+ filter+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
 	    json = data;

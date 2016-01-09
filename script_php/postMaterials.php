@@ -24,7 +24,6 @@
 				*/	
 				
 				$sql = "INSERT INTO materiali (codice,descrizione,prezzo,costo,note) VALUES ('".$codice."','".$descrizione."',CAST('".$prezzo."' AS DECIMAL(10,2)),CAST('".$costo."' AS DECIMAL(10,2)),'".$note."');";
-				echo $sql;
 				
 				$mysqli->query('SET CHARACTER SET utf8');
 

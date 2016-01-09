@@ -4,11 +4,11 @@
 
 			
 			if ($_SERVER['REQUEST_METHOD'] == "GET"){
-				$query = $_GET['q'];
+				$query = str_replace("'", "\'",$_GET['q']);
 				$db = $_GET['db'];
 				include 'connessione-db.php';
 				
-				$qry = "SELECT * FROM dipendenti ".$query.";";
+				$qry = "SELECT * FROM dipendenti WHERE nome like '%".$query."%' or cognome like '%".$query."%'";
 				$mysqli->query('SET CHARACTER SET utf8');
 		    	$result = $mysqli->query($qry);
 		    	while($row = $result->fetch_assoc()) {

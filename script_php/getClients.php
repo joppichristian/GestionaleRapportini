@@ -8,7 +8,7 @@
 				include 'connessione-db.php';
 				
 				
-				$qry = "SELECT * FROM clienti ".$query.";";
+				$qry = "SELECT * FROM clienti WHERE nominativo like '%".$query."%';";
 				$mysqli->query('SET CHARACTER SET utf8');
 		    	$result = $mysqli->query($qry);
 		    	while($row = $result->fetch_assoc()) {
