@@ -22,10 +22,10 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 
 	</head>
 	
-	<body>
-		<nav class="section purple">
+	<body class="blue-grey lighten-5">
+		<nav class="section blue-grey darken-3">
 			
-		    <div class="nav-wrapper purple">
+		    <div class="nav-wrapper">
 		      <div class="col s12">
 		        <a href="menu_page.html" class="breadcrumb">Home</a>
 		        <a href="#!" class="breadcrumb">Aggiungi Rapportino Rapido</a>
@@ -38,7 +38,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 			  	<div class="section col s12 m12 l12">
 				  	<form>
 					        <div class="input-field">
-					          <input id="search_cliente" type="search" required>
+					          <input id="search_cliente" type="text" required>
 					          <label for="search_cliente"><i class="material-icons purple-text">search</i></label>
 					         </div>
 					 </form>
@@ -92,7 +92,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 						<div class="input-field col s11 m11 l11">
 					      <i class="material-icons prefix purple-text">chat_bubble</i>
 				          <textarea id="note" name="note" class="materialize-textarea"></textarea>
-				          <label class="purple-text" for="note">Note</label>
+				          <label class="purple-text" for="note">Descrizione</label>
 				       </div>
 					</div>
 				</div>
@@ -119,13 +119,19 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 					<div class="row section materiali">
 							
 							        <div class="input-field col s12 m12 l12">
-							        <input id="search_materiale" type="search" required>
+							        <input id="search_materiale" type="text" required>
 							        <label for="search_materiale"><i class="material-icons purple-text">search</i></label>
 							         </div>
 
 						 <div class="section list col s12 m12 l12" style="height: 35%;">	
 							  <ul class="col s12 m12 l12 collection with-header" id="elenco_materiali" ></ul>
 						 </div>
+						<div class="input-field col s12 m12 l12">
+							      <i class="material-icons prefix purple-text">keyboard_arrow_right</i>
+						          <input id="quantita_materiale" type="text" value="1" name="quantita" class="validate">
+						          <label class="purple-text" for="quantita_materiale">Quantit&agrave;</label>
+						</div>
+
 						 <div class="input-field col s12" style="text-align: right;margin-bottom: 2%;">
 					        <button class="btn waves-effect waves-light purple white-text" id="conferma_materiali" type="button" >
 					        <i class="material-icons right">done</i>
@@ -134,12 +140,17 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 					</div>
 					<div class="row section mezzi">
 							     <div class="input-field col s12 m12 l12">
-							          <input id="search_mezzo" type="search" required>
+							          <input id="search_mezzo" type="text" required>
 							          <label for="search_mezzo"><i class="material-icons purple-text">search</i></label>
 							         </div>
 						  	<div class="section list col s12 m12 l12" style="height: 35%;">	
 							  <ul class="col s12 m12 l12 collection with-header" id="elenco_mezzi" ></ul>
 						  	</div>
+						  	<div class="input-field col s12 m12 l12">
+							      <i class="material-icons prefix purple-text">keyboard_arrow_right</i>
+						          <input id="quantita_mezzo" type="text" name="quantita" value="1" class="validate">
+						          <label class="purple-text" for="quantita_mezzo">Quantit&agrave;</label>
+						</div>
 						  	<div class="input-field col s12" style="text-align: right;margin-bottom: 2%;">
 						        <button class="btn waves-effect waves-light purple white-text" id="conferma_mezzi" type="button" >
 						        <i class="material-icons right">done</i>
@@ -161,7 +172,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 			 
 		</div>
 		 </div>
-		 <footer class="page-footer purple">
+		 <footer class="page-footer blue-grey darken-3">
            <div class="footer-copyright">
             <div class="container">
             © 2014 Copyright Text
