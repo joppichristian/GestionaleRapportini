@@ -298,7 +298,7 @@ function aggiungiRapportino(){
 	  },
       success: function(data) {
 	    console.log(data);
-	  	Materialize.toast("Rapportino inserito",2000,"",function(){window.location.replace("menu_page.html");})
+	  	Materialize.toast("Rapportino inserito",2000,"",function(){window.location.replace("dashboard.html");})
 		}
 	});
 	
