@@ -157,7 +157,7 @@ function populateListMaterials(filter){
 
 	    }
 	    $(".select_materials").click(function(){
-				
+			if($('#quantita_materiale').val()!= ""){
 		        index_Ma = $(".select_materials").index(this);
 		        id_Ma = json_materiali[index_Ma]['id'];
 		        var duplicato = -1;
@@ -171,10 +171,17 @@ function populateListMaterials(filter){
 		        
 		        if(duplicato > -1){
 			        materiali_selezionati.splice(duplicato,1);
-		        	materiali_selezionati.push({'id':id_Ma,'descrizione':json_materiali[index_Ma]['descrizione'],'quantita':quantita_duplicato+1});
+		        	materiali_selezionati.push({'id':id_Ma,'descrizione':json_materiali[index_Ma]['descrizione'],'quantita':quantita_duplicato+parseFloat($('#quantita_materiale').val())});
 		        }else
-		            materiali_selezionati.push({'id':id_Ma,'descrizione':json_materiali[index_Ma]['descrizione'],'quantita':1});
-		        updateListUtilizzi();      
+		            materiali_selezionati.push({'id':id_Ma,'descrizione':json_materiali[index_Ma]['descrizione'],'quantita':parseFloat($('#quantita_materiale').val())});
+		        updateListUtilizzi();
+		        Materialize.toast("Materiale aggiunto!",2000);
+
+		    }else{
+			    Materialize.toast("Inserire una quantita valida!",2000);
+			    $('#quantita_materiale').focus();
+		    }
+		              
 	        });
 	  }
 	});
@@ -204,6 +211,7 @@ function populateListMezzi(filter){
 
 	    }
 	    $(".select_mezzi").click(function(){
+		    if($('#quantita_mezzo').val()!= ""){
 		        index_Me = $(".select_mezzi").index(this);
 		        id_Me = json_mezzi[index_Me]['id'];
 		        var duplicato = -1;
@@ -217,11 +225,17 @@ function populateListMezzi(filter){
 		        
 		        if(duplicato > -1){
 			        mezzi_selezionati.splice(duplicato,1);
-		        	mezzi_selezionati.push({'id':id_Me,'descrizione':json_mezzi[index_Me]['descrizione'],'quantita':quantita_duplicato+0.50});
+		        	mezzi_selezionati.push({'id':id_Me,'descrizione':json_mezzi[index_Me]['descrizione'],'quantita':quantita_duplicato+parseFloat($('#quantita_mezzo').val())});
 		        }else
-		            mezzi_selezionati.push({'id':id_Me,'descrizione':json_mezzi[index_Me]['descrizione'],'quantita':0.50});
-		        updateListUtilizzi();                    
-	        });
+		            mezzi_selezionati.push({'id':id_Me,'descrizione':json_mezzi[index_Me]['descrizione'],'quantita':parseFloat($('#quantita_mezzo').val())});
+		        updateListUtilizzi();
+		        Materialize.toast("Mezzo aggiunto!",2000);  
+		    }else{
+			    Materialize.toast("Inserire una quantita valida!",2000);
+			    $('#quantita_mezzo').focus();
+		    }                  
+	    });
+	        
 	   }
     });
  }
@@ -260,16 +274,11 @@ function updateListUtilizzi(){
 }
 
 function removeMateriale(i){
-	materiali_selezionati[i]['quantita'] = materiali_selezionati[i]['quantita']-1;
-	if(materiali_selezionati[i]['quantita'] < 1){
+
 		 materiali_selezionati.splice(i,1);
-	}
 }
 function removeMezzo(i){
-	mezzi_selezionati[i]['quantita'] = mezzi_selezionati[i]['quantita']-0.5;
-	if(mezzi_selezionati[i]['quantita'] < 0.5){
 		 mezzi_selezionati.splice(i,1);
-	}
 }
 function aggiungiRapportino(){
 	$.ajax({

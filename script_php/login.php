@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET")
     $user=  $_GET['u'];
     $psw= $_GET['p'];
 
-    $qry = "SELECT * FROM Azienda_utente WHERE username='".$user."' AND password='".$psw."';";
+    $qry = "SELECT * FROM Azienda_utente AU JOIN Azienda_cliente AC ON AU.ID_azienda = AC.ID_azienda WHERE username='".$user."' AND password='".$psw."';";
 
 
       $mysqli->query('SET CHARACTER SET utf8');
