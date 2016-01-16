@@ -51,7 +51,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
            <div class="card-content" style="height:30%;">
              <div class="input-field col s12 m6 l6">
                    <i class="material-icons prefix orange-text">access_time</i>
-                   <input id="data_inizio" type="text" name="ora_inizio" class="validate" value="3-01-2016">
+                   <input id="data_inizio" type="text" name="ora_inizio" class="validate" value="1-01-2016">
                    <label class="orange-text" for="ora_inizio">Data Inizio</label>
              </div>
 
@@ -63,10 +63,10 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 
              <div style="margin-top: 5%;" class="col s12 m12 l12">
                <div class="col s6 m6 l6">
-                   <a class="waves-effect waves-light orange btn">CERCA</a>
+                   <a id="cerca_filtro"class="waves-effect waves-light orange btn">CERCA</a>
                </div>
                <div class="col s6 m6 l6">
-                   <a class="waves-effect waves-light orange btn">RESET</a>
+                   <a id="reset_filtro" class="waves-effect waves-light orange btn">RESET</a>
                </div>
             </div>
             </div>
@@ -78,13 +78,13 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 
 
 
-      <div class="section list col s12 m6 l4" style="height: 65%;">
+      <div class="section list col s12 m6 l4" style="max-height: 65%;">
 
         <div class="row">
            <div class="col s12 m12">
              <div class="card">
                <div class="card-content">
-                 <span>Aggiungi nuovo rapportino </span><a id="pulsante_list" style="position: absolute; top: 16px; right: 5%;" class="btn-floating red"><i class="material-icons">add</i></a>
+                 <span>Aggiungi nuova giornata </span><a id="pulsante_list" style="position: absolute; top: 16px; right: 5%;" class="btn-floating red"><i class="material-icons">add</i></a>
 
                 </div>
              </div>
@@ -100,64 +100,44 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 
             <div class="card">
               <div class="card-content" >
+                <ul id="lista_singolo_rap" class="collection">
+                </ul>
+
                 <ul class="collection">
-
-                <li class="grey lighten-3 collection-item avatar">
-                      <!--<i class="material-icons circle">access_time</i>-->
-                      <label class="orange-text" for="ora_inizio">Dipendente</label>
-                      <input id="ora_inizio" type="text" name="ora_inizio" class="validate" value="Mario Rossi" >
-
-                      <label class="orange-text" for="ora_inizio">Ora Inizio</label>
-                      <input id="ora_inizio" type="text" name="ora_inizio" class="validate" value="8:30" >
-
-                      <label class="orange-text" for="ora_inizio">Ora Fine</label>
-                      <input id="ora_inizio" type="text" name="ora_inizio" class="validate" value="14:30">
-
-                      <label class="orange-text" for="ora_inizio">Pausa</label>
-                      <input id="ora_inizio" type="text" name="ora_inizio" class="validate" value="0:30">
-
-                      <label class="orange-text" for="ora_inizio">Descrizione</label>
-                      <input id="ora_inizio" type="text" name="ora_inizio" class="validate" value="posatura tubi e tinteggiatura">
-
-                      <a class="btn-floating red"><i class="large material-icons">mode_edit</i></a>
-                      <a class="btn-floating red"><i class="large material-icons">delete</i></a>
-
-                </li> <br>
-
-                <li class="grey lighten-2 collection-item avatar">
-                      <label class="orange-text" for="ora_inizio">Nuovo Rapportino</label>
-                      <p>Clicca sul pulsante e compila i campi</p>
-                      <a id="add_list" style="position: absolute; top: 16px; right: 5%;" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>
-                      <!--<i class="material-icons circle">access_time</i>-->
-                </li>
-
-
-                <li id="new_insert_item" class="grey lighten-3 collection-item avatar">
-                      <!--<i class="material-icons circle">access_time</i>-->
-                      <label class="orange-text" for="ora_inizio">Dipendente</label>
-                      <input id="ora_inizio" type="text" name="ora_inizio" class="validate"  >
-
-                      <label class="orange-text" for="ora_inizio">Ora Inizio</label>
-                      <input id="ora_inizio" type="text" name="ora_inizio" class="validate">
-
-                      <label class="orange-text" for="ora_inizio">Ora Fine</label>
-                      <input id="ora_inizio" type="text" name="ora_inizio" class="validate">
-
-                      <label class="orange-text" for="ora_inizio">Pausa</label>
-                      <input id="ora_inizio" type="text" name="ora_inizio" class="validate">
-
-                      <label class="orange-text" for="ora_inizio">Descrizione</label>
-                      <input id="ora_inizio" type="text" name="ora_inizio" class="validate">
-
-
-
-                      <a class="btn-floating red"><i class="large material-icons">done</i></a>
-
-                      <!--<span class="title">Data :</span>
-                      <p>Ore Totali :
-                      </p>
-                       <a href="#!" style="position: absolute; top: 16px; right: 16px;" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>-->
+                  <li class="grey lighten-2 collection-item avatar">
+                        <label class="orange-text" for="ora_inizio">Nuovo Rapportino</label>
+                        <p>Clicca sul pulsante e compila i campi</p>
+                        <a id="add_list" style="position: absolute; top: 16px; right: 5%;" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>
+                        <!--<i class="material-icons circle">access_time</i>-->
                   </li>
+
+
+                  <li id="new_insert_item" class="grey lighten-3 collection-item avatar">
+                        <!--<i class="material-icons circle">access_time</i>-->
+                        <label class="orange-text" for="ora_inizio">Dipendente</label>
+                        <input id="ora_inizio" type="text" name="ora_inizio" class="validate"  >
+
+                        <label class="orange-text" for="ora_inizio">Ora Inizio</label>
+                        <input id="ora_inizio" type="text" name="ora_inizio" class="validate">
+
+                        <label class="orange-text" for="ora_inizio">Ora Fine</label>
+                        <input id="ora_inizio" type="text" name="ora_inizio" class="validate">
+
+                        <label class="orange-text" for="ora_inizio">Pausa</label>
+                        <input id="ora_inizio" type="text" name="ora_inizio" class="validate">
+
+                        <label class="orange-text" for="ora_inizio">Descrizione</label>
+                        <input id="ora_inizio" type="text" name="ora_inizio" class="validate">
+
+
+
+                        <a class="btn-floating red"><i class="large material-icons">done</i></a>
+
+                        <!--<span class="title">Data :</span>
+                        <p>Ore Totali :
+                        </p>
+                         <a href="#!" style="position: absolute; top: 16px; right: 16px;" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>-->
+                    </li>
                 </ul>
 
               </div>
@@ -171,7 +151,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
        <div class="col s12 m12">
          <div class="card">
            <div class="card-content">
-              <p class="center-align">RIEPILOGO ORE: 5</p>
+              <p id="ore_tot" class="center-align">RIEPILOGO ORE: --</p>
             </div>
          </div>
       </div>

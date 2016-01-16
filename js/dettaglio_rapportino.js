@@ -1,6 +1,8 @@
 var json = new Array();
 var index=0;
 var id=0;
+var id_utente="";
+
 
 $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
@@ -9,20 +11,29 @@ $(document).ready(function(){
     $("#botton_insert_item").hide();
     $("#new_insert_item").hide();
     $("#elementi_materiali").hide();
-		var id_utente = getUrlVars()["id"];
+		id_utente = getUrlVars()["id"];
 		var nome_utente = getUrlVars()["nome"];
 		//$("#nome_cliente").text(""+nome_utente);
-		populateRapportino(id_utente);
-
-		//filtro data parametri default
 		var primoG = getFirstData();
-		var ultimoG = getCurrentData()
-		//alert(" primoG: " +primoG + "  ultimoG: "+ultimoG );
+		var ultimoG = getCurrentData();
+		document.getElementById("data_fine").value=ultimoG;
+		document.getElementById("data_inizio").value=primoG;
 
+		populateRapportino(id_utente);
+		//filtro data parametri default
+
+		$("#reset_filtro").on("click",function(){
+			document.getElementById("data_inizio").value=primoG;
+			document.getElementById("data_fine").value=ultimoG;
+    });
 
     var stato_p_list=0;
     var stato_new_p_list=0;
     var stato_materiali=0;
+
+		$("#cerca_filtro").on("click",function(){
+			populateRapportino(id_utente);
+    });
 
     $("#pulsante_list").on("click",function(){
       if(stato_p_list==1){
@@ -59,13 +70,11 @@ $(document).ready(function(){
 });
 
 function populateRapportino(filter){
-//alert("id utente: "+filter);
 	var q;
 	if(filter != "")
 		q = filter;
 	else
 		q = " ";
-		//alert("url : "+"http://www.trentinoannuncia.com/portale_artigiani/script_php/getRapportinoCliente.php?q= "+ q+"&db="+getCookie('nomeDB') );
 
 	$.ajax({
       dataType: "json",
@@ -75,7 +84,6 @@ function populateRapportino(filter){
       success: function(data) {
 
 	    json = data;
-			//alert("chiamata avvenuta con successo");
 
         console.log(data);
         var elementi = new Array();
@@ -84,7 +92,10 @@ function populateRapportino(filter){
 				 if(data ==null){
 					 populateRapportinoVuoto(q);
 				 }
-        for(var i = 0; i < data.length; i++) {
+				 var oldDate="";
+				 var cont_index=0;
+				 var ore_totali_range=0;
+         for(var i = 0; i < data.length; i++) {
 
 					conteggio = conteggio +1;
 					$("#nome_cliente").text(""+data[i]['nominativo']);
@@ -96,31 +107,41 @@ function populateRapportino(filter){
 
 					var dataDb = returnRangeDate(dataD);
 					if(dataDb == true){
-						//alert("rapportino contenuto nel range");
-						//GENERO ELEMENTO!!
-						elementi[i] = document.createElement('li');
-		        elementi[i].className ="collection-item avatar";
-						elementi[i].innerHTML = '<i class="green accent-4 material-icons circle">access_time</i><span class="title">Data : '+myDate+ '</span><p>Ore Totali : 5</p><a style="position: absolute; top: 16px; right: 5%;" class="btn-floating red"><i class=" dettaglio_list large mdi-navigation-menu"></i></a>';
-						$("#lista_rap").append(elementi[i]);
+
+						var f = data[i]['fine'];
+						var o =differenzaOre(dataTot, f);
+						var p =data[i]['pausa'];
+						var diff_lavoro = o-p;
+						ore_totali_range = ore_totali_range + diff_lavoro;
+						alert("diff : "+o +"  ore_totali_range: "+ore_totali_range );
+						document.getElementById("ore_tot").innerHTML = "RIEPILOGO ORE: "+ore_totali_range;
+
+						if(myDate==oldDate){
+							elementi[i] = document.createElement('li');
+			        elementi[i].className ="collection-item avatar no_see";
+							elementi[i].innerHTML = '<i class="green accent-4 material-icons circle">access_time</i><span class="title">Data : '+myDate+ '</span><p>Ore Totali : 5</p><a style="position: absolute; top: 16px; right: 5%;" class="btn-floating red"><i class=" dettaglio_list large mdi-navigation-menu"></i></a>';
+							$("#lista_rap").append(elementi[i]);
+
+						}else{
+							elementi[i] = document.createElement('li');
+			        elementi[i].className ="collection-item avatar";
+							elementi[i].innerHTML = '<i class="green accent-4 material-icons circle">access_time</i><span class="title">Data : '+myDate+ '</span><p>Ore Totali : 5</p><a style="position: absolute; top: 16px; right: 5%;" class="btn-floating red"><i class=" dettaglio_list large mdi-navigation-menu"></i></a>';
+							$("#lista_rap").append(elementi[i]);
+						}
+						cont_index = cont_index+1;
+						oldDate=myDate;
+
 					}
-
-					id = data[0]['id'];
-					explodeRapportino(data[0]);
-					$(".dettaglio_list").click(function(){
-						alert("fino a qui");
-				        index = $(".dettaglio_list").index(this);
-				        id = json[index]['id'];
-								alert("index: "+index+" id: "+id);
-								alert(json[index]['note']);
-				        explodeRapportino(json[index]);
-			        });
-
-
-					//alert("ora inizio"+data[i]['inizio']);
-
-					//alert("differenza giorni : "+diff);
-
 				}
+				//document.getElementById("ore_tot").innerHTML = "RIEPILOGO ORE: "+ore_totali_range;
+
+				id = data[0]['id'];
+				explodeRapportino(data[0]);
+				$(".dettaglio_list").click(function(){
+					index = $(".dettaglio_list").index(this);
+					explodeRapportino(data[index]);
+				});
+
       },
       error: function(xhr){
 	     console.log(xhr.status);
@@ -133,6 +154,14 @@ function populateRapportino(filter){
 
 }
 
+function dataGiorni(data){
+	var dataTot= data;
+	var dataS = dataTot.split(' ');
+	var dataD =dataS[0];
+	var data_i = dataD.split('-');
+	var myDate = ""+data_i[2]+"-"+data_i[1]+"-"+data_i[0];
+	return myDate;
+}
 
 function populateRapportinoVuoto(filter){
 //alert("id utente: "+filter);
@@ -141,8 +170,7 @@ function populateRapportinoVuoto(filter){
 		q = filter;
 	else
 		q = " ";
-		//alert("url : "+"http://www.trentinoannuncia.com/portale_artigiani/script_php/getRapportinoCliente.php?q= "+ q+"&db="+getCookie('nomeDB') );
-alert("allorha"+q);
+		alert("allorha"+q);
 	$.ajax({
       dataType: "json",
       url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getRapportinoClienteVuoto.php?q="+q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
@@ -158,15 +186,7 @@ alert("allorha"+q);
         for(var i = 0; i < data.length; i++) {
 
 					$("#nome_cliente").text(""+data[i]['nominativo']);
-					//alert("ora inizio"+data[i]['inizio']);
-					//$("#ora_inizio").value(""+data[i]['inizio']);
-					//$("#ora_fine").value(""+data[i]['fine']);
-					//$("#nome_cliente").text(""+data[i]['nominativo']);
 
-
-					//settare campo e scaricare dati dalla tabella rapportino!!!
-				//	$('#nome_cliente').text(""+data[i]['nominativo']);
-					//alert("il nome del cliente : "+data[i]['nominativo']);
 	    	}
       },
       error: function(xhr){
@@ -180,7 +200,132 @@ alert("allorha"+q);
 }
 
 function explodeRapportino(rapportino){
-	alert("on click su rapportino : "+rapportino['note']);
+
+	var id_cli = rapportino['id_cliente'];
+	var id_dip = rapportino['id_dipendente'];
+	var data_i= rapportino['inizio'];
+	var giorni = dataGiorni(data_i);
+	creazioneListaRapportino(id_cli, id_dip, giorni);
+
+}
+
+function creazioneListaRapportino(cliente, dipendente, giorno){
+	$.ajax({
+			dataType: "json",
+			url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getSingoloRapportino.php?c="+cliente+"&d="+dipendente+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+			data:"",
+			async:false,
+			success: function(data) {
+				json = data;
+					console.log(data);
+					var elementi = new Array();
+					 $("#lista_singolo_rap").empty();
+					 var conteggio=0;
+					 if(data ==null){
+						 //populateRapportinoVuoto(q);
+					 }else{
+						 //alert("prima del ciclo");
+						 for(var i = 0; i < data.length; i++) {
+							var data_i= data[i]['inizio'];
+						 	var giorni = dataGiorni(data_i);
+							//alert("giorno: "+giorno+ " giorni: "+giorni);
+							if(giorno == giorni){
+
+								elementi[i] = document.createElement('li');
+								elementi[i].className ="grey lighten-3 collection-item avatar";
+								var nomeD = datiDipendente(data[i]['id_dipendente']);
+								var ele_dip = '<label class="orange-text" for="ora_inizio">Dipendente</label><input id="dipendente" type="text" name="dipendente" class="validate" value="'+nomeD+'" >';
+								var inizio = data[i]['inizio'];
+								var orai = formatotempo(inizio);
+								var ele_ini = '<label class="orange-text" for="ora_inizio">Ora Inizio</label><input id="ora_inizio" type="text" name="ora_inizio" class="validate" value="'+orai+'" >';
+								var fine = data[i]['fine'];
+								var oraf = formatotempo(fine);
+								var ele_fine = '<label class="orange-text" for="ora_inizio">Ora Fine</label><input id="ora_fine" type="text" name="ora_fine" class="validate" value="'+oraf+'">';
+								var pausa = data[i]['pausa'];
+								var ele_pausa ='<label class="orange-text" for="ora_inizio">Pausa</label><input id="pausa" type="text" name="pausa" class="validate" value="'+pausa+'">';
+								var diff =differenzaOre(inizio, fine);
+								var diff_lavoro = diff-pausa;
+								var ele_ore = '<label class="orange-text" for="ora_inizio">ORE TOTALI DI LAVORO</label><input id="ore_tot" type="text" name="ora_tot" class="validate" value="'+diff_lavoro+'">';
+								var note = data[i]['note'];
+								var ele_desc = '<label class="orange-text" for="ora_inizio">Descrizione</label><input id="descrizione" type="text" name="descrizione" class="validate" value="'+note+'">';
+								var ele = '<a class="btn-floating red"><i class="large material-icons">mode_edit</i></a><a class="btn-floating red"><i class="large material-icons">delete</i></a>';
+								var tot_ele = ele_dip+ele_ini+ele_fine+ele_pausa+ele_ore+ele_desc+ele;
+								elementi[i].innerHTML = tot_ele;
+								$("#lista_singolo_rap").append(elementi[i]);
+							}
+
+						}
+					}
+					/*
+					id = data[0]['id'];
+					explodeRapportino(data[0]);
+					$(".dettaglio_list").click(function(){
+						alert("fino a qui");
+						index = $(".dettaglio_list").index(this);
+						alert("index of element click: "+index);
+								explodeRapportino(data[index]);
+					});*/
+			},
+			error: function(xhr){
+			 console.log(xhr.status);
+				return false;
+			}
+		});
+}
+
+function differenzaOre(inizio, fine){
+
+	var timeStart = new Date(inizio).getTime();
+	var timeEnd = new Date(fine).getTime();
+	var hourDiff = timeEnd - timeStart; //in ms
+	var secDiff = hourDiff / 1000; //in s
+	var minDiff = hourDiff / 60 / 1000; //in minutes
+	var hDiff = hourDiff / 3600 / 1000; //in hours
+	var numOre = Math.round(hDiff);
+
+	return numOre;
+}
+
+function formatotempo(tempo){
+	data = tempo.split(' ');
+	ora = data[1];
+	var a_tempo= ora.split(':');
+	var minuti =a_tempo[1];
+	var ore =a_tempo[0]
+	var fine_ora= ore+":"+minuti;
+	return fine_ora;
+}
+function datiDipendente(id){
+	var nome="";
+	//alert("http://www.trentinoannuncia.com/portale_artigiani/script_php/getDipendente.php?id="+id+"&db="+getCookie('nomeDB'));
+		$.ajax({
+	      dataType: "json",
+	      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getDipendente.php?id="+id+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+	      data:"",
+				async:false,
+	      success: function(data) {
+
+		    json = data;
+				//alert("chiamata avvenuta con successo");
+	        console.log(data);
+	        var elementi = new Array();
+	        // $("#elenco").empty();
+
+	        for(var i = 0; i < data.length; i++) {
+						nome = ""+data[i]['nome'] +" "+ data[i]['cognome'];
+						//alert("nome e cognome: "+nome);
+						//return nome;
+
+		    	}
+
+	      },
+	      error: function(xhr){
+		     console.log(xhr.status);
+	        return false;
+	      }
+	    });
+			return nome;
+
 }
 
 function getFirstData(){
@@ -197,7 +342,7 @@ function getFirstData(){
     	mm='0'+mm
 	}
 
-	today = '01'+'/'+mm+'/'+yyyy;
+	today = '01'+'-'+mm+'-'+yyyy;
 	return today;
 }
 
@@ -215,7 +360,7 @@ function getCurrentData(){
     	mm='0'+mm
 	}
 
-	today = dd+'/'+mm+'/'+yyyy;
+	today = dd+'-'+mm+'-'+yyyy;
 	return today;
 }
 
@@ -232,21 +377,26 @@ function GetNumberDay(inizio, fine){
 
 function returnRangeDate(d1){
 	//data = data.split('-');
-	inizio = document.getElementById("data_inizio").value;
+
+	var inizio = document.getElementById("data_inizio").value;
 	var dataInizio = inizio.split('-');
-	fine  = document.getElementById("data_fine").value;
+	var fine  = document.getElementById("data_fine").value;
 	var dataFine = fine.split('-');
 
-	if(dataInizio[0]<10){
+	var giorno="";
+	if(dataInizio[0].length==1){
 		giorno="0"+dataInizio[0];
+	}else{
+		giorno=dataInizio[0];
 	}
 	inizio= dataInizio[2]+"-"+dataInizio[1]+"-"+giorno;
 
-		if(dataFine[0]<10){
+		if(dataFine[0].length==1){
 			giorno="0"+dataFine[0];
+		}else{
+			giorno=dataFine[0];
 		}
 	fine= dataFine[2]+"-"+dataFine[1]+"-"+giorno;
-
 	if((d1 >= inizio)&&(d1 <= fine)){
 		return true;
 	}else{
