@@ -14,7 +14,7 @@ function check(form)
 function controlla_login(user,psw){
 
   var stringaR = "u="+user+"&p="+psw;
-  var query = "http://www.trentinoannuncia.com/portale_artigiani/script_php/login.php?"+stringaR ;
+  var query = "script_php/login.php?"+stringaR ;
   $.ajax({
       url: query,
       async:false,
@@ -54,11 +54,4 @@ function controlla_login(user,psw){
       }
     });
 
-}
-function setCookie(cname,cvalue,exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires=" + d.toGMTString();
-    //alert("cookie: "+cname+"="+cvalue);
-    document.cookie = cname+"="+cvalue+"; "+expires;
 }

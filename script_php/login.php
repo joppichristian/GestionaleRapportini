@@ -3,22 +3,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET")
 {
 
 
-	//DB Connection
-	//connessione a MySQL con l'estensione MySQLi
-    $mysqli = new mysqli("62.149.150.245", "Sql902302", "5a6xps69a6", "Sql902302_3");
-    //}
-    // verifica dell'avvenuta connessione
-    if (mysqli_connect_errno()) {
-        //Errore
-        //echo "Errore in connessione al DBMS: ".mysqli_connect_error();
-        //Interruzione delle esecuzioni i caso di errore
-		//echo 'errore';
-        exit();
-    }
-    else
-	{
-	//echo 'Prova1';
-
+	include("connessione-db-generale.php");
 
     $user=  $_GET['u'];
     $psw= $_GET['p'];
@@ -26,8 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET")
     $qry = "SELECT * FROM Azienda_utente AU JOIN Azienda_cliente AC ON AU.ID_azienda = AC.ID_azienda WHERE username='".$user."' AND password='".$psw."';";
 
 
-      $mysqli->query('SET CHARACTER SET utf8');
-    	$result1 = $mysqli->query($qry);
+      $mysqli_generale->query('SET CHARACTER SET utf8');
+    	$result1 = $mysqli_generale->query($qry);
 
     	while($row = $result1->fetch_assoc())
 		{
@@ -40,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET")
 			$result1->close();
 		}
 
-	}
+	
 }
 ?>
 
