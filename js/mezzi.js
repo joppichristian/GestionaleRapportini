@@ -33,7 +33,7 @@ function populateList(filter){
 
 	$.ajax({
       dataType: "json",
-      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getMezzi.php?q="+ filter+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "script_php/getMezzi.php?q="+ filter+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
 	    json = data;
@@ -101,7 +101,7 @@ function deleteMezzo(){
 				animationSpeed: 1000,
 				confirm: function () {
 					$.ajax({
-				      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/deleteMezzi.php", //Relative or absolute path to response.php file
+				      url: "script_php/deleteMezzi.php", //Relative or absolute path to response.php file
 				      type:"POST",
 				      data:{'id': id,'db':getCookie('nomeDB')},
 				      success: function(data) {
@@ -140,7 +140,7 @@ function modifyMezzo(){
 	var note = $("#form_note").val();
 
 	$.ajax({
-	     url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/updateMezzi.php", //Relative or absolute path to response.php file
+	     url: "script_php/updateMezzi.php", //Relative or absolute path to response.php file
 	      type:"POST",
 	      async:false,
 	      data:{

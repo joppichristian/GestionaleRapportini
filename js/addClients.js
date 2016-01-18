@@ -47,7 +47,7 @@ function addCliente(){
 		var tipologia = $("#tipologia").val();
 		
 		$.ajax({
-	      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/postClients.php", //Relative or absolute path to response.php file
+	      url: "script_php/postClients.php", //Relative or absolute path to response.php file
 	      type:"POST",
 	      async:false,
 	      data:{

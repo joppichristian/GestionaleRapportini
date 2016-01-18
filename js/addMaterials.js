@@ -22,7 +22,7 @@ function addMateriale(){
 		var costo = $("#costo").val();
 		var note = $("#note").val();
 		$.ajax({
-	      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/postMaterials.php", //Relative or absolute path to response.php file
+	      url: "script_php/postMaterials.php", //Relative or absolute path to response.php file
 	      type:"POST",
 	      async:false,
 	      data:{

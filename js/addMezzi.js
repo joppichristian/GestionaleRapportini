@@ -21,7 +21,7 @@ function addMezzo(){
 		var costo = $("#costo").val();
 		var note = $("#note").val();
 		$.ajax({
-	      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/postMezzi.php", //Relative or absolute path to response.php file
+	      url: "script_php/postMezzi.php", //Relative or absolute path to response.php file
 	      type:"POST",
 	      async:false,
 	      data:{

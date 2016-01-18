@@ -33,7 +33,7 @@ $(document).ready(function() {
 function populateList(filter){
 	$.ajax({
       dataType: "json",
-      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getEmployee.php?q="+ filter+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "script_php/getEmployee.php?q="+ filter+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
 	    json = data;
@@ -103,7 +103,7 @@ function deleteDipendente(){
 				animationSpeed: 1000,
 				confirm: function () {
 					$.ajax({
-				      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/deleteEmployee.php", //Relative or absolute path to response.php file
+				      url: "script_php/deleteEmployee.php", //Relative or absolute path to response.php file
 				      type:"POST",
 				      data:{'id': id,'db':getCookie('nomeDB')},
 				      success: function(data) {
@@ -146,7 +146,7 @@ function modifyDipendente(){
 	var note = $("#form_note").val();
 
 	$.ajax({
-	     url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/updateEmployee.php", //Relative or absolute path to response.php file
+	     url: "script_php/updateEmployee.php", //Relative or absolute path to response.php file
 	      type:"POST",
 	      async:false,
 	      data:{

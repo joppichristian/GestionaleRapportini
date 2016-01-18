@@ -23,7 +23,7 @@ function addDipendente(){
 		var note = $("#note").val();
 		
 		$.ajax({
-	      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/postEmployee.php", //Relative or absolute path to response.php file
+	      url: "script_php/postEmployee.php", //Relative or absolute path to response.php file
 	      type:"POST",
 	      async:false,
 	      data:{
