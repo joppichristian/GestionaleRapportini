@@ -3,10 +3,12 @@ var response;
 $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
+
 	$("#invia_dati").on("click",function(){
 		addDipendente();
-
 	});
+	populateGroups();
+
 });
 
 
@@ -20,8 +22,8 @@ function addDipendente(){
 		var telefono = $("#telephone").val();
 		var cellulare = $("#mobile").val();
 		var iban = $("#iban").val();
+		var classe_pr = $("#privilegi").val();
 		var note = $("#note").val();
-		
 		$.ajax({
 	      url: "script_php/postEmployee.php", //Relative or absolute path to response.php file
 	      type:"POST",
@@ -33,6 +35,8 @@ function addDipendente(){
 		      'cellulare':cellulare,
 		      'iban':iban,
 		      'note':note,
+		      'classe_pr':classe_pr,
+		      'azienda':getCookie('id_azienda'),
 		      'db':getCookie('nomeDB')
 
 		   },
@@ -47,4 +51,26 @@ function addDipendente(){
 			}
 		});		
 		return false;
+}
+function populateGroups(){
+	$.ajax({
+      dataType: "json",
+      url: "script_php/getGroups.php?db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      data:"",
+      success: function(data) {
+	      if(data != null){
+		      console.log(data);
+			  for(var i=0;i<data.length;i++){
+		      	$("select").append('<option value='+data[i]['id']+' class="blue-text">'+data[i]['descrizione']+'</option>');
+		      }
+		      $('select').material_select();
+
+	      }
+	  },
+      error: function(xhr){
+	     console.log(xhr.status);
+        return false;
+      }
+    });
+
 }
