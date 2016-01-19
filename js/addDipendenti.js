@@ -17,6 +17,10 @@ function addDipendente(){
 			Materialize.toast('Nome e Cognome obbligatori', 2000);
 			return false;
 		}
+		if($("#username").val() == "" || $("#password").val() == ""){
+			Materialize.toast('Username e Password obbligatori', 2000);
+			return false;
+		}
 		var nome = $("#nome").val();
 		var cognome = $("#cognome").val();
 		var telefono = $("#telephone").val();
@@ -24,6 +28,8 @@ function addDipendente(){
 		var iban = $("#iban").val();
 		var classe_pr = $("#privilegi").val();
 		var note = $("#note").val();
+		var username = $("#username").val();
+		var password = $("#password").val();
 		$.ajax({
 	      url: "script_php/postEmployee.php", //Relative or absolute path to response.php file
 	      type:"POST",
@@ -37,6 +43,8 @@ function addDipendente(){
 		      'note':note,
 		      'classe_pr':classe_pr,
 		      'azienda':getCookie('id_azienda'),
+		      'username':username,
+		      'password':password,
 		      'db':getCookie('nomeDB')
 
 		   },
@@ -59,7 +67,6 @@ function populateGroups(){
       data:"",
       success: function(data) {
 	      if(data != null){
-		      console.log(data);
 			  for(var i=0;i<data.length;i++){
 		      	$("select").append('<option value='+data[i]['id']+' class="blue-text">'+data[i]['descrizione']+'</option>');
 		      }

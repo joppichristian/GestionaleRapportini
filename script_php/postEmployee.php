@@ -14,6 +14,8 @@
 				$iban = str_replace("'", "\'",$_POST['iban']);
 				$note = str_replace("'", "\'",$_POST['note']);
 				$classe_pr = $_POST['classe_pr'];
+				$username = $_POST['username'];
+				$password = $_POST['password'];
 				$id_azienda = $_POST['azienda'];
 				
 			/*
@@ -41,7 +43,7 @@
 					$insertId = $mysqli->insert_id;
 					include 'connessione-db-generale.php';
 					
-					$sql = "INSERT INTO Azienda_utente (username,password,ID_Azienda,ID_dipendente,classe_privilegi) VALUES ('".strtolower($nome.".".$cognome)."','aaaaaaaa',".$id_azienda.",".$insertId.",".$classe_pr.");" ;
+					$sql = "INSERT INTO Azienda_utente (username,password,ID_Azienda,ID_dipendente,classe_privilegi) VALUES ('".$username."','".$password."',".$id_azienda.",".$insertId.",".$classe_pr.");" ;
 					$mysqli_generale->query('SET CHARACTER SET utf8');
 
 					if (!mysqli_query($mysqli_generale,$sql)){
