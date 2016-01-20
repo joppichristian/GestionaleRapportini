@@ -35,6 +35,18 @@ $(document).ready(function(){
 	});
 	$('#complete').click(function(){
 		if($('#ora_inizio').val() != '' && $('#ora_fine').val() != '' && $('#pausa').val() >= 0 && $('#pausa').val() <= 120 ){
+			var spl = $('#ora_inizio').val().split(':');
+			if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || spl.length!=2)
+			{
+				Materialize.toast("Ora di inizio non valida...utilizza hh:mm!",2000);	
+				return false;
+			}
+			spl = $('#ora_fine').val().split(':');
+			if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || spl.length!=2)
+			{
+				Materialize.toast("Ora di fine non valida...utilizza hh:mm!",2000);	
+				return false;
+			}
 			aggiungiRapportino();
 		}
 		else
@@ -60,17 +72,6 @@ $(document).ready(function(){
 	populateListMezzi("");	
 	$(".mezzi").hide();
 	$(".materiali").hide();
-	$("#time_now_inizio").click(function(){
-		now = new Date();
-		$("#ora_inizio").val(now.getHours()+':'+now.getMinutes());
-		$("#ora_inizio").focus();
-	});
-	$("#time_now_fine").click(function(){
-		now = new Date();
-		$("#ora_fine").val(now.getHours()+':'+now.getMinutes());
-		$("#ora_fine").focus();
-
-	});
 	$("#show_materiali").click(function(){
 		$(".materiali").show();
 		$(".mezzi").hide();
@@ -86,6 +87,14 @@ $(document).ready(function(){
 	$("#conferma_mezzi").click(function(){
 		$(".mezzi").hide();
 		console.log(mezzi_selezionati);
+	});
+	$('#ora_inizio').on('input',function(){
+		if($('#ora_inizio').val().length == 2)
+			$('#ora_inizio').val($('#ora_inizio').val()+':');
+	});
+	$('#ora_fine').on('input',function(){
+		if($('#ora_fine').val().length == 2)
+			$('#ora_fine').val($('#ora_fine').val()+':');
 	});
 })
 
