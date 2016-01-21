@@ -27,6 +27,8 @@ $(document).ready(function(){
 			document.getElementById("data_fine").value=ultimoG;
     });
 
+		
+
     var stato_p_list=0;
     var stato_new_p_list=0;
     var stato_materiali=0;
@@ -78,7 +80,7 @@ function populateRapportino(filter){
 
 	$.ajax({
       dataType: "json",
-      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getRapportinoCliente.php?q="+q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "script_php/getRapportinoCliente.php?q="+q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
 			async:false,
       success: function(data) {
@@ -107,25 +109,26 @@ function populateRapportino(filter){
 
 					var dataDb = returnRangeDate(dataD);
 					if(dataDb == true){
-
+						dataTot= data[i]['inizio'];
 						var f = data[i]['fine'];
 						var o =differenzaOre(dataTot, f);
 						var p =data[i]['pausa'];
 						var diff_lavoro = o-p;
+
+						//alert("diff : "+diff_lavoro +"  ore_totali_range: "+ore_totali_range );
 						ore_totali_range = ore_totali_range + diff_lavoro;
-						alert("diff : "+o +"  ore_totali_range: "+ore_totali_range );
-						document.getElementById("ore_tot").innerHTML = "RIEPILOGO ORE: "+ore_totali_range;
+						settaOra(ore_totali_range);
 
 						if(myDate==oldDate){
 							elementi[i] = document.createElement('li');
 			        elementi[i].className ="collection-item avatar no_see";
-							elementi[i].innerHTML = '<i class="green accent-4 material-icons circle">access_time</i><span class="title">Data : '+myDate+ '</span><p>Ore Totali : 5</p><a style="position: absolute; top: 16px; right: 5%;" class="btn-floating red"><i class=" dettaglio_list large mdi-navigation-menu"></i></a>';
+							elementi[i].innerHTML = '<i class="green accent-4 material-icons circle">access_time</i><span class="title">Data : '+myDate+ '</span><p>Ore Totali : 5</p><div align="right"><a style="right: 5%;" class="btn-floating red"><i class=" dettaglio_list large mdi-navigation-menu"></i></a></divZ';
 							$("#lista_rap").append(elementi[i]);
 
 						}else{
 							elementi[i] = document.createElement('li');
 			        elementi[i].className ="collection-item avatar";
-							elementi[i].innerHTML = '<i class="green accent-4 material-icons circle">access_time</i><span class="title">Data : '+myDate+ '</span><p>Ore Totali : 5</p><a style="position: absolute; top: 16px; right: 5%;" class="btn-floating red"><i class=" dettaglio_list large mdi-navigation-menu"></i></a>';
+							elementi[i].innerHTML = '<i class="green accent-4 material-icons circle">access_time</i><span class="title">Data : '+myDate+ '</span><p>Ore Totali : 5</p><div align="right"><a style="right: 5%;" class="btn-floating red"><i class=" dettaglio_list large mdi-navigation-menu"></i></a></div>';
 							$("#lista_rap").append(elementi[i]);
 						}
 						cont_index = cont_index+1;
@@ -154,6 +157,11 @@ function populateRapportino(filter){
 
 }
 
+function settaOra(ore){
+	document.getElementById("ore_tot").innerHTML = "RIEPILOGO ORE: "+ore;
+	//alert("ore totali "+ore);
+}
+
 function dataGiorni(data){
 	var dataTot= data;
 	var dataS = dataTot.split(' ');
@@ -173,7 +181,7 @@ function populateRapportinoVuoto(filter){
 		alert("allorha"+q);
 	$.ajax({
       dataType: "json",
-      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getRapportinoClienteVuoto.php?q="+q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "script_php/getRapportinoClienteVuoto.php?q="+q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
 			async:false,
       success: function(data) {
@@ -212,7 +220,7 @@ function explodeRapportino(rapportino){
 function creazioneListaRapportino(cliente, dipendente, giorno){
 	$.ajax({
 			dataType: "json",
-			url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getSingoloRapportino.php?c="+cliente+"&d="+dipendente+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+			url: "script_php/getSingoloRapportino.php?c="+cliente+"&d="+dipendente+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
 			data:"",
 			async:false,
 			success: function(data) {
@@ -234,21 +242,21 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 								elementi[i] = document.createElement('li');
 								elementi[i].className ="grey lighten-3 collection-item avatar";
 								var nomeD = datiDipendente(data[i]['id_dipendente']);
-								var ele_dip = '<label class="orange-text" for="ora_inizio">Dipendente</label><input id="dipendente" type="text" name="dipendente" class="validate" value="'+nomeD+'" >';
+								var ele_dip = '<label class="orange-text" for="ora_inizio">Dipendente</label><input  id="dipendente" type="text" name="dipendente" class="validate" value="'+nomeD+'" >';
 								var inizio = data[i]['inizio'];
 								var orai = formatotempo(inizio);
-								var ele_ini = '<label class="orange-text" for="ora_inizio">Ora Inizio</label><input id="ora_inizio" type="text" name="ora_inizio" class="validate" value="'+orai+'" >';
+								var ele_ini = '<label class="orange-text" for="ora_inizio">Ora Inizio</label><input  id="ora_inizio" type="text" name="ora_inizio" class="validate" value="'+orai+'" >';
 								var fine = data[i]['fine'];
 								var oraf = formatotempo(fine);
-								var ele_fine = '<label class="orange-text" for="ora_inizio">Ora Fine</label><input id="ora_fine" type="text" name="ora_fine" class="validate" value="'+oraf+'">';
+								var ele_fine = '<label class="orange-text" for="ora_inizio">Ora Fine</label><input  id="ora_fine" type="text" name="ora_fine" class="validate" value="'+oraf+'">';
 								var pausa = data[i]['pausa'];
-								var ele_pausa ='<label class="orange-text" for="ora_inizio">Pausa</label><input id="pausa" type="text" name="pausa" class="validate" value="'+pausa+'">';
+								var ele_pausa ='<label class="orange-text" for="ora_inizio">Pausa</label><input  id="pausa" type="text" name="pausa" class="validate" value="'+pausa+'">';
 								var diff =differenzaOre(inizio, fine);
 								var diff_lavoro = diff-pausa;
-								var ele_ore = '<label class="orange-text" for="ora_inizio">ORE TOTALI DI LAVORO</label><input id="ore_tot" type="text" name="ora_tot" class="validate" value="'+diff_lavoro+'">';
+								var ele_ore = '<label class="orange-text" for="ora_inizio">ORE TOTALI DI LAVORO</label><input disabled id="ore_tot" type="text" name="ora_tot" class="validate" value="'+diff_lavoro+'">';
 								var note = data[i]['note'];
-								var ele_desc = '<label class="orange-text" for="ora_inizio">Descrizione</label><input id="descrizione" type="text" name="descrizione" class="validate" value="'+note+'">';
-								var ele = '<a class="btn-floating red"><i class="large material-icons">mode_edit</i></a><a class="btn-floating red"><i class="large material-icons">delete</i></a>';
+								var ele_desc = '<label class="orange-text" for="ora_inizio">Descrizione</label><input  id="descrizione" type="text" name="descrizione" class="validate" value="'+note+'">';
+								var ele = '<a class="btn-floating red"><i class="edit_rap large material-icons">mode_edit</i></a><a class="btn-floating red"><i class="delete_rap large material-icons">delete</i></a>';
 								var tot_ele = ele_dip+ele_ini+ele_fine+ele_pausa+ele_ore+ele_desc+ele;
 								elementi[i].innerHTML = tot_ele;
 								$("#lista_singolo_rap").append(elementi[i]);
@@ -256,6 +264,18 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 
 						}
 					}
+
+					$(".edit_rap").click(function(){
+						index = $(".edit_rap").index(this);
+						//href="javascript:#modal1";
+						$('#modal1').openModal();
+						//alert("edit_rap ---index of element click: "+data[index]['id']);
+					});
+					$(".delete_rap").click(function(){
+						index = $(".delete_rap").index(this);
+						$('#modal2').openModal();
+						//alert("delete_rap ---index of element click: "+data[index]['id_dipendente']);
+					});
 					/*
 					id = data[0]['id'];
 					explodeRapportino(data[0]);
@@ -297,10 +317,10 @@ function formatotempo(tempo){
 }
 function datiDipendente(id){
 	var nome="";
-	//alert("http://www.trentinoannuncia.com/portale_artigiani/script_php/getDipendente.php?id="+id+"&db="+getCookie('nomeDB'));
+	//alert("script_php/getDipendente.php?id="+id+"&db="+getCookie('nomeDB'));
 		$.ajax({
 	      dataType: "json",
-	      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getDipendente.php?id="+id+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+	      url: "script_php/getDipendente.php?id="+id+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
 	      data:"",
 				async:false,
 	      success: function(data) {

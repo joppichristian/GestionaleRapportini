@@ -16,8 +16,9 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
   <!--<script src="js/clients.js" type="text/javascript" ></script>-->
 
  <script src="js/rapportino.js" ></script>
- <script src="js/getCookie.js" type="text/javascript" ></script>
+ <script src="js/manageCookie.js" type="text/javascript" ></script>
  <script src="js/dettaglio_rapportino.js" type="text/javascript" ></script>
+ <script src="js/aggiungi_rapportino.js" type="text/javascript" ></script>
 
 </head>
 
@@ -27,7 +28,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
   <nav class="section orange">
     <div class="nav-wrapper">
       <div class="col s12">
-        <a href="menu_page.html" class="breadcrumb">Home</a>
+        <a href="dashboard.html" class="breadcrumb">Home</a>
         <a href="rapportini.html" class="breadcrumb">Rapportini</a>
         <a href="#!" class="breadcrumb">Dettaglio</a>
       </div>
@@ -77,20 +78,155 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
     <div class="row">
 
 
+         <div class="col s12 m12">
+           <div class="card">
+             <div class="card-content">
+               <!--<span>Aggiungi nuova giornata </span><a id="pulsante_list" style="position: absolute; top: 16px; right: 5%;" class="btn-floating red"><i class="material-icons">add</i></a>-->
+               <ul class="collection">
+                 <li class="collection-item avatar">
+                       <label class="orange-text" for="ora_inizio">Nuovo Rapportino</label>
+                       <p>Clicca sul pulsante e compila i campi</p>
+                       <a id="add_list" style="position: absolute; top: 16px; right: 5%;" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>
+                       <!--<i class="material-icons circle">access_time</i>-->
+                 </li>
 
-      <div class="section list col s12 m6 l4" style="max-height: 65%;">
 
-        <div class="row">
-           <div class="col s12 m12">
-             <div class="card">
-               <div class="card-content">
-                 <span>Aggiungi nuova giornata </span><a id="pulsante_list" style="position: absolute; top: 16px; right: 5%;" class="btn-floating red"><i class="material-icons">add</i></a>
+                 <li id="new_insert_item" class="grey lighten-3 collection-item avatar">
 
-                </div>
-             </div>
+                      <label class="orange-text" for="ora_inizio">Tipologia ore</label>
+                      <form action="#">
+                            <p>
+                              <br>
+                              <input class="with-gap" name="group1" type="radio" id="test1" checked="checked"/>
+                              <label for="test1">Lavoro</label>
+                              <input class="with-gap" name="group1" type="radio" id="test2" />
+                              <label for="test2">Ferie</label>
+                              <input class="with-gap" name="group1" type="radio" id="test3"  />
+                              <label for="test3">Didattiche</label>
+                              <input class="with-gap" name="group1" type="radio" id="test4" />
+                              <label for="test4">Malattie</label>
+                              <input class="with-gap" name="group1" type="radio" id="test5" />
+                              <label for="test5">Altro</label>
+                              <br>
+                            </p>
+                       </form>
+
+                       <label class="orange-text" for="data">Giorno</label>
+                       <input id="nuovo_giorno" type="text" name="nuovo_giorno" class="validate">
+
+                       <label class="orange-text" for="ora_inizio">Ora Inizio</label>
+                       <input id="nuovo_ora_inizio" type="text" name="nuovo_ora_inizio" class="validate">
+
+                       <label class="orange-text" for="ora_inizio">Ora Fine</label>
+                       <input id="nuovo_ora_fine" type="text" name="nuovo_ora_fine" class="validate">
+
+                       <label class="orange-text" for="ora_inizio">Pausa</label>
+                       <input id="nuovo_pausa" type="text" name="nuovo_pausa" class="validate">
+
+                       <label class="orange-text" for="ora_inizio">Descrizione</label>
+                       <input id="nuovo_descrizione" type="text" name="nuovo_descrizione" class="validate">
+
+                       <label class="orange-text" for="data">Dipendente</label><br><br>
+                       <label class="grey-text" for="data">Aggiungi dipendente  </label>
+                       <a id="aggiungi_dip" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>
+                       <br><br>
+                        <!--inizio dipendente-->
+                       <div class="col s12 m12 l12" id="sezione_dipendenti" >
+                         <div class="col s10 m10 l10" style="background-color:white;">
+                         <div class="section list col s12 m12 l12">
+                  	  	    <form>
+                  		        <div class="input-field">
+                  		          <input id="search_dip" type="text" required>
+                  		          <label for="search"><i class="material-icons orange-text">search</i></label>
+                  		         </div>
+                  		        </form>
+                  	  	  </div>
+                  	  	  <div class="section list col s12 m12 l12" style="max-height: 45%;">
+                  		       <ul class="col s12 m12 l12 collection with-header" id="elenco_dip" ></ul>
+                  	  	  </div>
+                        </div>
+                       </div>
+
+                        <!--fine dipendente-->
+
+                        <div id="lista_sel_dip">
+                        </div>
+
+                        <br>
+
+
+                       <label class="orange-text" for="data">Materiale</label><br><br>
+                       <label class="grey-text" for="data">Aggiungi materiale  </label>
+                       <a id="aggiungi_mat" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>
+                       <br><br>
+                        <!--inizio materiale-->
+                        <div class="col s12 m12 l12" id="sezione_mat" class="row section materiali">
+                          <div class="col s10 m10 l10" style="background-color:white;">
+                              <div class="input-field col s12 m12 l12">
+                                 <i class="material-icons prefix purple-text">keyboard_arrow_right</i>
+                                 <input id="quantita_materiale" type="text" value="1" name="quantita" class="validate">
+                                 <label class="purple-text" for="quantita_materiale">Quantit&agrave;</label>
+                              </div>
+                              <div class="input-field col s12 m12 l12">
+              							      <input id="search_materiale" type="text" required>
+              							      <label for="search_materiale"><i class="material-icons purple-text">search</i></label>
+              						    </div>
+                              <div class="section list col s12 m12 l12" style="height: 35%;">
+              							      <ul class="col s12 m12 l12 collection with-header" id="elenco_materiali" ></ul>
+              						    </div>
+                          </div>
+
+              						 <!--<div class="input-field col s12" style="text-align: right;margin-bottom: 2%;">
+              					        <button class="btn waves-effect waves-light purple white-text" id="conferma_materiali" type="button" >
+              					               <i class="material-icons right">done</i>
+              							    </button>
+              			       </div>-->
+              					</div>
+
+                        <!--fine materiale-->
+
+                        <div class="row section" id="elenco_utilizzi_materiali">
+                			 
+                			  </div>
+                        <br>
+                        <div align="right">
+                            <a class="btn-floating red" style=" right: 5%;"><i class="large material-icons">done</i></a>
+                        </div>
+                       <!--<span class="title">Data :</span>
+                       <p>Ore Totali :
+                       </p>
+                        <a href="#!" style="position: absolute; top: 16px; right: 16px;" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>-->
+                   </li>
+               </ul>
+              </div>
+           </div>
+        </div>
+
+        <!-- Modifiche RAPPORTINO-->
+        <div id="modal1" class="modal">
+          <div class="modal-content">
+            <h4>Conferma Modifica</h4>
+            <p>Sei sicuro di voler confermare le modifiche che hai effettuato?</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">No</a>
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Si</a>
           </div>
         </div>
 
+        <!-- Elimina RAPPORTINO -->
+        <div id="modal2" class="modal">
+          <div class="modal-content">
+            <h4>Conferma Eliminazione</h4>
+            <p>Sei sicuro di voler eliminare il rapportino?</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">No</a>
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Si</a>
+          </div>
+        </div>
+
+      <div class="section list col s12 m6 l4" style="max-height: 100%;">
         <ul id="lista_rap" class="collection">
         </ul>
       </div>
@@ -102,44 +238,6 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
               <div class="card-content" >
                 <ul id="lista_singolo_rap" class="collection">
                 </ul>
-
-                <ul class="collection">
-                  <li class="grey lighten-2 collection-item avatar">
-                        <label class="orange-text" for="ora_inizio">Nuovo Rapportino</label>
-                        <p>Clicca sul pulsante e compila i campi</p>
-                        <a id="add_list" style="position: absolute; top: 16px; right: 5%;" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>
-                        <!--<i class="material-icons circle">access_time</i>-->
-                  </li>
-
-
-                  <li id="new_insert_item" class="grey lighten-3 collection-item avatar">
-                        <!--<i class="material-icons circle">access_time</i>-->
-                        <label class="orange-text" for="ora_inizio">Dipendente</label>
-                        <input id="ora_inizio" type="text" name="ora_inizio" class="validate"  >
-
-                        <label class="orange-text" for="ora_inizio">Ora Inizio</label>
-                        <input id="ora_inizio" type="text" name="ora_inizio" class="validate">
-
-                        <label class="orange-text" for="ora_inizio">Ora Fine</label>
-                        <input id="ora_inizio" type="text" name="ora_inizio" class="validate">
-
-                        <label class="orange-text" for="ora_inizio">Pausa</label>
-                        <input id="ora_inizio" type="text" name="ora_inizio" class="validate">
-
-                        <label class="orange-text" for="ora_inizio">Descrizione</label>
-                        <input id="ora_inizio" type="text" name="ora_inizio" class="validate">
-
-
-
-                        <a class="btn-floating red"><i class="large material-icons">done</i></a>
-
-                        <!--<span class="title">Data :</span>
-                        <p>Ore Totali :
-                        </p>
-                         <a href="#!" style="position: absolute; top: 16px; right: 16px;" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>-->
-                    </li>
-                </ul>
-
               </div>
             </div>
         </div>

@@ -8,7 +8,7 @@
 				$db = $_GET['db'];
 				include 'connessione-db.php';
 
-				$qry = "SELECT * FROM dipendenti AS d, rapportini AS r WHERE r.id_cliente='".$id_c."' AND d.id='".$id_d."';";
+				$qry = "SELECT * FROM dipendenti AS d, rapportini AS r WHERE r.id_cliente='".$id_c."' AND d.id='".$id_d."' ORDER BY inizio ASC;";
 
 				$mysqli->query('SET CHARACTER SET utf8');
 		    	$result = $mysqli->query($qry);

@@ -46,7 +46,7 @@ function populateListDipendenti(filter){
 	var q=filter;
 	$.ajax({
       dataType: "json",
-      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getEmployee.php?q="+ q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "script_php/getEmployee.php?q="+ q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
 	    json = data;
@@ -89,7 +89,7 @@ function populateListClient(filter){
 	var q=filter;
 	$.ajax({
       dataType: "json",
-      url: "http://www.trentinoannuncia.com/portale_artigiani/script_php/getClients.php?q="+ q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "script_php/getClients.php?q="+ q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
 	    json = data;

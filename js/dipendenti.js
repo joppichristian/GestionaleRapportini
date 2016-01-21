@@ -14,13 +14,13 @@ $(document).ready(function() {
 		populateList(tmp);
 	});
 	$("#modify").click( function() {
-		completaForm();	
+		completaForm();
 	});
 	$("#invia_dati").click( function() {
-		modifyDipendente();	
+		modifyDipendente();
 	});
 	$("#annulla_modify").click( function() {
-		explodeDipendente(json[0]);	
+		explodeDipendente(json[0]);
 	});
 	$("#delete").click( function() {
 		deleteDipendente();
@@ -45,7 +45,7 @@ function populateList(filter){
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item";
 	        elementi[i].innerHTML = '<div><i class="info small material-icons green-text">directions_walk</i>'+data[i]['nome']+ ' ' +data[i]['cognome']+ '<a href="#!" class="secondary-content"><i class="explode material-icons green-text">call_received</i></a></div>	';
-		   
+
 
 	    	$("#elenco").append(elementi[i]);
 
@@ -56,8 +56,8 @@ function populateList(filter){
 		explodeDipendente(data[0]);
 		$(".explode").click(function(){
 	        index = $(".explode").index(this);
-	        id = json[index]['id'];      
-	        explodeDipendente(json[index]);      
+	        id = json[index]['id'];
+	        explodeDipendente(json[index]);
         });
       },
       error: function(xhr){
@@ -77,7 +77,7 @@ function explodeDipendente(dipendente){
 	$("#cellulare").empty();
 	$("#iban").empty();
 	$("#note").empty();
-	$("#logo_dipendente").empty();	
+	$("#logo_dipendente").empty();
 	$("#logo_dipendente").append('<i id="logo_dipendente" class="large material-icons green-text">directions_walk</i>');
 	$("#nominativo").append('<div class="green-text" style="margin-left:15%;">Nominativo </div><i class="info small material-icons green-text">account_circle</i> '+dipendente['nome']+ ' '+ dipendente['cognome']);
 	if(dipendente['telefono'] != null && dipendente['telefono'] != "")
@@ -120,7 +120,7 @@ function deleteDipendente(){
 }
 
 function completaForm(){
-	
+
 	$("#modifica_dipendente").show();
 	$("#info").hide();
 	$("#form_nome").val(json[index]['nome']);
@@ -135,7 +135,7 @@ function completaForm(){
 	$("#form_note").val(json[index]['note']);
 	$("#form_note").focus();
 	$("#form_nome").focus();
-	
+
 	}
 function modifyDipendente(){
 	var nome = $("#form_nome").val();
@@ -168,5 +168,5 @@ function modifyDipendente(){
 			    return false;
 
 			}
-		});		
+		});
 }
