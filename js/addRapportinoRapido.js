@@ -89,11 +89,11 @@ $(document).ready(function(){
 		console.log(mezzi_selezionati);
 	});
 	$('#ora_inizio').on('input',function(){
-		if($('#ora_inizio').val().length == 2)
+		if(parseInt($('#ora_inizio').val()) > 2  && $('#ora_inizio').val().indexOf(':') < 0)
 			$('#ora_inizio').val($('#ora_inizio').val()+':');
 	});
 	$('#ora_fine').on('input',function(){
-		if($('#ora_fine').val().length == 2)
+		if(parseInt($('#ora_fine').val()) > 2  && $('#ora_fine').val().indexOf(':') < 0)
 			$('#ora_fine').val($('#ora_fine').val()+':');
 	});
 })
