@@ -19,6 +19,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
  <script src="js/manageCookie.js" type="text/javascript" ></script>
  <script src="js/dettaglio_rapportino.js" type="text/javascript" ></script>
  <script src="js/aggiungi_rapportino.js" type="text/javascript" ></script>
+ <script src="js/modifica_rapportino.js" type="text/javascript" ></script>
 
 </head>
 
@@ -82,7 +83,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
            <div class="card">
              <div class="card-content">
                <!--<span>Aggiungi nuova giornata </span><a id="pulsante_list" style="position: absolute; top: 16px; right: 5%;" class="btn-floating red"><i class="material-icons">add</i></a>-->
-               <ul class="collection">
+               <ul class="collection" style="border: 4px solid orange">
                  <li class="collection-item avatar">
                        <label class="orange-text" for="ora_inizio">Nuovo Rapportino</label>
                        <p>Clicca sul pulsante e compila i campi</p>
@@ -127,8 +128,9 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
                        <input id="nuovo_descrizione" type="text" name="nuovo_descrizione" class="validate">
 
                        <label class="orange-text" for="data">Dipendente</label><br><br>
-                       <label class="grey-text" for="data">Aggiungi dipendente  </label>
                        <a id="aggiungi_dip" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>
+                       <label class="grey-text" for="data">Aggiungi dipendente  </label>
+
                        <br><br>
                         <!--inizio dipendente-->
                        <div class="col s12 m12 l12" id="sezione_dipendenti" >
@@ -152,12 +154,10 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
                         <div id="lista_sel_dip">
                         </div>
 
-                        <br>
-
-
                        <label class="orange-text" for="data">Materiale</label><br><br>
-                       <label class="grey-text" for="data">Aggiungi materiale  </label>
                        <a id="aggiungi_mat" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>
+                       <label class="grey-text" for="data">Aggiungi materiale  </label>
+
                        <br><br>
                         <!--inizio materiale-->
                         <div class="col s12 m12 l12" id="sezione_mat" class="row section materiali">
@@ -176,21 +176,46 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
               						    </div>
                           </div>
 
-              						 <!--<div class="input-field col s12" style="text-align: right;margin-bottom: 2%;">
-              					        <button class="btn waves-effect waves-light purple white-text" id="conferma_materiali" type="button" >
-              					               <i class="material-icons right">done</i>
-              							    </button>
-              			       </div>-->
               					</div>
 
                         <!--fine materiale-->
 
                         <div class="row section" id="elenco_utilizzi_materiali">
-                			 
-                			  </div>
-                        <br>
+                        </div>
+
+                        <label class="orange-text" for="data">Mezzi</label><br><br>
+                        <a id="aggiungi_mezzi" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>
+                        <label class="grey-text" for="data">Aggiungi mezzi  </label>
+                        <br><br>
+                        <!--inizio mezzi-->
+                        <div class="col s12 m12 l12" id="sezione_mezzi" class="row section mezzi">
+                          <div class="col s10 m10 l10" style="background-color:white;">
+                              <div class="input-field col s12 m12 l12">
+                                  <i class="material-icons prefix purple-text">keyboard_arrow_right</i>
+                                  <input id="quantita_mezzo" type="text" name="quantita" value="1" class="validate">
+                                  <label class="purple-text" for="quantita_mezzo">Quantit&agrave;</label>
+                              </div>
+                              <div class="input-field col s12 m12 l12">
+                                  <input id="search_mezzo" type="text" required>
+                                  <label for="search_mezzo"><i class="material-icons purple-text">search</i></label>
+                              </div>
+                              <div class="section list col s12 m12 l12" style="max-height: 45%;">
+                                  <ul class="col s12 m12 l12 collection with-header" id="elenco_mezzi" ></ul>
+                              </div>
+
+                            </div>
+                        </div>
+                        <!--fine mezzi-->
+
+                        <div class="row section" id="elenco_utilizzi_mezzi">
+                        </div>
+
+                        <br>  <br>
                         <div align="right">
-                            <a class="btn-floating red" style=" right: 5%;"><i class="large material-icons">done</i></a>
+                        </button>
+                            <button style=" right: 5%;" class="btn waves-effect waves-light orange white-text" id="complete" type="button" >Inserisci
+                        </button>
+                          <!--  <a class="btn-floating red" style=" right: 5%;"><i class="large material-icons">done</i></a>-->
                         </div>
                        <!--<span class="title">Data :</span>
                        <p>Ore Totali :
@@ -203,16 +228,134 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
         </div>
 
         <!-- Modifiche RAPPORTINO-->
-        <div id="modal1" class="modal">
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal modal-fixed-footer">
           <div class="modal-content">
-            <h4>Conferma Modifica</h4>
-            <p>Sei sicuro di voler confermare le modifiche che hai effettuato?</p>
+            <h4>Modifica il Rapportino</h4>
+            <label class="orange-text" for="mod_ora_inizio">Tipologia ore</label>
+            <form action="#">
+                  <p>
+                    <br>
+                    <input class="with-gap" name="mod_group2" type="radio" id="mod_test1" checked="checked"/>
+                    <label for="mod_test1">Lavoro</label>
+                    <input class="with-gap" name="mod_group2" type="radio" id="mod_test2" />
+                    <label for="mod_test2">Ferie</label>
+                    <input class="with-gap" name="mod_group2" type="radio" id="mod_test3"  />
+                    <label for="mod_test3">Didattiche</label>
+                    <input class="with-gap" name="mod_group2" type="radio" id="mod_test4" />
+                    <label for="mod_test4">Malattie</label>
+                    <input class="with-gap" name="mod_group2" type="radio" id="mod_test5" />
+                    <label for="mod_test5">Altro</label>
+                    <br>
+                  </p>
+             </form>
+
+             <label class="orange-text" for="data">Giorno</label>
+             <input id="mod_nuovo_giorno" type="text" name="mod_nuovo_giorno" class="validate">
+
+             <label class="orange-text" for="ora_inizio">Ora Inizio</label>
+             <input id="mod_nuovo_ora_inizio" type="text" name="mod_nuovo_ora_inizio" class="validate">
+
+             <label class="orange-text" for="ora_inizio">Ora Fine</label>
+             <input id="mod_nuovo_ora_fine" type="text" name="mod_nuovo_ora_fine" class="validate">
+
+             <label class="orange-text" for="ora_inizio">Pausa</label>
+             <input id="mod_nuovo_pausa" type="text" name="mod_nuovo_pausa" class="validate">
+
+             <label class="orange-text" for="ora_inizio">Descrizione</label>
+             <input id="mod_nuovo_descrizione" type="text" name="mod_nuovo_descrizione" class="validate">
+
+             <label class="orange-text" for="data">Dipendente</label><br><br>
+             <a id="mod_aggiungi_dip" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>
+             <label class="grey-text" for="data">Aggiungi dipendente  </label>
+
+             <br><br>
+              <!--inizio dipendente-->
+             <div class="col s12 m12 l12" id="mod_sezione_dipendenti" >
+               <div class="col s10 m10 l10" style="background-color:white;">
+               <div class="section list col s12 m12 l12">
+                  <form>
+                    <div class="input-field">
+                      <input id="mod_search_dip" type="text" required>
+                      <label for="search"><i class="material-icons orange-text">search</i></label>
+                     </div>
+                    </form>
+                </div>
+                <div class="section list col s12 m12 l12" style="max-height: 45%;">
+                   <ul class="col s12 m12 l12 collection with-header" id="mod_elenco_dip" ></ul>
+                </div>
+              </div>
+             </div>
+
+              <!--fine dipendente-->
+
+              <div id="mod_lista_sel_dip">
+              </div>
+
+             <label class="orange-text" for="data">Materiale</label><br><br>
+             <a id="mod_aggiungi_mat" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>
+             <label class="grey-text" for="data">Aggiungi materiale  </label>
+
+             <br><br>
+              <!--inizio materiale-->
+              <div class="col s12 m12 l12" id="mod_sezione_mat" class="row section materiali">
+                <div class="col s10 m10 l10" style="background-color:white;">
+                    <div class="input-field col s12 m12 l12">
+                       <i class="material-icons prefix purple-text">keyboard_arrow_right</i>
+                       <input id="mod_quantita_materiale" type="text" value="1" name="mod_quantita" class="validate">
+                       <label class="purple-text" for="quantita_materiale">Quantit&agrave;</label>
+                    </div>
+                    <div class="input-field col s12 m12 l12">
+                        <input id="mod_search_materiale" type="text" required>
+                        <label for="search_materiale"><i class="material-icons purple-text">search</i></label>
+                    </div>
+                    <div class="section list col s12 m12 l12" style="height: 35%;">
+                        <ul class="col s12 m12 l12 collection with-header" id="mod_elenco_materiali" ></ul>
+                    </div>
+                </div>
+
+              </div>
+
+              <!--fine materiale-->
+
+              <div class="row section" id="mod_elenco_utilizzi_materiali">
+              </div>
+
+              <label class="orange-text" for="data">Mezzi</label><br><br>
+              <a id="mod_aggiungi_mezzi" class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>
+              <label class="grey-text" for="data">Aggiungi mezzi  </label>
+              <br><br>
+              <!--inizio mezzi-->
+              <div class="col s12 m12 l12" id="mod_sezione_mezzi" class="row section mezzi">
+                <div class="col s10 m10 l10" style="background-color:white;">
+                    <div class="input-field col s12 m12 l12">
+                        <i class="material-icons prefix purple-text">keyboard_arrow_right</i>
+                        <input id="mod_quantita_mezzo" type="text" name="mod_quantita" value="1" class="validate">
+                        <label class="purple-text" for="quantita_mezzo">Quantit&agrave;</label>
+                    </div>
+                    <div class="input-field col s12 m12 l12">
+                        <input id="mod_search_mezzo" type="text" required>
+                        <label for="search_mezzo"><i class="material-icons purple-text">search</i></label>
+                    </div>
+                    <div class="section list col s12 m12 l12" style="max-height: 45%;">
+                        <ul class="col s12 m12 l12 collection with-header" id="mod_elenco_mezzi" ></ul>
+                    </div>
+
+                  </div>
+              </div>
+              <!--fine mezzi-->
+
+              <div class="row section" id="mod_elenco_utilizzi_mezzi">
+              </div>
+
+              <br>
           </div>
           <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">No</a>
-            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Si</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Annulla</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Conferma</a>
           </div>
         </div>
+        <!--FINE Elimina RAPPORTINO-->
 
         <!-- Elimina RAPPORTINO -->
         <div id="modal2" class="modal">
@@ -237,6 +380,19 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
             <div class="card">
               <div class="card-content" >
                 <ul id="lista_singolo_rap" class="collection">
+
+                  <!--<div class="row">
+
+                      <div class="orange col s12" style="padding:2%;"><font color="white">Dipendente: </font></div>
+                      <div class="col s6" style="padding:2%;"><font color="orange">Ora inizio: </font></div>
+                      <div class="col s6" style="padding:2%;"><font color="orange">Ora fine: </font></div>
+                      <div class="orange col s6" style="padding:2%;"><font color="white">Ore Totali: </font></div>
+                      <div class="orange col s6" style="padding:2%;"><font color="white">Pausa: </font></div>
+                      <div class="col s12" style="padding:2%;"><font color="orange">Descrizione: </font></div>
+                      <div class="orange col s12" style="padding:2%;"><font color="white">Materiali: </font></div>
+                      <div class="col s12"style="padding:2%;"><font color="orange">Mezzi: </font></div>
+
+                  </div>-->
                 </ul>
               </div>
             </div>
@@ -246,18 +402,60 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
     </div>
 
     <div class="row">
-       <div class="col s12 m12">
+      <div class="col s6 m3">
+        <div class="card">
+          <div class="card-content">
+             <p id="tipologia_ore" class="center-align">RIEPILOGO ORE</p>
+           </div>
+        </div>
+     </div>
+       <div class="col s6 m3">
          <div class="card">
            <div class="card-content">
-              <p id="ore_tot" class="center-align">RIEPILOGO ORE: --</p>
+              <p id="ore_lavoro" class="center-align">Lavoro: --</p>
             </div>
          </div>
       </div>
+      <div class="col s6 m3">
+        <div class="card">
+          <div class="card-content">
+             <p id="ore_ferie" class="center-align">Ferie: --</p>
+           </div>
+        </div>
+     </div>
+     <div class="col s6 m3">
+       <div class="card">
+         <div class="card-content">
+            <p id="ore_didattica" class="center-align">Didattica: --</p>
+          </div>
+       </div>
+    </div>
+    <div class="col s6 m3">
+      <div class="card">
+        <div class="card-content">
+           <p id="ore_malattie" class="center-align">Malattie: --</p>
+         </div>
+      </div>
+   </div>
+   <div class="col s6 m3">
+     <div class="card">
+       <div class="card-content">
+          <p id="ore_altro" class="center-align">Altro: --</p>
+        </div>
+     </div>
+  </div>
+  <div class="col s12 m6">
+    <div class="orange card">
+      <div class="card-content">
+         <p id="ore_tot" class="center-align">Totale ORE: --</p>
+       </div>
+    </div>
+ </div>
     </div>
 
     <div class="row">
        <div class="col s12 m12">
-         <div class="card">
+         <div class=" card">
             <div class="card-content">
               <p class="center-align">RIEPILOGO MATERIALI</p> <a id="pulsante_materiali" style="position: absolute; top: 16px; right: 5%;" class="btn-floating red"><i class="large mdi-navigation-menu"></i></a>
             </div>

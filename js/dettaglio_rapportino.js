@@ -2,7 +2,7 @@ var json = new Array();
 var index=0;
 var id=0;
 var id_utente="";
-
+var id_rap="";
 
 $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
@@ -27,7 +27,7 @@ $(document).ready(function(){
 			document.getElementById("data_fine").value=ultimoG;
     });
 
-		
+
 
     var stato_p_list=0;
     var stato_new_p_list=0;
@@ -158,7 +158,7 @@ function populateRapportino(filter){
 }
 
 function settaOra(ore){
-	document.getElementById("ore_tot").innerHTML = "RIEPILOGO ORE: "+ore;
+	document.getElementById("ore_tot").innerHTML = "ORE TOTALI: "+ore;
 	//alert("ore totali "+ore);
 }
 
@@ -242,6 +242,27 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 								elementi[i] = document.createElement('li');
 								elementi[i].className ="grey lighten-3 collection-item avatar";
 								var nomeD = datiDipendente(data[i]['id_dipendente']);
+/*
+										<div class="orange col s12" style="padding:2%;"><font color="white">Materiali: </font></div>
+										<div class="col s12"style="padding:2%;"><font color="orange">Mezzi: </font></div>
+*/
+								var ele_dip = '<i class="orange accent-4 material-icons circle">access_time</i><div class="row"><div class="orange col s12" style="padding:2%;"><font color="white">Dipendente:  </font>'+nomeD+'</div>';
+								var inizio = data[i]['inizio'];
+								var orai = formatotempo(inizio);
+								var ele_ini = '<div class="col s6" style="padding:2%;"><font color="orange">Ora inizio:  </font>'+orai+'</div>';
+								var fine = data[i]['fine'];
+								var oraf = formatotempo(fine);
+								var ele_fine = '<div class="col s6" style="padding:2%;"><font color="orange">Ora inizio:  </font>'+oraf+'</div>';
+								var pausa = data[i]['pausa'];
+								var ele_pausa ='<div class="orange col s6" style="padding:2%;"><font color="white">Pausa:  </font>'+pausa+'</div>';
+								var diff =differenzaOre(inizio, fine);
+								var diff_lavoro = diff-pausa;
+								var ele_ore = '<div class="orange col s6" style="padding:2%;"><font color="white">ORE TOTALI:  </font><b>'+diff_lavoro+'</b></div>';
+								var note = data[i]['note'];
+								var ele_desc = '<div class="col s12" style="padding:2%;"><font color="orange">Descrizione:  </font>'+note+'</div>';
+								var ele = '</div><a class="btn-floating red"><i class="edit_rap large material-icons">mode_edit</i></a><a style="margin-left:2%;" class="btn-floating red"><i class="delete_rap large material-icons">delete</i></a>';
+
+								/*
 								var ele_dip = '<label class="orange-text" for="ora_inizio">Dipendente</label><input  id="dipendente" type="text" name="dipendente" class="validate" value="'+nomeD+'" >';
 								var inizio = data[i]['inizio'];
 								var orai = formatotempo(inizio);
@@ -257,6 +278,7 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 								var note = data[i]['note'];
 								var ele_desc = '<label class="orange-text" for="ora_inizio">Descrizione</label><input  id="descrizione" type="text" name="descrizione" class="validate" value="'+note+'">';
 								var ele = '<a class="btn-floating red"><i class="edit_rap large material-icons">mode_edit</i></a><a class="btn-floating red"><i class="delete_rap large material-icons">delete</i></a>';
+								*/
 								var tot_ele = ele_dip+ele_ini+ele_fine+ele_pausa+ele_ore+ele_desc+ele;
 								elementi[i].innerHTML = tot_ele;
 								$("#lista_singolo_rap").append(elementi[i]);
@@ -267,8 +289,13 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 
 					$(".edit_rap").click(function(){
 						index = $(".edit_rap").index(this);
-						//href="javascript:#modal1";
+						id_rap= data[index]['id'];
+						//localStorage.setItem("id_rapportino",""+id_rap);
+						//alert("id_rap : "+id_rap);
+						//alert("indice del pulsante modifica cliccato"+index);
 						$('#modal1').openModal();
+						setVarRapp(id_rap);
+
 						//alert("edit_rap ---index of element click: "+data[index]['id']);
 					});
 					$(".delete_rap").click(function(){
