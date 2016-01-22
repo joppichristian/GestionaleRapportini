@@ -122,13 +122,13 @@ function populateRapportino(filter){
 						if(myDate==oldDate){
 							elementi[i] = document.createElement('li');
 			        elementi[i].className ="collection-item avatar no_see";
-							elementi[i].innerHTML = '<i class="green accent-4 material-icons circle">access_time</i><span class="title">Data : '+myDate+ '</span><p>Ore Totali : 5</p><div align="right"><a style="right: 5%;" class="btn-floating red"><i class=" dettaglio_list large mdi-navigation-menu"></i></a></divZ';
+							elementi[i].innerHTML = '<i class="orange accent-4 material-icons circle">access_time</i><span class="title">Data : '+myDate+ '</span><p>Ore Totali : 5</p><div align="right"><a style="right: 5%;" class="btn-floating orange"><i class=" dettaglio_list large mdi-navigation-menu"></i></a></divZ';
 							$("#lista_rap").append(elementi[i]);
 
 						}else{
 							elementi[i] = document.createElement('li');
 			        elementi[i].className ="collection-item avatar";
-							elementi[i].innerHTML = '<i class="green accent-4 material-icons circle">access_time</i><span class="title">Data : '+myDate+ '</span><p>Ore Totali : 5</p><div align="right"><a style="right: 5%;" class="btn-floating red"><i class=" dettaglio_list large mdi-navigation-menu"></i></a></div>';
+							elementi[i].innerHTML = '<i class="orange accent-4 material-icons circle">access_time</i><span class="title">Data : '+myDate+ '</span><p>Ore Totali : 5</p><div align="right"><a style="right: 5%;" class="btn-floating orange"><i class=" dettaglio_list large mdi-navigation-menu"></i></a></div>';
 							$("#lista_rap").append(elementi[i]);
 						}
 						cont_index = cont_index+1;
@@ -260,7 +260,7 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 								var ele_ore = '<div class="orange col s6" style="padding:2%;"><font color="white">ORE TOTALI:  </font><b>'+diff_lavoro+'</b></div>';
 								var note = data[i]['note'];
 								var ele_desc = '<div class="col s12" style="padding:2%;"><font color="orange">Descrizione:  </font>'+note+'</div>';
-								var ele = '</div><a class="btn-floating red"><i class="edit_rap large material-icons">mode_edit</i></a><a style="margin-left:2%;" class="btn-floating red"><i class="delete_rap large material-icons">delete</i></a>';
+								var ele = '</div><a class="btn-floating orange"><i class="edit_rap large material-icons">mode_edit</i></a><a style="margin-left:2%;" class="btn-floating orange"><i class="delete_rap large material-icons">delete</i></a>';
 
 								/*
 								var ele_dip = '<label class="orange-text" for="ora_inizio">Dipendente</label><input  id="dipendente" type="text" name="dipendente" class="validate" value="'+nomeD+'" >';
@@ -277,7 +277,7 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 								var ele_ore = '<label class="orange-text" for="ora_inizio">ORE TOTALI DI LAVORO</label><input disabled id="ore_tot" type="text" name="ora_tot" class="validate" value="'+diff_lavoro+'">';
 								var note = data[i]['note'];
 								var ele_desc = '<label class="orange-text" for="ora_inizio">Descrizione</label><input  id="descrizione" type="text" name="descrizione" class="validate" value="'+note+'">';
-								var ele = '<a class="btn-floating red"><i class="edit_rap large material-icons">mode_edit</i></a><a class="btn-floating red"><i class="delete_rap large material-icons">delete</i></a>';
+								var ele = '<a class="btn-floating orange"><i class="edit_rap large material-icons">mode_edit</i></a><a class="btn-floating orange"><i class="delete_rap large material-icons">delete</i></a>';
 								*/
 								var tot_ele = ele_dip+ele_ini+ele_fine+ele_pausa+ele_ore+ele_desc+ele;
 								elementi[i].innerHTML = tot_ele;

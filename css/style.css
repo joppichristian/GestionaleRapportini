@@ -1,20 +1,20 @@
 
 
 .item-menu{
-	margin-bottom: 5%;
-    margin-top: 5%;
+    margin-top: 3%;
 	text-align: center;
 }
 
 .section {
 	padding-left: 2%;
 	padding-right: 2%;
-	margin-bottom: 3%;
 }
 .info{
 	margin-right: 10%;
 }
-
+.footer{
+	
+}
 .list{
 	overflow: scroll;
 }

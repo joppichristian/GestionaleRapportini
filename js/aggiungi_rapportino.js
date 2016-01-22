@@ -161,7 +161,7 @@ function populateListMaterials(filter){
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item";
 
-	        elementi[i].innerHTML = '<div><i class="info small material-icons purple-text">local_play</i>'+(data[i]['codice']+' - '+data[i]['descrizione']).substr(0,24)+'<a href="#!" style="position: absolute; right: 16px;"><i class="select_materials material-icons purple-text">add</i></a></div>	';
+	        elementi[i].innerHTML = '<div><i class="info small material-icons orange-text">local_play</i>'+(data[i]['codice']+' - '+data[i]['descrizione']).substr(0,24)+'<a href="#!" style="position: absolute; right: 16px;"><i class="select_materials material-icons orange-text">add</i></a></div>	';
 
 
 	    	$("#elenco_materiali").append(elementi[i]);
@@ -217,14 +217,14 @@ function updateListUtilizzi(){
 	for(var i=0; i < materiali_selezionati.length ;i++){
 		chip[i] = document.createElement('div');
 		chip[i].className= "chip";
-		chip[i].innerHTML=materiali_selezionati[i]['descrizione'] + '&nbsp; x' + materiali_selezionati[i]['quantita']+'<a href="#!" ><i class="remove_materiale material-icons purple-text">remove_circle</i></a>';
+		chip[i].innerHTML=materiali_selezionati[i]['descrizione'] + '&nbsp; x' + materiali_selezionati[i]['quantita']+'<a href="#!" ><i class="remove_materiale material-icons orange-text">remove_circle</i></a>';
   		$("#elenco_utilizzi_materiali").append(chip[i]);
 
 	}
 	for(var i=0; i < mezzi_selezionati.length ;i++){
 		chip[i] = document.createElement('div');
 		chip[i].className= "chip";
-		chip[i].innerHTML=mezzi_selezionati[i]['descrizione'] + '&nbsp; x' + mezzi_selezionati[i]['quantita']+'h <a href="#!" ><i class="remove_mezzo material-icons purple-text">remove_circle</i></a>';
+		chip[i].innerHTML=mezzi_selezionati[i]['descrizione'] + '&nbsp; x' + mezzi_selezionati[i]['quantita']+'h <a href="#!" ><i class="remove_mezzo material-icons orange-text">remove_circle</i></a>';
   		$("#elenco_utilizzi_mezzi").append(chip[i]);
 
 	}
@@ -257,7 +257,7 @@ function populateListMezzi(filter){
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item";
 
-	        elementi[i].innerHTML = '<div><i class="info small material-icons purple-text">directions_bus</i>'+data[i]['descrizione']+'<a style="position: absolute; right: 16px;" href="#!" ><i class="select_mezzi material-icons purple-text">add</i></a></div>	';
+	        elementi[i].innerHTML = '<div><i class="info small material-icons orange-text">directions_bus</i>'+data[i]['descrizione']+'<a style="position: absolute; right: 16px;" href="#!" ><i class="select_mezzi material-icons orange-text">add</i></a></div>	';
 
 
 	    	$("#elenco_mezzi").append(elementi[i]);
