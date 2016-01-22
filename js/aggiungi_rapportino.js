@@ -1,4 +1,4 @@
-var json = new Array();
+var json_dipendenti = new Array();
 var index=0;
 var id=0;
 var json_materiali = new Array();
@@ -54,7 +54,7 @@ $(document).ready(function(){
       }
     });
 
-    populateList("");
+    populateListEmployee("");
     $("#search_dip").on('input',function() {
   		var tmp = $("#search_dip").val();
   		populateList(tmp);
@@ -84,7 +84,6 @@ $(document).ready(function(){
 					Materialize.toast("Ora di fine non valida...utilizza hh:mm!",2000);
 					return false;
 				}
-				//controlloRapCliente();
 			}
 			else
 			{
@@ -99,21 +98,20 @@ $(document).ready(function(){
 });
 
 
-function populateList(filter){
+function populateListEmployee(filter){
 	$.ajax({
       dataType: "json",
       url: "script_php/getEmployee.php?q="+ filter+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
-	    json = data;
-        console.log(data);
+	    json_dipendenti = data;
         var elementi = new Array();
          $("#elenco_dip").empty();
         for(var i = 0; i < data.length; i++) {
 
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item";
-	        elementi[i].innerHTML = '<div><i class="info small material-icons orange-text">directions_walk</i>'+data[i]['nome']+ ' ' +data[i]['cognome']+ '<a href="#!" style="position: absolute; right: 16px;" class=""><i class="explode material-icons orange-text">add</i></a></div>	';
+	        elementi[i].innerHTML = '<div><i class="info small material-icons orange-text">directions_walk</i>'+data[i]['nome']+ ' ' +data[i]['cognome']+ '<a href="#!" style="position: absolute; right: 16px;" class=""><i class="select_employee material-icons orange-text">add</i></a></div>	';
 
 
 	    	$("#elenco_dip").append(elementi[i]);
@@ -121,18 +119,25 @@ function populateList(filter){
 
 	    }
 	    id = data[0]['id'];
+		$(".select_employee").click(function(){
+				 index_Di = $(".select_employee").index(this);
+				 id_Di = json_dipendenti[index_Di]['id'];
+				 var duplicato = -1;
+		        for(var i=0;i<dipendenti_selezionati.length;i++){
+			        if(dipendenti_selezionati[i]['id'] == json_dipendenti[index_Di]['id']){
+			        	duplicato = i;
+			        }
+		        }
+		        if(duplicato < 0){
+		            dipendenti_selezionati.push({'id':id_Di,'descrizione':json_dipendenti[index_Di]['nome']+ ' ' +json_dipendenti[index_Di]['cognome']});
+		        updateListUtilizzi();
+		        Materialize.toast("Dipendente aggiunto!",2000);
 
-		//explodeDipendente(data[0]);
-		$(".explode").click(function(){
-	        index = $(".explode").index(this);
-	        id = json[index]['id'];
-          $("#lista_sel_dip").show();
-          setDipendenti(json[index]);
-	        //explodeDipendente(json[index]);
-        });
+		    }	
+		});
       },
       error: function(xhr){
-	     console.log(xhr.status);
+	     (xhr.status);
         return false;
       }
     });
@@ -141,11 +146,6 @@ function populateList(filter){
 
 }
 
-function setDipendenti(dipendente){
-//  alert("nome: "+dipendente['nome']);
-  $("#lista_sel_dip").append('<div class="chip">'+dipendente['nome']+ ' '+ dipendente['cognome']+'<i class="material-icons">close</i></div> ');
-
-}
 
 function populateListMaterials(filter){
 	$.ajax({
@@ -172,9 +172,7 @@ function populateListMaterials(filter){
 
 	    }
 	    $(".select_materials").click(function(){
-      //alert("cliccato sul pulsante");
 			if($('#quantita_materiale').val()!= ""){
-            //alert("quantita materiale selzionato: "+$('#quantita_materiale').val());
 		        index_Ma = $(".select_materials").index(this);
 		        id_Ma = json_materiali[index_Ma]['id'];
 		        var duplicato = -1;
@@ -207,12 +205,17 @@ function populateListMaterials(filter){
 function updateListUtilizzi(){
 	$("#elenco_utilizzi_materiali").show();
 	$("#elenco_utilizzi_mezzi").show();
+	$("#lista_sel_dip").show();
+
 	if(materiali_selezionati.length == 0)
 		$("#elenco_utilizzi_materiali").hide();
 	if(mezzi_selezionati.length == 0)
 		$("#elenco_utilizzi_mezzi").hide();
+	if(dipendenti_selezionati.length == 0)
+		$("#lista_sel_dip").hide();
 	$("#elenco_utilizzi_materiali").empty();
 	$("#elenco_utilizzi_mezzi").empty();
+	$("#lista_sel_dip").empty();
 	var chip = new Array();
 	for(var i=0; i < materiali_selezionati.length ;i++){
 		chip[i] = document.createElement('div');
@@ -228,6 +231,17 @@ function updateListUtilizzi(){
   		$("#elenco_utilizzi_mezzi").append(chip[i]);
 
 	}
+	for(var i=0; i < dipendenti_selezionati.length ;i++){
+		chip[i] = document.createElement('div');
+		chip[i].className= "chip";
+		chip[i].innerHTML=dipendenti_selezionati[i]['descrizione']+'<a href="#!" ><i class="remove_dipendente material-icons orange-text">remove_circle</i></a>';
+  		$("#lista_sel_dip").append(chip[i]);
+
+	}
+	$(".remove_dipendente").click(function(){
+		removeDipendente($(".remove_dipendente").index(this));
+		updateListUtilizzi();
+	});
 	$(".remove_materiale").click(function(){
 		removeMateriale($(".remove_materiale").index(this));
 		updateListUtilizzi();
@@ -300,31 +314,73 @@ function populateListMezzi(filter){
  function removeMezzo(i){
  		 mezzi_selezionati.splice(i,1);
  }
-
-function controlloRapCliente(){
-
-}
+function removeDipendente(i){
+ 		 dipendenti_selezionati.splice(i,1);
+ }
 
  function aggiungiRapportino(){
- 	$.ajax({
-       type:"POST",
-       url: "script_php/postRapportinoRapido.php", //Relative or absolute path to response.php file
-       async:false,
-       data:{
- 	  	'ora_inizio': $('#ora_inizio').val(),
- 	  	'ora_fine': $('#ora_fine').val(),
- 	  	'pausa': $('#pausa').val(),
- 	  	'note':$('#note').val(),
- 	  	'dipendente':getCookie('id_dipendente'),
- 	  	'cliente':cliente_selezionato,
- 	  	'db':getCookie('nomeDB'),
- 	  	'materiali':materiali_selezionati,
- 	  	'mezzi':mezzi_selezionati
- 	  },
-       success: function(data) {
- 	    console.log(data);
- 	  	Materialize.toast("Rapportino inserito",2000,"",function(){window.location.replace("dashboard.html");})
- 		}
- 	});
+	 if(dipendenti_selezionati.length==0){
+		Materialize.toast("Nessun dipendente aggiunto",2000);
+		return false;
 
+	 }
+	 var result = true;
+	for(var i=0;i<dipendenti_selezionati.length;i++){
+		if(i==0)
+		{
+			$.ajax({
+		       type:"POST",
+		       url: "script_php/postRapportinoRapido.php", //Relative or absolute path to response.php file
+		       async:false,
+		       data:{
+		 	  	'ora_inizio': $('#ora_inizio').val(),
+		 	  	'ora_fine': $('#ora_fine').val(),
+		 	  	'pausa': $('#pausa').val(),
+		 	  	'note':$('#note').val(),
+		 	  	'dipendente':dipendenti_selezionati[i]['id'],
+		 	  	'cliente':cliente_selezionato,
+		 	  	'db':getCookie('nomeDB'),
+		 	  	'materiali':materiali_selezionati,
+		 	  	'mezzi':mezzi_selezionati
+		 	  },
+		       success: function(data) {
+		 		},
+		 		error:function(data){
+			 		result = false;
+		 		}
+		 	});
+
+		}
+		else{
+			$.ajax({
+		       type:"POST",
+		       url: "script_php/postRapportinoRapido.php", //Relative or absolute path to response.php file
+		       async:false,
+		       data:{
+		 	  	'ora_inizio': $('#ora_inizio').val(),
+		 	  	'ora_fine': $('#ora_fine').val(),
+		 	  	'pausa': $('#pausa').val(),
+		 	  	'note':$('#note').val(),
+		 	  	'dipendente':dipendenti_selezionati[i]['id'],
+		 	  	'cliente':cliente_selezionato,
+		 	  	'db':getCookie('nomeDB'),
+		 	  	'materiali':null,
+		 	  	'mezzi':null
+		 	  },
+		       success: function(data) {
+		 		},
+		 		error:function(data){
+			 		result = false;
+		 		}
+		 	});
+
+		}
+	}
+	if(result){
+		Materialize.toast("Rapportino Inserito",2000,"",function(){$("#new_insert_item").hide();});
+	}
+	else{
+		Materialize.toast("Errore: Rapportino NON Inserito",2000);
+	}
+	
  }
