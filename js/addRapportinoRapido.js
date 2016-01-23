@@ -96,6 +96,35 @@ $(document).ready(function(){
 		if(parseInt($('#ora_fine').val()) > 2  && $('#ora_fine').val().indexOf(':') < 0)
 			$('#ora_fine').val($('#ora_fine').val()+':');
 	});
+	$('#ora_inizio').focusout(function(){
+		if($('#ora_inizio').val() != ''){
+			var spl = $('#ora_inizio').val().split(':');
+			if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || spl.length!=2)
+			{
+				Materialize.toast("Ora di inizio non valida...utilizza hh:mm!",2000);
+				$('#ora_inizio').focus();
+			}
+		}
+
+	});
+	$('#ora_fine').focusout(function(){
+		if($('#ora_fine').val() != ''){
+			var spl = $('#ora_fine').val().split(':');
+			if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || spl.length!=2)
+			{
+				Materialize.toast("Ora di fine non valida...utilizza hh:mm!",2000);
+				$('#ora_fine').focus();
+			}
+			
+		}
+	});
+	$('#pausa').focusout(function(){
+		if($('#pausa').val() < 0 || $('#pausa').val() > 120){
+			Materialize.toast("Inserisci una pausa valida tra 0 e 120 minuti",2000);
+			$('#pausa').focus();
+		}
+
+	});
 })
 
 function populateListClient(filter){
@@ -125,7 +154,7 @@ function populateListClient(filter){
 	    	}
 	    	$(".select_clients").click(function(){
 		    	$("#cliente_selezionato").empty();
-		    	$("#cliente_selezionato_second_page").empty();
+		    	$("#cliente_selezionato_new_page").empty();
 		        index_Cl = $(".select_clients").index(this);
 		        id_Cl = json_clienti[index_Cl]['id'];
 		        cliente_selezionato = id_Cl;

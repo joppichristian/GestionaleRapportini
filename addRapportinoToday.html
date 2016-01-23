@@ -64,7 +64,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 						<div class="col s12 m6 l6">
 						<div class="input-field col s12 m12 l12">
 				          <i class="material-icons prefix purple-text">access_time</i>
-				          <input id="ora_inizio" type="text" name="ora_inizio" class="validate">
+				          <input id="ora_inizio" type="text" name="ora_inizio" maxlength="5" class="validate">
 				          <label class="purple-text" for="ora_inizio">Ora Inizio</label>
 				        </div>
 				  
@@ -72,14 +72,14 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 					<div class="col s12 m6 l6">
 						<div class="input-field col s12 m12 l12">
 				          <i class="material-icons prefix purple-text">access_time</i>
-				          <input id="ora_fine" type="text" name="ora_fine" class="validate">
+				          <input id="ora_fine" type="text" name="ora_fine" maxlength="5" class="validate">
 				          <label class="purple-text" for="ora_fine">Ora Fine</label>
 				        </div>
 					</div>
 					<div class="col s12 m12 l12">
 						<div class="input-field col s12 m12 l12">
 					      <i class="material-icons prefix purple-text">local_cafe</i>
-				          <input id="pausa" type="number" name="pausa" step="5" min="0" value="0" max="120" class="validate">
+				          <input id="pausa" type="number" name="pausa" maxlength="3" step="5" min="0" value="0" max="120" class="validate">
 				          <label class="purple-text" for="note">Pausa</label>
 				       </div>
 				       
