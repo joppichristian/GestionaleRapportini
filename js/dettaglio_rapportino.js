@@ -1,6 +1,6 @@
-var json = new Array();
-var index=0;
-var id=0;
+var det_json = new Array();
+var det_index=0;
+var det_id=0;
 var id_utente="";
 var id_rap="";
 
@@ -16,15 +16,15 @@ $(document).ready(function(){
 		//$("#nome_cliente").text(""+nome_utente);
 		var primoG = getFirstData();
 		var ultimoG = getCurrentData();
-		document.getElementById("data_fine").value=ultimoG;
-		document.getElementById("data_inizio").value=primoG;
+		$("#data_fine").val(ultimoG);
+		$("#data_inizio").val(primoG);
 
 		populateRapportino(id_utente);
 		//filtro data parametri default
 
 		$("#reset_filtro").on("click",function(){
-			document.getElementById("data_inizio").value=primoG;
-			document.getElementById("data_fine").value=ultimoG;
+			$("#data_inizio").val(primoG);
+			$("#data_fine").val(ultimoG);
     });
 
 
@@ -85,7 +85,7 @@ function populateRapportino(filter){
 			async:false,
       success: function(data) {
 
-	    json = data;
+	    det_json = data;
 
         console.log(data);
         var elementi = new Array();
@@ -136,13 +136,13 @@ function populateRapportino(filter){
 
 					}
 				}
-				//document.getElementById("ore_tot").innerHTML = "RIEPILOGO ORE: "+ore_totali_range;
+				//$("#ore_tot").innerHTML = "RIEPILOGO ORE: "+ore_totali_range;
 
-				id = data[0]['id'];
+				det_id = data[0]['id'];
 				explodeRapportino(data[0]);
 				$(".dettaglio_list").click(function(){
-					index = $(".dettaglio_list").index(this);
-					explodeRapportino(data[index]);
+					det_index = $(".dettaglio_list").index(this);
+					explodeRapportino(data[det_index]);
 				});
 
       },
@@ -158,7 +158,7 @@ function populateRapportino(filter){
 }
 
 function settaOra(ore){
-	document.getElementById("ore_tot").innerHTML = "ORE TOTALI: "+ore;
+	$("#ore_tot").innerHTML = "ORE TOTALI: "+ore;
 	//alert("ore totali "+ore);
 }
 
@@ -186,7 +186,7 @@ function populateRapportinoVuoto(filter){
 			async:false,
       success: function(data) {
 
-	    json = data;
+	    det_json = data;
 			//alert("chiamata avvenuta con successo");
         console.log(data);
         var elementi = new Array();
@@ -224,7 +224,7 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 			data:"",
 			async:false,
 			success: function(data) {
-				json = data;
+				det_json = data;
 					console.log(data);
 					var elementi = new Array();
 					 $("#lista_singolo_rap").empty();
@@ -263,20 +263,20 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 								var ele = '</div><a class="btn-floating orange"><i class="edit_rap large material-icons">mode_edit</i></a><a style="margin-left:2%;" class="btn-floating orange"><i class="delete_rap large material-icons">delete</i></a>';
 
 								/*
-								var ele_dip = '<label class="orange-text" for="ora_inizio">Dipendente</label><input  id="dipendente" type="text" name="dipendente" class="validate" value="'+nomeD+'" >';
+								var ele_dip = '<label class="orange-text" for="ora_inizio">Dipendente</label><input  id="dipendente" type="text" name="dipendente" class="validate" val("'+nomeD+'" >';
 								var inizio = data[i]['inizio'];
 								var orai = formatotempo(inizio);
-								var ele_ini = '<label class="orange-text" for="ora_inizio">Ora Inizio</label><input  id="ora_inizio" type="text" name="ora_inizio" class="validate" value="'+orai+'" >';
+								var ele_ini = '<label class="orange-text" for="ora_inizio">Ora Inizio</label><input  id="ora_inizio" type="text" name="ora_inizio" class="validate" val("'+orai+'" >';
 								var fine = data[i]['fine'];
 								var oraf = formatotempo(fine);
-								var ele_fine = '<label class="orange-text" for="ora_inizio">Ora Fine</label><input  id="ora_fine" type="text" name="ora_fine" class="validate" value="'+oraf+'">';
+								var ele_fine = '<label class="orange-text" for="ora_inizio">Ora Fine</label><input  id="ora_fine" type="text" name="ora_fine" class="validate" val("'+oraf+'">';
 								var pausa = data[i]['pausa'];
-								var ele_pausa ='<label class="orange-text" for="ora_inizio">Pausa</label><input  id="pausa" type="text" name="pausa" class="validate" value="'+pausa+'">';
+								var ele_pausa ='<label class="orange-text" for="ora_inizio">Pausa</label><input  id="pausa" type="text" name="pausa" class="validate" val("'+pausa+'">';
 								var diff =differenzaOre(inizio, fine);
 								var diff_lavoro = diff-pausa;
-								var ele_ore = '<label class="orange-text" for="ora_inizio">ORE TOTALI DI LAVORO</label><input disabled id="ore_tot" type="text" name="ora_tot" class="validate" value="'+diff_lavoro+'">';
+								var ele_ore = '<label class="orange-text" for="ora_inizio">ORE TOTALI DI LAVORO</label><input disabled id="ore_tot" type="text" name="ora_tot" class="validate" val("'+diff_lavoro+'">';
 								var note = data[i]['note'];
-								var ele_desc = '<label class="orange-text" for="ora_inizio">Descrizione</label><input  id="descrizione" type="text" name="descrizione" class="validate" value="'+note+'">';
+								var ele_desc = '<label class="orange-text" for="ora_inizio">Descrizione</label><input  id="descrizione" type="text" name="descrizione" class="validate" val("'+note+'">';
 								var ele = '<a class="btn-floating orange"><i class="edit_rap large material-icons">mode_edit</i></a><a class="btn-floating orange"><i class="delete_rap large material-icons">delete</i></a>';
 								*/
 								var tot_ele = ele_dip+ele_ini+ele_fine+ele_pausa+ele_ore+ele_desc+ele;
@@ -288,9 +288,9 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 					}
 
 					$(".edit_rap").click(function(){
-						index = $(".edit_rap").index(this);
-						id_rap= data[index]['id'];
-						//localStorage.setItem("id_rapportino",""+id_rap);
+						det_index = $(".edit_rap").index(this);
+						id_rap= data[det_index]['id'];
+						localStorage.setItem("id_rapportino",""+id_rap);
 						//alert("id_rap : "+id_rap);
 						//alert("indice del pulsante modifica cliccato"+index);
 						$('#modal1').openModal();
@@ -299,7 +299,7 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 						//alert("edit_rap ---index of element click: "+data[index]['id']);
 					});
 					$(".delete_rap").click(function(){
-						index = $(".delete_rap").index(this);
+						det_index = $(".delete_rap").index(this);
 						$('#modal2').openModal();
 						//alert("delete_rap ---index of element click: "+data[index]['id_dipendente']);
 					});
@@ -352,7 +352,7 @@ function datiDipendente(id){
 				async:false,
 	      success: function(data) {
 
-		    json = data;
+		    det_json = data;
 				//alert("chiamata avvenuta con successo");
 	        console.log(data);
 	        var elementi = new Array();
@@ -425,9 +425,9 @@ function GetNumberDay(inizio, fine){
 function returnRangeDate(d1){
 	//data = data.split('-');
 
-	var inizio = document.getElementById("data_inizio").value;
+	var inizio = $("#data_inizio").val();
 	var dataInizio = inizio.split('-');
-	var fine  = document.getElementById("data_fine").value;
+	var fine  = $("#data_fine").val();
 	var dataFine = fine.split('-');
 
 	var giorno="";

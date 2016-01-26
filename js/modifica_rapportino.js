@@ -15,8 +15,8 @@ $(document).ready(function(){
     $("#mod_sezione_mat").hide();
 		$("#mod_sezione_mezzi").hide();
 
-    var id_mod_rap= localStorage.getItem("id_rapportino");
-    alert("id_in modifica rapportino  "+id_mod_rap);
+    //var id_mod_rap= localStorage.getItem("id_rapportino");
+    //alert("id_in modifica rapportino  "+id_mod_rap);
   	$("#mod_elenco_utilizzi_materiali").hide();
     var mod_stato_aggiungi_mat=0;
 
@@ -101,7 +101,7 @@ $(document).ready(function(){
 
 function setVarRapp(id_rapp){
   alert("id_rapp : "+id_rapp);
-  //document.getElementById("ore_tot").innerHTML = "ORE TOTALI: "+ore;
+  //document.getElementById("mod_ore_tot").innerHTML = "ORE TOTALI: "+ore;
   //DEVO SETTARE I CAMPI PER LA MODIFICA SUCCESSIVA!
 
 }
