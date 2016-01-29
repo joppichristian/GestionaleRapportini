@@ -22,8 +22,16 @@ $(document).ready(function() {
 		explodeMezzo(json[0]);	
 	});
 	$("#delete").click( function() {
+		$("#modal_cancellazione").openModal();
+	});
+	$("#yes").click(function(){
+		$("#modal_cancellazione").closeModal();
 		deleteMezzo();
 	});
+	$("#no").click(function(){
+		$("#modal_cancellazione").closeModal();
+	});
+
 	populateList("");
 
 });
@@ -90,16 +98,7 @@ function explodeMezzo(mezzo){
 }
 
 function deleteMezzo(){
-	$.confirm({
-				title: 'Elimino Mezzo',
-				confirmButton: 'Elimina',
-				cancelButton: 'Annulla',
-				content: 'Sei sicuro di voler eliminare il Mezzo?',
-				theme: 'supervan',
-				confirmButtonClass: 'btn-info',
-				animation:'RotateY',
-				animationSpeed: 1000,
-				confirm: function () {
+
 					$.ajax({
 				      url: "script_php/deleteMezzi.php", //Relative or absolute path to response.php file
 				      type:"POST",
@@ -112,8 +111,6 @@ function deleteMezzo(){
 					     console.log(xhr.status);
 				      }
 				    });
-				 }
-			});
 
 }
 

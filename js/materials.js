@@ -22,8 +22,16 @@ $(document).ready(function() {
 		explodeMateriale(json[0]);	
 	});
 	$("#delete").click( function() {
+		$("#modal_cancellazione").openModal();
+	});
+	$("#yes").click(function(){
+		$("#modal_cancellazione").closeModal();
 		deleteMateriale();
 	});
+	$("#no").click(function(){
+		$("#modal_cancellazione").closeModal();
+	});
+
 	populateList("");
 
 });
@@ -92,16 +100,7 @@ function explodeMateriale(materiale){
 }
 
 function deleteMateriale(){
-	$.confirm({
-				title: 'Elimino Materiale',
-				confirmButton: 'Elimina',
-				cancelButton: 'Annulla',
-				content: 'Sei sicuro di voler eliminare il Materiale?',
-				theme: 'supervan',
-				confirmButtonClass: 'btn-info',
-				animation:'RotateY',
-				animationSpeed: 1000,
-				confirm: function () {
+
 					$.ajax({
 				      url: "script_php/deleteMaterial.php", //Relative or absolute path to response.php file
 				      type:"POST",
@@ -114,8 +113,6 @@ function deleteMateriale(){
 					     console.log(xhr.status);
 				      }
 				    });
-				 }
-			});
 
 }
 

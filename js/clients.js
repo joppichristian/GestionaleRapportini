@@ -22,7 +22,14 @@ $(document).ready(function() {
 		explodeClient(json[0]);
 	});
 	$("#delete").click( function() {
+		$("#modal_cancellazione").openModal();
+	});
+	$("#yes").click(function(){
+		$("#modal_cancellazione").closeModal();
 		deleteCliente();
+	});
+	$("#no").click(function(){
+		$("#modal_cancellazione").closeModal();
 	});
 	populateList("");
 
@@ -117,30 +124,21 @@ function explodeClient(cliente){
 }
 
 function deleteCliente(){
-	$.confirm({
-				title: 'Elimino Cliente',
-				confirmButton: 'Elimina',
-				cancelButton: 'Annulla',
-				content: 'Sei sicuro di voler eliminare il Cliente?',
-				theme: 'supervan',
-				confirmButtonClass: 'btn-info',
-				animation:'RotateY',
-				animationSpeed: 1000,
-				confirm: function () {
-					$.ajax({
-				      url: "script_php/deleteClient.php", //Relative or absolute path to response.php file
-				      type:"POST",
-				      data:{'id': id,'db':getCookie('nomeDB')},
-				      success: function(data) {
-					      Materialize.toast('Cliente eliminato', 2000);
-					      populateList("");
-					  },
-				      error: function(xhr){
-					     console.log(xhr.status);
-				      }
-				    });
-				 }
-			});
+	
+	
+	
+	$.ajax({
+		url: "script_php/deleteClient.php", //Relative or absolute path to response.php file
+	      type:"POST",	
+	      data:{'id': id,'db':getCookie('nomeDB')},
+		  success: function(data) {
+		    Materialize.toast('Cliente eliminato', 2000);
+			populateList("");
+		  },
+	      error: function(xhr){
+		     console.log(xhr.status);
+	      }
+    });
 
 }
 

@@ -10,11 +10,20 @@
 				
 				$qry = "DELETE FROM dipendenti WHERE ID = ".$id.";";
 				$mysqli->query('SET CHARACTER SET utf8');
-		    	$result = $mysqli->query($qry);
-		    	echo "success";
-		               
-		    	if($result!=null){
-					$result->close();
+		    	if (!mysqli_query($mysqli,$qry)){
+						echo mysqli_error($mysqli);
+					}
+				else{
+					include 'connessione-db-generale.php';
+					
+					$sql = "DELETE FROM Azienda_utente WHERE id_dipendente = ".$id. ";" ;
+					$mysqli_generale->query('SET CHARACTER SET utf8');
+
+					if (!mysqli_query($mysqli_generale,$sql)){
+						echo mysqli_error($mysqli_generale);
+					}
+					else
+						echo json_encode("success");
 				}
 			}else{
 				echo "Request Error";

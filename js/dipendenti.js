@@ -1,6 +1,8 @@
 var json = new Array();
 var index=0;
 var id=0;
+var gruppo;
+var username;
 
 $(document).ready(function() {
 	if(getCookie('nomeDB')=="")
@@ -16,6 +18,9 @@ $(document).ready(function() {
 	$("#modify").click( function() {
 		completaForm();
 	});
+	$("#modify_pr").click( function() {
+		completaForm();
+	});
 	$("#invia_dati").click( function() {
 		modifyDipendente();
 	});
@@ -23,8 +28,22 @@ $(document).ready(function() {
 		explodeDipendente(json[0]);
 	});
 	$("#delete").click( function() {
+		$("#modal_cancellazione").openModal();
+	});
+	$("#delete_pr").click( function() {
+		$("#modal_cancellazione").openModal();
+	});
+	$("#yes").click(function(){
+		$("#modal_cancellazione").closeModal();
 		deleteDipendente();
 	});
+	$("#no").click(function(){
+		$("#modal_cancellazione").closeModal();
+	});
+	$("#reset_pwd").click(function(){
+		resetPwd();
+	});
+
 	populateList("");
 
 });
@@ -71,13 +90,17 @@ function populateList(filter){
 }
 function explodeDipendente(dipendente){
 	$("#modifica_dipendente").hide();
+	$("#menu").show();
 	$("#info").show();
+	$("#rules").hide();
 	$("#nominativo").empty();
 	$("#telefono").empty();
 	$("#cellulare").empty();
 	$("#iban").empty();
 	$("#note").empty();
 	$("#logo_dipendente").empty();
+	$("#username").empty();
+	$("#gruppo_privilegi").empty();
 	$("#logo_dipendente").append('<i id="logo_dipendente" class="large material-icons green-text">directions_walk</i>');
 	$("#nominativo").append('<div class="green-text" style="margin-left:15%;">Nominativo </div><i class="info small material-icons green-text">account_circle</i> '+dipendente['nome']+ ' '+ dipendente['cognome']);
 	if(dipendente['telefono'] != null && dipendente['telefono'] != "")
@@ -88,20 +111,45 @@ function explodeDipendente(dipendente){
        $("#iban").append('<div class="green-text" style="margin-left:15%;">IBAN </div> <i class="info small material-icons green-text">credit_card</i>'+dipendente['iban']);
     if(dipendente['note'] != null && dipendente['note'] != "")
        $("#note").append('<div class="green-text" style="margin-left:15%;">Note </div><i class="info small material-icons green-text">chat_bubble</i>'+dipendente['note']);
+	
+
+	$.ajax({
+      dataType: "json",
+      url: "script_php/getUserInfo.php?id="+id+"&azienda="+getCookie('id_azienda'), //Relative or absolute path to response.php file
+      data:"",
+      success: function(data) {
+	  	$("#username").append('<div class="green-text" style="margin-left:15%;">Username </div><i class="info small material-icons green-text">person</i>'+data[0]['username']);
+	  	gruppo = data[0]['classe_privilegi'];
+	  	username = data[0]['username'];
+	  },
+      error: function(xhr){
+	     console.log(xhr.status);
+        return false;
+      }
+    });
+    
+	$.ajax({
+      dataType: "json",
+      url: "script_php/getGroups.php?db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      data:"",
+      success: function(data) {
+	  	for(var i=0;i<data.length;i++)
+	  		if(data[i]['id']== gruppo){
+	  		    $("#gruppo_privilegi").append('<div class="green-text" style="margin-left:15%;">Gruppo di Appartenenza </div><i class="info small material-icons green-text">style</i>'+data[i]['descrizione']);
+	  		    	return true;
+	  		}
+
+	  },
+      error: function(xhr){
+	     console.log(xhr.status);
+        return false;
+      }
+    });
 
 }
 
 function deleteDipendente(){
-	$.confirm({
-				title: 'Elimino Dipendente',
-				confirmButton: 'Elimina',
-				cancelButton: 'Annulla',
-				content: 'Sei sicuro di voler eliminare il Dipendente?',
-				theme: 'supervan',
-				confirmButtonClass: 'btn-info',
-				animation:'RotateY',
-				animationSpeed: 1000,
-				confirm: function () {
+
 					$.ajax({
 				      url: "script_php/deleteEmployee.php", //Relative or absolute path to response.php file
 				      type:"POST",
@@ -114,13 +162,12 @@ function deleteDipendente(){
 					     console.log(xhr.status);
 				      }
 				    });
-				 }
-			});
 
 }
 
 function completaForm(){
-
+	$("#rules").hide();
+	$("#menu").hide();
 	$("#modifica_dipendente").show();
 	$("#info").hide();
 	$("#form_nome").val(json[index]['nome']);
@@ -134,9 +181,12 @@ function completaForm(){
 	$("#form_iban").focus();
 	$("#form_note").val(json[index]['note']);
 	$("#form_note").focus();
+	$("#form_username").val(username);
+	$("#form_username").focus();
 	$("#form_nome").focus();
 
-	}
+	populateGroups();
+}
 function modifyDipendente(){
 	var nome = $("#form_nome").val();
 	var cognome = $("#form_cognome").val();
@@ -144,7 +194,8 @@ function modifyDipendente(){
 	var cellulare = $("#form_mobile").val();
 	var iban = $("#form_iban").val();
 	var note = $("#form_note").val();
-
+	var user = $("#form_username").val();
+	var classe=$("select").val();
 	$.ajax({
 	     url: "script_php/updateEmployee.php", //Relative or absolute path to response.php file
 	      type:"POST",
@@ -157,10 +208,60 @@ function modifyDipendente(){
 		      'iban':iban,
 		      'note':note,
 		      'id':json[index]['id'],
-		      'db':getCookie('nomeDB')
+		      'username':user,
+		      'classe':classe,
+		      'db':getCookie('nomeDB'),
+		      'azienda':getCookie('id_azienda')
 		   },
 		   success: function(data){
+			   console.log(data);
 			   Materialize.toast('Dipendente modificato', 2000,'',function(){populateList("");});
+			   return false;
+			},
+		   error: function (XMLHttpRequest, textStatus, errorThrown){
+		   		Materialize.toast('Errore di modifica', 2000);
+			    return false;
+
+			}
+		});
+}
+function populateGroups(){
+	$("select").empty();
+	$.ajax({
+      dataType: "json",
+      url: "script_php/getGroups.php?db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      data:"",
+      success: function(data) {
+	      if(data != null){
+			  for(var i=0;i<data.length;i++){
+		      	$("select").append('<option value='+data[i]['id']+' class="green-text">'+data[i]['descrizione']+'</option>');
+		      }
+		      $('select').material_select();
+		      $('select').val(gruppo);
+
+	      }
+	  },
+      error: function(xhr){
+	     console.log(xhr.status);
+        return false;
+      }
+    });
+
+}
+function resetPwd(){
+	$.ajax({
+	     url: "script_php/updatePwd.php", //Relative or absolute path to response.php file
+	      type:"POST",
+	      async:false,
+	      data:{
+		      'id':json[index]['id'],
+		      'password':$("#form_password").val(),
+		      'azienda':getCookie('id_azienda')
+		   },
+		   success: function(data){
+			   console.log(data);
+			   Materialize.toast('Password ripristinata', 2000,'',function(){populateList("");});
+			   
 			   return false;
 			},
 		   error: function (XMLHttpRequest, textStatus, errorThrown){

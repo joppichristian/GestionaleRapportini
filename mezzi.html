@@ -10,14 +10,12 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 	  	<link rel="stylesheet" href="css/style.css">
 	  	<link rel="stylesheet" href="css/form_brown.css">
 	    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	    <link rel="stylesheet" type="text/css" href="css/jquery-confirm.css">
 		<link rel="stylesheet" type="text/css" href="css/pace.css">
 	
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<!-- Compiled and minified JavaScript -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 		<script src="js/mezzi.js" type="text/javascript" ></script>
-		<script type="text/javascript" src="js/jquery-confirm.js"></script>
 		<script src="js/manageCookie.js" type="text/javascript" ></script>
 		<script src="js/pace.min.js" type="text/javascript"></script>
 	</head>
@@ -93,7 +91,16 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 		        <h6 class="brown-text col s12 m12 l12">(*) : campo obbligatorio</h6>
 		      </div>
 	  	</div>
-	  		
+	  		<div id="modal_cancellazione" class="modal">
+          <div class="modal-content">
+            <h4 class="brown-text">Conferma Eliminazione</h4>
+            <p>Sei sicuro di voler eliminare il mezzo?</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" id="no" class="modal-action modal-close waves-effect waves-brown btn-flat ">No</a>
+            <a href="#!" id="yes" class=" modal-action modal-close waves-effect waves-brown btn-flat">Si</a>
+          </div>
+        </div>
 	  	 <footer class="page-footer blue-grey darken-3">
            <div class="footer-copyright">
             <div class="container">
