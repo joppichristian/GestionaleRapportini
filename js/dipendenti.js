@@ -89,10 +89,12 @@ function populateList(filter){
 
 }
 function explodeDipendente(dipendente){
-	$("#modifica_dipendente").hide();
 	$("#menu").show();
+	$('ul.tabs').tabs();
+	$('div.indicator').css("background-color","#4caf50");
+	$("#link_anagrafica").click();
+	$("#modifica_dipendente").hide();
 	$("#info").show();
-	$("#rules").hide();
 	$("#nominativo").empty();
 	$("#telefono").empty();
 	$("#cellulare").empty();
@@ -115,7 +117,7 @@ function explodeDipendente(dipendente){
 
 	$.ajax({
       dataType: "json",
-      url: "script_php/getUserInfo.php?id="+id+"&azienda="+getCookie('id_azienda'), //Relative or absolute path to response.php file
+      url: "script_php/getUserInfo.php?id="+dipendente['id']+"&azienda="+getCookie('id_azienda'), //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
 	  	$("#username").append('<div class="green-text" style="margin-left:15%;">Username </div><i class="info small material-icons green-text">person</i>'+data[0]['username']);
@@ -153,7 +155,7 @@ function deleteDipendente(){
 					$.ajax({
 				      url: "script_php/deleteEmployee.php", //Relative or absolute path to response.php file
 				      type:"POST",
-				      data:{'id': id,'db':getCookie('nomeDB')},
+				      data:{'id': id,'db':getCookie('nomeDB'),'azienda':getCookie("id_azienda")},
 				      success: function(data) {
 					      Materialize.toast('Dipendente eliminato', 2000);
 					      populateList("");
@@ -236,8 +238,8 @@ function populateGroups(){
 			  for(var i=0;i<data.length;i++){
 		      	$("select").append('<option value='+data[i]['id']+' class="green-text">'+data[i]['descrizione']+'</option>');
 		      }
-		      $('select').material_select();
 		      $('select').val(gruppo);
+		      $('select').material_select();
 
 	      }
 	  },

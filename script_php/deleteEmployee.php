@@ -6,6 +6,7 @@
 			if ($_SERVER['REQUEST_METHOD'] == "POST"){
 				$id = $_POST['id'];
 				$db = $_POST['db'];
+				$azienda = $_POST['azienda'];
 				include 'connessione-db.php';
 				
 				$qry = "DELETE FROM dipendenti WHERE ID = ".$id.";";
@@ -16,7 +17,7 @@
 				else{
 					include 'connessione-db-generale.php';
 					
-					$sql = "DELETE FROM Azienda_utente WHERE id_dipendente = ".$id. ";" ;
+					$sql = "DELETE FROM Azienda_utente WHERE id_dipendente = ".$id. " and ID_azienda=".$azienda.";" ;
 					$mysqli_generale->query('SET CHARACTER SET utf8');
 
 					if (!mysqli_query($mysqli_generale,$sql)){
