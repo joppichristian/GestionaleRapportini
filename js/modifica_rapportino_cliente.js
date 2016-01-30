@@ -11,56 +11,7 @@ $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
 
-    $("#mod_lista_sel_dip").hide();
-    //$("#mod_sezione_mat").hide();
-		//$("#mod_sezione_mezzi").hide();
-
-    //var id_mod_rap= localStorage.getItem("id_rapportino");
-    //alert("id_in modifica rapportino  "+id_mod_rap);
-
-		/*$("#mod_elenco_utilizzi_materiali").hide();
-    var mod_stato_aggiungi_mat=0;
-
-    $("#mod_aggiungi_mat").on("click",function(){
-      if(mod_stato_aggiungi_mat==1){
-        $("#mod_sezione_mat").hide();
-        mod_stato_aggiungi_mat=0;
-      }else{
-        $("#mod_sezione_mat").show();
-        mod_stato_aggiungi_mat=1;
-      }
-    });
-
-		$("#mod_elenco_utilizzi_mezzi").hide();
-    var mod_stato_aggiungi_mezzi=0;
-
-    $("#mod_aggiungi_mezzi").on("click",function(){
-      if(mod_stato_aggiungi_mezzi==1){
-        $("#mod_sezione_mezzi").hide();
-        mod_stato_aggiungi_mezzi=0;
-      }else{
-        $("#mod_sezione_mezzi").show();
-        mod_stato_aggiungi_mezzi=1;
-      }
-    });
-
-    $("#mod_sezione_dipendenti").hide();
-    var mod_stato_aggiungi_dip=0;
-    $("#mod_aggiungi_dip").on("click",function(){
-      if(mod_stato_aggiungi_dip==1){
-        $("#mod_sezione_dipendenti").hide();
-        mod_stato_aggiungi_dip=0;
-      }else{
-        $("#mod_sezione_dipendenti").show();
-        mod_stato_aggiungi_dip=1;
-      }
-    });
-		*/
-    mod_populateList("");
-    $("#mod_search_dip").on('input',function() {
-  		var mod_tmp = $("#mod_search_dip").val();
-  		mod_populateList(mod_tmp);
-  	});
+    
 
     mod_populateListMaterials("");
     $("#mod_search_materiale").on('input',function(){
@@ -72,7 +23,7 @@ $(document).ready(function(){
 			mod_populateListMezzi($("#mod_search_mezzo").val());
 		});
 
-		$('#mod_complete').click(function(){
+	$('#yes_modifica').click(function(){
 			if($('#mod_ora_inizio').val() != '' && $('#mod_ora_fine').val() != '' && $('#mod_pausa').val() >= 0 && $('#mod_pausa').val() <= 120 ){
 				var spl = $('#mod_ora_inizio').val().split(':');
 				if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || spl.length!=2)
@@ -86,7 +37,7 @@ $(document).ready(function(){
 					Materialize.toast("Ora di fine non valida...utilizza hh:mm!",2000);
 					return false;
 				}
-				//controlloRapCliente();
+				aggiungiRapportino();
 			}
 			else
 			{
@@ -97,61 +48,134 @@ $(document).ready(function(){
 			}
 
 		});
+		$('#no_modifica').click(function(){
+			$('#modal1').closeModal();
+		});
+		$('#mod_ora_inizio').on('input',function(){
+			if(parseInt($('#mod_ora_inizio').val()) > 2  && $('#mod_ora_inizio').val().indexOf(':') < 0)
+				$('#mod_ora_inizio').val($('#mod_ora_inizio').val()+':');
+		});
+		$('#mod_ora_fine').on('input',function(){
+			if(parseInt($('#mod_ora_fine').val()) > 2  && $('#mod_ora_fine').val().indexOf(':') < 0)
+				$('#mod_ora_fine').val($('#mod_ora_fine').val()+':');
+		});
+		$('#mod_ora_inizio').focusout(function(){
+			if($('#mod_ora_inizio').val() != ''){
+				var spl = $('#mod_ora_inizio').val().split(':');
+				if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || isNaN(spl[0]) || isNaN(spl[1]) || spl[0]== '' ||spl[1]== '' || spl.length!=2)
+				{
+					Materialize.toast("Ora di inizio non valida...utilizza hh:mm!",2000);
+					$('#mod_ora_inizio').focus();
+				}
+			}
+	
+		});
+		$('#mod_giorno').focusout(function(){
+			if($('#mod_giorno').val() != ''){
+				var spl = $('#mod_giorno').val().split('-');
+				if(parseInt(spl[0]) < 1 || parseInt(spl[0]) > 31 || parseInt(spl[1]) < 1 || parseInt(spl[1]) > 12 || spl.length!=3)
+				{
+					Materialize.toast("Data non valida...utilizza dd-mm-yyyy!",2000);
+					$('#mod_giorno').focus();
+				}
+				
+			}
+		});
+
+		$('#mod_ora_fine').focusout(function(){
+			if($('#mod_ora_fine').val() != ''){
+				var spl = $('#mod_ora_fine').val().split(':');
+				if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || isNaN(spl[0]) || isNaN(spl[1])|| spl[0]== '' ||spl[1]== ''|| spl.length!=2)
+				{
+					Materialize.toast("Ora di fine non valida...utilizza hh:mm!",2000);
+					$('#mod_ora_fine').focus();
+				}
+				
+			}
+		});
+		$('#mod_pausa').focusout(function(){
+			if($('#mod_pausa').val() < 0 || $('#mod_pausa').val() > 120 || isNaN($('#mod_pausa').val())){
+				Materialize.toast("Inserisci una pausa valida tra 0 e 120 minuti",2000);
+				$('#mod_pausa').focus();
+			}
+	
+		});
+
 
 });
 
-function setVarRapp(id_rapp){
-  alert("id_rapp : "+id_rapp);
-  //document.getElementById("mod_ore_tot").innerHTML = "ORE TOTALI: "+ore;
-  //DEVO SETTARE I CAMPI PER LA MODIFICA SUCCESSIVA!
-
+function setVarRapp(index_rapp){
+  var data = (det_json[index_rapp]['inizio']).split(' ')[0];
+  data = data.split("-").reverse().join("-");
+  var inizio = (det_json[index_rapp]['inizio']).split(' ')[1].substr(0, 5);
+  var fine = (det_json[index_rapp]['fine']).split(' ')[1].substr(0, 5);
+  var descr = det_json[index_rapp]['note'];
+  var pausa = det_json[index_rapp]['pausa'];
+  var dipendente_nome = datiDipendente(det_json[index_rapp]['id_dipendente']);
+  mod_setDipendenti(dipendente_nome);
+  $("#mod_giorno").val(data);
+  $("#mod_ora_inizio").val(inizio);
+  $("#mod_ora_fine").val(fine);
+  $("#mod_descrizione").val(descr);
+  $("#mod_pausa").val(pausa);
+  
+  $("#mod_ora_inizio").focus();
+  $("#mod_ora_fine").focus();
+  $("#mod_descrizione").focus();
+  $("#mod_pausa").focus();
+  $("#mod_giorno").focus();
+  load_Materials(det_json[index_rapp]['id']);
+  load_Mezzi(det_json[index_rapp]['id']);
+  mod_updateListUtilizzi(); 
 }
 
-function mod_populateList(filter){
+function load_Materials(id_rapportino){
 	$.ajax({
       dataType: "json",
-      url: "script_php/getEmployee.php?q="+ filter+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "script_php/getMaterialsRapportino.php?id="+ id_rapportino+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
+      async:false,
       success: function(data) {
-	    mod_json = data;
-        console.log(data);
-        var elementi = new Array();
-         $("#mod_elenco_dip").empty();
-        for(var i = 0; i < data.length; i++) {
+	   	 if(data != null){
+		   	 for(var i=0;i<data.length;i++)
+		   	 	mod_materiali_selezionati.push({'id':data[i]['id'],'descrizione':data[i]['descrizione'],'quantita':parseFloat(data[i]['quantita'])});
+		   	 	
 
-	        elementi[i] = document.createElement('li');
-	        elementi[i].className ="collection-item blue-grey lighten-5";
-	        elementi[i].innerHTML = '<div><i class="info small material-icons orange-text">directions_walk</i>'+data[i]['nome']+ ' ' +data[i]['cognome']+ '<a href="#!" style="position: absolute; right: 16px;" class=""><i class="mod_explode material-icons orange-text">add</i></a></div>	';
-
-
-	    	$("#mod_elenco_dip").append(elementi[i]);
-
-
-	    }
-	    mod_id = data[0]['id'];
-
-		//mod_explodeDipendente(data[0]);
-		$(".mod_explode").click(function(){
-	        mod_index = $(".mod_explode").index(this);
-	        mod_id = mod_json[mod_index]['id'];
-          $("#mod_lista_sel_dip").show();
-          mod_setDipendenti(mod_json[mod_index]);
-	        //explodeDipendente(mod_json[index]);
-        });
-      },
+	   	 }
+	   },
       error: function(xhr){
 	     console.log(xhr.status);
         return false;
       }
     });
 
-    //return false;
+}
+function load_Mezzi(id_rapportino){
+	$.ajax({
+      dataType: "json",
+      url: "script_php/getMezziRapportino.php?id="+ id_rapportino+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      data:"",
+      async:false,
+      success: function(data) {
+	   	 if(data != null){
+		   	 for(var i=0;i<data.length;i++)
+		   	 	mod_mezzi_selezionati.push({'id':data[i]['id'],'descrizione':data[i]['descrizione'],'quantita':parseFloat(data[i]['quantita'])});
+		   	 	
+
+	   	 }
+ 
+	   },
+      error: function(xhr){
+	     console.log(xhr.status);
+        return false;
+      }
+    });
 
 }
 
 function mod_setDipendenti(dipendente){
-//  alert("nome: "+dipendente['nome']);
-  $("#mod_lista_sel_dip").append('<div class="chip">'+dipendente['nome']+ ' '+ dipendente['cognome']+'<i class="material-icons">close</i></div> ');
+	$("#mod_lista_sel_dip").empty();
+  $("#mod_lista_sel_dip").append('<div class="chip section">'+dipendente+'</div> ');
 
 }
 
@@ -195,7 +219,7 @@ function mod_populateListMaterials(filter){
 		        }
 
 		        if(mod_duplicato > -1){
-			        mod_materiali_selezionati.splice(duplicato,1);
+			        mod_materiali_selezionati.splice(mod_duplicato,1);
 		        	mod_materiali_selezionati.push({'id':mod_id_Ma,'descrizione':mod_json_materiali[mod_index_Ma]['descrizione'],'quantita':mod_quantita_duplicato+parseFloat($('#mod_quantita_materiale').val())});
 		        }else
 		            mod_materiali_selezionati.push({'id':mod_id_Ma,'descrizione':mod_json_materiali[mod_index_Ma]['descrizione'],'quantita':parseFloat($('#mod_quantita_materiale').val())});
@@ -310,7 +334,7 @@ function mod_populateListMezzi(filter){
  }
 
 function mod_controlloRapCliente(){
-
+	
 }
 
  function mod_aggiungiRapportino(){

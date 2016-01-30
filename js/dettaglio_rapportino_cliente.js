@@ -307,7 +307,7 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 								elementi[i] = document.createElement('li');
 								elementi[i].className ="grey lighten-3 collection-item avatar";
 								var nomeD = datiDipendente(data[i]['id_dipendente']);
-								var inizio_ore ='<div class="orange col s12" style="padding:2%;"><font color="white">Dipendente:  </font>'+giorni+'</div>';
+								var inizio_ore ='<div class="orange col s12" style="padding:2%;"><font color="white">Data:  </font>'+giorni+'</div>';
 								var ele_dip = '<i class="orange accent-4 material-icons circle">access_time</i><div class="row"><div class=" col s12" style="padding:2%;"><font color="orange">Dipendente:  </font>'+nomeD+'</div>';
 								var inizio = data[i]['inizio'];
 								var orai = formatotempo(inizio);
@@ -323,7 +323,7 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 								var ele_ore = '<div class=" col s6" style="padding:2%;"><font color="orange">ORE TOTALI:  </font><b>'+diff_lavoro+'</b></div>';
 								var note = data[i]['note'];
 								var ele_desc = '<div class="col s12" style="padding:2%;"><font color="orange">Descrizione:  </font>'+note+'</div>';
-								var ele = '</div><a class="btn-floating orange"><i class="edit_rap large material-icons">mode_edit</i></a><a style="margin-left:2%;" class="btn-floating orange"><i class="delete_rap large material-icons">delete</i></a>';
+								var ele = '</div><a class="btn-floating orange"><i id="'+i+'" class="edit_rap large material-icons">mode_edit</i></a><a style="margin-left:2%;" class="btn-floating orange"><i class="delete_rap large material-icons">delete</i></a>';
 
 								var tot_ele = inizio_ore+ele_dip+ele_ini+ele_fine+ele_pausa+ele_ore+ele_desc+ele;
 								elementi[i].innerHTML = tot_ele;
@@ -334,10 +334,10 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 					}
 
 					$(".edit_rap").click(function(){
-						det_index = $(".edit_rap").index(this);
+						det_index = $(this).attr('id');
 						id_rap= data[det_index]['id'];
 						$('#modal1').openModal();
-						setVarRapp(id_rap);
+						setVarRapp(det_index);
 					});
 
 					$(".delete_rap").click(function(){
@@ -397,7 +397,6 @@ function datiDipendente(id){
 				async:false,
 	      success: function(data) {
 
-		    det_json = data;
 				//alert("chiamata avvenuta con successo");
 	        console.log(data);
 	        var elementi = new Array();

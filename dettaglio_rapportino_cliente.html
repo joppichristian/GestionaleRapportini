@@ -211,46 +211,36 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
         <!-- Modal Structure -->
         <div id="modal1" class="modal modal-fixed-footer" style="max-height: 85%; width: 85%;">
           <div class="modal-content">
-            <h4>Modifica il Rapportino</h4>
+            <h4 class="section orange-text">Modifica il Rapportino</h4>
 
-             <label class="orange-text" for="data">Giorno</label>
-             <input id="mod_giorno" type="text" name="mod_nuovo_giorno" class="validate">
+             		<div class="input-field">
+				        <i class="material-icons prefix orange-text">event</i>
+                       <label class="orange-text" for="mod_giorno">Giorno</label>
+                       <input id="mod_giorno" type="text" name="mod_giorno" class="validate">
+				 	 </div>    
+					<div class="input-field">
+				        <i class="material-icons prefix orange-text">access_time</i>						
+                       <label class="orange-text" for="ora_inizio">Ora Inizio</label>
+                       <input id="mod_ora_inizio" type="text" name="mod_ora_inizio" class="validate">
+					</div>
+					<div class="input-field">
+				        <i class="material-icons prefix orange-text">access_time</i>           
+                       <label class="orange-text" for="ora_inizio">Ora Fine</label>
+                       <input id="mod_ora_fine" type="text" name="mod_ora_fine" class="validate">
+					</div>
+					<div class="input-field">
+				        <i class="material-icons prefix orange-text">local_cafe</i>
+                       <label class="orange-text" for="ora_inizio">Pausa</label>
+                       <input id="mod_pausa" type="text" name="mod_pausa" value="0" class="validate">
+					</div>
+					<div class="input-field">
+				        <i class="material-icons prefix orange-text">chat_bubble</i>               
+                       <label class="orange-text" for="ora_inizio">Descrizione</label>
+                       <input id="mod_descrizione" type="text" name="mod_descrizione" class="validate">
+					</div>
 
-             <label class="orange-text" for="ora_inizio">Ora Inizio</label>
-             <input id="mod_ora_inizio" type="text" name="mod_ora_inizio" class="validate">
-
-             <label class="orange-text" for="ora_inizio">Ora Fine</label>
-             <input id="mod_ora_fine" type="text" name="mod_ora_fine" class="validate">
-
-             <label class="orange-text" for="ora_inizio">Pausa</label>
-             <input id="mod_pausa" type="text" name="mod_pausa" class="validate">
-
-             <label class="orange-text" for="ora_inizio">Descrizione</label>
-             <input id="mod_descrizione" type="text" name="mod_descrizione" class="validate">
 
              <label class="orange-text" for="data">Dipendente</label><br><br>
-             <!--<a id="mod_aggiungi_dip" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
-             <label class="grey-text" for="data">Aggiungi dipendente  </label>
-
-             <br><br>-->
-              <!--inizio dipendente-->
-             <div class="col s12 m12 l12" id="mod_sezione_dipendenti" >
-               <div class="col s12 m12 l12" >
-               <div class="section list col s12 m12 l12">
-                  <form>
-                    <div class="input-field">
-                      <input id="mod_search_dip" type="text" requiorange>
-                      <label for="search"><i class="material-icons orange-text">search</i></label>
-                     </div>
-                    </form>
-                </div>
-                <div class="section list col s12 m12 l12" style="max-height: 45%;">
-                   <ul class="col s12 m12 l12 collection with-header" id="mod_elenco_dip" style="border: 2px solid orange;"></ul>
-                </div>
-              </div>
-             </div>
-
-              <!--fine dipendente-->
 
               <div id="mod_lista_sel_dip">
               </div>
@@ -314,8 +304,8 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
               <br>
           </div>
           <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat ">Annulla</a>
-            <a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat ">Conferma</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat " id="no_modifica">Annulla</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat " id="yes_modifica">Conferma</a>
           </div>
         </div>
         <!--FINE Elimina RAPPORTINO-->
