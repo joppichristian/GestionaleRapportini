@@ -12,10 +12,10 @@ $(document).ready(function(){
 		window.location.replace("index.html");
 
     $("#lista_sel_dip").hide();
-    $("#sezione_mat").hide();
-		$("#sezione_mezzi").hide();
+    //$("#sezione_mat").hide();
+		//$("#sezione_mezzi").hide();
 
-
+		/*
   	$("#elenco_utilizzi_materiali").hide();
     var stato_aggiungi_mat=0;
 
@@ -28,8 +28,8 @@ $(document).ready(function(){
         stato_aggiungi_mat=1;
       }
     });
-
-		$("#elenco_utilizzi_mezzi").hide();
+		*/
+		/*$("#elenco_utilizzi_mezzi").hide();
     var stato_aggiungi_mezzi=0;
 
     $("#aggiungi_mezzi").on("click",function(){
@@ -41,8 +41,9 @@ $(document).ready(function(){
         stato_aggiungi_mezzi=1;
       }
     });
+		*/
 
-    $("#sezione_dipendenti").hide();
+    /*$("#sezione_dipendenti").hide();
     var stato_aggiungi_dip=0;
     $("#aggiungi_dip").on("click",function(){
       if(stato_aggiungi_dip==1){
@@ -52,7 +53,7 @@ $(document).ready(function(){
         $("#sezione_dipendenti").show();
         stato_aggiungi_dip=1;
       }
-    });
+    });*/
 
     populateListEmployee("");
     $("#search_dip").on('input',function() {
@@ -110,7 +111,7 @@ function populateListEmployee(filter){
         for(var i = 0; i < data.length; i++) {
 
 	        elementi[i] = document.createElement('li');
-	        elementi[i].className ="collection-item";
+	        elementi[i].className ="collection-item blue-grey lighten-5";
 	        elementi[i].innerHTML = '<div><i class="info small material-icons orange-text">directions_walk</i>'+data[i]['nome']+ ' ' +data[i]['cognome']+ '<a href="#!" style="position: absolute; right: 16px;" class=""><i class="select_employee material-icons orange-text">add</i></a></div>	';
 
 
@@ -133,7 +134,7 @@ function populateListEmployee(filter){
 		        updateListUtilizzi();
 		        Materialize.toast("Dipendente aggiunto!",2000);
 
-		    }	
+		    }
 		});
       },
       error: function(xhr){
@@ -159,7 +160,7 @@ function populateListMaterials(filter){
         for(var i = 0; i < data.length; i++) {
 
 	        elementi[i] = document.createElement('li');
-	        elementi[i].className ="collection-item";
+	        elementi[i].className ="collection-item blue-grey lighten-5";
 
 	        elementi[i].innerHTML = '<div><i class="info small material-icons orange-text">local_play</i>'+(data[i]['codice']+' - '+data[i]['descrizione']).substr(0,24)+'<a href="#!" style="position: absolute; right: 16px;"><i class="select_materials material-icons orange-text">add</i></a></div>	';
 
@@ -269,7 +270,7 @@ function populateListMezzi(filter){
         for(var i = 0; i < data.length; i++) {
 
 	        elementi[i] = document.createElement('li');
-	        elementi[i].className ="collection-item";
+	        elementi[i].className ="collection-item blue-grey lighten-5";
 
 	        elementi[i].innerHTML = '<div><i class="info small material-icons orange-text">directions_bus</i>'+data[i]['descrizione']+'<a style="position: absolute; right: 16px;" href="#!" ><i class="select_mezzi material-icons orange-text">add</i></a></div>	';
 
@@ -382,5 +383,5 @@ function removeDipendente(i){
 	else{
 		Materialize.toast("Errore: Rapportino NON Inserito",2000);
 	}
-	
+
  }

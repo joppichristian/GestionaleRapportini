@@ -12,12 +12,13 @@ $(document).ready(function(){
 		window.location.replace("index.html");
 
     $("#mod_lista_sel_dip").hide();
-    $("#mod_sezione_mat").hide();
-		$("#mod_sezione_mezzi").hide();
+    //$("#mod_sezione_mat").hide();
+		//$("#mod_sezione_mezzi").hide();
 
     //var id_mod_rap= localStorage.getItem("id_rapportino");
     //alert("id_in modifica rapportino  "+id_mod_rap);
-  	$("#mod_elenco_utilizzi_materiali").hide();
+
+		/*$("#mod_elenco_utilizzi_materiali").hide();
     var mod_stato_aggiungi_mat=0;
 
     $("#mod_aggiungi_mat").on("click",function(){
@@ -54,7 +55,7 @@ $(document).ready(function(){
         mod_stato_aggiungi_dip=1;
       }
     });
-
+		*/
     mod_populateList("");
     $("#mod_search_dip").on('input',function() {
   		var mod_tmp = $("#mod_search_dip").val();
@@ -119,7 +120,7 @@ function mod_populateList(filter){
         for(var i = 0; i < data.length; i++) {
 
 	        elementi[i] = document.createElement('li');
-	        elementi[i].className ="collection-item";
+	        elementi[i].className ="collection-item blue-grey lighten-5";
 	        elementi[i].innerHTML = '<div><i class="info small material-icons orange-text">directions_walk</i>'+data[i]['nome']+ ' ' +data[i]['cognome']+ '<a href="#!" style="position: absolute; right: 16px;" class=""><i class="mod_explode material-icons orange-text">add</i></a></div>	';
 
 
@@ -166,9 +167,9 @@ function mod_populateListMaterials(filter){
         for(var i = 0; i < data.length; i++) {
 
 	        elementi[i] = document.createElement('li');
-	        elementi[i].className ="collection-item";
+	        elementi[i].className ="collection-item blue-grey lighten-5";
 
-	        elementi[i].innerHTML = '<div><i class="info small material-icons purple-text">local_play</i>'+(data[i]['codice']+' - '+data[i]['descrizione']).substr(0,24)+'<a href="#!" style="position: absolute; right: 16px;"><i class="mod_select_materials material-icons purple-text">add</i></a></div>	';
+	        elementi[i].innerHTML = '<div><i class="info small material-icons orange-text">local_play</i>'+(data[i]['codice']+' - '+data[i]['descrizione']).substr(0,24)+'<a href="#!" style="position: absolute; right: 16px;"><i class="mod_select_materials material-icons orange-text">add</i></a></div>	';
 
 
 	    	$("#mod_elenco_materiali").append(elementi[i]);
@@ -224,14 +225,14 @@ function mod_updateListUtilizzi(){
 	for(var i=0; i < mod_materiali_selezionati.length ;i++){
 		chip[i] = document.createElement('div');
 		chip[i].className= "chip";
-		chip[i].innerHTML=mod_materiali_selezionati[i]['descrizione'] + '&nbsp; x' + mod_materiali_selezionati[i]['quantita']+'<a href="#!" ><i class="mod_remove_materiale material-icons purple-text">remove_circle</i></a>';
+		chip[i].innerHTML=mod_materiali_selezionati[i]['descrizione'] + '&nbsp; x' + mod_materiali_selezionati[i]['quantita']+'<a href="#!" ><i class="mod_remove_materiale material-icons orange-text">remove_circle</i></a>';
   		$("#mod_elenco_utilizzi_materiali").append(chip[i]);
 
 	}
 	for(var i=0; i < mod_mezzi_selezionati.length ;i++){
 		chip[i] = document.createElement('div');
 		chip[i].className= "chip";
-		chip[i].innerHTML=mod_mezzi_selezionati[i]['descrizione'] + '&nbsp; x' + mod_mezzi_selezionati[i]['quantita']+'h <a href="#!" ><i class="mod_remove_mezzo material-icons purple-text">remove_circle</i></a>';
+		chip[i].innerHTML=mod_mezzi_selezionati[i]['descrizione'] + '&nbsp; x' + mod_mezzi_selezionati[i]['quantita']+'h <a href="#!" ><i class="mod_remove_mezzo material-icons orange-text">remove_circle</i></a>';
   		$("#mod_elenco_utilizzi_mezzi").append(chip[i]);
 
 	}
@@ -262,9 +263,9 @@ function mod_populateListMezzi(filter){
         for(var i = 0; i < data.length; i++) {
 
 	        elementi[i] = document.createElement('li');
-	        elementi[i].className ="collection-item";
+	        elementi[i].className ="collection-item blue-grey lighten-5";
 
-	        elementi[i].innerHTML = '<div><i class="info small material-icons purple-text">directions_bus</i>'+data[i]['descrizione']+'<a style="position: absolute; right: 16px;" href="#!" ><i class="mod_select_mezzi material-icons purple-text">add</i></a></div>	';
+	        elementi[i].innerHTML = '<div><i class="info small material-icons orange-text">directions_bus</i>'+data[i]['descrizione']+'<a style="position: absolute; right: 16px;" href="#!" ><i class="mod_select_mezzi material-icons orange-text">add</i></a></div>	';
 
 
 	    	$("#mod_elenco_mezzi").append(elementi[i]);

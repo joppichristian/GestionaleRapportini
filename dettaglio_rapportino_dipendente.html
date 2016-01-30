@@ -1,0 +1,474 @@
+<html><head>
+    <meta name="viewport" content="width=device-width, user-scalable=no,
+initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+  <title>Gestionale</title>
+
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+  <link rel="stylesheet" href="css/style.css">
+   <link rel="stylesheet" href="css/form_orange.css">
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+  <script src="js/dipendenti.js" type="text/javascript" ></script>
+  <!--<script src="js/clients.js" type="text/javascript" ></script>-->
+
+ <script src="js/rapportino.js" ></script>
+ <script src="js/manageCookie.js" type="text/javascript" ></script>
+ <script src="js/dettaglio_rapportino_dipendente.js" type="text/javascript" ></script>
+ <script src="js/aggiungi_rapportino_dipendente.js" type="text/javascript" ></script>
+ <script src="js/modifica_rapportino_dipendente.js" type="text/javascript" ></script>
+
+</head>
+
+	<body class="blue-grey lighten-5">
+    <!--sezione header menu-->
+
+  <nav class="section blue-grey darken-3">
+    <div class="nav-wrapper">
+      <div class="col s12">
+        <a href="dashboard.html" class="breadcrumb">Home</a>
+        <a href="rapportini.html" class="breadcrumb">Rapportini</a>
+        <a href="#!" class="breadcrumb">Dettaglio</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+
+    <div class="row">
+       <div class="col s12 m12">
+         <div class="card">
+           <div class="card-content">
+              <h5 id="nome_cliente" class="center-align">Nome Cliente</h5>
+            </div>
+         </div>
+      </div>
+    </div>
+
+    <div class="row">
+       <div class="col s12 m12">
+         <div class="card">
+           <div class="card-content" style="height:30%;">
+             <div class="input-field col s12 m6 l6">
+                   <i class="material-icons prefix orange-text">access_time</i>
+                   <input id="data_inizio" type="text" name="ora_inizio" class="validate" value="1-01-2016">
+                   <label class="orange-text" for="ora_inizio">Data Inizio</label>
+             </div>
+
+             <div class="input-field col s12 m6 l6">
+                   <i class="material-icons prefix orange-text">access_time</i>
+                   <input id="data_fine" type="text" name="ora_fine" class="validate" value="8-01-2016">
+                   <label class="orange-text" for="ora_fine">Data Fine</label>
+             </div>
+
+             <div style="margin-top: 5%;" class="col s12 m12 l12">
+               <div class="col s6 m6 l6">
+                   <a id="cerca_filtro"class="waves-effect waves-light orange btn">CERCA</a>
+               </div>
+               <div class="col s6 m6 l6">
+                   <a id="reset_filtro" class="waves-effect waves-light orange btn">RESET</a>
+               </div>
+            </div>
+            </div>
+         </div>
+      </div>
+    </div>
+
+    <div class="row">
+
+
+         <div class="col s12 m12">
+           <div class="card">
+             <div class="card-content">
+               <!--<span>Aggiungi nuova giornata </span><a id="pulsante_list" style="position: absolute; top: 16px; right: 5%;" class="btn-floating orange"><i class="material-icons">add</i></a>-->
+               <ul class="collection" style="border: 4px solid orange">
+                 <li class="collection-item avatar">
+                       <label class="orange-text" for="ora_inizio">Nuovo Rapportino</label>
+                       <p>Clicca sul pulsante e compila i campi</p>
+                       <a id="add_list" style="position: absolute; top: 16px; right: 5%;" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
+                       <!--<i class="material-icons circle">access_time</i>-->
+                 </li>
+
+
+                 <li id="new_insert_item" class="grey lighten-3 collection-item avatar">
+
+                      <label class="orange-text" for="ora_inizio">Tipologia ore</label>
+                      <form action="#">
+                            <p>
+                              <br>
+                              <input class="with-gap" name="group1" type="radio" id="test1" checked="checked"/>
+                              <label for="test1">Lavoro</label>
+                              <input class="with-gap" name="group1" type="radio" id="test2" />
+                              <label for="test2">Ferie</label>
+                              <input class="with-gap" name="group1" type="radio" id="test3"  />
+                              <label for="test3">Didattiche</label>
+                              <input class="with-gap" name="group1" type="radio" id="test4" />
+                              <label for="test4">Malattie</label>
+                              <input class="with-gap" name="group1" type="radio" id="test5" />
+                              <label for="test5">Altro</label>
+                              <br>
+                            </p>
+                       </form>
+
+                       <label class="orange-text" for="data">Giorno</label>
+                       <input id="nuovo_giorno" type="text" name="nuovo_giorno" class="validate">
+
+                       <label class="orange-text" for="ora_inizio">Ora Inizio</label>
+                       <input id="nuovo_ora_inizio" type="text" name="nuovo_ora_inizio" class="validate">
+
+                       <label class="orange-text" for="ora_inizio">Ora Fine</label>
+                       <input id="nuovo_ora_fine" type="text" name="nuovo_ora_fine" class="validate">
+
+                       <label class="orange-text" for="ora_inizio">Pausa</label>
+                       <input id="nuovo_pausa" type="text" name="nuovo_pausa" class="validate">
+
+                       <label class="orange-text" for="ora_inizio">Descrizione</label>
+                       <input id="nuovo_descrizione" type="text" name="nuovo_descrizione" class="validate">
+
+                       <label class="orange-text" for="data">Dipendente</label><br><br>
+                       <!--<a id="aggiungi_dip" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
+                       <label class="grey-text" for="data">Aggiungi dipendente  </label>
+                        -->
+                        <!--inizio dipendente-->
+                       <div class="col s12 m12 l12" id="sezione_dipendenti" >
+                         <div class="col s12 m12 l12" >
+                         <div class="section list col s12 m12 l12">
+                  		        <div class="input-field col s12 m12 l12">
+                  		          <input id="search_dip" type="text" requiorange>
+                  		          <label for="search"><i class="material-icons orange-text">search</i></label>
+                  		         </div>
+                  	  	  </div>
+                  	  	  <div class="section list col s12 m12 l12" style="max-height: 45%;">
+                  		       <ul class="col s12 m12 l12 collection with-header" id="elenco_dip" style="border: 2px solid orange;" ></ul>
+                  	  	  </div>
+                        </div>
+                       </div>
+
+                        <!--fine dipendente-->
+
+                        <div id="lista_sel_dip">
+                        </div>
+
+                       <label class="orange-text" for="data">Materiale</label><br><br>
+                       <!--<a id="aggiungi_mat" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
+                       <label class="grey-text" for="data">Aggiungi materiale  </label>
+                        -->
+                        <!--inizio materiale-->
+                        <div class="col s12 m12 l12" id="sezione_mat" class="row section materiali">
+                          <div class="col s12 m12 l12" >
+                              <div class="input-field col s12 m12 l12">
+                                 <i class="material-icons prefix orange-text">keyboard_arrow_right</i>
+                                 <input id="quantita_materiale" type="text" value="1" name="quantita" class="validate">
+                                 <label class="orange-text" for="quantita_materiale">Quantit&agrave;</label>
+                              </div>
+                              <div class="input-field col s12 m12 l12">
+              							      <input id="search_materiale" type="text" requiorange>
+              							      <label for="search_materiale"><i class="material-icons orange-text">search</i></label>
+              						    </div>
+                              <div class="section list col s12 m12 l12" style="max-height: 35%;">
+              							      <ul class="col s12 m12 l12 collection with-header" id="elenco_materiali" style="border: 2px solid orange;" ></ul>
+              						    </div>
+                          </div>
+
+              					</div>
+
+                        <!--fine materiale-->
+
+                        <div class="row section" id="elenco_utilizzi_materiali">
+                        </div>
+
+                        <label class="orange-text" for="data">Mezzi</label><br><br>
+                        <!--<a id="aggiungi_mezzi" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
+                        <label class="grey-text" for="data">Aggiungi mezzi  </label>
+                       -->
+                        <!--inizio mezzi-->
+                        <div class="col s12 m12 l12" id="sezione_mezzi" class="row section mezzi">
+                          <div class="col s12 m12 l12" >
+                              <div class="input-field col s12 m12 l12">
+                                  <i class="material-icons prefix orange-text">keyboard_arrow_right</i>
+                                  <input id="quantita_mezzo" type="text" name="quantita" value="1" class="validate">
+                                  <label class="orange-text" for="quantita_mezzo">Quantit&agrave;</label>
+                              </div>
+                              <div class="input-field col s12 m12 l12">
+                                  <input id="search_mezzo" type="text" requiorange>
+                                  <label for="search_mezzo"><i class="material-icons orange-text">search</i></label>
+                              </div>
+                              <div class="section list col s12 m12 l12" style="max-height: 45%;">
+                                  <ul class="col s12 m12 l12 collection with-header" id="elenco_mezzi" style="border: 2px solid orange;" ></ul>
+                              </div>
+
+                            </div>
+                        </div>
+                        <!--fine mezzi-->
+
+                        <div class="row section" id="elenco_utilizzi_mezzi">
+                        </div>
+
+                        <div align="right">
+                        </button>
+                            <button style=" right: 5%;" class="btn waves-effect waves-light orange white-text" id="complete" type="button" >Inserisci
+                        </button>
+                          <!--  <a class="btn-floating orange" style=" right: 5%;"><i class="large material-icons">done</i></a>-->
+                        </div>
+					       </li>
+               </ul>
+              </div>
+           </div>
+        </div>
+
+        <!-- Modifiche RAPPORTINO-->
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal modal-fixed-footer" style="max-height: 85%; width: 85%;">
+          <div class="modal-content">
+            <h4>Modifica il Rapportino</h4>
+            <label class="orange-text" for="mod_ora_inizio">Tipologia ore</label>
+            <form action="#">
+                  <p>
+                    <br>
+                    <input class="with-gap" name="mod_group2" type="radio" id="mod_test1" checked="checked"/>
+                    <label for="mod_test1">Lavoro</label>
+                    <input class="with-gap" name="mod_group2" type="radio" id="mod_test2" />
+                    <label for="mod_test2">Ferie</label>
+                    <input class="with-gap" name="mod_group2" type="radio" id="mod_test3"  />
+                    <label for="mod_test3">Didattiche</label>
+                    <input class="with-gap" name="mod_group2" type="radio" id="mod_test4" />
+                    <label for="mod_test4">Malattie</label>
+                    <input class="with-gap" name="mod_group2" type="radio" id="mod_test5" />
+                    <label for="mod_test5">Altro</label>
+                    <br>
+                  </p>
+             </form>
+
+             <label class="orange-text" for="data">Giorno</label>
+             <input id="mod_giorno" type="text" name="mod_nuovo_giorno" class="validate">
+
+             <label class="orange-text" for="ora_inizio">Ora Inizio</label>
+             <input id="mod_ora_inizio" type="text" name="mod_ora_inizio" class="validate">
+
+             <label class="orange-text" for="ora_inizio">Ora Fine</label>
+             <input id="mod_ora_fine" type="text" name="mod_ora_fine" class="validate">
+
+             <label class="orange-text" for="ora_inizio">Pausa</label>
+             <input id="mod_pausa" type="text" name="mod_pausa" class="validate">
+
+             <label class="orange-text" for="ora_inizio">Descrizione</label>
+             <input id="mod_descrizione" type="text" name="mod_descrizione" class="validate">
+
+             <label class="orange-text" for="data">Dipendente</label><br><br>
+             <!--<a id="mod_aggiungi_dip" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
+             <label class="grey-text" for="data">Aggiungi dipendente  </label>
+
+             <br><br>-->
+              <!--inizio dipendente-->
+             <div class="col s12 m12 l12" id="mod_sezione_dipendenti" >
+               <div class="col s12 m12 l12" >
+               <div class="section list col s12 m12 l12">
+                  <form>
+                    <div class="input-field">
+                      <input id="mod_search_dip" type="text" requiorange>
+                      <label for="search"><i class="material-icons orange-text">search</i></label>
+                     </div>
+                    </form>
+                </div>
+                <div class="section list col s12 m12 l12" style="max-height: 45%;">
+                   <ul class="col s12 m12 l12 collection with-header" id="mod_elenco_dip" style="border: 2px solid orange;"></ul>
+                </div>
+              </div>
+             </div>
+
+              <!--fine dipendente-->
+
+              <div id="mod_lista_sel_dip">
+              </div>
+
+             <label class="orange-text" for="data">Materiale</label><br><br>
+             <!--<a id="mod_aggiungi_mat" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
+             <label class="grey-text" for="data">Aggiungi materiale  </label>
+
+             <br><br>-->
+              <!--inizio materiale-->
+              <div class="col s12 m12 l12" id="mod_sezione_mat" class="row section materiali">
+                <div class="col s12 m12 l12" >
+                    <div class="input-field col s12 m12 l12">
+                       <i class="material-icons prefix orange-text">keyboard_arrow_right</i>
+                       <input id="mod_quantita_materiale" type="text" value="1" name="mod_quantita" class="validate">
+                       <label class="orange-text" for="quantita_materiale">Quantit&agrave;</label>
+                    </div>
+                    <div class="input-field col s12 m12 l12">
+                        <input id="mod_search_materiale" type="text" requiorange>
+                        <label for="search_materiale"><i class="material-icons orange-text">search</i></label>
+                    </div>
+                    <div class="section list col s12 m12 l12" style="max-height: 35%;">
+                        <ul class="col s12 m12 l12 collection with-header" id="mod_elenco_materiali" style="border: 2px solid orange;" ></ul>
+                    </div>
+                </div>
+
+              </div>
+
+              <!--fine materiale-->
+
+              <div class="row section" id="mod_elenco_utilizzi_materiali">
+              </div>
+
+              <label class="orange-text" for="data">Mezzi</label><br><br>
+              <!--<a id="mod_aggiungi_mezzi" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
+              <label class="grey-text" for="data">Aggiungi mezzi  </label>
+              <br><br>-->
+              <!--inizio mezzi-->
+              <div class="col s12 m12 l12" id="mod_sezione_mezzi" class="row section mezzi">
+                <div class="col s12 m12 l12">
+                    <div class="input-field col s12 m12 l12">
+                        <i class="material-icons prefix orange-text">keyboard_arrow_right</i>
+                        <input id="mod_quantita_mezzo" type="text" name="mod_quantita" value="1" class="validate">
+                        <label class="orange-text" for="quantita_mezzo">Quantit&agrave;</label>
+                    </div>
+                    <div class="input-field col s12 m12 l12">
+                        <input id="mod_search_mezzo" type="text" requiorange>
+                        <label for="search_mezzo"><i class="material-icons orange-text">search</i></label>
+                    </div>
+                    <div class="section list col s12 m12 l12" style="max-height: 45%;">
+                        <ul class="col s12 m12 l12 collection with-header" id="mod_elenco_mezzi" style="border: 2px solid orange;"></ul>
+                    </div>
+
+                  </div>
+              </div>
+              <!--fine mezzi-->
+
+              <div class="row section" id="mod_elenco_utilizzi_mezzi">
+              </div>
+
+              <br>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat ">Annulla</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat ">Conferma</a>
+          </div>
+        </div>
+        <!--FINE Elimina RAPPORTINO-->
+
+        <!-- Elimina RAPPORTINO -->
+        <div id="modal2" class="modal">
+          <div class="modal-content">
+            <h4>Conferma Eliminazione</h4>
+            <p>Sei sicuro di voler eliminare il rapportino?</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat ">No</a>
+            <a href="#!" class=" modal-action modal-close waves-effect waves-orange btn-flat">Si</a>
+          </div>
+        </div>
+
+      <div class="section list col s12 m6 l4" style="max-height: 100%;">
+        <ul id="lista_rap" class="collection">
+        </ul>
+      </div>
+
+
+        <div class="col s12 m6 l8">
+
+            <div class="card">
+              <div class="card-content" >
+
+                <ul id="lista_singolo_rap" class="collection">
+
+
+                </ul>
+              </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+      <div class="col s12 m12">
+        <div class="card">
+          <div class="card-content">
+             <p id="tipologia_ore" class="center-align">RIEPILOGO ORE</p>
+           </div>
+        </div>
+     </div>
+       <div class="col s6 m3">
+         <div class="card">
+           <div class="card-content">
+              <p id="ore_lavoro" class="center-align">Lavoro: --</p>
+            </div>
+         </div>
+      </div>
+      <div class="col s6 m3">
+        <div class="card">
+          <div class="card-content">
+             <p id="ore_ferie" class="center-align">Ferie: --</p>
+           </div>
+        </div>
+     </div>
+     <div class="col s6 m3">
+       <div class="card">
+         <div class="card-content">
+            <p id="ore_didattica" class="center-align">Didattica: --</p>
+          </div>
+       </div>
+    </div>
+    <div class="col s6 m3">
+      <div class="card">
+        <div class="card-content">
+           <p id="ore_malattie" class="center-align">Malattie: --</p>
+         </div>
+      </div>
+   </div>
+   <div class="col s6 m3">
+     <div class="card">
+       <div class="card-content">
+          <p id="ore_altro" class="center-align">Altro: --</p>
+        </div>
+     </div>
+  </div>
+  <div class="col s12 m9">
+    <div class="orange card">
+      <div class="card-content">
+         <p id="ore_tot" class="center-align">Totale ORE: --</p>
+       </div>
+    </div>
+ </div>
+    </div>
+
+    <div class="row">
+       <div class="col s12 m12">
+         <div class=" card">
+            <div class="card-content">
+              <p class="center-align">RIEPILOGO MATERIALI</p> <a id="pulsante_materiali" style="position: absolute; top: 16px; right: 5%;" class="btn-floating orange"><i class="large mdi-navigation-menu"></i></a>
+            </div>
+            <div id="elementi_materiali" class="card-content">
+               <p> elemento materiale ...
+               </p>
+            </div>
+         </div>
+      </div>
+    </div>
+
+    <div class="row">
+       <div class="col s12 m12">
+         <div class="col s6 m6 l6 center-align">
+             <a class="waves-effect waves-light orange btn">SCARICA</a>
+         </div>
+         <div class="col s6 m6 l6 center-align">
+             <a class="waves-effect waves-light  orange btn">STAMPA</a>
+         </div>
+      </div>
+    </div>
+
+  </div>
+<footer class="page-footer blue-grey darken-3">
+           <div class="footer-copyright">
+            <div class="container">
+            © 2014 Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div>
+        </footer>
+
+  </body>
+
+  </html>

@@ -17,9 +17,9 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 
  <script src="js/rapportino.js" ></script>
  <script src="js/manageCookie.js" type="text/javascript" ></script>
- <script src="js/dettaglio_rapportino.js" type="text/javascript" ></script>
- <script src="js/aggiungi_rapportino.js" type="text/javascript" ></script>
- <script src="js/modifica_rapportino.js" type="text/javascript" ></script>
+ <script src="js/dettaglio_rapportino_cliente.js" type="text/javascript" ></script>
+ <script src="js/aggiungi_rapportino_cliente.js" type="text/javascript" ></script>
+ <script src="js/modifica_rapportino_cliente.js" type="text/javascript" ></script>
 
 </head>
 
@@ -94,24 +94,6 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 
                  <li id="new_insert_item" class="grey lighten-3 collection-item avatar">
 
-                      <label class="orange-text" for="ora_inizio">Tipologia ore</label>
-                      <form action="#">
-                            <p>
-                              <br>
-                              <input class="with-gap" name="group1" type="radio" id="test1" checked="checked"/>
-                              <label for="test1">Lavoro</label>
-                              <input class="with-gap" name="group1" type="radio" id="test2" />
-                              <label for="test2">Ferie</label>
-                              <input class="with-gap" name="group1" type="radio" id="test3"  />
-                              <label for="test3">Didattiche</label>
-                              <input class="with-gap" name="group1" type="radio" id="test4" />
-                              <label for="test4">Malattie</label>
-                              <input class="with-gap" name="group1" type="radio" id="test5" />
-                              <label for="test5">Altro</label>
-                              <br>
-                            </p>
-                       </form>
-
                        <label class="orange-text" for="data">Giorno</label>
                        <input id="nuovo_giorno" type="text" name="nuovo_giorno" class="validate">
 
@@ -128,13 +110,12 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
                        <input id="nuovo_descrizione" type="text" name="nuovo_descrizione" class="validate">
 
                        <label class="orange-text" for="data">Dipendente</label><br><br>
-                       <a id="aggiungi_dip" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
+                       <!--<a id="aggiungi_dip" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
                        <label class="grey-text" for="data">Aggiungi dipendente  </label>
-
-                       <br><br>
+                        -->
                         <!--inizio dipendente-->
                        <div class="col s12 m12 l12" id="sezione_dipendenti" >
-                         <div class="col s10 m10 l10" style="background-color:white;">
+                         <div class="col s12 m12 l12" >
                          <div class="section list col s12 m12 l12">
                   		        <div class="input-field col s12 m12 l12">
                   		          <input id="search_dip" type="text" requiorange>
@@ -142,7 +123,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
                   		         </div>
                   	  	  </div>
                   	  	  <div class="section list col s12 m12 l12" style="max-height: 45%;">
-                  		       <ul class="col s12 m12 l12 collection with-header" id="elenco_dip" ></ul>
+                  		       <ul class="col s12 m12 l12 collection with-header" id="elenco_dip" style="border: 2px solid orange;" ></ul>
                   	  	  </div>
                         </div>
                        </div>
@@ -153,13 +134,12 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
                         </div>
 
                        <label class="orange-text" for="data">Materiale</label><br><br>
-                       <a id="aggiungi_mat" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
+                       <!--<a id="aggiungi_mat" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
                        <label class="grey-text" for="data">Aggiungi materiale  </label>
-
-                       <br><br>
+                        -->
                         <!--inizio materiale-->
                         <div class="col s12 m12 l12" id="sezione_mat" class="row section materiali">
-                          <div class="col s10 m10 l10" style="background-color:white;">
+                          <div class="col s12 m12 l12" >
                               <div class="input-field col s12 m12 l12">
                                  <i class="material-icons prefix orange-text">keyboard_arrow_right</i>
                                  <input id="quantita_materiale" type="text" value="1" name="quantita" class="validate">
@@ -169,8 +149,8 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
               							      <input id="search_materiale" type="text" requiorange>
               							      <label for="search_materiale"><i class="material-icons orange-text">search</i></label>
               						    </div>
-                              <div class="section list col s12 m12 l12" style="height: 35%;">
-              							      <ul class="col s12 m12 l12 collection with-header" id="elenco_materiali" ></ul>
+                              <div class="section list col s12 m12 l12" style="max-height: 35%;">
+              							      <ul class="col s12 m12 l12 collection with-header" id="elenco_materiali" style="border: 2px solid orange;" ></ul>
               						    </div>
                           </div>
 
@@ -182,12 +162,12 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
                         </div>
 
                         <label class="orange-text" for="data">Mezzi</label><br><br>
-                        <a id="aggiungi_mezzi" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
+                        <!--<a id="aggiungi_mezzi" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
                         <label class="grey-text" for="data">Aggiungi mezzi  </label>
-                        <br><br>
+                       -->
                         <!--inizio mezzi-->
                         <div class="col s12 m12 l12" id="sezione_mezzi" class="row section mezzi">
-                          <div class="col s10 m10 l10" style="background-color:white;">
+                          <div class="col s12 m12 l12" >
                               <div class="input-field col s12 m12 l12">
                                   <i class="material-icons prefix orange-text">keyboard_arrow_right</i>
                                   <input id="quantita_mezzo" type="text" name="quantita" value="1" class="validate">
@@ -198,7 +178,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
                                   <label for="search_mezzo"><i class="material-icons orange-text">search</i></label>
                               </div>
                               <div class="section list col s12 m12 l12" style="max-height: 45%;">
-                                  <ul class="col s12 m12 l12 collection with-header" id="elenco_mezzi" ></ul>
+                                  <ul class="col s12 m12 l12 collection with-header" id="elenco_mezzi" style="border: 2px solid orange;" ></ul>
                               </div>
 
                             </div>
@@ -208,14 +188,13 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
                         <div class="row section" id="elenco_utilizzi_mezzi">
                         </div>
 
-                        <br>  <br>
                         <div align="right">
                         </button>
                             <button style=" right: 5%;" class="btn waves-effect waves-light orange white-text" id="complete" type="button" >Inserisci
                         </button>
                           <!--  <a class="btn-floating orange" style=" right: 5%;"><i class="large material-icons">done</i></a>-->
                         </div>
-					</li>
+					       </li>
                </ul>
               </div>
            </div>
@@ -223,26 +202,9 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 
         <!-- Modifiche RAPPORTINO-->
         <!-- Modal Structure -->
-        <div id="modal1" class="modal modal-fixed-footer">
+        <div id="modal1" class="modal modal-fixed-footer" style="max-height: 85%; width: 85%;">
           <div class="modal-content">
             <h4>Modifica il Rapportino</h4>
-            <label class="orange-text" for="mod_ora_inizio">Tipologia ore</label>
-            <form action="#">
-                  <p>
-                    <br>
-                    <input class="with-gap" name="mod_group2" type="radio" id="mod_test1" checked="checked"/>
-                    <label for="mod_test1">Lavoro</label>
-                    <input class="with-gap" name="mod_group2" type="radio" id="mod_test2" />
-                    <label for="mod_test2">Ferie</label>
-                    <input class="with-gap" name="mod_group2" type="radio" id="mod_test3"  />
-                    <label for="mod_test3">Didattiche</label>
-                    <input class="with-gap" name="mod_group2" type="radio" id="mod_test4" />
-                    <label for="mod_test4">Malattie</label>
-                    <input class="with-gap" name="mod_group2" type="radio" id="mod_test5" />
-                    <label for="mod_test5">Altro</label>
-                    <br>
-                  </p>
-             </form>
 
              <label class="orange-text" for="data">Giorno</label>
              <input id="mod_giorno" type="text" name="mod_nuovo_giorno" class="validate">
@@ -260,13 +222,13 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
              <input id="mod_descrizione" type="text" name="mod_descrizione" class="validate">
 
              <label class="orange-text" for="data">Dipendente</label><br><br>
-             <a id="mod_aggiungi_dip" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
+             <!--<a id="mod_aggiungi_dip" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
              <label class="grey-text" for="data">Aggiungi dipendente  </label>
 
-             <br><br>
+             <br><br>-->
               <!--inizio dipendente-->
              <div class="col s12 m12 l12" id="mod_sezione_dipendenti" >
-               <div class="col s10 m10 l10" style="background-color:white;">
+               <div class="col s12 m12 l12" >
                <div class="section list col s12 m12 l12">
                   <form>
                     <div class="input-field">
@@ -276,7 +238,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
                     </form>
                 </div>
                 <div class="section list col s12 m12 l12" style="max-height: 45%;">
-                   <ul class="col s12 m12 l12 collection with-header" id="mod_elenco_dip" ></ul>
+                   <ul class="col s12 m12 l12 collection with-header" id="mod_elenco_dip" style="border: 2px solid orange;"></ul>
                 </div>
               </div>
              </div>
@@ -287,13 +249,13 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
               </div>
 
              <label class="orange-text" for="data">Materiale</label><br><br>
-             <a id="mod_aggiungi_mat" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
+             <!--<a id="mod_aggiungi_mat" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
              <label class="grey-text" for="data">Aggiungi materiale  </label>
 
-             <br><br>
+             <br><br>-->
               <!--inizio materiale-->
               <div class="col s12 m12 l12" id="mod_sezione_mat" class="row section materiali">
-                <div class="col s10 m10 l10" style="background-color:white;">
+                <div class="col s12 m12 l12" >
                     <div class="input-field col s12 m12 l12">
                        <i class="material-icons prefix orange-text">keyboard_arrow_right</i>
                        <input id="mod_quantita_materiale" type="text" value="1" name="mod_quantita" class="validate">
@@ -303,8 +265,8 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
                         <input id="mod_search_materiale" type="text" requiorange>
                         <label for="search_materiale"><i class="material-icons orange-text">search</i></label>
                     </div>
-                    <div class="section list col s12 m12 l12" style="height: 35%;">
-                        <ul class="col s12 m12 l12 collection with-header" id="mod_elenco_materiali" ></ul>
+                    <div class="section list col s12 m12 l12" style="max-height: 35%;">
+                        <ul class="col s12 m12 l12 collection with-header" id="mod_elenco_materiali" style="border: 2px solid orange;" ></ul>
                     </div>
                 </div>
 
@@ -316,12 +278,12 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
               </div>
 
               <label class="orange-text" for="data">Mezzi</label><br><br>
-              <a id="mod_aggiungi_mezzi" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
+              <!--<a id="mod_aggiungi_mezzi" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
               <label class="grey-text" for="data">Aggiungi mezzi  </label>
-              <br><br>
+              <br><br>-->
               <!--inizio mezzi-->
               <div class="col s12 m12 l12" id="mod_sezione_mezzi" class="row section mezzi">
-                <div class="col s10 m10 l10" style="background-color:white;">
+                <div class="col s12 m12 l12">
                     <div class="input-field col s12 m12 l12">
                         <i class="material-icons prefix orange-text">keyboard_arrow_right</i>
                         <input id="mod_quantita_mezzo" type="text" name="mod_quantita" value="1" class="validate">
@@ -332,7 +294,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
                         <label for="search_mezzo"><i class="material-icons orange-text">search</i></label>
                     </div>
                     <div class="section list col s12 m12 l12" style="max-height: 45%;">
-                        <ul class="col s12 m12 l12 collection with-header" id="mod_elenco_mezzi" ></ul>
+                        <ul class="col s12 m12 l12 collection with-header" id="mod_elenco_mezzi" style="border: 2px solid orange;"></ul>
                     </div>
 
                   </div>
@@ -373,20 +335,10 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 
             <div class="card">
               <div class="card-content" >
+
                 <ul id="lista_singolo_rap" class="collection">
 
-                  <!--<div class="row">
 
-                      <div class="orange col s12" style="padding:2%;"><font color="white">Dipendente: </font></div>
-                      <div class="col s6" style="padding:2%;"><font color="orange">Ora inizio: </font></div>
-                      <div class="col s6" style="padding:2%;"><font color="orange">Ora fine: </font></div>
-                      <div class="orange col s6" style="padding:2%;"><font color="white">Ore Totali: </font></div>
-                      <div class="orange col s6" style="padding:2%;"><font color="white">Pausa: </font></div>
-                      <div class="col s12" style="padding:2%;"><font color="orange">Descrizione: </font></div>
-                      <div class="orange col s12" style="padding:2%;"><font color="white">Materiali: </font></div>
-                      <div class="col s12"style="padding:2%;"><font color="orange">Mezzi: </font></div>
-
-                  </div>-->
                 </ul>
               </div>
             </div>
@@ -396,55 +348,14 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
     </div>
 
     <div class="row">
-      <div class="col s6 m3">
-        <div class="card">
+      <div class="col s12 m12">
+        <div class="orange card">
           <div class="card-content">
-             <p id="tipologia_ore" class="center-align">RIEPILOGO ORE</p>
-           </div>
-        </div>
-     </div>
-       <div class="col s6 m3">
-         <div class="card">
-           <div class="card-content">
-              <p id="ore_lavoro" class="center-align">Lavoro: --</p>
-            </div>
-         </div>
-      </div>
-      <div class="col s6 m3">
-        <div class="card">
-          <div class="card-content">
-             <p id="ore_ferie" class="center-align">Ferie: --</p>
-           </div>
-        </div>
-     </div>
-     <div class="col s6 m3">
-       <div class="card">
-         <div class="card-content">
-            <p id="ore_didattica" class="center-align">Didattica: --</p>
+            <h6 id="riepilogo_ore" class="center-align">RIEPILOGO ORE: </h6>
+            <!--<p id="" class="center-align">RIEPILOGO ORE: </p>-->
           </div>
-       </div>
-    </div>
-    <div class="col s6 m3">
-      <div class="card">
-        <div class="card-content">
-           <p id="ore_malattie" class="center-align">Malattie: --</p>
-         </div>
-      </div>
-   </div>
-   <div class="col s6 m3">
-     <div class="card">
-       <div class="card-content">
-          <p id="ore_altro" class="center-align">Altro: --</p>
         </div>
-     </div>
-  </div>
-  <div class="col s12 m6">
-    <div class="orange card">
-      <div class="card-content">
-         <p id="ore_tot" class="center-align">Totale ORE: --</p>
-       </div>
-    </div>
- </div>
+      </div>
     </div>
 
     <div class="row">
