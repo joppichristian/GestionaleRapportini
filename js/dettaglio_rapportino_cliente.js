@@ -1,4 +1,5 @@
 var det_json = new Array();
+
 var det_index=0;
 var det_id=0;
 var id_utente="";
@@ -25,6 +26,7 @@ $(document).ready(function(){
 		$("#reset_filtro").on("click",function(){
 			$("#data_inizio").val(primoG);
 			$("#data_fine").val(ultimoG);
+			populateRapportino(id_utente);
     });
 
 
@@ -71,6 +73,7 @@ $(document).ready(function(){
 
 });
 
+
 function populateRapportino(filter){
 	var q;
 	if(filter != "")
@@ -100,28 +103,46 @@ function populateRapportino(filter){
 				 var ele_rap="";
 				 var old_ele_rap="";
 				 var cont_ore=0;
+				 var myDate="";
+				 var ind_ele =0;
+				 var elem_data = new Array();
          for(var i = 0; i < data.length; i++) {
 
 						conteggio = conteggio +1;
 						$("#nome_cliente").text(""+data[i]['nominativo']);
+
 						var dataTot= data[i]['inizio'];
 						var dataS = dataTot.split(' ');
 						var dataD =dataS[0];
 						var data_i = dataD.split('-');
-						var myDate = ""+data_i[2]+"-"+data_i[1]+"-"+data_i[0];
+						myDate = ""+data_i[2]+"-"+data_i[1]+"-"+data_i[0];
 
 						var dataDb = returnRangeDate(dataD);
 						if(dataDb == true){
-							dataTot= data[i]['inizio'];
-							var f = data[i]['fine'];
+							elem_data[ind_ele] = data[i];
+							//alert("ind_ele  "+ind_ele+ " data[i]['inizio'] "+data[i]['inizio']);
+							ind_ele= ind_ele+1;
+
+						}
+					}
+					//alert("elem_data.length "+elem_data.length);
+					for(var i = 0; i < elem_data.length; i++) {
+							dataTot= elem_data[i]['inizio'];
+							var f = elem_data[i]['fine'];
 							var o =differenzaOre(dataTot, f);
-							var p_min =data[i]['pausa'];
+							var p_min =elem_data[i]['pausa'];
 							var p = pausaCent(p_min);
 							var diff_lavoro = o-p;
 
 						//alert("diff : "+diff_lavoro +"  ore_totali_range: "+ore_totali_range );
 							ore_totali_range = ore_totali_range + diff_lavoro;
 							settaOra(ore_totali_range);
+
+							var dataTot= elem_data[i]['inizio'];
+							var dataS = dataTot.split(' ');
+							var dataD =dataS[0];
+							var data_i = dataD.split('-');
+							myDate = ""+data_i[2]+"-"+data_i[1]+"-"+data_i[0];
 
 							var ore_singolo_gg=0;
 
@@ -148,7 +169,7 @@ function populateRapportino(filter){
 								}
 							}
 
-							if(i == (data.length)-1){
+							if(i == (elem_data.length)-1){
 								elementi[i] = document.createElement('li');
 								elementi[i].className ="collection-item avatar";
 								elementi[i].innerHTML = '<i class="orange accent-4 material-icons circle">access_time</i><span class="title">Data : '+myDate+ '</span><p>Ore Totali :'+cont_ore+'</p><div align="right"><a style="right: 5%;" class="btn-floating orange"><i class=" dettaglio_list large mdi-navigation-menu"></i></a></div>';
@@ -159,16 +180,16 @@ function populateRapportino(filter){
 							cont_index = cont_index+1;
 							oldDate=myDate;
 
-						}
+
 
 					}
 				//$("#ore_tot").innerHTML = "RIEPILOGO ORE: "+ore_totali_range;
 
-				det_id = data[0]['id'];
-				explodeRapportino(data[0]);
+				det_id = elem_data[0]['id'];
+				explodeRapportino(elem_data[0]);
 				$(".dettaglio_list").click(function(){
 					det_index = $(".dettaglio_list").index(this);
-					explodeRapportino(data[det_index]);
+					explodeRapportino(elem_data[det_index]);
 				});
 
       },
@@ -180,6 +201,17 @@ function populateRapportino(filter){
     });
 
 }
+
+function clone(obj) {
+    if (null == obj || "object" != typeof obj) return obj;
+    var copy = obj.constructor();
+    for (var attr in obj) {
+        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+    }
+    return copy;
+}
+
+
 function pausaCent(minuti){
 	var in_ora= minuti/60;
 	var min = roundToTwo(in_ora);
@@ -436,7 +468,6 @@ function GetNumberDay(inizio, fine){
 }
 
 function returnRangeDate(d1){
-	//data = data.split('-');
 
 	var inizio = $("#data_inizio").val();
 	var dataInizio = inizio.split('-');
@@ -450,20 +481,21 @@ function returnRangeDate(d1){
 		giorno=dataInizio[0];
 	}
 	inizio= dataInizio[2]+"-"+dataInizio[1]+"-"+giorno;
-
+	//alert("dataFine[0].length  "+dataFine[0].length);
 		if(dataFine[0].length==1){
+
 			giorno="0"+dataFine[0];
 		}else{
 			giorno=dataFine[0];
 		}
+
 	fine= dataFine[2]+"-"+dataFine[1]+"-"+giorno;
+	//alert("d1 : "+d1+ "  data inizio : "+inizio+ " data fine : "+fine);
 	if((d1 >= inizio)&&(d1 <= fine)){
 		return true;
 	}else{
 		return false;
 	}
-
-
 }
 
 function getUrlVars() {
