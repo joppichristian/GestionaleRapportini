@@ -12,48 +12,7 @@ $(document).ready(function(){
 		window.location.replace("index.html");
 
     $("#lista_sel_dip").hide();
-    //$("#sezione_mat").hide();
-		//$("#sezione_mezzi").hide();
 
-		/*
-  	$("#elenco_utilizzi_materiali").hide();
-    var stato_aggiungi_mat=0;
-
-    $("#aggiungi_mat").on("click",function(){
-      if(stato_aggiungi_mat==1){
-        $("#sezione_mat").hide();
-        stato_aggiungi_mat=0;
-      }else{
-        $("#sezione_mat").show();
-        stato_aggiungi_mat=1;
-      }
-    });
-		*/
-		/*$("#elenco_utilizzi_mezzi").hide();
-    var stato_aggiungi_mezzi=0;
-
-    $("#aggiungi_mezzi").on("click",function(){
-      if(stato_aggiungi_mezzi==1){
-        $("#sezione_mezzi").hide();
-        stato_aggiungi_mezzi=0;
-      }else{
-        $("#sezione_mezzi").show();
-        stato_aggiungi_mezzi=1;
-      }
-    });
-		*/
-
-    /*$("#sezione_dipendenti").hide();
-    var stato_aggiungi_dip=0;
-    $("#aggiungi_dip").on("click",function(){
-      if(stato_aggiungi_dip==1){
-        $("#sezione_dipendenti").hide();
-        stato_aggiungi_dip=0;
-      }else{
-        $("#sezione_dipendenti").show();
-        stato_aggiungi_dip=1;
-      }
-    });*/
 
     populateListEmployee("");
     $("#search_dip").on('input',function() {
@@ -72,29 +31,81 @@ $(document).ready(function(){
 		});
 
 		$('#complete').click(function(){
-			if($('#ora_inizio').val() != '' && $('#ora_fine').val() != '' && $('#pausa').val() >= 0 && $('#pausa').val() <= 120 ){
-				var spl = $('#ora_inizio').val().split(':');
+			if($('#nuovo_ora_inizio').val() != '' && $('#nuovo_ora_fine').val() != '' && $('#nuovo_pausa').val() >= 0 && $('#nuovo_pausa').val() <= 120 ){
+				var spl = $('#nuovo_ora_inizio').val().split(':');
 				if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || spl.length!=2)
 				{
 					Materialize.toast("Ora di inizio non valida...utilizza hh:mm!",2000);
 					return false;
 				}
-				spl = $('#ora_fine').val().split(':');
+				spl = $('#nuovo_ora_fine').val().split(':');
 				if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || spl.length!=2)
 				{
 					Materialize.toast("Ora di fine non valida...utilizza hh:mm!",2000);
 					return false;
 				}
+				aggiungiRapportino();
 			}
 			else
 			{
-				if($('#pausa').val() >= 0 && $('#pausa').val() <= 120)
+				if($('#nuovo_pausa').val() >= 0 && $('#nuovo_pausa').val() <= 120)
 					Materialize.toast("Inserisci un'ora di inizio e un'ora di fine valida!",2000);
 				else
 					Materialize.toast("Inserisci una pausa valida tra 0 e 120 minuti",2000);
 			}
 
 		});
+		
+		$('#nuovo_ora_inizio').on('input',function(){
+			if(parseInt($('#nuovo_ora_inizio').val()) > 2  && $('#nuovo_ora_inizio').val().indexOf(':') < 0)
+				$('#nuovo_ora_inizio').val($('#nuovo_ora_inizio').val()+':');
+		});
+		$('#nuovo_ora_fine').on('input',function(){
+			if(parseInt($('#nuovo_ora_fine').val()) > 2  && $('#nuovo_ora_fine').val().indexOf(':') < 0)
+				$('#nuovo_ora_fine').val($('#nuovo_ora_fine').val()+':');
+		});
+		$('#nuovo_ora_inizio').focusout(function(){
+			if($('#nuovo_ora_inizio').val() != ''){
+				var spl = $('#nuovo_ora_inizio').val().split(':');
+				if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || isNaN(spl[0]) || isNaN(spl[1]) || spl[0]== '' ||spl[1]== '' || spl.length!=2)
+				{
+					Materialize.toast("Ora di inizio non valida...utilizza hh:mm!",2000);
+					$('#nuovo_ora_inizio').focus();
+				}
+			}
+	
+		});
+		$('#nuovo_giorno').focusout(function(){
+			if($('#nuovo_giorno').val() != ''){
+				var spl = $('#nuovo_giorno').val().split('-');
+				if(parseInt(spl[0]) < 1 || parseInt(spl[0]) > 31 || parseInt(spl[1]) < 1 || parseInt(spl[1]) > 12 || spl.length!=3)
+				{
+					Materialize.toast("Data non valida...utilizza dd-mm-yyyy!",2000);
+					$('#nuovo_giorno').focus();
+				}
+				
+			}
+		});
+
+		$('#nuovo_ora_fine').focusout(function(){
+			if($('#nuovo_ora_fine').val() != ''){
+				var spl = $('#nuovo_ora_fine').val().split(':');
+				if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || isNaN(spl[0]) || isNaN(spl[1])|| spl[0]== '' ||spl[1]== ''|| spl.length!=2)
+				{
+					Materialize.toast("Ora di fine non valida...utilizza hh:mm!",2000);
+					$('#nuovo_ora_fine').focus();
+				}
+				
+			}
+		});
+		$('#nuovo_pausa').focusout(function(){
+			if($('#nuovo_pausa').val() < 0 || $('#nuovo_pausa').val() > 120 || isNaN($('#nuovo_pausa').val())){
+				Materialize.toast("Inserisci una pausa valida tra 0 e 120 minuti",2000);
+				$('#nuovo_pausa').focus();
+			}
+	
+		});
+
 
 });
 
@@ -331,15 +342,16 @@ function removeDipendente(i){
 		{
 			$.ajax({
 		       type:"POST",
-		       url: "script_php/postRapportinoRapido.php", //Relative or absolute path to response.php file
+		       url: "script_php/postRapportino.php", //Relative or absolute path to response.php file
 		       async:false,
 		       data:{
-		 	  	'ora_inizio': $('#ora_inizio').val(),
-		 	  	'ora_fine': $('#ora_fine').val(),
-		 	  	'pausa': $('#pausa').val(),
-		 	  	'note':$('#note').val(),
+			    'data': $('#nuovo_giorno').val(),
+		 	  	'ora_inizio': $('#nuovo_ora_inizio').val(),
+		 	  	'ora_fine': $('#nuovo_ora_fine').val(),
+		 	  	'pausa': $('#nuovo_pausa').val(),
+		 	  	'note':$('#nuovo_descrizione').val(),
 		 	  	'dipendente':dipendenti_selezionati[i]['id'],
-		 	  	'cliente':cliente_selezionato,
+		 	  	'cliente':id_utente,
 		 	  	'db':getCookie('nomeDB'),
 		 	  	'materiali':materiali_selezionati,
 		 	  	'mezzi':mezzi_selezionati
@@ -355,15 +367,16 @@ function removeDipendente(i){
 		else{
 			$.ajax({
 		       type:"POST",
-		       url: "script_php/postRapportinoRapido.php", //Relative or absolute path to response.php file
+		       url: "script_php/postRapportino.php", //Relative or absolute path to response.php file
 		       async:false,
 		       data:{
-		 	  	'ora_inizio': $('#ora_inizio').val(),
-		 	  	'ora_fine': $('#ora_fine').val(),
-		 	  	'pausa': $('#pausa').val(),
-		 	  	'note':$('#note').val(),
+			    'data': $('#nuovo_giorno').val(),
+		 	  	'ora_inizio': $('#nuovo_ora_inizio').val(),
+		 	  	'ora_fine': $('#nuovo_ora_fine').val(),
+		 	  	'pausa': $('#nuovo_pausa').val(),
+		 	  	'note':$('#nuovo_descrizione').val(),
 		 	  	'dipendente':dipendenti_selezionati[i]['id'],
-		 	  	'cliente':cliente_selezionato,
+		 	  	'cliente':id_utente,
 		 	  	'db':getCookie('nomeDB'),
 		 	  	'materiali':null,
 		 	  	'mezzi':null
@@ -378,7 +391,7 @@ function removeDipendente(i){
 		}
 	}
 	if(result){
-		Materialize.toast("Rapportino Inserito",2000,"",function(){$("#new_insert_item").hide();});
+		Materialize.toast("Rapportino Inserito",2000,"",function(){$("#new_insert_item").hide();populateRapportino(id_utente);});
 	}
 	else{
 		Materialize.toast("Errore: Rapportino NON Inserito",2000);

@@ -93,22 +93,31 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 
 
                  <li id="new_insert_item" class="grey lighten-3 collection-item avatar">
-
-                       <label class="orange-text" for="data">Giorno</label>
+				 	 <div class="input-field">
+				        <i class="material-icons prefix orange-text">event</i>
+                       <label class="orange-text" for="nuovo_giorno">Giorno</label>
                        <input id="nuovo_giorno" type="text" name="nuovo_giorno" class="validate">
-
+				 	 </div>    
+					<div class="input-field">
+				        <i class="material-icons prefix orange-text">access_time</i>						
                        <label class="orange-text" for="ora_inizio">Ora Inizio</label>
                        <input id="nuovo_ora_inizio" type="text" name="nuovo_ora_inizio" class="validate">
-
+					</div>
+					<div class="input-field">
+				        <i class="material-icons prefix orange-text">access_time</i>           
                        <label class="orange-text" for="ora_inizio">Ora Fine</label>
                        <input id="nuovo_ora_fine" type="text" name="nuovo_ora_fine" class="validate">
-
+					</div>
+					<div class="input-field">
+				        <i class="material-icons prefix orange-text">local_cafe</i>
                        <label class="orange-text" for="ora_inizio">Pausa</label>
-                       <input id="nuovo_pausa" type="text" name="nuovo_pausa" class="validate">
-
+                       <input id="nuovo_pausa" type="text" name="nuovo_pausa" value="0" class="validate">
+					</div>
+					<div class="input-field">
+				        <i class="material-icons prefix orange-text">chat_bubble</i>               
                        <label class="orange-text" for="ora_inizio">Descrizione</label>
                        <input id="nuovo_descrizione" type="text" name="nuovo_descrizione" class="validate">
-
+					</div>
                        <label class="orange-text" for="data">Dipendente</label><br><br>
                        <!--<a id="aggiungi_dip" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
                        <label class="grey-text" for="data">Aggiungi dipendente  </label>
@@ -116,21 +125,19 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
                         <!--inizio dipendente-->
                        <div class="col s12 m12 l12" id="sezione_dipendenti" >
                          <div class="col s12 m12 l12" >
-                         <div class="section list col s12 m12 l12">
-                  		        <div class="input-field col s12 m12 l12">
-                  		          <input id="search_dip" type="text" requiorange>
+                  		        <div class="input-field">
+                  		          <input id="search_dip" type="text" required>
                   		          <label for="search"><i class="material-icons orange-text">search</i></label>
                   		         </div>
                   	  	  </div>
                   	  	  <div class="section list col s12 m12 l12" style="max-height: 45%;">
                   		       <ul class="col s12 m12 l12 collection with-header" id="elenco_dip" style="border: 2px solid orange;" ></ul>
                   	  	  </div>
-                        </div>
                        </div>
 
                         <!--fine dipendente-->
 
-                        <div id="lista_sel_dip">
+                        <div class="section" id="lista_sel_dip">
                         </div>
 
                        <label class="orange-text" for="data">Materiale</label><br><br>
@@ -158,7 +165,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 
                         <!--fine materiale-->
 
-                        <div class="row section" id="elenco_utilizzi_materiali">
+                        <div class="section" id="elenco_utilizzi_materiali">
                         </div>
 
                         <label class="orange-text" for="data">Mezzi</label><br><br>
@@ -185,7 +192,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
                         </div>
                         <!--fine mezzi-->
 
-                        <div class="row section" id="elenco_utilizzi_mezzi">
+                        <div class="section" id="elenco_utilizzi_mezzi">
                         </div>
 
                         <div align="right">
