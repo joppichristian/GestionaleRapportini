@@ -24,20 +24,31 @@ $(document).ready(function(){
 		});
 
 	$('#yes_modifica').click(function(){
-			if($('#mod_ora_inizio').val() != '' && $('#mod_ora_fine').val() != '' && $('#mod_pausa').val() >= 0 && $('#mod_pausa').val() <= 120 ){
+			if($('#mod_ora_inizio').val() != '' && $('#mod_ora_fine').val() != '' && $('#mod_pausa').val() >= 0 && $('#mod_pausa').val() <= 120 && $('#mod_giorno').val() != '' && $('#mod_giorno').val().length == 10){
 				var spl = $('#mod_ora_inizio').val().split(':');
-				if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || spl.length!=2)
+				if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || isNaN(spl[0]) || isNaN(spl[1]) || spl[0]== '' ||spl[1]== ''|| spl.length!=2)
 				{
 					Materialize.toast("Ora di inizio non valida...utilizza hh:mm!",2000);
 					return false;
 				}
 				spl = $('#mod_ora_fine').val().split(':');
-				if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || spl.length!=2)
+				if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || isNaN(spl[0]) || isNaN(spl[1]) || spl[0]== '' ||spl[1]== ''|| spl.length!=2)
 				{
 					Materialize.toast("Ora di fine non valida...utilizza hh:mm!",2000);
 					return false;
 				}
-				aggiungiRapportino();
+				
+				spl = $('#mod_giorno').val().split('-');
+				if(parseInt(spl[0]) < 1 || parseInt(spl[0]) > 31 || parseInt(spl[1]) < 1 || parseInt(spl[1]) > 12 || spl.length!=3)
+				{
+					Materialize.toast("Data non valida...utilizza dd-mm-yyyy!",2000);
+					return false;
+				}
+				
+				
+			
+
+				modificaRapportino();
 			}
 			else
 			{
@@ -71,7 +82,7 @@ $(document).ready(function(){
 	
 		});
 		$('#mod_giorno').focusout(function(){
-			if($('#mod_giorno').val() != ''){
+			if($('#mod_giorno').val() != '' ){
 				var spl = $('#mod_giorno').val().split('-');
 				if(parseInt(spl[0]) < 1 || parseInt(spl[0]) > 31 || parseInt(spl[1]) < 1 || parseInt(spl[1]) > 12 || spl.length!=3)
 				{
@@ -124,12 +135,14 @@ function setVarRapp(index_rapp){
   $("#mod_descrizione").focus();
   $("#mod_pausa").focus();
   $("#mod_giorno").focus();
+  mod_id = det_json[index_rapp]['id'];
   load_Materials(det_json[index_rapp]['id']);
   load_Mezzi(det_json[index_rapp]['id']);
   mod_updateListUtilizzi(); 
 }
 
 function load_Materials(id_rapportino){
+	mod_materiali_selezionati.splice(0,mod_materiali_selezionati.length);
 	$.ajax({
       dataType: "json",
       url: "script_php/getMaterialsRapportino.php?id="+ id_rapportino+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
@@ -151,6 +164,7 @@ function load_Materials(id_rapportino){
 
 }
 function load_Mezzi(id_rapportino){
+	mod_mezzi_selezionati.splice(0,mod_mezzi_selezionati.length);
 	$.ajax({
       dataType: "json",
       url: "script_php/getMezziRapportino.php?id="+ id_rapportino+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
@@ -237,6 +251,8 @@ function mod_populateListMaterials(filter){
 }
 
 function mod_updateListUtilizzi(){
+	$("#mod_elenco_utilizzi_materiali").empty();
+	$("#mod_elenco_utilizzi_mezzi").empty();
 	$("#mod_elenco_utilizzi_materiali").show();
 	$("#mod_elenco_utilizzi_mezzi").show();
 	if(mod_materiali_selezionati.length == 0)
@@ -337,25 +353,25 @@ function mod_controlloRapCliente(){
 	
 }
 
- function mod_aggiungiRapportino(){
+ function modificaRapportino(){
  	$.ajax({
        type:"POST",
-       url: "script_php/postRapportinoRapido.php", //Relative or absolute path to response.php file
+       url: "script_php/updateRapportino.php", //Relative or absolute path to response.php file
        async:false,
        data:{
+	    'data':$('#mod_giorno').val(),
  	  	'ora_inizio': $('#mod_ora_inizio').val(),
  	  	'ora_fine': $('#mod_ora_fine').val(),
  	  	'pausa': $('#mod_pausa').val(),
- 	  	'note':$('#mod_note').val(),
- 	  	'dipendente':getCookie('id_dipendente'),
- 	  	'cliente':mod_cliente_selezionato,
+ 	  	'note':$('#mod_descrizione').val(),
  	  	'db':getCookie('nomeDB'),
+ 	  	'id':mod_id,
  	  	'materiali':mod_materiali_selezionati,
  	  	'mezzi':mod_mezzi_selezionati
  	  },
        success: function(data) {
  	    console.log(data);
- 	  	Materialize.toast("Rapportino inserito",2000,"",function(){window.location.replace("dashboard.html");})
+ 	  	Materialize.toast("Rapportino modificato",2000,"",function(){$("#modal1").closeModal();populateRapportino(id_utente);})
  		}
  	});
 
