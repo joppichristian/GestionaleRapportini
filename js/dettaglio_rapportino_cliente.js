@@ -29,7 +29,13 @@ $(document).ready(function(){
 			populateRapportino(id_utente);
     });
 
-
+	$("#yes_delete").on("click",function(){
+			deleteRapportino();
+			$("#modal2").closeModal();
+    });
+	$("#no_delete").on("click",function(){
+			$("#modal2").closeModal();
+    });
 
     var stato_p_list=0;
     var stato_new_p_list=0;
@@ -323,7 +329,7 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 								var ele_ore = '<div class=" col s6" style="padding:2%;"><font color="orange">ORE TOTALI:  </font><b>'+diff_lavoro+'</b></div>';
 								var note = data[i]['note'];
 								var ele_desc = '<div class="col s12" style="padding:2%;"><font color="orange">Descrizione:  </font>'+note+'</div>';
-								var ele = '</div><a class="btn-floating orange"><i id="'+i+'" class="edit_rap large material-icons">mode_edit</i></a><a style="margin-left:2%;" class="btn-floating orange"><i class="delete_rap large material-icons">delete</i></a>';
+								var ele = '</div><a class="btn-floating orange"><i id="'+i+'" class="edit_rap large material-icons">mode_edit</i></a><a style="margin-left:2%;" class="btn-floating orange"><i id="'+i+'" class="delete_rap large material-icons">delete</i></a>';
 
 								var tot_ele = inizio_ore+ele_dip+ele_ini+ele_fine+ele_pausa+ele_ore+ele_desc+ele;
 								elementi[i].innerHTML = tot_ele;
@@ -341,7 +347,8 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 					});
 
 					$(".delete_rap").click(function(){
-						det_index = $(".delete_rap").index(this);
+						det_index = $(this).attr('id');
+						id_rap= data[det_index]['id'];						
 						$('#modal2').openModal();
 					});
 
@@ -495,6 +502,21 @@ function returnRangeDate(d1){
 	}else{
 		return false;
 	}
+}
+function deleteRapportino(){
+	$.ajax({
+		url: "script_php/deleteRapportino.php", //Relative or absolute path to response.php file
+		type:"POST",
+				      data:{'id': id_rap,'db':getCookie('nomeDB')},
+				      success: function(data) {
+					      console.log(data);
+					      Materialize.toast('Rapportino eliminato', 2000);
+					      populateRapportino(id_utente);
+					  },
+				      error: function(xhr){
+					     console.log(xhr.status);
+				      }
+				    });
 }
 
 function getUrlVars() {
