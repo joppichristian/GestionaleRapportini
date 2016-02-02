@@ -8,7 +8,7 @@
 				$db = $_GET['db'];
 				include 'connessione-db.php';
 				
-				$qry = "SELECT * FROM mezzi WHERE descrizione like '%".$query."%';";
+				$qry = "SELECT * FROM mezzi WHERE descrizione like '%".$query."%' order by descrizione ;";
 				$mysqli->query('SET CHARACTER SET utf8');
 		    	$result = $mysqli->query($qry);
 		    	while($row = $result->fetch_assoc()) {

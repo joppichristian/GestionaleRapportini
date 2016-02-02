@@ -8,7 +8,7 @@
 				$db = $_GET['db'];
 				include 'connessione-db.php';
 				
-				$qry = "SELECT * FROM materiali WHERE descrizione like '%".$query."%' or codice like '%".$query."%';";
+				$qry = "SELECT * FROM materiali WHERE descrizione like '%".$query."%' or codice like '%".$query."%' order by descrizione;";
 				$mysqli->query('SET CHARACTER SET utf8');
 		    	$result = $mysqli->query($qry);
 		    	while($row = $result->fetch_assoc()) {

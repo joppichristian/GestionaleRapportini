@@ -8,7 +8,7 @@
 				$db = $_GET['db'];
 				include 'connessione-db.php';
 				
-				$qry = "SELECT * FROM dipendenti WHERE nome like '%".$query."%' or cognome like '%".$query."%'";
+				$qry = "SELECT * FROM dipendenti WHERE nome like '%".$query."%' or cognome like '%".$query."%' order by nome,cognome";
 				$mysqli->query('SET CHARACTER SET utf8');
 		    	$result = $mysqli->query($qry);
 		    	while($row = $result->fetch_assoc()) {

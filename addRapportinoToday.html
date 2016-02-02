@@ -25,7 +25,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 		.row {
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 0px;
+    margin-bottom: 1%;
 }
 		</style>
 
@@ -52,10 +52,21 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 					         </div>
 					 </form>
 				</div>
+				
+				
 			  	<div class="section list col s12 m12 l12" style="height: 35%;">
 			  		<ul class="col s12 m12 l12 collection with-header" id="elenco_clienti" ></ul>
 		  		</div>
 		  	</div>
+		  	<div class="col s12 m12 l12">
+			  	<div class="input-field col s11 m11 l11">
+			          <i class="material-icons prefix purple-text">account_circle</i>
+			          <input id="nominativo" type="text" name="text" class="validate">
+			          <label class="purple-text" for="nominativo">Nominativo</label>
+			        </div>
+			        <a class="input-field btn-floating btn-medium waves-effect waves-light purple" title="Aggiunta rapida cliente" style="float:right;" id="addClient"><i class="small material-icons">add</i></a>
+		  	</div>
+		  	
 		  	<div class="row section" id="cliente_selezionato"></div>
 		  	<div class="row">
 		  		<div class="input-field col s12" style="text-align: right;margin-bottom: 2%;">

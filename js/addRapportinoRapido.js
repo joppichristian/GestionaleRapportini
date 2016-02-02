@@ -125,6 +125,10 @@ $(document).ready(function(){
 		}
 
 	});
+	$("#addClient").on("click",function(){
+		addCliente();
+
+	});
 })
 
 function populateListClient(filter){
@@ -340,4 +344,32 @@ function aggiungiRapportino(){
 		}
 	});
 
+}
+function addCliente(){
+	if($("#nominativo").val() == ""){
+			Materialize.toast('Nominativo o Ragione Sociale Obbligatoria', 2000);
+			return false;
+		}
+		var nominativo = $("#nominativo").val();
+				
+		$.ajax({
+	      url: "script_php/postClients.php", //Relative or absolute path to response.php file
+	      type:"POST",
+	      async:false,
+	      data:{
+		      'nominativo': nominativo,
+		      'tipologia':'p',
+		      'db':getCookie('nomeDB')
+		   },
+		   success: function(data){		   
+		   		Materialize.toast('Cliente inserito', 2000,'',function(){populateListClient("")});
+			   return false;
+			},
+		   error: function (XMLHttpRequest, textStatus, errorThrown){
+			   Materialize.toast('Errore di inserimento', 2000);
+			    return false;
+
+			}
+		});		
+		return false;
 }
