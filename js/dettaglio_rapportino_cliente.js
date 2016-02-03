@@ -12,37 +12,36 @@ $(document).ready(function(){
     $("#botton_insert_item").hide();
     $("#new_insert_item").hide();
     $("#elementi_materiali").hide();
-		id_utente = getUrlVars()["id"];
-		var nome_utente = getUrlVars()["nome"];
+	id_utente = getUrlVars()["id"];
+	var nome_utente = getUrlVars()["nome"];
 		//$("#nome_cliente").text(""+nome_utente);
-		var primoG = getFirstData();
-		var ultimoG = getCurrentData();
-		$("#data_fine").val(ultimoG);
-		$("#data_inizio").val(primoG);
-
-		populateRapportino(id_utente);
+	var primoG = getFirstData();
+	var ultimoG = getCurrentData();
+	$("#data_fine").val(ultimoG);
+	$("#data_inizio").val(primoG);
+	populateRapportino(id_utente);
 		//filtro data parametri default
 
-		$("#reset_filtro").on("click",function(){
-			$("#data_inizio").val(primoG);
-			$("#data_fine").val(ultimoG);
-			populateRapportino(id_utente);
+	$("#reset_filtro").on("click",function(){
+		$("#data_inizio").val(primoG);
+		$("#data_fine").val(ultimoG);
+		populateRapportino(id_utente);
     });
 
 	$("#yes_delete").on("click",function(){
-			deleteRapportino();
-			$("#modal2").closeModal();
+		deleteRapportino();
+		$("#modal2").closeModal();
     });
 	$("#no_delete").on("click",function(){
-			$("#modal2").closeModal();
+		$("#modal2").closeModal();
     });
 
     var stato_p_list=0;
     var stato_new_p_list=0;
     var stato_materiali=0;
 
-		$("#cerca_filtro").on("click",function(){
-			populateRapportino(id_utente);
+	$("#cerca_filtro").on("click",function(){
+		populateRapportino(id_utente);
     });
 
     $("#pulsante_list").on("click",function(){
@@ -86,12 +85,11 @@ function populateRapportino(filter){
 		q = filter;
 	else
 		q = " ";
-
 	$.ajax({
       dataType: "json",
       url: "script_php/getRapportinoCliente.php?q="+q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
-			async:false,
+	  async:false,
       success: function(data) {
 
 	    det_json = data;
@@ -110,9 +108,8 @@ function populateRapportino(filter){
 				 var old_ele_rap="";
 				 var cont_ore=0;
 				 var myDate="";
-				 var ind_ele =0;
 				 var elem_data = new Array();
-         for(var i = 0; i < data.length; i++) {
+				 for(var i = 0; i < data.length; i++) {
 
 						conteggio = conteggio +1;
 						$("#nome_cliente").text(""+data[i]['nominativo']);
@@ -125,13 +122,10 @@ function populateRapportino(filter){
 
 						var dataDb = returnRangeDate(dataD);
 						if(dataDb == true){
-							elem_data[ind_ele] = data[i];
-							//alert("ind_ele  "+ind_ele+ " data[i]['inizio'] "+data[i]['inizio']);
-							ind_ele= ind_ele+1;
+							elem_data.push(data[i]);
 
 						}
 					}
-					//alert("elem_data.length "+elem_data.length);
 					for(var i = 0; i < elem_data.length; i++) {
 							dataTot= elem_data[i]['inizio'];
 							var f = elem_data[i]['fine'];
@@ -140,7 +134,6 @@ function populateRapportino(filter){
 							var p = pausaCent(p_min);
 							var diff_lavoro = o-p;
 
-						//alert("diff : "+diff_lavoro +"  ore_totali_range: "+ore_totali_range );
 							ore_totali_range = ore_totali_range + diff_lavoro;
 							settaOra(ore_totali_range);
 
@@ -170,7 +163,6 @@ function populateRapportino(filter){
 										elementi[i].innerHTML = '<i class="orange accent-4 material-icons circle">access_time</i><span class="title">Data : '+oldDate+ '</span><p>Ore Totali : '+cont_ore+'</p><div align="right"><a style="right: 5%;" class="btn-floating orange"><i class=" dettaglio_list large mdi-navigation-menu"></i></a></div>';
 										ele_rap = elementi[i];
 										cont_ore = diff_lavoro;
-										//$("#lista_rap").append(elementi[i]);
 										$("#lista_rap").append(ele_rap);
 								}
 							}
@@ -190,9 +182,10 @@ function populateRapportino(filter){
 
 					}
 				//$("#ore_tot").innerHTML = "RIEPILOGO ORE: "+ore_totali_range;
-
-				det_id = elem_data[0]['id'];
-				explodeRapportino(elem_data[0]);
+				if(elem_data.length != 0){
+					det_id = elem_data[0]['id'];
+					explodeRapportino(elem_data[0]);
+				}
 				$(".dettaglio_list").click(function(){
 					det_index = $(".dettaglio_list").index(this);
 					explodeRapportino(elem_data[det_index]);
