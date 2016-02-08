@@ -31,7 +31,7 @@ $(document).ready(function(){
 		});
 
 		$('#complete').click(function(){
-			if($('#nuovo_ora_inizio').val() != '' && $('#nuovo_ora_fine').val() != '' && $('#nuovo_pausa').val() >= 0 && $('#nuovo_pausa').val() <= 120 && $('#nuovo_giorno').val() != '' && $('#nuovo_giorno').val().length == 10){
+			if($('#nuovo_ora_inizio').val() != '' && $('#nuovo_ora_fine').val() != '' && $('#nuovo_pausa').val() >= 0 && $('#nuovo_pausa').val() <= 120 && $('#nuovo_giorno').val() != '' ){
 				var spl = $('#nuovo_ora_inizio').val().split(':');
 				if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || isNaN(spl[0]) || isNaN(spl[1]) || spl[0]== '' ||spl[1]== ''|| spl.length!=2)
 				{
@@ -45,7 +45,7 @@ $(document).ready(function(){
 					return false;
 				}
 				
-				spl = $('#mod_giorno').val().split('-');
+				spl = $('#nuovo_giorno').val().split('-');
 				if(parseInt(spl[0]) < 1 || parseInt(spl[0]) > 31 || parseInt(spl[1]) < 1 || parseInt(spl[1]) > 12 || spl.length!=3)
 				{
 						Materialize.toast("Data non valida...utilizza dd-mm-yyyy!",2000);
