@@ -25,13 +25,13 @@ $(document).ready(function(){
 	populateRapportino(id_utente);
 		//filtro data parametri default
 
-		$("#reset_filtro").on("click",function(){
-			$("#data_inizio").val(primoG);
-			$("#data_fine").val(ultimoG);
-			lista_id_rap = new Array();
-			settaOra(0);
-			populateRapportino(id_utente);
-	  });
+	$("#reset_filtro").on("click",function(){
+		$("#data_inizio").val(primoG);
+		$("#data_fine").val(ultimoG);
+		lista_id_rap = new Array();
+		settaOra(0);
+		populateRapportino(id_utente);
+    });
 
 	$("#yes_delete").on("click",function(){
 		deleteRapportino();
@@ -46,11 +46,11 @@ $(document).ready(function(){
     var stato_materiali=0;
 		var stato_mezzi=0;
 
-		$("#cerca_filtro").on("click",function(){
-			lista_id_rap = new Array();
-			settaOra(0);
-			populateRapportino(id_utente);
-	  });
+	$("#cerca_filtro").on("click",function(){
+		lista_id_rap = new Array();
+		settaOra(0);
+		populateRapportino(id_utente);
+    });
 
     $("#pulsante_list").on("click",function(){
       if(stato_p_list==1){
@@ -74,30 +74,29 @@ $(document).ready(function(){
       }
     });
 
-		$("#pulsante_materiali").on("click",function(){
-			if(stato_materiali==1){
-				$("#elementi_materiali").hide();
-				stato_materiali=0;
+    $("#pulsante_materiali").on("click",function(){
+      if(stato_materiali==1){
+        $("#elementi_materiali").hide();
+        stato_materiali=0;
 				mod_materiali_tot = new Array();
-			}else{
-				$("#elementi_materiali").show();
-				stato_materiali=1;
+      }else{
+        $("#elementi_materiali").show();
+        stato_materiali=1;
 				setteRiepilogoMateriali();
-			}
-		});
+      }
+    });
 
 		$("#pulsante_mezzi").on("click",function(){
-			if(stato_mezzi==1){
-				$("#elementi_mezzi").hide();
-				stato_mezzi=0;
+      if(stato_mezzi==1){
+        $("#elementi_mezzi").hide();
+        stato_mezzi=0;
 				mod_mezzi_tot = new Array();
-			}else{
-				$("#elementi_mezzi").show();
-				stato_mezzi=1;
+      }else{
+        $("#elementi_mezzi").show();
+        stato_mezzi=1;
 				setteRiepilogoMezzi();
-			}
-		});
-
+      }
+    });
 });
 
 
@@ -109,7 +108,7 @@ function populateRapportino(filter){
 		q = " ";
 	$.ajax({
       dataType: "json",
-      url: "script_php/getRapportinoCliente.php?q="+q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "script_php/getRapportinoDipendente.php?q="+q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
 	  async:false,
       success: function(data) {
@@ -134,7 +133,7 @@ function populateRapportino(filter){
 				 for(var i = 0; i < data.length; i++) {
 
 						conteggio = conteggio +1;
-						$("#nome_cliente").text(""+data[i]['nominativo']);
+						$("#nome_cliente").text(""+data[i]['nome']+" "+data[i]['cognome']);
 
 						var dataTot= data[i]['inizio'];
 						var dataS = dataTot.split(' ');
@@ -158,6 +157,7 @@ function populateRapportino(filter){
 
 							ore_totali_range = ore_totali_range + diff_lavoro;
 							settaOra(ore_totali_range);
+
 
 							var dataTot= elem_data[i]['inizio'];
 							var dataS = dataTot.split(' ');
@@ -203,6 +203,7 @@ function populateRapportino(filter){
 
 
 					}
+
 				//$("#ore_tot").innerHTML = "RIEPILOGO ORE: "+ore_totali_range;
 				if(elem_data.length != 0){
 					det_id = elem_data[0]['id'];
@@ -251,7 +252,7 @@ function roundToTwo(num) {
 }
 
 function settaOra(ore){
-	document.getElementById("riepilogo_ore").innerHTML = "RIEPILOGO ORE: "+ore;
+	document.getElementById("ore_tot").innerHTML = "RIEPILOGO ORE: "+ore;
 	//alert("ore totali "+ore);
 }
 
@@ -306,14 +307,14 @@ function explodeRapportino(rapportino){
 	var id_dip = rapportino['id_dipendente'];
 	var data_i= rapportino['inizio'];
 	var giorni = dataGiorni(data_i);
-	creazioneListaRapportino(id_cli, id_dip, giorni);
+	creazioneListaRapportino(id_dip, id_cli, giorni);
 
 }
 
-function creazioneListaRapportino(cliente, dipendente, giorno){
+function creazioneListaRapportino(dipendente, cliente, giorno){
 	$.ajax({
 			dataType: "json",
-			url: "script_php/getSingoloRapportino.php?c="+cliente+"&d="+dipendente+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+			url: "script_php/getSingoloRapportinoDipendente.php?d="+dipendente+"&c="+cliente+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
 			data:"",
 			async:false,
 			success: function(data) {
@@ -323,6 +324,7 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 					 $("#lista_singolo_rap").empty();
 					 var conteggio=0;
 					 if(data ==null){
+						 alert("data e null!!");
 						 //populateRapportinoVuoto(q);
 					 }else{
 						 //alert("prima del ciclo");
@@ -334,9 +336,9 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 
 								elementi[i] = document.createElement('li');
 								elementi[i].className ="grey lighten-3 collection-item avatar";
-								var nomeD = datiDipendente(data[i]['id_dipendente']);
+								var nomeD = datiCliente(data[i]['id_cliente']);
 								var inizio_ore ='<div class="orange col s12" style="padding:2%;"><font color="white">Data:  </font>'+giorni+'</div>';
-								var ele_dip = '<i class="orange accent-4 material-icons circle">access_time</i><div class="row"><div class=" col s12" style="padding:2%;"><font color="orange">Dipendente:  </font>'+nomeD+'</div>';
+								var ele_dip = '<i class="orange accent-4 material-icons circle">access_time</i><div class="row"><div class=" col s12" style="padding:2%;"><font color="orange">Cliente:  </font>'+nomeD+'</div>';
 								var inizio = data[i]['inizio'];
 								var orai = formatotempo(inizio);
 								var ele_ini = '<div class="col s6" style="padding:2%;"><font color="orange">Ora inizio:  </font>'+orai+'</div>';
@@ -416,12 +418,12 @@ function formatotempo(tempo){
 	var fine_ora= ore+":"+minuti;
 	return fine_ora;
 }
-function datiDipendente(id){
+function datiCliente(id){
 	var nome="";
 	//alert("script_php/getDipendente.php?id="+id+"&db="+getCookie('nomeDB'));
 		$.ajax({
 	      dataType: "json",
-	      url: "script_php/getDipendente.php?id="+id+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+	      url: "script_php/getClienteRapp.php?id="+id+"&db="+getCookie('nomeDB'),//Relative or absolute path to response.php file
 	      data:"",
 				async:false,
 	      success: function(data) {
@@ -432,7 +434,7 @@ function datiDipendente(id){
 	        // $("#elenco").empty();
 
 	        for(var i = 0; i < data.length; i++) {
-						nome = ""+data[i]['nome'] +" "+ data[i]['cognome'];
+						nome = ""+data[i]['nominativo'] ;
 						//alert("nome e cognome: "+nome);
 						//return nome;
 
@@ -525,7 +527,6 @@ function returnRangeDate(d1){
 		return false;
 	}
 }
-
 
 function setteRiepilogoMateriali(){
 		//lista_id_rap
