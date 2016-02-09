@@ -8,7 +8,6 @@ $(document).ready(function(){
 	      "db":getCookie("nomeDB")
       },
       success: function(data) {
-        console.log(data);
         
         setCookie("vCL",data[0]["visualizzazione_cliente"],30);
         setCookie("aCL",data[0]["aggiunta_cliente"],30);
@@ -32,6 +31,7 @@ $(document).ready(function(){
         setCookie("mME",data[0]["modifica_mezzo"],30);
 
 
+		setCookie("MP",data[0]["modifica_privilegi"],30);
 		setCookie("RR",data[0]["rapportino_rapido"],30);
         setCookie("vRR",data[0]["visualizzazione_resoconti_rapportini"],30);
         
@@ -80,6 +80,10 @@ $(document).ready(function(){
 		
 		if(getCookie("vRR")==0)
 	        $("#vRR").hide();
+
+		if(getCookie("MP")==0)
+	        $("#MP").hide();
+
 			
     },
       error: function(xhr){
