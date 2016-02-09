@@ -15,6 +15,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 		<script src="js/manageCookie.js" type="text/javascript" ></script>
 		<script src="js/pace.min.js" type="text/javascript"></script>
+		<script src="js/filter_feature.js" type="text/javascript"></script>
 
 		<script type="text/javascript">
 			$(document).ready(function(){
@@ -36,7 +37,7 @@
   </nav>
 	<div class="menu col s12 m12 l12" style="margin:auto;">
 		<div class="row">
-			<div class="item-menu col s12 m4 l4 purple-text">
+			<div class="item-menu col s12 m4 l4 purple-text" id="RR">
 		     <i class="large material-icons">timer</i>
 			  <h5>Oggi al lavoro</h5>
 			  <h9>Aggiungi un rapportino per oggi</h9>
@@ -44,16 +45,16 @@
 				  <a class="btn-floating btn-medium waves-effect waves-light purple" href="addRapportinoToday.html" title="Aggiungi Dipendente"><i class="small material-icons">add</i></a>
 			  </div>
 		</div>
-		  <div class="item-menu col s12 m4 l4 light-blue-text text-accent-3">
+		  <div class="item-menu col s12 m4 l4 light-blue-text text-accent-3" id="CL">
 			  <i class="large material-icons">people</i>
 			  <h5>Gestione Clienti</h5>
 			  <h9>Gestisci i dati di tutti i tuoi clienti</h9>
-			  <div class="row" style="margin-top: 2%;padding: 2%;">
-				  <a class="btn-floating btn-medium waves-effect waves-light blue" href="clienti.html" title="Elenco Clienti"><i class="small material-icons">view_list</i></a>
-				  <a class="btn-floating btn-medium waves-effect waves-light blue" href="addCliente.html" title="Aggiungi Cliente"><i class="small material-icons">add</i></a>
+			  <div class="row"  style="margin-top: 2%;padding: 2%;">
+				  <a id="vCL" class="btn-floating btn-medium waves-effect waves-light blue" href="clienti.html" title="Elenco Clienti"><i class="small material-icons">view_list</i></a>
+				  <a id="aCL" class="btn-floating btn-medium waves-effect waves-light blue" href="addCliente.html" title="Aggiungi Cliente"><i class="small material-icons">add</i></a>
 			  </div>
 		  </div>
-		  <div class="item-menu col s12 m4 l4 orange-text" >
+		  <div class="item-menu col s12 m4 l4 orange-text" id="vRR">
 		   	 <i class="large material-icons">content_paste</i>
 			  <h5>Rapportini</h5>
 			   <h9>Gestisci i rapportini di ogni cliente</h9>
@@ -64,31 +65,31 @@
 		  </div>
 
 
-		  <div class="item-menu col s12 m4 l4 red-text" >
+		  <div class="item-menu col s12 m4 l4 red-text" id="MA">
 		   	 <i class="large material-icons">local_grocery_store</i>
 			  <h5>Materiali</h5>
 			  <h9>Gestisci il tuo catalogo dei materiali</h9>
 			   <div class="row" style="margin-top: 2%;padding: 2%;">
-				  <a class="btn-floating btn-medium waves-effect waves-light red" href="materiali.html" title="Elenco Materiali"><i class="small material-icons">view_list</i></a>
-				  <a class="btn-floating btn-medium waves-effect waves-light red" href="addMateriale.html" title="Aggiungi Materiale"><i class="small material-icons">add</i></a>
+				  <a id="vMA" class="btn-floating btn-medium waves-effect waves-light red" href="materiali.html" title="Elenco Materiali"><i class="small material-icons">view_list</i></a>
+				  <a id="aMA" class="btn-floating btn-medium waves-effect waves-light red" href="addMateriale.html" title="Aggiungi Materiale"><i class="small material-icons">add</i></a>
 			  </div>
 		  </div>
-		  <div class="item-menu col s12 m4 l4 brown-text">
+		  <div class="item-menu col s12 m4 l4 brown-text" id="ME">
 		     <i class="large material-icons">directions_bus</i>
-			  <h5>Gestione Mezzi</h5>
+			  <h5>Mezzi</h5>
 			  <h9>Gestisci tutti i tuoi mezzi</h9>
 			   <div class="row" style="margin-top: 2%;padding: 2%;">
-				  <a class="btn-floating btn-medium waves-effect waves-light brown" href="mezzi.html" title="Elenco Dipendenti"><i class="small material-icons">view_list</i></a>
-				  <a class="btn-floating btn-medium waves-effect waves-light brown" href="addMezzi.html" title="Aggiungi Dipendente"><i class="small material-icons">add</i></a>
+				  <a id="vME" class="btn-floating btn-medium waves-effect waves-light brown" href="mezzi.html" title="Elenco Dipendenti"><i class="small material-icons">view_list</i></a>
+				  <a id="aME" class="btn-floating btn-medium waves-effect waves-light brown" href="addMezzi.html" title="Aggiungi Dipendente"><i class="small material-icons">add</i></a>
 			  </div>
 		</div>
-		  <div class="item-menu col s12 m4 l4 green-text text-accent-4">
+		  <div class="item-menu col s12 m4 l4 green-text text-accent-4" id="DI">
 		     <i class="large material-icons">directions_walk</i>
 			  <h5>Gestione Dipendenti</h5>
 			  <h9>Gestisci i dati di tutti i tuoi dipendenti</h9>
 			   <div class="row" style="margin-top: 2%;padding: 2%;">
-				  <a class="btn-floating btn-medium waves-effect waves-light green" href="dipendenti.html" title="Elenco Dipendenti"><i class="small material-icons">view_list</i></a>
-				  <a class="btn-floating btn-medium waves-effect waves-light green" href="addDipendente.html" title="Aggiungi Dipendente"><i class="small material-icons">add</i></a>
+				  <a  id="vDI" class="btn-floating btn-medium waves-effect waves-light green" href="dipendenti.html" title="Elenco Dipendenti"><i class="small material-icons">view_list</i></a>
+				  <a id="aDI" class="btn-floating btn-medium waves-effect waves-light green" href="addDipendente.html" title="Aggiungi Dipendente"><i class="small material-icons">add</i></a>
 			  </div>
 		</div>
 
