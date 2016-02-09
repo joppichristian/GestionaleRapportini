@@ -2,6 +2,10 @@ var det_json = new Array();
 var lista_id_rap = new Array();
 var mod_materiali_tot = new Array();
 var mod_mezzi_tot = new Array();
+
+var mod_materiali_single = new Array();
+var mod_mezzi_single = new Array();
+
 var det_index=0;
 var det_id=0;
 var id_utente="";
@@ -351,9 +355,20 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 								var ele_ore = '<div class=" col s6" style="padding:2%;"><font color="orange">ORE TOTALI:  </font><b>'+diff_lavoro+'</b></div>';
 								var note = data[i]['note'];
 								var ele_desc = '<div class="col s12" style="padding:2%;"><font color="orange">Descrizione:  </font>'+note+'</div>';
+
+								mod_materiali_single = new Array();
+								load_SingleMaterials(data[i]['id']);
+								var arrayMa = mod_updateListUtilizziMaSingle();
+								var ma=  '<div class="col s12" style="padding:2%;"><font color="orange">Materiali:  </font>'+arrayMa+'</div>';
+								mod_materiali_single = new Array();
+
+								load_SingleMezzi(data[i]['id']);
+								var arrayMe = mod_updateListUtilizziMeSingle();
+								var me=  '<div class="col s12" style="padding:2%;"><font color="orange">Mezzi:  </font>'+arrayMe+'</div>';
+
 								var ele = '</div><a class="btn-floating orange"><i id="'+i+'" class="edit_rap large material-icons">mode_edit</i></a><a style="margin-left:2%;" class="btn-floating orange"><i id="'+i+'" class="delete_rap large material-icons">delete</i></a>';
 
-								var tot_ele = inizio_ore+ele_dip+ele_ini+ele_fine+ele_pausa+ele_ore+ele_desc+ele;
+								var tot_ele = inizio_ore+ele_dip+ele_ini+ele_fine+ele_pausa+ele_ore+ele_desc+ma+me+ele;
 								elementi[i].innerHTML = tot_ele;
 								$("#lista_singolo_rap").append(elementi[i]);
 							}
@@ -623,6 +638,74 @@ function mod_updateListUtilizziMezziTot(){
 
 	}
 
+}
+
+
+function load_SingleMezzi(id_rapportino){
+	//mod_materiali_selezionati.splice(0,mod_materiali_selezionati.length);
+	mod_mezzi_single = new Array();
+	$.ajax({
+      dataType: "json",
+      url: "script_php/getMezziRapportino.php?id="+ id_rapportino+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      data:"",
+      async:false,
+      success: function(data) {
+	   	 if(data != null){
+		   	 for(var i=0;i<data.length;i++)
+		   	 	mod_mezzi_single.push({'id':data[i]['id'],'descrizione':data[i]['descrizione'],'quantita':parseFloat(data[i]['quantita'])});
+
+	   	 }
+	   },
+      error: function(xhr){
+	     console.log(xhr.status);
+        return false;
+      }
+    });
+
+}
+
+function load_SingleMaterials(id_rapportino){
+	//mod_materiali_selezionati.splice(0,mod_materiali_selezionati.length);
+	mod_materiali_single = new Array();
+	$.ajax({
+      dataType: "json",
+      url: "script_php/getMaterialsRapportino.php?id="+ id_rapportino+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      data:"",
+      async:false,
+      success: function(data) {
+	   	 if(data != null){
+		   	 for(var i=0;i<data.length;i++)
+		   	 	mod_materiali_single.push({'id':data[i]['id'],'descrizione':data[i]['descrizione'],'quantita':parseFloat(data[i]['quantita'])});
+
+	   	 }
+	   },
+      error: function(xhr){
+	     console.log(xhr.status);
+        return false;
+      }
+    });
+
+}
+
+
+function mod_updateListUtilizziMeSingle(){
+	var chip_mezzi = new Array();
+	var l_me="";
+	for(var i=0; i < mod_mezzi_single.length ;i++){
+		chip_mezzi[i]='<div class="chip">'+mod_mezzi_single[i]['descrizione'] + '&nbsp; x' + mod_mezzi_single[i]['quantita']+'<a href="#!" ></a></div>';
+  	l_me= l_me + chip_mezzi[i];
+	}
+	return l_me;
+}
+
+function mod_updateListUtilizziMaSingle(){
+	var chip_materiali = new Array();
+	var l_ma="";
+	for(var i=0; i < mod_materiali_single.length ;i++){
+		chip_materiali[i]='<div class="chip">'+mod_materiali_single[i]['descrizione'] + '&nbsp; x' + mod_materiali_single[i]['quantita']+'<a href="#!" ></a></div>';
+		l_ma= l_ma + chip_materiali[i];
+	}
+	return l_ma;
 }
 
 
