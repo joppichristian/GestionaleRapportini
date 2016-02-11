@@ -176,7 +176,7 @@ function populateRapportino(filter){
 								if(myDate==oldDate){
 									elementi[i] = document.createElement('li');
 				        	elementi[i].className ="collection-item avatar no_see";
-									elementi[i].innerHTML = '<i class="orange accent-4 material-icons circle">access_time</i><span class="title">Data : '+oldDate+ '</span><p>Ore Totali : 5</p><div align="right"><a style="right: 5%;" class="btn-floating orange"><i class=" dettaglio_list large mdi-navigation-menu"></i></a></divZ';
+									elementi[i].innerHTML = '<i class="orange accent-4 material-icons circle">access_time</i><span class="title">Data : '+oldDate+ '</span><p>Ore Totali : 5</p><div align="right"><a style="right: 5%;" class="btn-floating orange"><i class="dettaglio_list material-icons">zoom_in</i></a></divZ';
 									ele_rap = elementi[i];
 									cont_ore= cont_ore+diff_lavoro;
 									$("#lista_rap").append(ele_rap);
@@ -185,7 +185,7 @@ function populateRapportino(filter){
 								}else{
 										elementi[i] = document.createElement('li');
 				        		elementi[i].className ="collection-item avatar";
-										elementi[i].innerHTML = '<i class="orange accent-4 material-icons circle">access_time</i><span class="title">Data : '+oldDate+ '</span><p>Ore Totali : '+cont_ore+'</p><div align="right"><a style="right: 5%;" class="btn-floating orange"><i class=" dettaglio_list large mdi-navigation-menu"></i></a></div>';
+										elementi[i].innerHTML = '<i class="orange accent-4 material-icons circle">access_time</i><span class="title">Data : '+oldDate+ '</span><p>Ore Totali : '+cont_ore+'</p><div align="right"><a style="right: 5%;" class="btn-floating orange"><i class="dettaglio_list material-icons">zoom_in</i></a></div>';
 										ele_rap = elementi[i];
 										cont_ore = diff_lavoro;
 										$("#lista_rap").append(ele_rap);
