@@ -17,7 +17,7 @@
   $listaRap="";
 
   header("Content-Type: text/csv");
-  header("Content-Disposition: attachment; filename=rapportinoDipendente.csv");
+  //header("Content-Disposition: attachment; filename=rapportinoDipendente.csv");
   // Disable caching
   header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
   header("Pragma: no-cache"); // HTTP 1.0
@@ -82,7 +82,8 @@
       return $risultato;
     }
 
-    $qry = "SELECT r.id as id, d.nome as nome, d.cognome as cognome, r.inizio as inizio, r.fine as fine, r.pausa as pausa, r.note as note, c.nominativo as nominativo FROM dipendenti AS d, rapportini AS r, clienti AS c WHERE r.id_dipendente='".$id_utente."' AND c.id=r.id_cliente AND d.id='".$id_utente."' ORDER BY inizio ASC;";
+    $qry = "SELECT r.id as id, d.nome as nome, d.cognome as cognome, r.inizio as inizio, r.fine as fine, r.pausa as pausa, r.note as note, c.nominativo as nominativo FROM dipendenti AS d, rapportini AS r, clienti AS c WHERE r.id_cliente='".$id_utente."' AND d.id=r.id_dipendente AND c.id='".$id_utente."' ORDER BY inizio ASC;";
+    //echo="qry: "+$qry;
     $mysqli->query('SET CHARACTER SET utf8');
     $result = $mysqli->query($qry);
     $arrayRap[0]= "";
@@ -93,10 +94,10 @@
     $lavoroSommaTot =0;
     $cont=3;
     while($row = $result->fetch_array()) {
-          $nome_dipendente = $row['nome'];
-          $cognome_dipendente = $row['cognome'];
+          $nominativo = $row['nominativo'];
+          //$cognome_dipendente = $row['cognome'];
           $i_f=confrontoData($row['inizio']);
-          header("Content-Disposition: attachment; filename=rapportino_dipendente_".$nome_dipendente."_".$cognome_dipendente.".csv");
+          header("Content-Disposition: attachment; filename=rapportino_cliente_".$nominativo.".csv");
           if($i_f){
             //$nomeCliente = nomeCliente($row['id_cliente']);
             //echo ("Sono dentro: ".$i_f.">=".$filtro_inizio.")&&(".$i_f."<=".$filtro_fine);
@@ -114,14 +115,14 @@
             $data_giorno=estrapolaData($row['inizio']);
             $inizio=estrapolaOra($row['inizio']);
             $fine=estrapolaOra($row['fine']);
-
-            $arrayRap[$cont]=array($row['nominativo'],$data_giorno,$oreTot,$inizio,$fine,$row['pausa'],$row['note']);
+            $nomeDip = $row['nome']." ".$row['cognome'];
+            $arrayRap[$cont]=array($nomeDip,$data_giorno,$oreTot,$inizio,$fine,$row['pausa'],$row['note']);
             $cont=$cont+1;
           }
           //$listaRap = $listaRap.",".$arrayRap[$cont];
 
     }
-    $arrayRap[0]= array("Dipendente: ", $nome_dipendente, $cognome_dipendente);
+    $arrayRap[0]= array("Cliente: ", $nominativo);
     $arrayRap[1]= array("");
     $arrayRap[2]= array("CLIENTE", "GIORNO","ORE TOT","ORA INIZIO","ORA FINE","PAUSA (in minuti)","NOTE");
 
@@ -134,7 +135,7 @@
     $inizio=$inizio+1;
     $arrayRap[$inizio]= array("SOMMA (in ore)","",$oreSommaTot,"","",$pausaSommaTot,"");
     $inizio=$inizio+1;
-    $arrayRap[$inizio]= array("TOTALE ","ORE LAVORATE",$lavoroSommaTot,"","","","");
+    $arrayRap[$inizio]= array("TOTALE ","ORE di LAVORO",$lavoroSommaTot,"","","","");
     $inizio=$inizio+1;
     $arrayRap[$inizio]= array("");
     $inizio=$inizio+1;

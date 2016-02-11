@@ -1,29 +1,29 @@
 <html>
 	<head>
-	
+
 		<title>Gestionale</title>
-		<meta name="viewport" content="width=device-width, user-scalable=no, 
+		<meta name="viewport" content="width=device-width, user-scalable=no,
 initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
-		
+
 		<!-- Compiled and minified CSS -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
 	  	<link rel="stylesheet" href="css/style.css">
 	  	<link rel="stylesheet" href="css/form_red.css">
 	    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	    <link rel="stylesheet" type="text/css" href="css/pace.css">
-	
+
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<!-- Compiled and minified JavaScript -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 		<script src="js/materials.js" type="text/javascript" ></script>
 		<script src="js/manageCookie.js" type="text/javascript" ></script>
 		<script src="js/pace.min.js" type="text/javascript"></script>
-		
+
 	</head>
-	
+
 	<body class="blue-grey lighten-5">
 		<nav class="section blue-grey darken-3">
-			
+
 		    <div class="nav-wrapper">
 		      <div class="col s12">
 		        <a href="dashboard.html" class="breadcrumb">Home</a>
@@ -39,7 +39,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 		         </div>
 		 </form>
 	  	</div>
-	  	<div class="section list col s12 m12 l12" style="height: 35%;">	
+	  	<div class="section list col s12 m12 l12" style="max-height: 45%;">	
 		  <ul class="col s10 m10 l10 collection with-header" id="elenco" ></ul>
 	  	</div>
 	  	<div class="divider"></div>
@@ -58,7 +58,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 			  	<div class="col s12 m2 l2">
 				  	 <a  class="btn-floating btn-medium waves-effect waves-light red" title="Modifica Materiale"><i id="modify" class="small material-icons">edit</i></a>				  	 <a class="btn-floating btn-medium waves-effect waves-light red" title="Elimina Materiale"><i id="delete" class="small material-icons">delete</i></a>					<a class="btn-floating btn-medium waves-effect waves-light red" href="addMateriale.html" title="Aggiungi Materiale"><i class="small material-icons">add</i></a>
 			  	</div>
-			  	
+
 
 		  	</div>
 		      <div class="row" id="modifica_materiale">
@@ -73,7 +73,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 		          <label class="red-text" for="form_descrizione ">Descrizione</label>
 		        </div>
 		         <div class="input-field col s12 m6 l6">
-			      <i class="material-icons prefix red-text">attach_money</i>   
+			      <i class="material-icons prefix red-text">attach_money</i>
 		          <input id="form_prezzo" type="text" name="prezzo" class="validate">
 		          <label class="red-text" for="form_prezzo">Prezzo</label>
 		          </div>

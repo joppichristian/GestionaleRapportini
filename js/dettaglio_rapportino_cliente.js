@@ -2,7 +2,7 @@ var det_json = new Array();
 var lista_id_rap = new Array();
 var mod_materiali_tot = new Array();
 var mod_mezzi_tot = new Array();
-
+var id_clienteR="";
 var mod_materiali_single = new Array();
 var mod_mezzi_single = new Array();
 
@@ -139,6 +139,7 @@ function populateRapportino(filter){
 
 						conteggio = conteggio +1;
 						$("#nome_cliente").text(""+data[i]['nominativo']);
+						id_clienteR=data[i]['id'];
 
 						var dataTot= data[i]['inizio'];
 						var dataS = dataTot.split(' ');
