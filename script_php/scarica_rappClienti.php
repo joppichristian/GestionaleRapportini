@@ -124,7 +124,7 @@
     }
     $arrayRap[0]= array("Cliente: ", $nominativo);
     $arrayRap[1]= array("");
-    $arrayRap[2]= array("CLIENTE", "GIORNO","ORE TOT","ORA INIZIO","ORA FINE","PAUSA (in minuti)","NOTE");
+    $arrayRap[2]= array("DIPENDENTE", "GIORNO","ORE TOT","ORA INIZIO","ORA FINE","PAUSA (in minuti)","NOTE");
 
     if($result!=null){
         $result->close();
@@ -143,7 +143,7 @@
     $inizio=$inizio+1;
     $arrayRap[$inizio]= array("MATERIALI");
     $inizio=$inizio+1;
-    $arrayRap[$inizio]= array("GIORNO", "CODICE","DESCRIZIONE","QUANTITA");
+    $arrayRap[$inizio]= array("GIORNO", "CODICE","DESCRIZIONE","QUANTITA","PREZZO UNITARIO","PREZZO TOT");
     $inizio=$inizio+1;
 
     $cont_materiali=$inizio+1;
@@ -153,12 +153,18 @@
     //$mysqli->query('SET CHARACTER SET utf8');
     $result = $mysqli->query($qry);
     $lista_mat="";
+    $matSommaTot="";
     while($row = $result->fetch_array()) {
       //  $lista_mat=$rowMa['codice']."--".$rowMa['codice']."--quantità: ".$rowMa['quantita'];
         $data_giorno_ma=estrapolaData($row['inizio']);
         $i_f=confrontoData($row['inizio']);
         if($i_f){
-          $arrayRap[$cont_materiali]=array($data_giorno_ma,$row['codice'],$row['descrizione'],$row['quantita']);
+
+          $costoProdotto=($row['quantita'])*($row['prezzo']);
+          $costoProdottoDec= number_format((float)$costoProdotto, 2, '.', '');
+          $prezzoUni=number_format((float)$row['prezzo'], 2, '.', '');
+          $matSommaTot=$matSommaTot+$costoProdottoDec;
+          $arrayRap[$cont_materiali]=array($data_giorno_ma,$row['codice'],$row['descrizione'],$row['quantita'],$prezzoUni,$costoProdottoDec);
           $cont_materiali=$cont_materiali+1;
         }
 
@@ -167,6 +173,13 @@
     if($result!=null){
         $result->close();
     }
+
+    $cont_materiali=$cont_materiali+1;
+
+    $arrayRap[$cont_materiali]= array("");
+    $cont_materiali=$cont_materiali+1;
+    $arrayRap[$cont_materiali]= array("SOMMA (in euro)","","","","",$matSommaTot);
+
     //FINE AGGIUNTA MATERIALI TABELLA
 
     $cont_materiali=$cont_materiali+1;
@@ -176,19 +189,24 @@
     $cont_materiali=$cont_materiali+1;
     $arrayRap[$cont_materiali]= array("MEZZI");
     $cont_materiali=$cont_materiali+1;
-    $arrayRap[$cont_materiali]= array("GIORNO", "DESCRIZIONE","ORE UTILIZZO");
+    $arrayRap[$cont_materiali]= array("GIORNO", "DESCRIZIONE","ORE UTILIZZO","PREZZO UNITARIO","PREZZO TOT");
 
     $cont_mezzi=$cont_materiali+1;
 
     //AGGIUNTA MEZZI TABELLA
-    $qry = "SELECT r.id as id, r.inizio as inizio, m.descrizione as descrizione, u.quantita as quantita FROM rapportini AS r, utilizzo_risorse AS u, mezzi AS m WHERE u.tipologia='me' AND r.id=u.id_rapportino AND m.id=u.id_materiale_mezzo ORDER BY r.inizio ASC;";
+    $qry = "SELECT r.id as id, r.inizio as inizio, m.descrizione as descrizione, m.prezzo as prezzo, u.quantita as quantita FROM rapportini AS r, utilizzo_risorse AS u, mezzi AS m WHERE u.tipologia='me' AND r.id=u.id_rapportino AND m.id=u.id_materiale_mezzo ORDER BY r.inizio ASC;";
     $result = $mysqli->query($qry);
     $lista_mez="";
+    $metSommaTot="";
     while($row = $result->fetch_array()) {
        $data_giorno_me=estrapolaData($row['inizio']);
        $i_f=confrontoData($row['inizio']);
        if($i_f){
-         $arrayRap[$cont_mezzi]=array($data_giorno_me,$row['descrizione'],$row['quantita']);
+         $costoProdotto=($row['quantita'])*($row['prezzo']);
+         $costoProdottoDec= number_format((float)$costoProdotto, 2, '.', '');
+         $prezzoUni=number_format((float)$row['prezzo'], 2, '.', '');
+         $metSommaTot=$metSommaTot+$costoProdottoDec;
+         $arrayRap[$cont_mezzi]=array($data_giorno_me,$row['descrizione'],$row['quantita'],$prezzoUni,$costoProdottoDec);
          $cont_mezzi=$cont_mezzi+1;
        }
 
@@ -197,7 +215,11 @@
     if($result!=null){
         $result->close();
     }
+    $cont_mezzi=$cont_mezzi+1;
 
+    $arrayRap[$cont_mezzi]= array("");
+    $cont_mezzi=$cont_mezzi+1;
+    $arrayRap[$cont_mezzi]= array("SOMMA (in euro)","","","",$metSommaTot);
 
     outputCSV($arrayRap);
 
