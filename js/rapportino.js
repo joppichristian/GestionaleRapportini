@@ -21,10 +21,8 @@ $(document).ready(function(){
 			populateListClient("");
 		}
 	}) ;
-	/*$("#invia_dati").on("click",function(){
-		//addCliente();
-
-	});*/
+	
+		        
 });
 
 
@@ -45,7 +43,7 @@ function populateListDipendenti(filter){
 
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item";
-	        elementi[i].innerHTML = '<div><i class="info small material-icons orange-text">directions_walk</i>'+data[i]['nome']+ ' ' +data[i]['cognome']+ '<a href="dettaglio_rapportino_dipendente.html?id='+data[i]['id']+'&nome='+data[i]['nominativo']+'" class="secondary-content"><i class="explode material-icons orange-text">call_received</i></a></div>	';
+	        elementi[i].innerHTML = '<div><i class="info small material-icons orange-text">directions_walk</i>'+data[i]['nome']+ ' ' +data[i]['cognome']+ '<a href="dettaglio_rapportino_dipendente.html?id='+data[i]['id']+'" class="secondary-content"><i class="explode material-icons orange-text">call_received</i></a></div>	';
 
 
 	    	$("#elenco").append(elementi[i]);

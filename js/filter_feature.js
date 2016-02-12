@@ -78,8 +78,13 @@ $(document).ready(function(){
         if(getCookie("RR")==0)
 	        $("#RR").hide();
 		
-		if(getCookie("vRR")==0)
-	        $("#vRR").hide();
+		if(getCookie("vRR")==0){
+			$("#vRR").attr("href","dettaglio_rapportino_dipendente.html?id="+getCookie('id_dipendente'));
+		}
+		else{
+			$("#vRR").attr("href","rapportini.html");
+		}
+
 
 		if(getCookie("MP")==0)
 	        $("#MP").hide();
@@ -90,5 +95,7 @@ $(document).ready(function(){
        alert("errore: "+xhr.status);
       }
     });
-
+    
+    
 });
+

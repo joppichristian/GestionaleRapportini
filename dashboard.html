@@ -21,6 +21,7 @@
 			$(document).ready(function(){
 				if(getCookie('nomeDB')=="")
 					window.location.replace("index.html");
+				
 			});
 		</script>
 		<style>
@@ -33,6 +34,10 @@
 	<nav class="blue-grey darken-3">
     <div class="nav-wrapper" style="padding-left: 2%;">
       <a href="#!" class="brand-logo"><img src="img/logo.png" style="height: 70%; margin-top: 20%;" /></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+
+        <li><a href="index.html"><i class="material-icons left">close</i>Logout</a></li>
+      </ul>
     </div>
   </nav>
 	<div class="menu col s12 m12 l12" style="margin:auto;">
@@ -54,12 +59,12 @@
 				  <a id="aCL" class="btn-floating btn-medium waves-effect waves-light blue" href="addCliente.html" title="Aggiungi Cliente"><i class="small material-icons">add</i></a>
 			  </div>
 		  </div>
-		  <div class="item-menu col s12 m4 l4 orange-text" id="vRR">
+		  <div class="item-menu col s12 m4 l4 orange-text" >
 		   	 <i class="large material-icons">content_paste</i>
 			  <h5>Rapportini</h5>
 			   <h9>Gestisci i rapportini di ogni cliente</h9>
 			   <div class="row" style="margin-top: 2%;padding: 2%;">
-				  <a class="btn-floating btn-medium waves-effect waves-light orange" href="rapportini.html" title="Elenco Commesse"><i class="small material-icons">view_list</i></a>
+				  <a id="vRR" class="btn-floating btn-medium waves-effect waves-light orange" href="rapportini.html" title="Elenco Commesse"><i class="small material-icons">view_list</i></a>
 				  <!--<a class="btn-floating btn-medium waves-effect waves-light orange" href="addRapportino.html" title="Aggiungi Commessa"><i class="small material-icons">add</i></a>-->
 			  </div>
 		  </div>
