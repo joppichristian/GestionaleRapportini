@@ -9,11 +9,13 @@ var index_Cl,index_Me,index_Ma;
 var cliente_selezionato = -1;
 var materiali_selezionati = new Array();
 var mezzi_selezionati = new Array();
+var rapida_cliente = 0;
 
 $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
 	$('#schermata_dati').hide();
+	$("#rapida_cliente").hide();
 	$('#schermata_materiali').hide();
 	$('#schermata_mezzi').hide();
 	$('#cliente_selezionato_new_page').hide();
@@ -88,14 +90,6 @@ $(document).ready(function(){
 		$(".mezzi").hide();
 		console.log(mezzi_selezionati);
 	});
-	$('#ora_inizio').on('input',function(){
-		if(parseInt($('#ora_inizio').val()) > 2  && $('#ora_inizio').val().indexOf(':') < 0)
-			$('#ora_inizio').val($('#ora_inizio').val()+':');
-	});
-	$('#ora_fine').on('input',function(){
-		if(parseInt($('#ora_fine').val()) > 2  && $('#ora_fine').val().indexOf(':') < 0)
-			$('#ora_fine').val($('#ora_fine').val()+':');
-	});
 	$('#ora_inizio').focusout(function(){
 		if($('#ora_inizio').val() != ''){
 			var spl = $('#ora_inizio').val().split(':');
@@ -122,6 +116,17 @@ $(document).ready(function(){
 		if($('#pausa').val() < 0 || $('#pausa').val() > 120){
 			Materialize.toast("Inserisci una pausa valida tra 0 e 120 minuti",2000);
 			$('#pausa').focus();
+		}
+
+	});
+	$("#show_add_cliente").on("click",function(){
+		if(rapida_cliente ==0){
+			$("#rapida_cliente").show();
+			rapida_cliente =1;
+		}else{
+			$("#rapida_cliente").hide();
+			rapida_cliente =0;
+
 		}
 
 	});
@@ -188,7 +193,7 @@ function populateListMaterials(filter){
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item";
 
-	        elementi[i].innerHTML = '<div><i class="info small material-icons purple-text">local_play</i>'+(data[i]['codice']+' - '+data[i]['descrizione']).substr(0,24)+'<a href="#!" class="secondary-content"><i class="select_materials material-icons purple-text">add</i></a></div>	';
+	        elementi[i].innerHTML = '<div><i class="info small material-icons purple-text">local_play</i>'+(data[i]['codice']+' - '+data[i]['descrizione']).substr(0,18)+'...<a href="#!" class="secondary-content"><i class="select_materials material-icons purple-text">add</i></a></div>	';
 
 
 	    	$("#elenco_materiali").append(elementi[i]);
@@ -242,7 +247,7 @@ function populateListMezzi(filter){
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item";
 
-	        elementi[i].innerHTML = '<div><i class="info small material-icons purple-text">directions_bus</i>'+data[i]['descrizione']+'<a href="#!" class="secondary-content"><i class="select_mezzi material-icons purple-text">add</i></a></div>	';
+	        elementi[i].innerHTML = '<div><i class="info small material-icons purple-text">directions_bus</i>'+data[i]['descrizione'].substr(0,18)+'...<a href="#!" class="secondary-content"><i class="select_mezzi material-icons purple-text">add</i></a></div>	';
 
 
 	    	$("#elenco_mezzi").append(elementi[i]);
@@ -363,6 +368,29 @@ function addCliente(){
 		   },
 		   success: function(data){		   
 		   		Materialize.toast('Cliente inserito', 2000,'',function(){populateListClient("")});
+		   		$("#rapida_cliente").hide();
+		   		$.ajax({
+			      dataType: "json",
+			      url: "script_php/getClients.php?q="+nominativo+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+			      data:"",
+			      success: function(data) {
+				    
+				    		$("#cliente_selezionato").empty();
+					    	$("#cliente_selezionato_new_page").empty();
+					        id_Cl = data[0]['id'];
+					        cliente_selezionato = id_Cl;
+					        var cliente_chip = document.createElement('div');
+							cliente_chip.className= "chip";
+							cliente_chip.innerHTML=data[0]['nominativo'];
+							$("#cliente_selezionato").append(cliente_chip);
+							var cliente_chip_2 = document.createElement('div');
+							cliente_chip_2.className= "chip";
+							cliente_chip_2.innerHTML=data[0]['nominativo'];
+							$("#cliente_selezionato_new_page").append(cliente_chip_2);
+				      
+					}
+				});
+
 			   return false;
 			},
 		   error: function (XMLHttpRequest, textStatus, errorThrown){
@@ -373,3 +401,4 @@ function addCliente(){
 		});		
 		return false;
 }
+
