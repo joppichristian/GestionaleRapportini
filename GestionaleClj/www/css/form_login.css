@@ -1,0 +1,45 @@
+ /* label color */
+   .input-field label {
+     color: #ef5350;
+   }
+   /* label focus color */
+   .input-field input[type=text]:focus + label {
+     color: #ef5350;
+   }
+   /* label underline focus color */
+   .input-field input[type=text]:focus {
+     border-bottom: 1px solid #ef5350;
+     box-shadow: 0 1px 0 0 #ef5350;
+   }
+   /* valid color */
+   .input-field input[type=text].valid {
+     border-bottom: 1px solid #ef5350;
+     box-shadow: 0 1px 0 0 #ef5350;
+   }
+   /* invalid color */
+   .input-field input[type=text].invalid {
+     border-bottom: 1px solid #ef5350;
+     box-shadow: 0 1px 0 0 #ef5350;
+   }
+   .input-field input[type=password]:focus + label {
+     color: #ef5350;
+   }
+   /* label underline focus color */
+   .input-field input[type=password]:focus {
+     border-bottom: 1px solid #ef5350;
+     box-shadow: 0 1px 0 0 #ef5350;
+   }
+   /* valid color */
+   .input-field input[type=password].valid {
+     border-bottom: 1px solid #ef5350;
+     box-shadow: 0 1px 0 0 #ef5350;
+   }
+   /* invalid color */
+   .input-field input[type=password].invalid {
+     border-bottom: 1px solid #ef5350;
+     box-shadow: 0 1px 0 0 #ef5350;
+   }
+   /* icon prefix focus color */
+   .input-field .prefix.active {
+     color: #ef5350;
+   }
