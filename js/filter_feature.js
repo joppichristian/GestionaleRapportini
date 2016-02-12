@@ -1,4 +1,7 @@
 $(document).ready(function(){
+	if(getCookie('nomeDB')=="")
+		window.location.replace("index.html");
+
   $.ajax({
       url: "script_php/getGroupDetails.php",
       type:"POST",
