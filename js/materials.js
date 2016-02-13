@@ -6,6 +6,21 @@ $(document).ready(function() {
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
 
+	if(getCookie("cMA")==0)
+		$("#cMA").hide();
+	else
+		$("#cMA").show();
+	
+	if(getCookie("aMA")==0)
+		$("#aMA").hide();
+	else
+		$("#aMA").show();
+		
+	if(getCookie("mMA")==0)
+		$("#mMA").hide();
+	else
+		$("#mMA").show();
+
 	$("#info").show();
 	$("#modifica_materiale").hide();
 	$("#search").on('input', function() {
@@ -100,7 +115,8 @@ function explodeMateriale(materiale){
 }
 
 function deleteMateriale(){
-
+if(getCookie("cMA")==0)
+		return;
 					$.ajax({
 				      url: "script_php/deleteMaterial.php", //Relative or absolute path to response.php file
 				      type:"POST",

@@ -5,6 +5,22 @@ var id=0;
 $(document).ready(function() {
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
+	
+	
+	if(getCookie("cME")==0)
+		$("#cME").hide();
+	else
+		$("#cME").show();
+	
+	if(getCookie("aME")==0)
+		$("#aME").hide();
+	else
+		$("#aME").show();
+		
+	if(getCookie("mME")==0)
+		$("#mME").hide();
+	else
+		$("#mME").show();
 
 	$("#info").show();
 	$("#modifica_mezzo").hide();
@@ -98,7 +114,8 @@ function explodeMezzo(mezzo){
 }
 
 function deleteMezzo(){
-
+if(getCookie("cME")==0)
+		return;
 					$.ajax({
 				      url: "script_php/deleteMezzi.php", //Relative or absolute path to response.php file
 				      type:"POST",

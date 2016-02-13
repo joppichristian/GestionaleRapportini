@@ -3,7 +3,8 @@ var response;
 $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
-
+if(getCookie('aMA')==0)
+		window.location.replace("dashboard.html");
 	$("#invia_dati").on("click",function(){
 		addMateriale();
 

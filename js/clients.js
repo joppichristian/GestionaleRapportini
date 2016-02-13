@@ -5,7 +5,22 @@ var id=0;
 $(document).ready(function() {
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
-
+	if(getCookie("cCL")==0)
+		$("#cCL").hide();
+	else
+		$("#cCL").show();
+	
+	if(getCookie("aCL")==0)
+		$("#aCL").hide();
+	else
+		$("#aCL").show();
+		
+	if(getCookie("mCL")==0)
+		$("#mCL").hide();
+	else
+		$("#mCL").show();
+		
+		
 	$("#info").show();
 	$("#modifica_cliente").hide();
 	$("#search").on('input', function() {
@@ -125,8 +140,8 @@ function explodeClient(cliente){
 
 function deleteCliente(){
 	
-	
-	
+	if(getCookie("cCL")==0)
+		return;
 	$.ajax({
 		url: "script_php/deleteClient.php", //Relative or absolute path to response.php file
 	      type:"POST",	

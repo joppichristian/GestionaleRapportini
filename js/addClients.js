@@ -3,7 +3,8 @@ var response;
 $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
-
+	if(getCookie('aCL')==0)
+		window.location.replace("dashboard.html");
 	$('select').material_select();
 	$("#div_iva").hide();
 	$("#tipologia").on("change",function(){

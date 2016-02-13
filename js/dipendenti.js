@@ -7,6 +7,33 @@ var username;
 $(document).ready(function() {
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
+		
+		
+	if(getCookie("cDI")==0){
+		$("#cDI").hide();
+		$("#cDI2").hide();
+	}
+	else{
+		$("#cDI").show();
+		$("#cDI2").show();
+	}
+	if(getCookie("aDI")==0){
+		$("#aDI").hide();
+		$("#aDI2").hide();
+	}
+	else{
+		$("#aDI").show();
+		$("#aDI2").show();
+	}
+	if(getCookie("mDI")==0){
+		$("#mDI").hide();
+		$("#mDI2").hide();
+	}
+	else{
+		$("#mDI").show();
+		$("#mDI2").show();	
+	}
+		
 	$('ul.tabs').tabs();
 	$('div.indicator').css("background-color","#4caf50");
 	$("#info").show();
@@ -151,7 +178,8 @@ function explodeDipendente(dipendente){
 }
 
 function deleteDipendente(){
-
+if(getCookie("cDI")==0)
+		return;
 					$.ajax({
 				      url: "script_php/deleteEmployee.php", //Relative or absolute path to response.php file
 				      type:"POST",
