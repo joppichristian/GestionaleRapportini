@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
-
+	else{	
   $.ajax({
       url: "script_php/getGroupDetails.php",
       type:"POST",
@@ -99,6 +99,6 @@ $(document).ready(function(){
       }
     });
     
-    
+   } 
 });
 
