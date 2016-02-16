@@ -1,6 +1,8 @@
 $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
+	if(getCookie('vRR')==0)
+		window.location.replace("dashboard.html");
     populateListDipendenti("");
 	$('select').material_select();
 	//$("#div_iva").hide();

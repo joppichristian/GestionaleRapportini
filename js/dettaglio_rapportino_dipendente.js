@@ -13,6 +13,8 @@ var id_rap="";
 $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
+	if(getCookie('vRR')==0)
+		$("#vRR").hide();
     $("#id_insert_item").hide();
     $("#botton_insert_item").hide();
     $("#new_insert_item").hide();
