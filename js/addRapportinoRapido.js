@@ -14,6 +14,7 @@ var rapida_cliente = 0;
 $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
+	$('select').material_select();
 	$('#schermata_dati').hide();
 	$("#rapida_cliente").hide();
 	$('#schermata_materiali').hide();
@@ -36,27 +37,12 @@ $(document).ready(function(){
 		$('#schermata_dati').hide();
 	});
 	$('#complete').click(function(){
-		if($('#ora_inizio').val() != '' && $('#ora_fine').val() != '' && $('#pausa').val() >= 0 && $('#pausa').val() <= 120 ){
-			var spl = $('#ora_inizio').val().split(':');
-			if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || isNaN(spl[0]) || isNaN(spl[1]) || spl[0]== '' ||spl[1]== ''|| spl.length!=2)
-			{
-				Materialize.toast("Ora di inizio non valida...utilizza hh:mm!",2000);
-				return false;
-			}
-			spl = $('#ora_fine').val().split(':');
-			if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || isNaN(spl[0]) || isNaN(spl[1]) || spl[0]== '' ||spl[1]== ''|| spl.length!=2)
-			{
-				Materialize.toast("Ora di fine non valida...utilizza hh:mm!",2000);
-				return false;
-			}
+		if($('#pausa').val() <= 120 ){
 			aggiungiRapportino();
 		}
 		else
 		{
-			if($('#pausa').val() >= 0 && $('#pausa').val() <= 120)
-				Materialize.toast("Inserisci un'ora di inizio e un'ora di fine valida!",2000);
-			else
-				Materialize.toast("Inserisci una pausa valida tra 0 e 120 minuti",2000);
+			Materialize.toast("Inserisci una pausa valida tra 0 e 120 minuti",2000);
 		}
 
 	});
@@ -90,28 +76,7 @@ $(document).ready(function(){
 		$(".mezzi").hide();
 		console.log(mezzi_selezionati);
 	});
-	$('#ora_inizio').focusout(function(){
-		if($('#ora_inizio').val() != ''){
-			var spl = $('#ora_inizio').val().split(':');
-			if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || spl.length!=2)
-			{
-				Materialize.toast("Ora di inizio non valida...utilizza hh:mm!",2000);
-				$('#ora_inizio').focus();
-			}
-		}
-
-	});
-	$('#ora_fine').focusout(function(){
-		if($('#ora_fine').val() != ''){
-			var spl = $('#ora_fine').val().split(':');
-			if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || spl.length!=2)
-			{
-				Materialize.toast("Ora di fine non valida...utilizza hh:mm!",2000);
-				$('#ora_fine').focus();
-			}
-			
-		}
-	});
+	
 	$('#pausa').focusout(function(){
 		if($('#pausa').val() < 0 || $('#pausa').val() > 120){
 			Materialize.toast("Inserisci una pausa valida tra 0 e 120 minuti",2000);
@@ -328,13 +293,15 @@ function removeMezzo(i){
 		 mezzi_selezionati.splice(i,1);
 }
 function aggiungiRapportino(){
+	var inizio = $('#ora_inizio_hh').val()+':'+$('#ora_inizio_mm').val();
+	var fine = $('#ora_fine_hh').val()+':'+$('#ora_fine_mm').val();
 	$.ajax({
       type:"POST",
       url: "script_php/postRapportinoRapido.php", //Relative or absolute path to response.php file
       async:false,
       data:{
-	  	'ora_inizio': $('#ora_inizio').val(),
-	  	'ora_fine': $('#ora_fine').val(),
+	  	'ora_inizio': inizio,
+	  	'ora_fine': fine,
 	  	'pausa': $('#pausa').val(),
 	  	'note':$('#note').val(),
 	  	'dipendente':getCookie('id_dipendente'),
