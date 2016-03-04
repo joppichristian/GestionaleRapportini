@@ -135,7 +135,7 @@ function populateRapportino(filter){
 				 var cont_ore=0;
 				 var myDate="";
 				 var elem_data = new Array();
-				 for(var i = 0; i < data.length; i++) {
+				 for(var i = 0;i < data.length; i++) {
 
 						conteggio = conteggio +1;
 						$("#nome_cliente").text(""+data[i]['nome']+" "+data[i]['cognome']);
