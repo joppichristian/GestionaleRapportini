@@ -5,13 +5,14 @@ var id=0;
 $(document).ready(function() {
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
-	$(document).ready(function() {
-	    $('select').material_select();
-	  });
+	
+	
+	$('select').material_select();
+	 
 		
 		
 	$("#info").show();
-	$("#modifica_cliente").hide();
+	$("#modifica_gruppo").hide();
 	$("#search").on('input', function() {
 		var tmp = $("#search").val();
 		populateList(tmp);
@@ -20,17 +21,17 @@ $(document).ready(function() {
 		completaForm();
 	});
 	$("#invia_dati").click( function() {
-		modifyCliente();
+		modifyGroup();
 	});
 	$("#annulla_modify").click( function() {
-		explodeClient(json[0]);
+		explodeGroup(json[0]);
 	});
 	$("#delete").click( function() {
 		$("#modal_cancellazione").openModal();
 	});
 	$("#yes").click(function(){
 		$("#modal_cancellazione").closeModal();
-		deleteCliente();
+		deleteGroup();
 	});
 	$("#no").click(function(){
 		$("#modal_cancellazione").closeModal();
@@ -64,11 +65,11 @@ function populateList(filter){
 	    }
 	    id = data[0]['id'];
 
-		explodeClient(data[0]);
+		explodeGroup(data[0]);
 		$(".explode").click(function(){
 	        index = $(".explode").index(this);
 	        id = json[index]['id'];
-	        explodeClient(json[index]);
+	        explodeGroup(json[index]);
         });
       },
       error: function(xhr){
@@ -80,7 +81,7 @@ function populateList(filter){
     //return false;
 
 }
-function explodeClient(classe){
+function explodeGroup(classe){
 	$("#modifica_gruppo").hide();
 	$("#info").show();
 	$("#descrizione").empty();
@@ -146,7 +147,7 @@ function explodeClient(classe){
 
 }
 
-function deleteCliente(){
+function deleteGroup(){
 	
 	if(getCookie("cCL")==0)
 		return;
@@ -155,7 +156,7 @@ function deleteCliente(){
 	      type:"POST",	
 	      data:{'id': id,'db':getCookie('nomeDB')},
 		  success: function(data) {
-		    Materialize.toast('Cliente eliminato', 2000);
+		    Materialize.toast('Gruppo dipendenti eliminato', 2000);
 			populateList("");
 		  },
 	      error: function(xhr){
@@ -166,39 +167,149 @@ function deleteCliente(){
 }
 
 function completaForm(){
-	if(json[index]['tipologia'] == 'p')
-		$("#div_iva").hide();
-	else
-		$("#div_iva").show();
 	$("#modifica_gruppo").show();
 	$("#info").hide();
-	$("#form_nominativo").val(json[index]['nominativo']);
-	$("#form_indirizzo").val(json[index]['indirizzo']);
-	$("#form_indirizzo").focus();
-	$("#form_citta").val(json[index]['citta']);
-	$("#form_citta").focus();
-	$("#form_cap").val(json[index]['cap']);
-	$("#form_cap").focus();
-	$("#form_prov").val(json[index]['provincia']);
-	$("#form_prov").focus();
-	$("#form_telephone").val(json[index]['telefono']);
-	$("#form_telephone").focus();
-	$("#form_mobile").val(json[index]['cellulare']);
-	$("#form_mobile").focus();
-	$("#form_code").val(json[index]['codice_fiscale']);
-	$("#form_code").focus();
-	$("#form_iva").val(json[index]['partita_iva']);
-	$("#form_iva").focus();
-	$("#form_email").val(json[index]['email']);
-	$("#form_email").focus();
-	$("#form_site").val(json[index]['sito']);
-	$("#form_site").focus();
-	$("#form_note").val(json[index]['note']);
-	$("#form_note").focus();
-	$("#form_nominativo").focus();
-
+	$("#form_descrizione").val(json[index]['descrizione']);
+	$("#clienti_no_selected").empty();
+	$("#clienti_selected").empty();
+	$("#materiali_no_selected").empty();
+	$("#materiali_selected").empty();
+	$("#mezzi_no_selected").empty();
+	$("#mezzi_selected").empty();
+	$("#dipendenti_no_selected").empty();
+	$("#dipendenti_selected").empty();
+	$("#security_no_selected").empty();
+	$("#security_selected").empty();
+	$("#rapportini_no_selected").empty();
+	$("#rapportini_selected").empty();
+	
+	if(json[index]["visualizzazione_cliente"]==1){
+		$("#clienti_selected").append("<div class='chip cyan'>Lettura<i class='remove_visual_cl   material-icons right'>remove</i></div>");
+		if(json[index]["aggiunta_cliente"]==1)
+			$("#clienti_selected").append("<div class='chip cyan'>Aggiunta<i class='remove_add_cl   material-icons right'>remove</i></div>");
+		else
+			$("#clienti_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_cl material-icons right'>add</i></div>");
+		if(json[index]["modifica_cliente"]==1)
+			$("#clienti_selected").append("<div class='chip cyan'>Modifica<i class='remove_modify_cl   material-icons right'>remove</i></div>");
+		else
+			$("#clienti_no_selected").append("<div class='chip cyan'>Modifica<i class='add_add_cl material-icons right'>add</i></div>");
+		if(json[index]["cancellazione_cliente"]==1)
+			$("#clienti_selected").append("<div class='chip cyan'>Cancellazione<i class='remove_delete_cl   material-icons right'>remove</i></div>");
+		else
+			$("#clienti_no_selected").append("<div class='chip cyan'>Cancellazione<i class='add_delete_cl material-icons right'>add</i></div>");
+				
 	}
-function modifyCliente(){
+	else{
+		$("#clienti_no_selected").append("<div class='chip cyan'>Lettura<i class='add_visual_cl material-icons right'>add</i></div>");
+		$("#clienti_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_cl material-icons right'>add</i></div>");
+		$("#clienti_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_cl material-icons  right'>add</i></div>");
+		$("#clienti_no_selected").append("<div class='chip cyan'>Cancellazione<i class='add_delete_cl material-icons right'>add</i></div>");
+		
+	}
+	
+	if(json[index]["visualizzazione_materiale"]==1){
+		$("#materiali_selected").append("<div class='chip cyan'>Lettura<i class='remove_visual_ma   material-icons right'>remove</i></div>");
+		if(json[index]["aggiunta_materiale"]==1)
+			$("#materiali_selected").append("<div class='chip cyan'>Aggiunta<i class='remove_add_ma   material-icons right'>remove</i></div>");
+		else
+			$("#materiali_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_ma material-icons right'>add</i></div>");
+		if(json[index]["modifica_materiale"]==1)
+			$("#materiali_selected").append("<div class='chip cyan'>Modifica<i class='remove_modify_ma   material-icons right'>remove</i></div>");
+		else
+			$("#materiali_no_selected").append("<div class='chip cyan'>Modifica<i class='add_add_ma material-icons right'>add</i></div>");
+		if(json[index]["cancellazione_materiale"]==1)
+			$("#materiali_selected").append("<div class='chip cyan'>Cancellazione<i class='remove_delete_ma   material-icons right'>remove</i></div>");
+		else
+			$("#materiali_no_selected").append("<div class='chip cyan'>Cancellazione<i class='add_delete_ma material-icons right'>add</i></div>");
+				
+	}
+	else{
+		$("#materiali_no_selected").append("<div class='chip cyan'>Lettura<i class='add_visual_ma material-icons right'>add</i></div>");
+		$("#materiali_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_ma material-icons right'>add</i></div>");
+		$("#materiali_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_ma material-icons  right'>add</i></div>");
+		$("#materiali_no_selected").append("<div class='chip cyan'>Cancellazione<i class='add_delete_ma material-icons right'>add</i></div>");
+		
+	}
+	
+	
+	if(json[index]["visualizzazione_mezzo"]==1){
+		$("#mezzi_selected").append("<div class='chip cyan'>Lettura<i class='remove_visual_me   material-icons right'>remove</i></div>");
+		if(json[index]["aggiunta_mezzo"]==1)
+			$("#mezzi_selected").append("<div class='chip cyan'>Aggiunta<i class='remove_add_me   material-icons right'>remove</i></div>");
+		else
+			$("#mezzi_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_me material-icons right'>add</i></div>");
+		if(json[index]["modifica_mezzo"]==1)
+			$("#mezzi_selected").append("<div class='chip cyan'>Modifica<i class='remove_modify_me   material-icons right'>remove</i></div>");
+		else
+			$("#mezzi_no_selected").append("<div class='chip cyan'>Modifica<i class='add_add_me material-icons right'>add</i></div>");
+		if(json[index]["cancellazione_mezzo"]==1)
+			$("#mezzi_selected").append("<div class='chip cyan'>Cancellazione<i class='remove_delete_me   material-icons right'>remove</i></div>");
+		else
+			$("#mezzi_no_selected").append("<div class='chip cyan'>Cancellazione<i class='add_delete_me material-icons right'>add</i></div>");
+				
+	}
+	else{
+		$("#mezzi_no_selected").append("<div class='chip cyan'>Lettura<i class='add_visual_me material-icons right'>add</i></div>");
+		$("#mezzi_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_me material-icons right'>add</i></div>");
+		$("#mezzi_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_me material-icons  right'>add</i></div>");
+		$("#mezzi_no_selected").append("<div class='chip cyan'>Cancellazione<i class='add_delete_me material-icons right'>add</i></div>");
+		
+	}
+	
+	
+	if(json[index]["visualizzazione_dipendente"]==1){
+		$("#dipendenti_selected").append("<div class='chip cyan'>Lettura<i class='remove_visual_di   material-icons right'>remove</i></div>");
+		if(json[index]["aggiunta_dipendente"]==1)
+			$("#dipendenti_selected").append("<div class='chip cyan'>Aggiunta<i class='remove_add_di   material-icons right'>remove</i></div>");
+		else
+			$("#dipendenti_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_di material-icons right'>add</i></div>");
+		if(json[index]["modifica_dipendente"]==1)
+			$("#dipendenti_selected").append("<div class='chip cyan'>Modifica<i class='remove_modify_di   material-icons right'>remove</i></div>");
+		else
+			$("#dipendenti_no_selected").append("<div class='chip cyan'>Modifica<i class='add_add_di material-icons right'>add</i></div>");
+		if(json[index]["cancellazione_dipendente"]==1)
+			$("#dipendenti_selected").append("<div class='chip cyan'>Cancellazione<i class='remove_delete_di   material-icons right'>remove</i></div>");
+		else
+			$("#dipendenti_no_selected").append("<div class='chip cyan'>Cancellazione<i class='add_delete_di material-icons right'>add</i></div>");
+				
+	}
+	else{
+		$("#dipendenti_no_selected").append("<div class='chip cyan'>Lettura<i class='add_visual_di material-icons right'>add</i></div>");
+		$("#dipendenti_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_di material-icons right'>add</i></div>");
+		$("#dipendenti_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_di material-icons  right'>add</i></div>");
+		$("#dipendenti_no_selected").append("<div class='chip cyan'>Cancellazione<i class='add_delete_di material-icons right'>add</i></div>");
+		
+	}
+
+	if(json[index]["modifica privilegi"]==1){
+		$("#security_selected").append("<div class='chip cyan'>Gestione completa<i class='remove_manage_pr   material-icons right'>remove</i></div>");
+	}
+	else{
+		$("#security_no_selected").append("<div class='chip cyan'>Gestione completa<i class='add_manage_pr material-icons right'>add</i></div>");
+		
+	}
+	
+	if(json[index]["visualizzazione_resoconti_rapportini"]==1){
+		$("#rapportini_selected").append("<div class='chip cyan'>Gestione completa<i class='remove_manage_rapp   material-icons right'>remove</i></div>");				
+	}
+	else{
+		if(json[index]["rapportino_rapido"]==1){
+			$("#rapportini_selected").append("<div class='chip cyan'>Aggiunta rapportino rapido<i class='remove_add_rapp  material-icons right'>remove</i></div>");	
+			$("#rapportini_no_selected").append("<div class='chip cyan'>Gestione completa<i class='add_manage_rapp   material-icons right'>add</i></div>");			
+		}
+		else{
+			$("#rapportini_no_selected").append("<div class='chip cyan'>Aggiunta rapportino rapido<i class='add_add_rapp  material-icons right'>add</i></div>");
+			$("#rapportini_no_selected").append("<div class='chip cyan'>Gestione completa<i class='add_manage_rapp   material-icons right'>add</i></div>");	
+		}
+		
+		
+	}
+
+
+	$("#form_descrizione").focus();
+	$('#select').material_select('update');
+}
+function modifyGroup(){
 	var nominativo = $("#form_nominativo").val();
 	var indirizzo = $("#form_indirizzo").val();
 	var citta = $("#form_citta").val();

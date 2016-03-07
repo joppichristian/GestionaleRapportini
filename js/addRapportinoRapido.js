@@ -115,9 +115,9 @@ function populateListClient(filter){
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item";
 	        if(data[i]['tipologia'] == 'p'){
-		        elementi[i].innerHTML = '<div class="col s12"><i class="info small material-icons purple-text">account_circle</i>'+data[i]['nominativo']+'<a href="#!" class="secondary-content"><i class="select_clients material-icons purple-text">call_received</i></a></div>	';
+		        elementi[i].innerHTML = '<div><i class="info small material-icons purple-text">account_circle</i>'+data[i]['nominativo']+'<a href="#!" class="secondary-content"><i class="select_clients material-icons purple-text">call_received</i></a></div>	';
 		    }else{
-		        elementi[i].innerHTML = '<div class="col s12"><i class="info small material-icons purple-text">business</i>'+data[i]['nominativo']+'<a href="#!" class="secondary-content"><i class="select_clients material-icons purple-text">call_received</i></a></div>	';
+		        elementi[i].innerHTML = '<div ><i class="info small material-icons purple-text">business</i>'+data[i]['nominativo']+'<a href="#!" class="secondary-content"><i class="select_clients material-icons purple-text">call_received</i></a></div>	';
 	        }
 
 	    	$("#elenco_clienti").append(elementi[i]);

@@ -1,5 +1,4 @@
 body{
-	font-size: 12px;
 }
 
 .item-menu{
@@ -35,18 +34,14 @@ body{
         margin-left: -25% !important;
         
     }
-    body{
-	    font-size: 14px;
-    }
+
 }
 
 @media screen and (min-width: 992px) {
     .login_form {
         margin-left: -18% !important;
     }
-    body{
-	    font-size: 16px;
-    }
+
 }
 
 .no_see{
