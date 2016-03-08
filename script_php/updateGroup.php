@@ -27,7 +27,7 @@
 												cancellazione_dipendente = '".$_POST['cDI']. "' ,
 												modifica_privilegi = '".$_POST['MP']. "' , 
 												rapportino_rapido = '".$_POST['RR']. "' , 
-												visualizzazione_resoconti_rapportini = '".$_POST['vRR']. "'  
+												visualizzazione_resoconti_rapportini = '".$_POST['vRR']. "'   
 												WHERE id = '".$_POST['id']."' ;" ;
 												  
 				if (!mysqli_query($mysqli,$sqlUpdate)){

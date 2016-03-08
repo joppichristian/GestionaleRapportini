@@ -168,21 +168,44 @@ function explodeGroup(classe){
 }
 
 function deleteGroup(){
-	
-	if(getCookie("cCL")==0)
-		return;
+	var tmp = null;
 	$.ajax({
-		url: "script_php/deleteClient.php", //Relative or absolute path to response.php file
-	      type:"POST",	
-	      data:{'id': id,'db':getCookie('nomeDB')},
-		  success: function(data) {
-		    Materialize.toast('Gruppo dipendenti eliminato', 2000);
-			populateList("");
+		url: "script_php/check_gruppo.php", //Relative or absolute path to response.php file
+	      type:"POST",
+	      async:false,	
+	      data:{
+		      'az':getCookie('id_azienda'),
+		      'cl':id
 		  },
+		  success: function(data) {
+			  tmp = data;
+			  console.log(data);
+		},
 	      error: function(xhr){
 		     console.log(xhr.status);
+		     return;
 	      }
     });
+	if(getCookie("cCL")==0)
+		return;
+	if(tmp!=null){
+		Materialize.toast('Errore! Ci sono dipendenti associati al gruppo!', 2000);
+	    return;
+    }
+    else{
+		$.ajax({
+			url: "script_php/deleteGroup.php", //Relative or absolute path to response.php file
+		      type:"POST",	
+		      data:{'id': id,'db':getCookie('nomeDB')},
+			  success: function(data) {
+			    Materialize.toast('Gruppo dipendenti eliminato', 2000);
+				populateList("");
+			  },
+		      error: function(xhr){
+			     console.log(xhr.status);
+		      }
+	    });
+    }
 
 }
 
