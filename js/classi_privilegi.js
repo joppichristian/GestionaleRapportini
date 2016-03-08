@@ -21,7 +21,10 @@ $(document).ready(function() {
 		completaForm();
 	});
 	$("#invia_dati").click( function() {
-		modifyGroup();
+		if(json[index]["id"] == getCookie("classe_privilegi"))
+			$("#modal_modifica").openModal();
+		else
+			modifyGroup();
 	});
 	$("#annulla_modify").click( function() {
 		explodeGroup(json[0]);
@@ -35,6 +38,14 @@ $(document).ready(function() {
 	});
 	$("#no").click(function(){
 		$("#modal_cancellazione").closeModal();
+	});
+	
+	$("#yes_mod").click(function(){
+		$("#modal_modifica").closeModal();
+		modifyGroup();
+	});
+	$("#no_mod").click(function(){
+		$("#modal_modifica").closeModal();
 	});
 	populateList("");
 
@@ -82,6 +93,15 @@ function populateList(filter){
 
 }
 function explodeGroup(classe){
+	
+	if(classe['descrizione'] == "Amministrazione"){
+		$("#btn_modify").hide();
+		$("#btn_delete").hide();
+	}
+	else{
+		$("#btn_modify").show();
+		$("#btn_delete").show();
+	}
 	$("#modifica_gruppo").hide();
 	$("#info").show();
 	$("#descrizione").empty();
@@ -183,27 +203,31 @@ function completaForm(){
 	$("#rapportini_no_selected").empty();
 	$("#rapportini_selected").empty();
 	
-	if(json[index]["visualizzazione_cliente"]==1){
+	if(json[index]["visualizzazione_cliente"]==1 ){
 		$("#clienti_selected").append("<div class='chip cyan'>Lettura<i class='remove_visual_cl   material-icons right'>remove</i></div>");
 		if(json[index]["aggiunta_cliente"]==1)
 			$("#clienti_selected").append("<div class='chip cyan'>Aggiunta<i class='remove_add_cl   material-icons right'>remove</i></div>");
-		else
+		else if(getCookie("aCL")==1)
 			$("#clienti_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_cl material-icons right'>add</i></div>");
 		if(json[index]["modifica_cliente"]==1)
 			$("#clienti_selected").append("<div class='chip cyan'>Modifica<i class='remove_modify_cl   material-icons right'>remove</i></div>");
-		else
-			$("#clienti_no_selected").append("<div class='chip cyan'>Modifica<i class='add_add_cl material-icons right'>add</i></div>");
+		else if(getCookie("mCL")==1)
+			$("#clienti_no_selected").append("<div class='chip cyan'>Modifica<i class='add_modify_cl material-icons right'>add</i></div>");
 		if(json[index]["cancellazione_cliente"]==1)
 			$("#clienti_selected").append("<div class='chip cyan'>Cancellazione<i class='remove_delete_cl   material-icons right'>remove</i></div>");
-		else
+		else if(getCookie("cCL")==1)
 			$("#clienti_no_selected").append("<div class='chip cyan'>Cancellazione<i class='add_delete_cl material-icons right'>add</i></div>");
 				
 	}
 	else{
-		$("#clienti_no_selected").append("<div class='chip cyan'>Lettura<i class='add_visual_cl material-icons right'>add</i></div>");
-		$("#clienti_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_cl material-icons right'>add</i></div>");
-		$("#clienti_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_cl material-icons  right'>add</i></div>");
-		$("#clienti_no_selected").append("<div class='chip cyan'>Cancellazione<i class='add_delete_cl material-icons right'>add</i></div>");
+		if(getCookie("vCL")==1)
+			$("#clienti_no_selected").append("<div class='chip cyan'>Lettura<i class='add_visual_cl material-icons right'>add</i></div>");
+		if(getCookie("aCL")==1)
+			$("#clienti_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_cl material-icons right'>add</i></div>");
+		if(getCookie("mCL")==1)
+			$("#clienti_no_selected").append("<div class='chip cyan'>Modifica<i class='add_modify_cl material-icons  right'>add</i></div>");
+		if(getCookie("cCL")==1)
+			$("#clienti_no_selected").append("<div class='chip cyan'>Cancellazione<i class='add_delete_cl material-icons right'>add</i></div>");
 		
 	}
 	
@@ -211,24 +235,28 @@ function completaForm(){
 		$("#materiali_selected").append("<div class='chip cyan'>Lettura<i class='remove_visual_ma   material-icons right'>remove</i></div>");
 		if(json[index]["aggiunta_materiale"]==1)
 			$("#materiali_selected").append("<div class='chip cyan'>Aggiunta<i class='remove_add_ma   material-icons right'>remove</i></div>");
-		else
+		else if(getCookie("aMA")==1)
 			$("#materiali_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_ma material-icons right'>add</i></div>");
 		if(json[index]["modifica_materiale"]==1)
 			$("#materiali_selected").append("<div class='chip cyan'>Modifica<i class='remove_modify_ma   material-icons right'>remove</i></div>");
-		else
-			$("#materiali_no_selected").append("<div class='chip cyan'>Modifica<i class='add_add_ma material-icons right'>add</i></div>");
+		else if(getCookie("mMA")==1)
+			$("#materiali_no_selected").append("<div class='chip cyan'>Modifica<i class='add_modify_ma material-icons right'>add</i></div>");
 		if(json[index]["cancellazione_materiale"]==1)
 			$("#materiali_selected").append("<div class='chip cyan'>Cancellazione<i class='remove_delete_ma   material-icons right'>remove</i></div>");
-		else
+		else if(getCookie("cMA")==1)
 			$("#materiali_no_selected").append("<div class='chip cyan'>Cancellazione<i class='add_delete_ma material-icons right'>add</i></div>");
 				
 	}
 	else{
-		$("#materiali_no_selected").append("<div class='chip cyan'>Lettura<i class='add_visual_ma material-icons right'>add</i></div>");
-		$("#materiali_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_ma material-icons right'>add</i></div>");
-		$("#materiali_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_ma material-icons  right'>add</i></div>");
-		$("#materiali_no_selected").append("<div class='chip cyan'>Cancellazione<i class='add_delete_ma material-icons right'>add</i></div>");
-		
+		if(getCookie("vMA")==1)
+			$("#materiali_no_selected").append("<div class='chip cyan'>Lettura<i class='add_visual_ma material-icons right'>add</i></div>");
+		if(getCookie("aMA")==1)
+			$("#materiali_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_ma material-icons right'>add</i></div>");
+		if(getCookie("mMA")==1)
+			$("#materiali_no_selected").append("<div class='chip cyan'>Modifica<i class='add_modify_ma material-icons  right'>add</i></div>");
+		if(getCookie("cMA")==1)
+			$("#materiali_no_selected").append("<div class='chip cyan'>Cancellazione<i class='add_delete_ma material-icons right'>add</i></div>");
+			
 	}
 	
 	
@@ -236,22 +264,26 @@ function completaForm(){
 		$("#mezzi_selected").append("<div class='chip cyan'>Lettura<i class='remove_visual_me   material-icons right'>remove</i></div>");
 		if(json[index]["aggiunta_mezzo"]==1)
 			$("#mezzi_selected").append("<div class='chip cyan'>Aggiunta<i class='remove_add_me   material-icons right'>remove</i></div>");
-		else
+		else if(getCookie("aME")==1)
 			$("#mezzi_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_me material-icons right'>add</i></div>");
 		if(json[index]["modifica_mezzo"]==1)
 			$("#mezzi_selected").append("<div class='chip cyan'>Modifica<i class='remove_modify_me   material-icons right'>remove</i></div>");
-		else
-			$("#mezzi_no_selected").append("<div class='chip cyan'>Modifica<i class='add_add_me material-icons right'>add</i></div>");
+		else if(getCookie("mME")==1)
+			$("#mezzi_no_selected").append("<div class='chip cyan'>Modifica<i class='add_modify_me material-icons right'>add</i></div>");
 		if(json[index]["cancellazione_mezzo"]==1)
 			$("#mezzi_selected").append("<div class='chip cyan'>Cancellazione<i class='remove_delete_me   material-icons right'>remove</i></div>");
-		else
+		else if(getCookie("cME")==1)
 			$("#mezzi_no_selected").append("<div class='chip cyan'>Cancellazione<i class='add_delete_me material-icons right'>add</i></div>");
 				
 	}
 	else{
+		if(getCookie("vME")==1)
 		$("#mezzi_no_selected").append("<div class='chip cyan'>Lettura<i class='add_visual_me material-icons right'>add</i></div>");
+		if(getCookie("aME")==1)
 		$("#mezzi_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_me material-icons right'>add</i></div>");
-		$("#mezzi_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_me material-icons  right'>add</i></div>");
+		if(getCookie("mME")==1)
+		$("#mezzi_no_selected").append("<div class='chip cyan'>Modifica<i class='add_modify_me material-icons  right'>add</i></div>");
+		if(getCookie("cME")==1)
 		$("#mezzi_no_selected").append("<div class='chip cyan'>Cancellazione<i class='add_delete_me material-icons right'>add</i></div>");
 		
 	}
@@ -261,31 +293,36 @@ function completaForm(){
 		$("#dipendenti_selected").append("<div class='chip cyan'>Lettura<i class='remove_visual_di   material-icons right'>remove</i></div>");
 		if(json[index]["aggiunta_dipendente"]==1)
 			$("#dipendenti_selected").append("<div class='chip cyan'>Aggiunta<i class='remove_add_di   material-icons right'>remove</i></div>");
-		else
+		else if(getCookie("aDI")==1)
 			$("#dipendenti_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_di material-icons right'>add</i></div>");
 		if(json[index]["modifica_dipendente"]==1)
 			$("#dipendenti_selected").append("<div class='chip cyan'>Modifica<i class='remove_modify_di   material-icons right'>remove</i></div>");
-		else
-			$("#dipendenti_no_selected").append("<div class='chip cyan'>Modifica<i class='add_add_di material-icons right'>add</i></div>");
+		else if(getCookie("mDI")==1)
+			$("#dipendenti_no_selected").append("<div class='chip cyan'>Modifica<i class='add_modify_di material-icons right'>add</i></div>");
 		if(json[index]["cancellazione_dipendente"]==1)
 			$("#dipendenti_selected").append("<div class='chip cyan'>Cancellazione<i class='remove_delete_di   material-icons right'>remove</i></div>");
-		else
+		else if(getCookie("cDI")==1)
 			$("#dipendenti_no_selected").append("<div class='chip cyan'>Cancellazione<i class='add_delete_di material-icons right'>add</i></div>");
 				
 	}
 	else{
-		$("#dipendenti_no_selected").append("<div class='chip cyan'>Lettura<i class='add_visual_di material-icons right'>add</i></div>");
-		$("#dipendenti_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_di material-icons right'>add</i></div>");
-		$("#dipendenti_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_di material-icons  right'>add</i></div>");
-		$("#dipendenti_no_selected").append("<div class='chip cyan'>Cancellazione<i class='add_delete_di material-icons right'>add</i></div>");
+		if(getCookie("vDI")==1)
+			$("#dipendenti_no_selected").append("<div class='chip cyan'>Lettura<i class='add_visual_di material-icons right'>add</i></div>");
+		if(getCookie("aDI")==1)
+			$("#dipendenti_no_selected").append("<div class='chip cyan'>Aggiunta<i class='add_add_di material-icons right'>add</i></div>");
+		if(getCookie("mDI")==1)
+			$("#dipendenti_no_selected").append("<div class='chip cyan'>Modifica<i class='add_modify_di material-icons  right'>add</i></div>");
+		if(getCookie("cDI")==1)
+			$("#dipendenti_no_selected").append("<div class='chip cyan'>Cancellazione<i class='add_delete_di material-icons right'>add</i></div>");
 		
 	}
 
-	if(json[index]["modifica privilegi"]==1){
+	if(json[index]["modifica_privilegi"]==1){
 		$("#security_selected").append("<div class='chip cyan'>Gestione completa<i class='remove_manage_pr   material-icons right'>remove</i></div>");
 	}
 	else{
-		$("#security_no_selected").append("<div class='chip cyan'>Gestione completa<i class='add_manage_pr material-icons right'>add</i></div>");
+		if(getCookie("MP")==1)
+			$("#security_no_selected").append("<div class='chip cyan'>Gestione completa<i class='add_manage_pr material-icons right'>add</i></div>");
 		
 	}
 	
@@ -294,12 +331,15 @@ function completaForm(){
 	}
 	else{
 		if(json[index]["rapportino_rapido"]==1){
-			$("#rapportini_selected").append("<div class='chip cyan'>Aggiunta rapportino rapido<i class='remove_add_rapp  material-icons right'>remove</i></div>");	
-			$("#rapportini_no_selected").append("<div class='chip cyan'>Gestione completa<i class='add_manage_rapp   material-icons right'>add</i></div>");			
+				$("#rapportini_selected").append("<div class='chip cyan'>Aggiunta rapportino rapido<i class='remove_add_rapp  material-icons right'>remove</i></div>");	
+			if(getCookie("vRR")==1)
+				$("#rapportini_no_selected").append("<div class='chip cyan'>Gestione completa<i class='add_manage_rapp   material-icons right'>add</i></div>");			
 		}
 		else{
-			$("#rapportini_no_selected").append("<div class='chip cyan'>Aggiunta rapportino rapido<i class='add_add_rapp  material-icons right'>add</i></div>");
-			$("#rapportini_no_selected").append("<div class='chip cyan'>Gestione completa<i class='add_manage_rapp   material-icons right'>add</i></div>");	
+			if(getCookie("RR")==1)
+				$("#rapportini_no_selected").append("<div class='chip cyan'>Aggiunta rapportino rapido<i class='add_add_rapp  material-icons right'>add</i></div>");
+			if(getCookie("vRR")==1)
+				$("#rapportini_no_selected").append("<div class='chip cyan'>Gestione completa<i class='add_manage_rapp   material-icons right'>add</i></div>");	
 		}
 		
 		
@@ -307,44 +347,284 @@ function completaForm(){
 
 
 	$("#form_descrizione").focus();
-	$('#select').material_select('update');
+	
+	
+	
+	$(".add_visual_cl").click(function(){
+		json[index]["visualizzazione_cliente"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_visual_cl").click(function(){
+		json[index]["visualizzazione_cliente"] = 0;
+		json[index]["aggiunta_cliente"] = 0;
+		json[index]["modifica_cliente"] = 0;
+		json[index]["cancellazione_cliente"] = 0;
+		completaForm();
+		
+	});
+	
+	$(".add_add_cl").click(function(){
+		json[index]["aggiunta_cliente"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_add_cl").click(function(){
+		json[index]["aggiunta_cliente"] = 0;
+		completaForm();
+		
+	});
+	
+	$(".add_modify_cl").click(function(){
+		json[index]["modifica_cliente"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_modify_cl").click(function(){
+		json[index]["modifica_cliente"] = 0;
+		completaForm();
+		
+	});
+	
+	
+	$(".add_delete_cl").click(function(){
+		json[index]["cancellazione_cliente"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_delete_cl").click(function(){
+		json[index]["cancellazione_cliente"] = 0;
+		completaForm();
+		
+	});
+
+	
+	$(".add_visual_ma").click(function(){
+		json[index]["visualizzazione_materiale"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_visual_ma").click(function(){
+		json[index]["visualizzazione_materiale"] = 0;
+		json[index]["aggiunta_materiale"] = 0;
+		json[index]["modifica_materiale"] = 0;
+		json[index]["cancellazione_materiale"] = 0;
+		completaForm();
+		
+	});
+	
+	$(".add_add_ma").click(function(){
+		json[index]["aggiunta_materiale"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_add_ma").click(function(){
+		json[index]["aggiunta_materiale"] = 0;
+		completaForm();
+		
+	});
+	
+	$(".add_modify_ma").click(function(){
+		json[index]["modifica_materiale"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_modify_ma").click(function(){
+		json[index]["modifica_materiale"] = 0;
+		completaForm();
+		
+	});
+	
+	
+	$(".add_delete_ma").click(function(){
+		json[index]["cancellazione_materiale"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_delete_ma").click(function(){
+		json[index]["cancellazione_materiale"] = 0;
+		completaForm();
+		
+	});
+	
+	
+	$(".add_visual_me").click(function(){
+		json[index]["visualizzazione_mezzo"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_visual_me").click(function(){
+		json[index]["visualizzazione_mezzo"] = 0;
+		json[index]["aggiunta_mezzo"] = 0;
+		json[index]["modifica_mezzo"] = 0;
+		json[index]["cancellazione_mezzo"] = 0;
+		completaForm();
+		
+	});
+	
+	$(".add_add_me").click(function(){
+		json[index]["aggiunta_mezzo"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_add_me").click(function(){
+		json[index]["aggiunta_mezzo"] = 0;
+		completaForm();
+		
+	});
+	
+	$(".add_modify_me").click(function(){
+		json[index]["modifica_mezzo"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_modify_me").click(function(){
+		json[index]["modifica_mezzo"] = 0;
+		completaForm();
+		
+	});
+	
+	
+	$(".add_delete_me").click(function(){
+		json[index]["cancellazione_mezzo"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_delete_me").click(function(){
+		json[index]["cancellazione_mezzo"] = 0;
+		completaForm();
+		
+	});
+	
+	
+	$(".add_visual_di").click(function(){
+		json[index]["visualizzazione_dipendente"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_visual_di").click(function(){
+		json[index]["visualizzazione_dipendente"] = 0;
+		json[index]["aggiunta_dipendente"] = 0;
+		json[index]["modifica_dipendente"] = 0;
+		json[index]["cancellazione_dipendente"] = 0;
+		completaForm();
+		
+	});
+	
+	$(".add_add_di").click(function(){
+		json[index]["aggiunta_dipendente"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_add_di").click(function(){
+		json[index]["aggiunta_dipendente"] = 0;
+		completaForm();
+		
+	});
+	
+	$(".add_modify_di").click(function(){
+		json[index]["modifica_dipendente"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_modify_di").click(function(){
+		json[index]["modifica_dipendente"] = 0;
+		completaForm();
+		
+	});
+	
+	
+	$(".add_delete_di").click(function(){
+		json[index]["cancellazione_dipendente"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_delete_di").click(function(){
+		json[index]["cancellazione_dipendente"] = 0;
+		completaForm();
+		
+	});
+	
+	
+	$(".add_manage_pr").click(function(){
+		json[index]["modifica_privilegi"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_manage_pr").click(function(){
+		json[index]["modifica_privilegi"] = 0;
+		completaForm();
+		
+	});
+	
+	
+	$(".add_manage_rapp").click(function(){
+		json[index]["rapportino_rapido"] = 1;
+		json[index]["visualizzazione_resoconti_rapportini"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_manage_rapp").click(function(){
+		json[index]["visualizzazione_resoconti_rapportini"] = 0;
+		completaForm();
+		
+	});
+	
+	$(".add_add_rapp").click(function(){
+		json[index]["rapportino_rapido"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_add_rapp").click(function(){
+		json[index]["visualizzazione_resoconti_rapportini"] = 0;
+		json[index]["rapportino_rapido"] = 0;
+		completaForm();
+		
+	});
+
+	
+	
 }
 function modifyGroup(){
-	var nominativo = $("#form_nominativo").val();
-	var indirizzo = $("#form_indirizzo").val();
-	var citta = $("#form_citta").val();
-	var cap = $("#form_cap").val();
-	var provincia = $("#form_prov").val();
-	var telefono = $("#form_telephone").val();
-	var cellulare = $("#form_mobile").val();
-	var codice_fiscale = $("#form_code").val();
-	var p_iva = $("#form_iva").val();
-	var email = $("#form_email").val();
-	var sito = $("#form_site").val();
-	var note = $("#form_note").val();
-
+	
 	$.ajax({
-	     url: "script_php/updateClients.php", //Relative or absolute path to response.php file
+	     url: "script_php/updateGroup.php", //Relative or absolute path to response.php file
 	      type:"POST",
 	      async:false,
 	      data:{
-		      'nominativo': nominativo,
-		      'indirizzo':indirizzo,
-		      'citta':citta,
-		      'cap':cap,
-		      'provincia':provincia,
-		      'telefono':telefono,
-		      'cellulare':cellulare,
-		      'cf':codice_fiscale,
-		      'piva':p_iva,
-		      'email':email,
-		      'site':sito,
-		      'note':note,
+		      'descrizione': $("#form_descrizione").val(),
+		      'vCL': json[index]["visualizzazione_cliente"],
+		      'aCL':json[index]["aggiunta_cliente"],
+		      'mCL':json[index]["modifica_cliente"],
+		      'cCL':json[index]["cancellazione_cliente"],
+		      'vMA': json[index]["visualizzazione_materiale"],
+		      'aMA':json[index]["aggiunta_materiale"],
+		      'mMA':json[index]["modifica_materiale"],
+		      'cMA':json[index]["cancellazione_materiale"],
+		      'vME': json[index]["visualizzazione_mezzo"],
+		      'aME':json[index]["aggiunta_mezzo"],
+		      'mME':json[index]["modifica_mezzo"],
+		      'cME':json[index]["cancellazione_mezzo"],
+		      'vDI': json[index]["visualizzazione_dipendente"],
+		      'aDI':json[index]["aggiunta_dipendente"],
+		      'mDI':json[index]["modifica_dipendente"],
+		      'cDI':json[index]["cancellazione_dipendente"],
+		      'RR': json[index]["rapportino_rapido"],
+		      'vRR':json[index]["visualizzazione_resconti_rapportini"],
+		      'MP':json[index]["modifica_privilegi"],
 		      'id':json[index]['id'],
 		      'db':getCookie('nomeDB')
 		   },
 		   success: function(data){
-			   Materialize.toast('Cliente modificato', 2000,'',function(){populateList("");});
+			   console.log(data);
+			   Materialize.toast('Gruppo modificato', 2000,'',function(){
+				   if(json[index]['id'] == getCookie("classe_privilegi"))
+				   {
+						setCookie("nomeDB",null);
+						window.location.replace("index.html");   
+				   }
+				   populateList("");
+				});
 			   return false;
 			},
 		   error: function (XMLHttpRequest, textStatus, errorThrown){

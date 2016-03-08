@@ -57,8 +57,8 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 				  	<p id="rapportino"></p>
 			   	</div>
 			  	<div class="col s12 m2 l2">
-				  	 <a   class="btn-floating btn-medium waves-effect waves-light cyan" title="Modifica Classe"><i id="modify" class="small material-icons">edit</i></a>				  	 
-				  	 <a  class="btn-floating btn-medium waves-effect waves-light cyan" title="Elimina Classe"><i id="delete" class="small material-icons">delete</i></a>					
+				  	 <a   id="btn_modify" class="btn-floating btn-medium waves-effect waves-light cyan" title="Modifica Classe"><i id="modify" class="small material-icons">edit</i></a>				  	 
+				  	 <a  id="btn_delete" class="btn-floating btn-medium waves-effect waves-light cyan" title="Elimina Classe"><i id="delete" class="small material-icons">delete</i></a>					
 				  	 <a class="btn-floating btn-medium waves-effect waves-light cyan" href="addCliente.html" title="Aggiungi Classe"><i class="small material-icons">add</i></a>
 			  	</div>
 
@@ -119,15 +119,6 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 			        <div id="rapportini_selected" class="input-field col s12 m12 l12 cyan-text "></div>
 			        <div id="rapportini_no_selected" class="input-field col s12 m12 l12 cyan-text "></div>  
 
-			         <!--<div class="input-field col s1 m1 l1">
-							<i class="material-icons prefix cyan-text">content_paste</i>
-				      </div>
-			          <select id="form_rapportini" class="input-field col s11 m11 l11" >
-					      <option value="1">Gestione completa</option>
-					      <option value="2">Solo aggiunta rapida</option>
-					      <option value="3">Nessuna gestione</option>
-					    </select>
-					   <label>Permessi Rapportini</label>-->
 		         </div>
 		         <div class="input-field col s12" style="text-align: right;margin-bottom: 2%;">
 			        <button class="btn waves-effect waves-light cyan white-text" id="invia_dati" type="button" name="submit">
@@ -149,6 +140,17 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
           <div class="modal-footer">
             <a href="#!" id="no" class="modal-action modal-close waves-effect waves-cyan btn-flat ">No</a>
             <a href="#!" id="yes" class=" modal-action modal-close waves-effect waves-cyan btn-flat">Si</a>
+          </div>
+        </div>
+        
+        <div id="modal_modifica" class="modal">
+          <div class="modal-content">
+            <h4 class="cyan-text">Conferma Modifica</h4>
+            <p>Sei sicuro di voler modificare i privilegi della classe a cui appartieni? Verrai rimandato alla pagina di login!</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" id="no_mod" class="modal-action modal-close waves-effect waves-cyan btn-flat ">No</a>
+            <a href="#!" id="yes_mod" class=" modal-action modal-close waves-effect waves-cyan btn-flat">Si</a>
           </div>
         </div>
 	  	 <footer class="page-footer blue-grey darken-3">
