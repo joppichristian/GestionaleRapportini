@@ -58,6 +58,7 @@ $(document).ready(function(){
 	populateListClient("");
 	populateListMaterials("");
 	populateListMezzi("");
+	populateListFascieOrarie();
 	$(".mezzi").hide();
 	$(".materiali").hide();
 	$("#show_materiali").click(function(){
@@ -293,8 +294,20 @@ function removeMezzo(i){
 		 mezzi_selezionati.splice(i,1);
 }
 function aggiungiRapportino(){
-	var inizio = $('#ora_inizio_hh').val()+':'+$('#ora_inizio_mm').val();
-	var fine = $('#ora_fine_hh').val()+':'+$('#ora_fine_mm').val();
+	var tmp_ora = Math.round(($('#ora').val()[0])/60).toString();
+	if(tmp_ora.length == 1)
+		tmp_ora = '0'+tmp_ora;
+	var tmp_min = Math.round(($('#ora').val()[0])%60).toString();
+	if(tmp_min.length == 1)
+		tmp_min = '0'+tmp_min;
+	var inizio = tmp_ora+":"+tmp_min;
+	var tmp_ora = Math.round(($('#ora').val()[$('#ora').val().length-1]+29)/60).toString()
+	if(tmp_ora.length == 1)
+		tmp_ora = '0'+tmp_ora;
+	var tmp_min = Math.round(($('#ora').val()[$('#ora').val().length-1]+30)%60).toString();
+	if(tmp_min.length == 1)
+		tmp_min = '0'+tmp_min;
+	var fine =tmp_ora +":"+ tmp_min;
 	$.ajax({
       type:"POST",
       url: "script_php/postRapportinoRapido.php", //Relative or absolute path to response.php file
@@ -367,5 +380,66 @@ function addCliente(){
 			}
 		});		
 		return false;
+}
+function populateListFascieOrarie(){
+	var occupato = false;
+	var start,stop;
+	var tmp_ora,tmp_min,tmp;
+	$.ajax({
+	      url: "script_php/getFascieOrarie.php", //Relative or absolute path to response.php file
+	      type:"POST",
+	      async:false,
+	      data:{
+		      'dip': getCookie('id_dipendente'),
+		      'db':getCookie('nomeDB')
+		   },
+		   success: function(data){	
+			   console.log(data);
+			   for(var i=0;i<1440;i+=30){
+				   occupato = false;
+				   tmp_ora = Math.round((i-1)/60).toString();
+				   if(tmp_ora.length == 1)
+				   		tmp_ora = '0'+tmp_ora;
+				   	tmp_min = (i%60).toString();
+				   if(tmp_min.length == 1)
+				   		tmp_min = '0'+tmp_min;
+				   tmp = tmp_ora+":"+tmp_min;
+				   $("#ora").append("<option value="+i+">"+tmp+"</option>");
+				   tmp_ora = Math.round((i+29)/60).toString();
+				   if(tmp_ora.length == 1)
+				   		tmp_ora = '0'+tmp_ora;
+				   	tmp_min = ((i+30)%60).toString();
+				   if(tmp_min.length == 1)
+				   		tmp_min = '0'+tmp_min;
+				   tmp = tmp_ora+":"+tmp_min;
+				   $("#ora option[value="+i+"]").text($("#ora option[value="+i+"]").text()+" -- "+tmp);   				   
+			   }
+			   for(var i=0;data != null && i<data.length;i++)
+			   {	
+				   
+				   tmp = data[i]['inizio'].split(' ')[1];
+				   tmp_ora = tmp.split(':')[0];
+				   tmp_min = tmp.split(':')[1];
+				   tmp = parseInt(tmp_ora)*60+parseInt(tmp_min);
+				   start = tmp;
+				   tmp = data[i]['fine'].split(' ')[1];
+				   tmp_ora = tmp.split(':')[0];
+				   tmp_min = tmp.split(':')[1];
+				   tmp = parseInt(tmp_ora)*60+parseInt(tmp_min);
+				   stop = tmp
+				   for(var j = start ; j <= stop-30 ; j+=30){
+					   $("#ora option[value="+j+"]").prop("disabled",true);
+					   $("#ora option[value="+j+"]").text($("#ora option[value="+j+"]").text() +"       " + data[i]['nominativo']);
+				   }
+				}
+			   $('select').material_select("update");
+
+			},
+		   error: function (XMLHttpRequest, textStatus, errorThrown){
+			   Materialize.toast('Errore di inserimento', 2000);
+			    return false;
+
+			}
+		});		
 }
 

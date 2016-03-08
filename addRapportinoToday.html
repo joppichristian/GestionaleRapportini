@@ -89,112 +89,35 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 		 <div id="schermata_dati">
 		 	<div class="row section">
 				<div class="col s12 m12 l12">
-					<div class="col s12 m6 l6">
-						<div class="input-field col s1 m1 l1">
+					<div class="col s12 m12 l12">
+						<div class="input-field col s1 m1 l1 right prefix">
 							<i class="material-icons prefix purple-text">access_time</i>
 				        </div>
 				        
-						<div class="input-field col s5 m5 l5">
-						    <select id="ora_inizio_hh" name="ora_inizio_hh">
-						      <option value="0" class="blue-text">00</option>
-						      <option value="1" class="blue-text">01</option>
-						      <option value="2" class="blue-text">02</option>
-						      <option value="3" class="blue-text">03</option>
-						      <option value="4" class="blue-text">04</option>
-						      <option value="5" class="blue-text">05</option>
-						      <option value="6" class="blue-text">06</option>
-						      <option value="7" class="blue-text">07</option>
-						      <option value="8" class="blue-text">08</option>
-						      <option value="9" class="blue-text">09</option>
-						      <option value="10" class="blue-text">10</option>
-						      <option value="11" class="blue-text">11</option>
-						      <option value="12" class="blue-text">12</option>
-						      <option value="13" class="blue-text">13</option>
-						      <option value="14" class="blue-text">14</option>
-						      <option value="15" class="blue-text">15</option>
-						      <option value="16" class="blue-text">16</option>
-						      <option value="17" class="blue-text">17</option>
-						      <option value="18" class="blue-text">18</option>
-						      <option value="19" class="blue-text">19</option>
-						      <option value="20" class="blue-text">20</option>
-						      <option value="21" class="blue-text">21</option>
-						      <option value="22" class="blue-text">22</option>
-						      <option value="23" class="blue-text">23</option>
-						      <option value="24" class="blue-text">24</option>						      
+						<div class="input-field col s11 m11 l11">
+						    <select id="ora" name="ora" multiple>
+						      		      
 						    </select>
-						    <label>Ora Inizio(hh:mm)</label>
+						    <label>Ore di lavoro </label>
 						 </div>
-						 <div class="input-field col s1 m1 l1">
-							<label>:</label>
-				        </div>
-						<div class="input-field col s5 m5 l5">
-						    <select id="ora_inizio_mm" name="ora_inizio_mm">
-						      <option value="0" class="blue-text">00</option>
-						      <option value="15" class="blue-text">15</option>
-						      <option value="30" class="blue-text">30</option>
-						      <option value="45" class="blue-text">45</option>						      
-						    </select>
-						 </div>
-					</div>
-					<div class="col s12 m6 l6">
-						<div class="input-field col s1 m1 l1">
-							<i class="material-icons prefix purple-text">access_time</i>
-				        </div>
-				        
-						<div class="input-field col s5 m5 l5">
-						    <select id="ora_fine_hh" name="ora_fine_hh">
-						      <option value="0" class="blue-text">00</option>
-						      <option value="1" class="blue-text">01</option>
-						      <option value="2" class="blue-text">02</option>
-						      <option value="3" class="blue-text">03</option>
-						      <option value="4" class="blue-text">04</option>
-						      <option value="5" class="blue-text">05</option>
-						      <option value="6" class="blue-text">06</option>
-						      <option value="7" class="blue-text">07</option>
-						      <option value="8" class="blue-text">08</option>
-						      <option value="9" class="blue-text">09</option>
-						      <option value="10" class="blue-text">10</option>
-						      <option value="11" class="blue-text">11</option>
-						      <option value="12" class="blue-text">12</option>
-						      <option value="13" class="blue-text">13</option>
-						      <option value="14" class="blue-text">14</option>
-						      <option value="15" class="blue-text">15</option>
-						      <option value="16" class="blue-text">16</option>
-						      <option value="17" class="blue-text">17</option>
-						      <option value="18" class="blue-text">18</option>
-						      <option value="19" class="blue-text">19</option>
-						      <option value="20" class="blue-text">20</option>
-						      <option value="21" class="blue-text">21</option>
-						      <option value="22" class="blue-text">22</option>
-						      <option value="23" class="blue-text">23</option>
-						      <option value="24" class="blue-text">24</option>						      
-						    </select>
-						    <label>Ora Fine(hh:mm)</label>
-						 </div>
-						 <div class="input-field col s1 m1 l1">
-							<label>:</label>
-				        </div>
-						<div class="input-field col s5 m5 l5">
-						    <select id="ora_fine_mm" name="ora_fine_mm">
-						      <option value="0" class="blue-text">00</option>
-						      <option value="15" class="blue-text">15</option>
-						      <option value="30" class="blue-text">30</option>
-						      <option value="45" class="blue-text">45</option>						      
-						    </select>
-						 </div>
-
+						
 					</div>
 					<div class="col s12 m12 l12">
-						<div class="input-field col s12 m12 l12">
-					      <i class="material-icons prefix purple-text">local_cafe</i>
+						<div class="input-field col s1 m1 l1 right prefix">
+							<i class="material-icons prefix  purple-text">local_cafe</i>
+				        </div>
+						<div class="input-field col s11 m11 l11">
 				          <input id="pausa" type="number" name="pausa" maxlength="3" step="5" min="0" value="0" max="120" class="validate">
 				          <label class="purple-text" for="note">Pausa (in minuti)</label>
 				       </div>
 
 					</div>
 					<div class="col s12 m12 l12">
-						<div class="input-field col s12 m12 l12">
-					      <i class="material-icons prefix purple-text">chat_bubble</i>
+						<div class="input-field col s1 m1 l1 right prefix">
+							<i class="material-icons prefix   purple-text">chat_bubble</i>
+				        </div>
+
+						<div class="input-field col s11 m11 l11">
 				          <input id="note" name="note"type="text">
 				          <label class="purple-text" for="note">Descrizione</label>
 				       </div>
