@@ -19,6 +19,8 @@ $(document).ready(function() {
 	});
 	$("#modify").click( function() {
 		completaForm();
+		$("#form_descrizione").focus();
+
 	});
 	$("#invia_dati").click( function() {
 		if(json[index]["id"] == getCookie("classe_privilegi"))
@@ -369,7 +371,6 @@ function completaForm(){
 	}
 
 
-	$("#form_descrizione").focus();
 	
 	
 	
