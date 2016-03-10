@@ -15,34 +15,42 @@ $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
 	$('select').material_select();
-	$('#schermata_dati').hide();
+	$('#schermata_clienti').hide();
 	$("#rapida_cliente").hide();
 	$('#schermata_materiali').hide();
 	$('#schermata_mezzi').hide();
 	$('#cliente_selezionato_new_page').hide();
 	$("#elenco_utilizzi_materiali").hide();
 	$("#elenco_utilizzi_mezzi").hide();
-	$("#to_date").click(function(){
-		if(cliente_selezionato != -1){
-			$('#cliente_selezionato_new_page').show();
-			$('#schermata_clienti').hide();
-			$('#schermata_dati').show();
+	$("#to_clienti").click(function(){
+		if($('#pausa').val() < 0 || $('#pausa').val() > 120){
+			Materialize.toast("Inserisci una pausa valida tra 0 e 120 minuti",2000);
+			$('#pausa').focus();
 		}
-		else
-			Materialize.toast("Seleziona un cliente!",2000);
+		else if($('.select-dropdown').val()== "Seleziona gli orari del lavoro fatto")
+		{
+			Materialize.toast("Inserisci qualche fascia oraria di lavoro",2000);
+			$('#ore').focus();
+		}
+		else{
+			$('#cliente_selezionato_new_page').show();
+			$('#schermata_clienti').show();
+			$('#schermata_dati').hide();
+			$("#ore_new_page").append("<div class='chip' >"+$(".select-dropdown").val()+"</div>");
+		}
 	});
-	$("#back_clienti").click(function(){
+	$("#back_data").click(function(){
 		$('#cliente_selezionato_new_page').hide();
-		$('#schermata_clienti').show();
-		$('#schermata_dati').hide();
+		$('#schermata_clienti').hide();
+		$('#schermata_dati').show();
 	});
 	$('#complete').click(function(){
-		if($('#pausa').val() <= 120 ){
+		if(cliente_selezionato != -1 ){
 			aggiungiRapportino();
 		}
 		else
 		{
-			Materialize.toast("Inserisci una pausa valida tra 0 e 120 minuti",2000);
+			Materialize.toast("Inserisci un cliente",2000);
 		}
 
 	});
@@ -85,6 +93,12 @@ $(document).ready(function(){
 		}
 
 	});
+	
+	if(getCookie('aCL') ==0)
+	{
+		$("#show_add_cliente").hide();
+	}
+	
 	$("#show_add_cliente").on("click",function(){
 		if(rapida_cliente ==0){
 			$("#rapida_cliente").show();
@@ -137,10 +151,7 @@ function populateListClient(filter){
 				cliente_chip.className= "chip";
 				cliente_chip.innerHTML=json_clienti[index_Cl]['nominativo'];
 				$("#cliente_selezionato").append(cliente_chip);
-				var cliente_chip_2 = document.createElement('div');
-				cliente_chip_2.className= "chip";
-				cliente_chip_2.innerHTML=json_clienti[index_Cl]['nominativo'];
-				$("#cliente_selezionato_new_page").append(cliente_chip_2);
+				
 	        });
 		}
 	});
@@ -294,41 +305,90 @@ function removeMezzo(i){
 		 mezzi_selezionati.splice(i,1);
 }
 function aggiungiRapportino(){
-	var tmp_ora = Math.round(($('#ora').val()[0])/60).toString();
-	if(tmp_ora.length == 1)
-		tmp_ora = '0'+tmp_ora;
-	var tmp_min = Math.round(($('#ora').val()[0])%60).toString();
-	if(tmp_min.length == 1)
-		tmp_min = '0'+tmp_min;
-	var inizio = tmp_ora+":"+tmp_min;
-	var tmp_ora = Math.round(($('#ora').val()[$('#ora').val().length-1]+29)/60).toString()
-	if(tmp_ora.length == 1)
-		tmp_ora = '0'+tmp_ora;
-	var tmp_min = Math.round(($('#ora').val()[$('#ora').val().length-1]+30)%60).toString();
-	if(tmp_min.length == 1)
-		tmp_min = '0'+tmp_min;
-	var fine =tmp_ora +":"+ tmp_min;
-	$.ajax({
-      type:"POST",
-      url: "script_php/postRapportinoRapido.php", //Relative or absolute path to response.php file
-      async:false,
-      data:{
-	  	'ora_inizio': inizio,
-	  	'ora_fine': fine,
-	  	'pausa': $('#pausa').val(),
-	  	'note':$('#note').val(),
-	  	'dipendente':getCookie('id_dipendente'),
-	  	'cliente':cliente_selezionato,
-	  	'db':getCookie('nomeDB'),
-	  	'materiali':materiali_selezionati,
-	  	'mezzi':mezzi_selezionati
-	  },
-      success: function(data) {
-	    console.log(data);
-	  	Materialize.toast("Rapportino inserito",2000,"",function(){window.location.replace("dashboard.html");})
+	var ar_ore = new Array();
+	
+	ar_ore = $(".select-dropdown").val().split(' ').join('').split(',').join(' ').split('--').join(' ').split(' ');
+	ar_ore.sort();
+	
+	var inizio = new Array();
+	var fine = new Array();
+	
+	var tmp_last;
+	
+	inizio.push(ar_ore[0]);
+	fine.push(ar_ore[1]);
+	tmp_last = ar_ore[0];
+	if(ar_ore.length > 2){
+		for(var i =2;i<ar_ore.length;i+=2)
+		{
+			if((parseInt(tmp_last.split(':')[0])*60)+parseInt(tmp_last.split(':')[1])+30 != (parseInt(ar_ore[i].split(':')[0])*60)+parseInt(ar_ore[i].split(':')[1])){
+				inizio.push(ar_ore[i]);
+				fine.push(ar_ore[i+1]);
+				tmp_last = ar_ore[i];
+			}
+			else{
+				fine.pop();
+				fine.push(ar_ore[i+1]);
+				tmp_last = ar_ore[i];
+			}
 		}
-	});
-
+	}
+	var success = true;
+	for(var i =0;i<inizio.length;i++)
+	{
+		if(i==0){
+			$.ajax({
+		      type:"POST",
+		      url: "script_php/postRapportinoRapido.php", //Relative or absolute path to response.php file
+		      async:false,
+		      data:{
+			  	'ora_inizio': inizio[i],
+			  	'ora_fine': fine[i],
+			  	'pausa': $('#pausa').val(),
+			  	'note':$('#note').val(),
+			  	'dipendente':getCookie('id_dipendente'),
+			  	'cliente':cliente_selezionato,
+			  	'db':getCookie('nomeDB'),
+			  	'materiali':materiali_selezionati,
+			  	'mezzi':mezzi_selezionati
+			  },
+		      success: function(data) {
+			    console.log(data);
+				},
+				error:function(){
+					success = false;
+				}
+			});
+		}
+		else{
+			$.ajax({
+		      type:"POST",
+		      url: "script_php/postRapportinoRapido.php", //Relative or absolute path to response.php file
+		      async:false,
+		      data:{
+			  	'ora_inizio': inizio[i],
+			  	'ora_fine': fine[i],
+			  	'pausa': $('#pausa').val(),
+			  	'note':$('#note').val(),
+			  	'dipendente':getCookie('id_dipendente'),
+			  	'cliente':cliente_selezionato,
+			  	'db':getCookie('nomeDB'),
+			  	'materiali':null,
+			  	'mezzi':null
+			  },
+		      success: function(data) {
+			    console.log(data);
+				},
+				error:function(){
+					success = false;
+				}
+			});
+		}
+	}
+	if(success)
+	{
+		Materialize.toast("Rapportino inserito",2000,"",function(){window.location.replace("dashboard.html");})
+	}
 }
 function addCliente(){
 	if($("#nominativo").val() == ""){
@@ -385,6 +445,7 @@ function populateListFascieOrarie(){
 	var occupato = false;
 	var start,stop;
 	var tmp_ora,tmp_min,tmp;
+	 $("#ora").append("<option value=-1 disabled>Seleziona gli orari del lavoro fatto</option>");
 	$.ajax({
 	      url: "script_php/getFascieOrarie.php", //Relative or absolute path to response.php file
 	      type:"POST",
