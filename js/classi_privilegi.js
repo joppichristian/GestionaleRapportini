@@ -349,10 +349,10 @@ function completaForm(){
 		
 	}
 	
-	if(json[index]["visualizzazione_resoconti_rapportini"]==1){
+	if(json[index]["visualizzazione_resoconti_rapportini"]==1 && json[index]["visualizzazione_cliente"]==1){
 		$("#rapportini_selected").append("<div class='chip cyan'>Gestione completa<i class='remove_manage_rapp   material-icons right'>remove</i></div>");				
 	}
-	else{
+	else if(json[index]["visualizzazione_cliente"]==1){
 		if(json[index]["rapportino_rapido"]==1){
 				$("#rapportini_selected").append("<div class='chip cyan'>Aggiunta rapportino rapido<i class='remove_add_rapp  material-icons right'>remove</i></div>");	
 			if(getCookie("vRR")==1)
@@ -383,6 +383,8 @@ function completaForm(){
 		json[index]["aggiunta_cliente"] = 0;
 		json[index]["modifica_cliente"] = 0;
 		json[index]["cancellazione_cliente"] = 0;
+		json[index]["rapportino_rapido"] = 0;
+		json[index]["visualizzazione_resoconti_rapportini"] = 0;
 		completaForm();
 		
 	});

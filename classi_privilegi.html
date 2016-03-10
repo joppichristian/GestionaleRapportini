@@ -70,31 +70,34 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 		          <input id="form_descrizione" type="text" name="descrizione" class="validate">
 		          <label id="form_descrizione" class="cyan-text" for="form_descrizione">Descrizione</label>
 		        </div>
-		         <div id="div_clienti" class="input-field col s12 m6 l6">
-			        <div class="input-field col s12 m12 l12 cyan-text ">
-							Permessi sezione clienti
-							<i class="material-icons prefix right">account_circle</i>
-					</div>
-			        <div id="clienti_selected" class="input-field col s12 m12 l12 cyan-text "></div>
-			        <div id="clienti_no_selected" class="input-field col s12 m12 l12 cyan-text "></div>  
-		         </div>
-		         <div id="div_materiali" class="input-field col s12 m6 l6">
-			          <div class="input-field col s12 m12 l12 cyan-text ">
-							Permessi sezione materiali
-							<i class="material-icons prefix right">local_grocery_store</i>
-					</div>
-			        <div id="materiali_selected" class="input-field col s12 m12 l12 cyan-text "></div>
-			        <div id="materiali_no_selected" class="input-field col s12 m12 l12 cyan-text "></div>  
-			    </div>
-		         <div id="div_mezzi" class="input-field col s12 m6 l6">
-			         <div class="input-field col s12 m12 l12 cyan-text ">
-							Permessi sezione mezzi
-							<i class="material-icons prefix right">directions_bus</i>
-					</div>
-			        <div id="mezzi_selected" class="input-field col s12 m12 l12 cyan-text "></div>
-			        <div id="mezzi_no_selected" class="input-field col s12 m12 l12 cyan-text "></div>  
-		         </div>
-		         <div id="div_dipendenti" class="input-field col s12 m6 l6">
+		        <div class="col s12 m6 l6">
+			         <div id="div_clienti" class="input-field col s12 m12 l12">
+				        <div class="input-field col s12 m12 l12 cyan-text ">
+								Permessi sezione clienti
+								<i class="material-icons prefix right">account_circle</i>
+						</div>
+				        <div id="clienti_selected" class="input-field col s12 m12 l12 cyan-text "></div>
+				        <div id="clienti_no_selected" class="input-field col s12 m12 l12 cyan-text "></div>  
+			         </div>
+			         <div id="div_materiali" class="input-field col s12 m12 l12">
+				          <div class="input-field col s12 m12 l12 cyan-text ">
+								Permessi sezione materiali
+								<i class="material-icons prefix right">local_grocery_store</i>
+						</div>
+				        <div id="materiali_selected" class="input-field col s12 m12 l12 cyan-text "></div>
+				        <div id="materiali_no_selected" class="input-field col s12 m12 l12 cyan-text "></div>  
+				    </div>
+			         <div id="div_mezzi" class="input-field col s12 m12 l12">
+				         <div class="input-field col s12 m12 l12 cyan-text ">
+								Permessi sezione mezzi
+								<i class="material-icons prefix right">directions_bus</i>
+						</div>
+				        <div id="mezzi_selected" class="input-field col s12 m12 l12 cyan-text "></div>
+				        <div id="mezzi_no_selected" class="input-field col s12 m12 l12 cyan-text "></div>  
+			         </div>
+		        </div>
+		        <div class="col s12 m6 l6">
+		         <div id="div_dipendenti" class="input-field col s12 m12 l12">
 			         <div class="input-field col s12 m12 l12 cyan-text ">
 							Permessi sezione dipendenti
 							<i class="material-icons prefix right">directions_walk</i>
@@ -102,7 +105,8 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 			        <div id="dipendenti_selected" class="input-field col s12 m12 l12 cyan-text "></div>
 			        <div id="dipendenti_no_selected" class="input-field col s12 m12 l12 cyan-text "></div>  
 		         </div>
-		         <div id="div_security" class="input-field col s12 m6 l6">
+		         
+		         <div id="div_security" class="input-field col s12 m12 l12">
 			         <div class="input-field col s12 m12 l12 cyan-text ">
 							Classi di dipendenti e privilegi associati	
 							<i class="material-icons prefix right">security</i>
@@ -111,7 +115,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 			        <div id="security_no_selected" class="input-field col s12 m12 l12 cyan-text "></div>  
 
 		         </div>
-		         <div id="div_rapportini" class="input-field col s12 m6 l6">
+		         <div id="div_rapportini" class="input-field col s12 m12 l12">
 			         <div class="input-field col s12 m12 l12 cyan-text ">
 							Permessi rapportini
 							<i class="material-icons prefix right">content_paste</i>
@@ -120,6 +124,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 			        <div id="rapportini_no_selected" class="input-field col s12 m12 l12 cyan-text "></div>  
 
 		         </div>
+		        </div>
 		         <div class="input-field col s12" style="text-align: right;margin-bottom: 2%;">
 			        <button class="btn waves-effect waves-light cyan white-text" id="invia_dati" type="button" name="submit">
 			        <i class="material-icons right">done</i>
