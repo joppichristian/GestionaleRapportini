@@ -45,7 +45,6 @@ function controlla_login(user,psw){
             setCookie("nomeDB", nomedb, 30);
             setCookie("ragione_sociale", r_sociale, 30);
             setCookie("id_azienda", id_a, 30);
-			setCookie("username", username, 30);
             Materialize.toast('Login avvenuto con successo!', 2000,'',function(){window.location.href = 'dashboard.html'});
           }else{
             Materialize.toast('Username e/o Password Errata', 2000);

@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
 	    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/form_dashboard.css">
 		<link rel="stylesheet" type="text/css" href="css/pace.css">
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -17,6 +18,7 @@
 		<script src="js/manageCookie.js" type="text/javascript" ></script>
 		<script src="js/pace.min.js" type="text/javascript"></script>
 		<script src="js/filter_feature.js" type="text/javascript"></script>
+		<script src="js/utility_dashboard.js" type="text/javascript"></script>
 		
 		<style>
 		i.large {
@@ -29,7 +31,7 @@
     <div class="nav-wrapper" style="padding-left: 2%;">
       <a href="#!" class="brand-logo"><img src="img/logo.png" style="height: 70%; margin-top: 20%;margin-right: 5%;" class="left" /></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-
+	  	<li><a id="edit_profile" ><i class="material-icons left">edit</i>Modifica il tuo profilo</a></li>
         <li><a href="index.html"><i class="material-icons left">close</i>Logout</a></li>
       </ul>
     </div>
@@ -123,6 +125,35 @@
             </div>
           </div>
         </footer>
+        <div id="modal_modifica" class="modal ">
+          <div class="modal-content">
+            <h4 class="blue-grey-text text-darken-3 section">Modifica Profilo</h4>
+            <div class="input-field col s12 m6 l6 section">
+		          <i class="material-icons prefix blue-grey-text text-darken-3">person</i>
+		          <input id="username" type="text" class="validate">
+		          <label class="blue-grey-text text-darken-3" for="username ">Username</label>
+		    </div>
+		    <div class="input-field col s12 m6 l6 section">
+		          <i class="material-icons prefix blue-grey-text text-darken-3">vpn_key</i>
+		          <input id="old_pass" type="password" class="validate">
+		          <label class="blue-grey-text text-darken-3" for="old_pass ">Vecchia password</label>
+		    </div>
+		    <div class="input-field col s12 m6 l6 section">
+		          <i class="material-icons prefix blue-grey-text text-darken-3">vpn_key</i>
+		          <input id="new_pass" type="password" class="validate">
+		          <label class="blue-grey-text text-darken-3" for="new_pass ">Nuova password</label>
+		    </div>
+		    <div class="input-field col s12 m6 l6 section">
+		          <i class="material-icons prefix blue-grey-text text-darken-3">vpn_key</i>
+		          <input id="new_pass_conf" type="password" class="validate">
+		          <label class="blue-grey-text text-darken-3" for="new_pass_conf">Conferma nuova password</label>
+		    </div>
+          </div>
+          <div class="modal-footer class="blue-grey-text text-darken-3"">
+            <a href="#!" id="no_mod" class="modal-action modal-close waves-effect waves-blue-grey waves-darken-3 btn-flat ">Annulla</a>
+            <a href="#!" id="yes_mod" class=" modal-action modal-close waves-effect waves-blue-grey darken-3 btn-flat">Salva</a>
+          </div>
+        </div>
 	<script>
 		  $(".button-collapse").sideNav();
 	</script>

@@ -645,7 +645,7 @@ function modifyGroup(){
 			   Materialize.toast('Gruppo modificato', 2000,'',function(){
 				   if(json[index]['id'] == getCookie("classe_privilegi"))
 				   {
-						setCookie("nomeDB",null);
+						setCookie("nomeDB","");
 						window.location.replace("index.html");   
 				   }
 				   populateList("");
