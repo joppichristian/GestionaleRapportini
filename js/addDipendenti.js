@@ -31,6 +31,8 @@ function addDipendente(){
 		var note = $("#note").val();
 		var username = $("#username").val();
 		var password = $("#password").val();
+		var password = SHA512(password);
+
 		$.ajax({
 	      url: "script_php/postEmployee.php", //Relative or absolute path to response.php file
 	      type:"POST",
@@ -49,7 +51,7 @@ function addDipendente(){
 		      'db':getCookie('nomeDB')
 
 		   },
-		   success: function(data){		   
+		   success: function(data){
 		   		Materialize.toast('Dipendente inserito', 2000,'',function(){window.location.href = 'dipendenti.html'});
 			   return false;
 			},
@@ -58,7 +60,7 @@ function addDipendente(){
 			    return false;
 
 			}
-		});		
+		});
 		return false;
 }
 function populateGroups(){

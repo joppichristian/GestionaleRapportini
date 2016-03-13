@@ -8,18 +8,24 @@ $(document).ready(function(){
 		updateProfile();
 	});
 
-	
+
 });
 
 
 function updateProfile(){
 	var username = $("#username").val();
+
 	var old_pass = $("#old_pass").val();
+	var old_pass = SHA512(old_pass);
+
 	var new_pass = $("#new_pass").val();
 	var new_pass_confirm = $("#new_pass_conf").val();
+
 	if(new_pass != new_pass_confirm)
 		Materialize.toast("Le due nuove password non corrispondono!",2000);
 	else{
+		var new_pass = SHA512(new_pass);
+		var new_pass_confirm = SHA512(new_pass_confirm);
 		var stringaR = "u="+getCookie("username")+"&p="+old_pass;
 		var query = "script_php/login.php?"+stringaR ;
 		$.ajax({
@@ -49,16 +55,16 @@ function updateProfile(){
 					   error: function (XMLHttpRequest, textStatus, errorThrown){
 						   Materialize.toast('Errore di modificca', 2000);
 						    return false;
-			
+
 						}
-					});		
+					});
 		        }
 		    },
 		      error: function(xhr){
 		       alert("errore: "+xhr.status);
 		      }
 		    });
-		
-		
+
+
 	}
 }

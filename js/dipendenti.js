@@ -7,8 +7,8 @@ var username;
 $(document).ready(function() {
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
-		
-		
+
+
 	if(getCookie("cDI")==0){
 		$("#cDI").hide();
 		$("#cDI2").hide();
@@ -31,9 +31,9 @@ $(document).ready(function() {
 	}
 	else{
 		$("#mDI").show();
-		$("#mDI2").show();	
+		$("#mDI2").show();
 	}
-		
+
 	$('ul.tabs').tabs();
 	$('div.indicator').css("background-color","#4caf50");
 	$("#info").show();
@@ -140,7 +140,7 @@ function explodeDipendente(dipendente){
        $("#iban").append('<div class="green-text" style="margin-left:15%;">IBAN </div> <i class="info small material-icons green-text">credit_card</i>'+dipendente['iban']);
     if(dipendente['note'] != null && dipendente['note'] != "")
        $("#note").append('<div class="green-text" style="margin-left:15%;">Note </div><i class="info small material-icons green-text">chat_bubble</i>'+dipendente['note']);
-	
+
 
 	$.ajax({
       dataType: "json",
@@ -156,7 +156,7 @@ function explodeDipendente(dipendente){
         return false;
       }
     });
-    
+
 	$.ajax({
       dataType: "json",
       url: "script_php/getGroups.php?db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
@@ -279,19 +279,21 @@ function populateGroups(){
 
 }
 function resetPwd(){
+	var password = $("#form_password").val();
+	var psw = SHA512(password);
 	$.ajax({
 	     url: "script_php/updatePwd.php", //Relative or absolute path to response.php file
 	      type:"POST",
 	      async:false,
 	      data:{
 		      'id':json[index]['id'],
-		      'password':$("#form_password").val(),
+		      'password':psw,
 		      'azienda':getCookie('id_azienda')
 		   },
 		   success: function(data){
 			   console.log(data);
 			   Materialize.toast('Password ripristinata', 2000,'',function(){populateList("");});
-			   
+
 			   return false;
 			},
 		   error: function (XMLHttpRequest, textStatus, errorThrown){
