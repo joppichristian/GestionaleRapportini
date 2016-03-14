@@ -11,24 +11,43 @@ $(document).ready(function(){
 
 });
 
-
 function updateProfile(){
-	var username = $("#username").val();
+		var username = $("#username").val();
 
-	var old_pass = $("#old_pass").val();
-	var old_pass = SHA512(old_pass);
+		//var old_pass = $("#old_pass").val();
+		//var old_pass = SHA512(old_pass);
 
-	var new_pass = $("#new_pass").val();
-	var new_pass_confirm = $("#new_pass_conf").val();
+		var new_pass = $("#new_pass").val();
+		var new_pass_confirm = $("#new_pass_conf").val();
 
-	if(new_pass != new_pass_confirm)
-		Materialize.toast("Le due nuove password non corrispondono!",2000);
-	else{
-		var new_pass = SHA512(new_pass);
-		var new_pass_confirm = SHA512(new_pass_confirm);
-		var stringaR = "u="+getCookie("username")+"&p="+old_pass;
-		var query = "script_php/login.php?"+stringaR ;
-		$.ajax({
+		if(new_pass != new_pass_confirm)
+			Materialize.toast("Le due nuove password non corrispondono!",2000);
+		else{
+				var new_pass = SHA512(new_pass);
+				var new_pass_confirm = SHA512(new_pass_confirm);
+			//	var stringaR = "u="+getCookie("username")+"&p="+old_pass;
+				//var query = "script_php/login.php?"+stringaR ;
+				$.ajax({
+								url: "script_php/updateProfile.php", //Relative or absolute path to response.php file
+								type:"POST",
+								async:false,
+								data:{
+									'username': username,
+									'password':new_pass,
+									'id':getCookie("id_dipendente"),
+									'azienda': getCookie("id_azienda")
+							 	 },
+							 	 success: function(data){
+										Materialize.toast('Il tuo profilo è stato modificato', 2000,"",function(){setCookie("nomeDB","");
+										window.location.replace("index.html");});
+								 		return true;
+									},
+							 		error: function (XMLHttpRequest, textStatus, errorThrown){
+								 		Materialize.toast('Errore di modificca', 2000);
+										return false;
+									}
+			   });
+		/*$.ajax({
 		      url: query,
 		      async:false,
 		      success: function(data) {
@@ -63,7 +82,7 @@ function updateProfile(){
 		      error: function(xhr){
 		       alert("errore: "+xhr.status);
 		      }
-		    });
+		    });*/
 
 
 	}
