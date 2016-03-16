@@ -128,7 +128,14 @@ function populateRapportino(filter){
 				 var conteggio=0;
 				 if(data ==null){
 					 populateRapportinoVuoto(q);
+					 $("#lista_singolo_rap").empty();
+					elementi[i] = document.createElement('li');
+					elementi[i].className ="grey lighten-3 collection-item avatar";
+					var tot_ele = "Non ci sono rapportini";
+					elementi[i].innerHTML = tot_ele;
+					$("#lista_singolo_rap").append(elementi[i]);
 				 }
+				 else{
 				 var oldDate="";
 				 var cont_index=0;
 				 var ore_totali_range=0;
@@ -226,6 +233,7 @@ function populateRapportino(filter){
 					det_index = $(".dettaglio_list").index(this);
 					explodeRapportino(elem_data[det_index]);
 				});
+			}
 
       },
       error: function(xhr){
@@ -278,7 +286,6 @@ function populateRapportinoVuoto(filter){
 		q = filter;
 	else
 		q = " ";
-		alert("allorha"+q);
 	$.ajax({
       dataType: "json",
       url: "script_php/getRapportinoClienteVuoto.php?q="+q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file

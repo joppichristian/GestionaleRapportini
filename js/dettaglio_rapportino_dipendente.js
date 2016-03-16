@@ -126,106 +126,113 @@ function populateRapportino(filter){
 				 var conteggio=0;
 				 if(data ==null){
 					 populateRapportinoVuoto(q);
-				 }
-				 var oldDate="";
-				 var cont_index=0;
-				 var ore_totali_range=0;
-				 var ele_rap="";
-				 var old_ele_rap="";
-				 var cont_ore=0;
-				 var myDate="";
-				 var elem_data = new Array();
-				 for(var i = 0;i < data.length; i++) {
-
-						conteggio = conteggio +1;
-						$("#nome_cliente").text(""+data[i]['nome']+" "+data[i]['cognome']);
-
-						var dataTot= data[i]['inizio'];
-						var dataS = dataTot.split(' ');
-						var dataD =dataS[0];
-						var data_i = dataD.split('-');
-						myDate = ""+data_i[2]+"-"+data_i[1]+"-"+data_i[0];
-
-						var dataDb = returnRangeDate(dataD);
-						if(dataDb == true){
-							elem_data.push(data[i]);
-							lista_id_rap.push(data[i]['id']);
-						}
-					}
-					for(var i = 0; i < elem_data.length; i++) {
-							dataTot= elem_data[i]['inizio'];
-							var f = elem_data[i]['fine'];
-							var o =differenzaOre(dataTot, f);
-							var p_min =elem_data[i]['pausa'];
-							var p = pausaCent(p_min);
-							var diff_lavoro = o-p;
-
-							ore_totali_range = ore_totali_range + diff_lavoro;
-							settaOra(ore_totali_range);
-
-
-							var dataTot= elem_data[i]['inizio'];
-							var dataS = dataTot.split(' ');
-							var dataD =dataS[0];
-							var data_i = dataD.split('-');
-							myDate = ""+data_i[2]+"-"+data_i[1]+"-"+data_i[0];
-
-							var ore_singolo_gg=0;
-
-							if(i==0){
-								cont_ore= cont_ore+diff_lavoro;
-							}else{
-								if(myDate==oldDate){
-									elementi[i] = document.createElement('li');
-				        	elementi[i].className ="collection-item avatar no_see";
-									elementi[i].innerHTML = '<i class="orange accent-4 material-icons circle">access_time</i><span class="title">Data : '+oldDate+ '</span><p>Ore Totali : 5</p><div align="right"><a style="right: 5%;" class="btn-floating orange"><i class="dettaglio_list material-icons">zoom_in</i></a></divZ';
-									ele_rap = elementi[i];
-									cont_ore= cont_ore+diff_lavoro;
-									$("#lista_rap").append(ele_rap);
-									//$("#lista_rap").append(elementi[i]);
-
-								}else{
-										elementi[i] = document.createElement('li');
-				        		elementi[i].className ="collection-item avatar";
-										elementi[i].innerHTML = '<i class="orange accent-4 material-icons circle">access_time</i><span class="title">Data : '+oldDate+ '</span><p>Ore Totali : '+cont_ore+'</p><div align="right"><a style="right: 5%;" class="btn-floating orange"><i class="dettaglio_list material-icons">zoom_in</i></a></div>';
-										ele_rap = elementi[i];
-										cont_ore = diff_lavoro;
-										$("#lista_rap").append(ele_rap);
-								}
-							}
-
-							if(i == (elem_data.length)-1){
-								elementi[i] = document.createElement('li');
-								elementi[i].className ="collection-item avatar";
-								elementi[i].innerHTML = '<i class="orange accent-4 material-icons circle">access_time</i><span class="title">Data : '+myDate+ '</span><p>Ore Totali :'+cont_ore+'</p><div align="right"><a style="right: 5%;" class="btn-floating orange"><i class="dettaglio_list material-icons">zoom_in</i></a></div>';
-								ele_rap = elementi[i];
-							}
-							$("#lista_rap").append(ele_rap);
-
-							cont_index = cont_index+1;
-							oldDate=myDate;
-
-
-
-					}
-
-				//$("#ore_tot").innerHTML = "RIEPILOGO ORE: "+ore_totali_range;
-				if(elem_data.length != 0){
-					det_id = elem_data[0]['id'];
-					explodeRapportino(elem_data[0]);
-				}else{
-					$("#lista_singolo_rap").empty();
+					 $("#lista_singolo_rap").empty();
 					elementi[i] = document.createElement('li');
 					elementi[i].className ="grey lighten-3 collection-item avatar";
 					var tot_ele = "Non ci sono rapportini";
 					elementi[i].innerHTML = tot_ele;
 					$("#lista_singolo_rap").append(elementi[i]);
-				}
-				$(".dettaglio_list").click(function(){
-					det_index = $(".dettaglio_list").index(this);
-					explodeRapportino(elem_data[det_index]);
-				});
-
+				 }
+				 else{
+					 var oldDate="";
+					 var cont_index=0;
+					 var ore_totali_range=0;
+					 var ele_rap="";
+					 var old_ele_rap="";
+					 var cont_ore=0;
+					 var myDate="";
+					 var elem_data = new Array();
+					 for(var i = 0;i < data.length; i++) {
+	
+							conteggio = conteggio +1;
+							$("#nome_cliente").text(""+data[i]['nome']+" "+data[i]['cognome']);
+	
+							var dataTot= data[i]['inizio'];
+							var dataS = dataTot.split(' ');
+							var dataD =dataS[0];
+							var data_i = dataD.split('-');
+							myDate = ""+data_i[2]+"-"+data_i[1]+"-"+data_i[0];
+	
+							var dataDb = returnRangeDate(dataD);
+							if(dataDb == true){
+								elem_data.push(data[i]);
+								lista_id_rap.push(data[i]['id']);
+							}
+						}
+						for(var i = 0; i < elem_data.length; i++) {
+								dataTot= elem_data[i]['inizio'];
+								var f = elem_data[i]['fine'];
+								var o =differenzaOre(dataTot, f);
+								var p_min =elem_data[i]['pausa'];
+								var p = pausaCent(p_min);
+								var diff_lavoro = o-p;
+	
+								ore_totali_range = ore_totali_range + diff_lavoro;
+								settaOra(ore_totali_range);
+	
+	
+								var dataTot= elem_data[i]['inizio'];
+								var dataS = dataTot.split(' ');
+								var dataD =dataS[0];
+								var data_i = dataD.split('-');
+								myDate = ""+data_i[2]+"-"+data_i[1]+"-"+data_i[0];
+	
+								var ore_singolo_gg=0;
+	
+								if(i==0){
+									cont_ore= cont_ore+diff_lavoro;
+								}else{
+									if(myDate==oldDate){
+										elementi[i] = document.createElement('li');
+					        	elementi[i].className ="collection-item avatar no_see";
+										elementi[i].innerHTML = '<i class="orange accent-4 material-icons circle">access_time</i><span class="title">Data : '+oldDate+ '</span><p>Ore Totali : 5</p><div align="right"><a style="right: 5%;" class="btn-floating orange"><i class="dettaglio_list material-icons">zoom_in</i></a></divZ';
+										ele_rap = elementi[i];
+										cont_ore= cont_ore+diff_lavoro;
+										$("#lista_rap").append(ele_rap);
+										//$("#lista_rap").append(elementi[i]);
+	
+									}else{
+											elementi[i] = document.createElement('li');
+					        		elementi[i].className ="collection-item avatar";
+											elementi[i].innerHTML = '<i class="orange accent-4 material-icons circle">access_time</i><span class="title">Data : '+oldDate+ '</span><p>Ore Totali : '+cont_ore+'</p><div align="right"><a style="right: 5%;" class="btn-floating orange"><i class="dettaglio_list material-icons">zoom_in</i></a></div>';
+											ele_rap = elementi[i];
+											cont_ore = diff_lavoro;
+											$("#lista_rap").append(ele_rap);
+									}
+								}
+	
+								if(i == (elem_data.length)-1){
+									elementi[i] = document.createElement('li');
+									elementi[i].className ="collection-item avatar";
+									elementi[i].innerHTML = '<i class="orange accent-4 material-icons circle">access_time</i><span class="title">Data : '+myDate+ '</span><p>Ore Totali :'+cont_ore+'</p><div align="right"><a style="right: 5%;" class="btn-floating orange"><i class="dettaglio_list material-icons">zoom_in</i></a></div>';
+									ele_rap = elementi[i];
+								}
+								$("#lista_rap").append(ele_rap);
+	
+								cont_index = cont_index+1;
+								oldDate=myDate;
+	
+	
+	
+						}
+	
+					//$("#ore_tot").innerHTML = "RIEPILOGO ORE: "+ore_totali_range;
+					if(elem_data.length != 0){
+						det_id = elem_data[0]['id'];
+						explodeRapportino(elem_data[0]);
+					}else{
+						$("#lista_singolo_rap").empty();
+						elementi[i] = document.createElement('li');
+						elementi[i].className ="grey lighten-3 collection-item avatar";
+						var tot_ele = "Non ci sono rapportini";
+						elementi[i].innerHTML = tot_ele;
+						$("#lista_singolo_rap").append(elementi[i]);
+					}
+					$(".dettaglio_list").click(function(){
+						det_index = $(".dettaglio_list").index(this);
+						explodeRapportino(elem_data[det_index]);
+					});
+			}
       },
       error: function(xhr){
 	     console.log(xhr.status);
@@ -277,10 +284,9 @@ function populateRapportinoVuoto(filter){
 		q = filter;
 	else
 		q = " ";
-		alert("allorha"+q);
 	$.ajax({
       dataType: "json",
-      url: "script_php/getRapportinoClienteVuoto.php?q="+q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "script_php/getRapportinoDipendenteVuoto.php?q="+q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
 			async:false,
       success: function(data) {
@@ -290,11 +296,13 @@ function populateRapportinoVuoto(filter){
         console.log(data);
         var elementi = new Array();
          $("#elenco").empty();
+         if(data != null){
         for(var i = 0; i < data.length; i++) {
 
-					$("#nome_cliente").text(""+data[i]['nominativo']);
+					$("#nome_cliente").text(""+data[i]['nome']+ " " +data[i]['cognome'] );
 
 	    	}
+	    }
       },
       error: function(xhr){
 	     console.log(xhr.status);
