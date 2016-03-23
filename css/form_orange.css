@@ -101,3 +101,9 @@
   .input-field .prefix.active {
     color: #ff9800;
   }
+  
+  [type="checkbox"]:checked+label:before
+   {
+	   border-right: 2px solid #ff9800;
+	   border-bottom: 2px solid #ff9800;
+   }

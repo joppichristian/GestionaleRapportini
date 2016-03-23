@@ -6,11 +6,18 @@ var mod_json_mezzi = new Array();
 var mod_materiali_selezionati = new Array();
 var mod_mezzi_selezionati = new Array();
 var mod_dipendenti_selezionati = new Array();
-
+var inizio,fine,cliente;
 $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
 
+		
+		var now = new Date();
+		for(var i=parseInt(now.getYear())+1899;i<parseInt(now.getYear())+1901;i++)
+		{
+			$("#mod_giorno_yy").append("<option value="+i+">"+i+"</option>");
+		}
+		$('select').material_select();
 
 
     mod_populateListMaterials("");
@@ -24,85 +31,15 @@ $(document).ready(function(){
 		});
 
 	$('#yes_modifica').click(function(){
-			if($('#mod_ora_inizio').val() != '' && $('#mod_ora_fine').val() != '' && $('#mod_pausa').val() >= 0 && $('#mod_pausa').val() <= 120 && $('#mod_giorno').val() != '' && $('#mod_giorno').val().length == 10){
-				var spl = $('#mod_ora_inizio').val().split(':');
-				if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || isNaN(spl[0]) || isNaN(spl[1]) || spl[0]== '' ||spl[1]== ''|| spl.length!=2)
-				{
-					Materialize.toast("Ora di inizio non valida...utilizza hh:mm!",2000);
-					return false;
-				}
-				spl = $('#mod_ora_fine').val().split(':');
-				if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || isNaN(spl[0]) || isNaN(spl[1]) || spl[0]== '' ||spl[1]== ''|| spl.length!=2)
-				{
-					Materialize.toast("Ora di fine non valida...utilizza hh:mm!",2000);
-					return false;
-				}
 
-				spl = $('#mod_giorno').val().split('-');
-				if(parseInt(spl[0]) < 1 || parseInt(spl[0]) > 31 || parseInt(spl[1]) < 1 || parseInt(spl[1]) > 12 || spl.length!=3)
-				{
-					Materialize.toast("Data non valida...utilizza dd-mm-yyyy!",2000);
-					return false;
-				}
-
-
-
-
+			if($('#mod_pausa').val() >= 0 && $('#mod_pausa').val() <= 120)
 				modificaRapportino();
-			}
 			else
-			{
-				if($('#mod_pausa').val() >= 0 && $('#mod_pausa').val() <= 120)
-					Materialize.toast("Inserisci un'ora di inizio e un'ora di fine valida!",2000);
-				else
-					Materialize.toast("Inserisci una pausa valida tra 0 e 120 minuti",2000);
-			}
+				Materialize.toast("Inserisci una pausa valida tra 0 e 120 minuti",2000);
 
 		});
 		$('#no_modifica').click(function(){
 			$('#modal1').closeModal();
-		});
-		$('#mod_ora_inizio').on('input',function(){
-			if(parseInt($('#mod_ora_inizio').val()) > 2  && $('#mod_ora_inizio').val().indexOf(':') < 0)
-				$('#mod_ora_inizio').val($('#mod_ora_inizio').val()+':');
-		});
-		$('#mod_ora_fine').on('input',function(){
-			if(parseInt($('#mod_ora_fine').val()) > 2  && $('#mod_ora_fine').val().indexOf(':') < 0)
-				$('#mod_ora_fine').val($('#mod_ora_fine').val()+':');
-		});
-		$('#mod_ora_inizio').focusout(function(){
-			if($('#mod_ora_inizio').val() != ''){
-				var spl = $('#mod_ora_inizio').val().split(':');
-				if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || isNaN(spl[0]) || isNaN(spl[1]) || spl[0]== '' ||spl[1]== '' || spl.length!=2)
-				{
-					Materialize.toast("Ora di inizio non valida...utilizza hh:mm!",2000);
-					$('#mod_ora_inizio').focus();
-				}
-			}
-
-		});
-		$('#mod_giorno').focusout(function(){
-			if($('#mod_giorno').val() != '' ){
-				var spl = $('#mod_giorno').val().split('-');
-				if(parseInt(spl[0]) < 1 || parseInt(spl[0]) > 31 || parseInt(spl[1]) < 1 || parseInt(spl[1]) > 12 || spl.length!=3)
-				{
-					Materialize.toast("Data non valida...utilizza dd-mm-yyyy!",2000);
-					$('#mod_giorno').focus();
-				}
-
-			}
-		});
-
-		$('#mod_ora_fine').focusout(function(){
-			if($('#mod_ora_fine').val() != ''){
-				var spl = $('#mod_ora_fine').val().split(':');
-				if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || isNaN(spl[0]) || isNaN(spl[1])|| spl[0]== '' ||spl[1]== ''|| spl.length!=2)
-				{
-					Materialize.toast("Ora di fine non valida...utilizza hh:mm!",2000);
-					$('#mod_ora_fine').focus();
-				}
-
-			}
 		});
 		$('#mod_pausa').focusout(function(){
 			if($('#mod_pausa').val() < 0 || $('#mod_pausa').val() > 120 || isNaN($('#mod_pausa').val())){
@@ -111,27 +48,47 @@ $(document).ready(function(){
 			}
 
 		});
+		
+		populateListFascieOrarieModifica();
 
-
+	$("#mod_giorno_dd").on("change",function(){
+			populateListFascieOrarieModifica();
+		});
+		
+		$("#mod_giorno_mm").on("change",function(){
+			populateListFascieOrarieModifica();
+		});
+		
+		$("#mod_giorno_yy").on("change",function(){
+			populateListFascieOrarieModifica();
+		});
+		
+		
+		
 });
 
 function setVarRapp(index_rapp){
   var data = (det_json[index_rapp]['inizio']).split(' ')[0];
-  data = data.split("-").reverse().join("-");
-  var inizio = (det_json[index_rapp]['inizio']).split(' ')[1].substr(0, 5);
-  var fine = (det_json[index_rapp]['fine']).split(' ')[1].substr(0, 5);
+  data = data.split("-").reverse();
+  inizio = (det_json[index_rapp]['inizio']).split(' ')[1].substr(0, 5);
+  fine = (det_json[index_rapp]['fine']).split(' ')[1].substr(0, 5);
   var descr = det_json[index_rapp]['note'];
   var pausa = det_json[index_rapp]['pausa'];
   var dipendente_nome = datiCliente(det_json[index_rapp]['id_cliente']);
+  cliente = det_json[index_rapp]['id_cliente'];
   mod_setDipendenti(dipendente_nome);
-  $("#mod_giorno").val(data);
-  $("#mod_ora_inizio").val(inizio);
-  $("#mod_ora_fine").val(fine);
+    
+  $("#mod_giorno_dd").val(data[0]);
+  $("#mod_giorno_mm").val(data[1]);
+  $("#mod_giorno_yy").val(data[2]);
   $("#mod_descrizione").val(descr);
   $("#mod_pausa").val(pausa);
+  $('select').material_select();
+  populateListFascieOrarieModifica(inizio,fine);
+  
+  
 
-  $("#mod_ora_inizio").focus();
-  $("#mod_ora_fine").focus();
+  
   $("#mod_descrizione").focus();
   $("#mod_pausa").focus();
   $("#mod_giorno").focus();
@@ -354,25 +311,177 @@ function mod_controlloRapCliente(){
 }
 
  function modificaRapportino(){
- 	$.ajax({
-       type:"POST",
-       url: "script_php/updateRapportino.php", //Relative or absolute path to response.php file
-       async:false,
-       data:{
-	    'data':$('#mod_giorno').val(),
- 	  	'ora_inizio': $('#mod_ora_inizio').val(),
- 	  	'ora_fine': $('#mod_ora_fine').val(),
- 	  	'pausa': $('#mod_pausa').val(),
- 	  	'note':$('#mod_descrizione').val(),
- 	  	'db':getCookie('nomeDB'),
- 	  	'id':mod_id,
- 	  	'materiali':mod_materiali_selezionati,
- 	  	'mezzi':mod_mezzi_selezionati
- 	  },
-       success: function(data) {
- 	    console.log(data);
- 	  	Materialize.toast("Rapportino modificato",2000,"",function(){$("#modal1").closeModal();populateRapportino(id_utente);})
- 		}
- 	});
+	  var ar_ore = new Array();
+	
+	ar_ore = $(".mod_ora .select-dropdown").val().split(' ').join('').split(',').join(' ').split('--').join(' ').split(' ');
+	ar_ore.sort();
+	
+	var start = new Array();
+	var stop = new Array();
+	
+	var tmp_last;
+	var indice_mod = 0;
+	var result = true;
+	start.push(ar_ore[0]);
+	stop.push(ar_ore[1]);
+	tmp_last = ar_ore[0];
+	if(ar_ore.length > 2){
+		for(var i =2;i<ar_ore.length;i+=2)
+		{
+			if(hourTomin(tmp_last)+30 != hourTomin(ar_ore[i])){
+				start.push(ar_ore[i]);
+				stop.push(ar_ore[i+1]);
+				tmp_last = ar_ore[i];
+			}
+			else{
+				stop.pop();
+				stop.push(ar_ore[i+1]);
+				tmp_last = ar_ore[i];
+			}
+		}
+	}
+	for(var i=0;i<start.length;i++){
+		if(i==indice_mod){
+			$.ajax({
+		       type:"POST",
+		       url: "script_php/updateRapportino.php", //Relative or absolute path to response.php file
+		       async:false,
+		       data:{
+			    'data':$("#mod_giorno_dd").val()+"-"+$("#mod_giorno_mm").val()+"-"+$("#mod_giorno_yy").val(),
+		 	  	'ora_inizio': start[i],
+		 	  	'ora_fine': stop[i],
+		 	  	'pausa': $('#mod_pausa').val(),
+		 	  	'note':$('#mod_descrizione').val(),
+		 	  	'db':getCookie('nomeDB'),
+		 	  	'id':mod_id,
+		 	  	'materiali':mod_materiali_selezionati,
+		 	  	'mezzi':mod_mezzi_selezionati
+		 	  },
+		       success: function(data) {
+		 	    console.log(data);
+		 	  	
+		 		},
+		 		error:function(data){
+			 		result = false;
+		 		}
+		 	});
+		}
+		else{
+			$.ajax({
+		       type:"POST",
+		       url: "script_php/postRapportino.php", //Relative or absolute path to response.php file
+		       async:false,
+		       data:{
+			    'data': $("#mod_giorno_dd").val()+"-"+$("#mod_giorno_mm").val()+"-"+$("#mod_giorno_yy").val(),
+		 	  	'ora_inizio': start[i],
+		 	  	'ora_fine': stop[i],
+		 	  	'pausa':0,
+		 	  	'note':$('#mod_descrizione').val(),
+		 	  	'dipendente':id_utente,
+		 	  	'cliente':cliente,
+		 	  	'db':getCookie('nomeDB'),
+		 	  	'materiali':null,
+		 	  	'mezzi':null
+		 	  },
+		       success: function(data) {
+		 		},
+		 		error:function(data){
+			 		result = false;
+		 		}
+		 	});
+		}
+	}
+	if(result && start.length > 1) {
+		Materialize.toast("Rapportino modificato! Attenzione: sono stati creati nuovi rapportini per ogni fascia oraria aggiunta!",2000,"",function(){$("#modal1").closeModal();populateRapportino(id_utente);})
+	}
+	else
+	{
+		Materialize.toast("Rapportino modificato!",2000,"",function(){$("#modal1").closeModal();populateRapportino(id_utente);})
+	}
+
+ 	
 
  }
+ 
+ function populateListFascieOrarieModifica(inizio,fine){
+	var occupato = false;
+	var start,stop;
+	var tmp_ora,tmp_min,tmp;
+	var toModify = new Array();
+	$("#mod_ora").empty();
+	 $("#mod_ora").append("<option value=-1 disabled>Seleziona gli orari del lavoro fatto</option>");
+	$.ajax({
+	      url: "script_php/getFascieOrarieMoreDays.php", //Relative or absolute path to response.php file
+	      type:"POST",
+	      async:false,
+	      data:{
+		      'dip': id_utente,
+			  'data_dd':$("#mod_giorno_dd").val(),
+			  'data_mm':$("#mod_giorno_mm").val(),
+			  'data_yy':$("#mod_giorno_yy").val(),
+		      'db':getCookie('nomeDB')
+		   },
+		   success: function(data){	
+			   console.log(data);
+			   for(var i=0;i<1440;i+=30){
+				   occupato = false;
+				   tmp_ora = Math.round((i-1)/60).toString();
+				   if(tmp_ora.length == 1)
+				   		tmp_ora = '0'+tmp_ora;
+				   	tmp_min = (i%60).toString();
+				   if(tmp_min.length == 1)
+				   		tmp_min = '0'+tmp_min;
+				   tmp = tmp_ora+":"+tmp_min;
+				   $("#mod_ora").append("<option value="+i+">"+tmp+"</option>");
+				   tmp_ora = Math.round((i+29)/60).toString();
+				   if(tmp_ora.length == 1)
+				   		tmp_ora = '0'+tmp_ora;
+				   	tmp_min = ((i+30)%60).toString();
+				   if(tmp_min.length == 1)
+				   		tmp_min = '0'+tmp_min;
+				   tmp = tmp_ora+":"+tmp_min;
+				   $("#mod_ora option[value="+i+"]").text($("#mod_ora option[value="+i+"]").text()+" -- "+tmp);   				   
+			   }
+			   for(var i=0;data != null && i<data.length;i++)
+			   {	
+				   
+				   tmp = data[i]['inizio'].split(' ')[1];
+				   tmp_ora = tmp.split(':')[0];
+				   tmp_min = tmp.split(':')[1];
+				   tmp = parseInt(tmp_ora)*60+parseInt(tmp_min);
+				   start = tmp;
+				   tmp = data[i]['fine'].split(' ')[1];
+				   tmp_ora = tmp.split(':')[0];
+				   tmp_min = tmp.split(':')[1];
+				   tmp = parseInt(tmp_ora)*60+parseInt(tmp_min);
+				   stop = tmp
+				   for(var j = start ; j <= stop-30 ; j+=30){
+					   if(j < hourTomin(inizio) || j >= hourTomin(fine)){
+						   $("#mod_ora option[value="+j+"]").prop("disabled",true);
+						   $("#mod_ora option[value="+j+"]").text($("#mod_ora option[value="+j+"]").text() +"       " + data[i]['nominativo']);
+					   }
+					   else{
+						  toModify.push((j+60)/30);
+					   }
+				   }
+				}
+			  $('select').material_select();
+			   for(var k = 0;k< toModify.length;k++)
+			   {
+				   $(".mod_ora .dropdown-content li:nth-child("+toModify[k]+") span").click();
+				   
+			   }
+			   
+			   
+			},
+		   error: function (XMLHttpRequest, textStatus, errorThrown){
+			   Materialize.toast('Errore di inserimento', 2000);
+			    return false;
+
+			}
+		});		
+}
+
+function hourTomin(stringa){
+	return parseInt(stringa.split(":")[0])*60 + parseInt(stringa.split(":")[1]);
+}

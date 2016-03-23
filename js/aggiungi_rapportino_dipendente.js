@@ -5,15 +5,31 @@ var json_materiali = new Array();
 var json_mezzi = new Array();
 var materiali_selezionati = new Array();
 var mezzi_selezionati = new Array();
-var clienti_selezionati = new Array();
+var cliente_selezionato =0;
 
 $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
 
-    $("#lista_sel_dip").hide();
-
-
+		var now = new Date();
+		console.log(now);	
+		for(var i=parseInt(now.getYear())+1899;i<parseInt(now.getYear())+1901;i++)
+		{
+			$("#nuovo_giorno_yy").append("<option value="+i+">"+i+"</option>");
+		}
+		
+		$('select').material_select();
+		if(now.getDate().toString().length ==1)
+			$("#nuovo_giorno_dd").val("0"+(now.getDate()+1).toString());
+		else
+			$("#nuovo_giorno_dd").val(now.getDate());
+		if(now.getMonth().toString().length ==1)
+			$("#nuovo_giorno_mm").val("0"+(now.getMonth()+1).toString());
+		else
+			$("#nuovo_giorno_mm").val(now.getMonth()+1);
+		$("#nuovo_giorno_yy").val(now.getFullYear());
+		$('select').material_select("update");
+		
     populateListEmployee("");
     $("#search_dip").on('input',function() {
   		var tmp = $("#search_dip").val();
@@ -31,81 +47,15 @@ $(document).ready(function(){
 		});
 
 		$('#complete').click(function(){
-			if($('#nuovo_ora_inizio').val() != '' && $('#nuovo_ora_fine').val() != '' && $('#nuovo_pausa').val() >= 0 && $('#nuovo_pausa').val() <= 120 && $('#nuovo_giorno').val() != '' && $('#nuovo_giorno').val().length == 10){
-				var spl = $('#nuovo_ora_inizio').val().split(':');
-				if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || isNaN(spl[0]) || isNaN(spl[1]) || spl[0]== '' ||spl[1]== ''|| spl.length!=2)
-				{
-					Materialize.toast("Ora di inizio non valida...utilizza hh:mm!",2000);
-					return false;
-				}
-				spl = $('#nuovo_ora_fine').val().split(':');
-				if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || isNaN(spl[0]) || isNaN(spl[1]) || spl[0]== '' ||spl[1]== ''|| spl.length!=2)
-				{
-					Materialize.toast("Ora di fine non valida...utilizza hh:mm!",2000);
-					return false;
-				}
-
-				spl = $('#mod_giorno').val().split('-');
-				if(parseInt(spl[0]) < 1 || parseInt(spl[0]) > 31 || parseInt(spl[1]) < 1 || parseInt(spl[1]) > 12 || spl.length!=3)
-				{
-						Materialize.toast("Data non valida...utilizza dd-mm-yyyy!",2000);
-						return false;
-				}
-				aggiungiRapportino();
-			}
-			else
-			{
 				if($('#nuovo_pausa').val() >= 0 && $('#nuovo_pausa').val() <= 120)
-					Materialize.toast("Inserisci un'ora di inizio e un'ora di fine valida!",2000);
+					aggiungiRapportino();
 				else
 					Materialize.toast("Inserisci una pausa valida tra 0 e 120 minuti",2000);
-			}
+			
 
 		});
 
-		$('#nuovo_ora_inizio').on('input',function(){
-			if(parseInt($('#nuovo_ora_inizio').val()) > 2  && $('#nuovo_ora_inizio').val().indexOf(':') < 0)
-				$('#nuovo_ora_inizio').val($('#nuovo_ora_inizio').val()+':');
-		});
-		$('#nuovo_ora_fine').on('input',function(){
-			if(parseInt($('#nuovo_ora_fine').val()) > 2  && $('#nuovo_ora_fine').val().indexOf(':') < 0)
-				$('#nuovo_ora_fine').val($('#nuovo_ora_fine').val()+':');
-		});
-		$('#nuovo_ora_inizio').focusout(function(){
-			if($('#nuovo_ora_inizio').val() != ''){
-				var spl = $('#nuovo_ora_inizio').val().split(':');
-				if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || isNaN(spl[0]) || isNaN(spl[1]) || spl[0]== '' ||spl[1]== '' || spl.length!=2)
-				{
-					Materialize.toast("Ora di inizio non valida...utilizza hh:mm!",2000);
-					$('#nuovo_ora_inizio').focus();
-				}
-			}
-
-		});
-		$('#nuovo_giorno').focusout(function(){
-			if($('#nuovo_giorno').val() != ''){
-				var spl = $('#nuovo_giorno').val().split('-');
-				if(parseInt(spl[0]) < 1 || parseInt(spl[0]) > 31 || parseInt(spl[1]) < 1 || parseInt(spl[1]) > 12 || spl.length!=3)
-				{
-					Materialize.toast("Data non valida...utilizza dd-mm-yyyy!",2000);
-					$('#nuovo_giorno').focus();
-				}
-
-			}
-
-		});
-
-		$('#nuovo_ora_fine').focusout(function(){
-			if($('#nuovo_ora_fine').val() != ''){
-				var spl = $('#nuovo_ora_fine').val().split(':');
-				if(parseInt(spl[0]) < 0 || parseInt(spl[0]) > 24 || parseInt(spl[1]) < 0 || parseInt(spl[1]) > 59 || isNaN(spl[0]) || isNaN(spl[1])|| spl[0]== '' ||spl[1]== ''|| spl.length!=2)
-				{
-					Materialize.toast("Ora di fine non valida...utilizza hh:mm!",2000);
-					$('#nuovo_ora_fine').focus();
-				}
-
-			}
-		});
+		
 		$('#nuovo_pausa').focusout(function(){
 			if($('#nuovo_pausa').val() < 0 || $('#nuovo_pausa').val() > 120 || isNaN($('#nuovo_pausa').val())){
 				Materialize.toast("Inserisci una pausa valida tra 0 e 120 minuti",2000);
@@ -113,7 +63,21 @@ $(document).ready(function(){
 			}
 
 		});
-
+		
+		populateListFascieOrarie();
+		
+		
+		$("#nuovo_giorno_dd").on("change",function(){
+			populateListFascieOrarie();
+		});
+		
+		$("#nuovo_giorno_mm").on("change",function(){
+			populateListFascieOrarie();
+		});
+		
+		$("#nuovo_giorno_yy").on("change",function(){
+			populateListFascieOrarie();
+		});
 
 });
 
@@ -140,20 +104,17 @@ function populateListEmployee(filter){
 	    }
 	    id = data[0]['id'];
 		$(".select_employee").click(function(){
-				 index_Di = $(".select_employee").index(this);
-				 id_Di = json_clienti[index_Di]['id'];
-				 var duplicato = -1;
-		        for(var i=0;i<clienti_selezionati.length;i++){
-			        if(clienti_selezionati[i]['id'] == json_clienti[index_Di]['id']){
-			        	duplicato = i;
-			        }
-		        }
-		        if(duplicato < 0){
-		            clienti_selezionati.push({'id':id_Di,'descrizione':json_clienti[index_Di]['nominativo']});
-		        updateListUtilizzi();
+				$("#lista_sel_dip").show();
+				$("#lista_sel_dip").empty();
+				var index_Di = $(".select_employee").index(this);
+				var id_Di = json_clienti[index_Di]['id'];		        
+		        var chip= document.createElement('div');
+				chip.className= "chip";
+				chip.innerHTML=json_clienti[index_Di]['nominativo'];
+		  		$("#lista_sel_dip").append(chip);
+		  		cliente_selezionato = id_Di;
 		        Materialize.toast("Cliente aggiunto!",2000);
 
-		    }
 		});
       },
       error: function(xhr){
@@ -162,7 +123,6 @@ function populateListEmployee(filter){
       }
     });
 
-    //return false;
 
 }
 
@@ -225,17 +185,13 @@ function populateListMaterials(filter){
 function updateListUtilizzi(){
 	$("#elenco_utilizzi_materiali").show();
 	$("#elenco_utilizzi_mezzi").show();
-	$("#lista_sel_dip").show();
 
 	if(materiali_selezionati.length == 0)
 		$("#elenco_utilizzi_materiali").hide();
 	if(mezzi_selezionati.length == 0)
 		$("#elenco_utilizzi_mezzi").hide();
-	if(clienti_selezionati.length == 0)
-		$("#lista_sel_dip").hide();
 	$("#elenco_utilizzi_materiali").empty();
 	$("#elenco_utilizzi_mezzi").empty();
-	$("#lista_sel_dip").empty();
 	var chip = new Array();
 	for(var i=0; i < materiali_selezionati.length ;i++){
 		chip[i] = document.createElement('div');
@@ -251,17 +207,7 @@ function updateListUtilizzi(){
   		$("#elenco_utilizzi_mezzi").append(chip[i]);
 
 	}
-	for(var i=0; i < clienti_selezionati.length ;i++){
-		chip[i] = document.createElement('div');
-		chip[i].className= "chip";
-		chip[i].innerHTML=clienti_selezionati[i]['descrizione']+'<a href="#!" ><i class="remove_dipendente material-icons orange-text">remove_circle</i></a>';
-  		$("#lista_sel_dip").append(chip[i]);
-
-	}
-	$(".remove_dipendente").click(function(){
-		removeDipendente($(".remove_dipendente").index(this));
-		updateListUtilizzi();
-	});
+	
 	$(".remove_materiale").click(function(){
 		removeMateriale($(".remove_materiale").index(this));
 		updateListUtilizzi();
@@ -334,18 +280,44 @@ function populateListMezzi(filter){
  function removeMezzo(i){
  		 mezzi_selezionati.splice(i,1);
  }
-function removeDipendente(i){
- 		 clienti_selezionati.splice(i,1);
- }
 
  function aggiungiRapportino(){
-	 if(clienti_selezionati.length==0){
+	 if(cliente_selezionato==0){
 		Materialize.toast("Nessun cliente aggiunto",2000);
 		return false;
 
 	 }
+	 var ar_ore = new Array();
+	
+	ar_ore = $(".ora .select-dropdown").val().split(' ').join('').split(',').join(' ').split('--').join(' ').split(' ');
+	ar_ore.sort();
+	
+	var inizio = new Array();
+	var fine = new Array();
+	
+	var tmp_last;
+	
+	inizio.push(ar_ore[0]);
+	fine.push(ar_ore[1]);
+	tmp_last = ar_ore[0];
+	if(ar_ore.length > 2){
+		for(var i =2;i<ar_ore.length;i+=2)
+		{
+			if((parseInt(tmp_last.split(':')[0])*60)+parseInt(tmp_last.split(':')[1])+30 != (parseInt(ar_ore[i].split(':')[0])*60)+parseInt(ar_ore[i].split(':')[1])){
+				inizio.push(ar_ore[i]);
+				fine.push(ar_ore[i+1]);
+				tmp_last = ar_ore[i];
+			}
+			else{
+				fine.pop();
+				fine.push(ar_ore[i+1]);
+				tmp_last = ar_ore[i];
+			}
+		}
+	}
+
 	 var result = true;
-	for(var i=0;i<clienti_selezionati.length;i++){
+	for(var i=0;i<inizio.length;i++){
 		if(i==0)
 		{
 			$.ajax({
@@ -353,12 +325,12 @@ function removeDipendente(i){
 		       url: "script_php/postRapportinoCliente.php", //Relative or absolute path to response.php file
 		       async:false,
 		       data:{
-			    'data': $('#nuovo_giorno').val(),
-		 	  	'ora_inizio': $('#nuovo_ora_inizio').val(),
-		 	  	'ora_fine': $('#nuovo_ora_fine').val(),
+			    'data': $("#nuovo_giorno_dd").val()+"-"+$("#nuovo_giorno_mm").val()+"-"+$("#nuovo_giorno_yy").val(),
+		 	  	'ora_inizio': inizio[i],
+		 	  	'ora_fine': fine[i],
 		 	  	'pausa': $('#nuovo_pausa').val(),
 		 	  	'note':$('#nuovo_descrizione').val(),
-		 	  	'cliente':clienti_selezionati[i]['id'],
+		 	  	'cliente':cliente_selezionato,
 		 	  	'dipendente':id_utente,
 		 	  	'db':getCookie('nomeDB'),
 		 	  	'materiali':materiali_selezionati,
@@ -378,12 +350,12 @@ function removeDipendente(i){
 		       url: "script_php/postRapportinoCliente.php", //Relative or absolute path to response.php file
 		       async:false,
 		       data:{
-			    'data': $('#nuovo_giorno').val(),
-		 	  	'ora_inizio': $('#nuovo_ora_inizio').val(),
-		 	  	'ora_fine': $('#nuovo_ora_fine').val(),
-		 	  	'pausa': $('#nuovo_pausa').val(),
+			    'data': $("#nuovo_giorno_dd").val()+"/"+$("#nuovo_giorno_mm").val()+"/"+$("#nuovo_giorno_yy").val(),
+		 	  	'ora_inizio': inizio[i],
+		 	  	'ora_fine': fine[i],
+		 	  	'pausa': 0,
 		 	  	'note':$('#nuovo_descrizione').val(),
-		 	  	'cliente':clienti_selezionati[i]['id'],
+		 	  	'cliente':cliente_selezionato,
 		 	  	'dipendente':id_utente,
 		 	  	'db':getCookie('nomeDB'),
 		 	  	'materiali':null,
@@ -406,3 +378,71 @@ function removeDipendente(i){
 	}
 
  }
+ 
+ function populateListFascieOrarie(){
+	var occupato = false;
+	var start,stop;
+	var tmp_ora,tmp_min,tmp;
+	$("#nuovo_ora").empty();
+	 $("#nuovo_ora").append("<option value=-1 disabled>Seleziona gli orari del lavoro fatto</option>");
+	$.ajax({
+	      url: "script_php/getFascieOrarieMoreDays.php", //Relative or absolute path to response.php file
+	      type:"POST",
+	      async:false,
+	      data:{
+		      'dip': id_utente,
+			  'data_dd':$("#nuovo_giorno_dd").val(),
+			  'data_mm':$("#nuovo_giorno_mm").val(),
+			  'data_yy':$("#nuovo_giorno_yy").val(),
+		      'db':getCookie('nomeDB')
+		   },
+		   success: function(data){	
+			   console.log(data);
+			   for(var i=0;i<1440;i+=30){
+				   occupato = false;
+				   tmp_ora = Math.round((i-1)/60).toString();
+				   if(tmp_ora.length == 1)
+				   		tmp_ora = '0'+tmp_ora;
+				   	tmp_min = (i%60).toString();
+				   if(tmp_min.length == 1)
+				   		tmp_min = '0'+tmp_min;
+				   tmp = tmp_ora+":"+tmp_min;
+				   $("#nuovo_ora").append("<option value="+i+">"+tmp+"</option>");
+				   tmp_ora = Math.round((i+29)/60).toString();
+				   if(tmp_ora.length == 1)
+				   		tmp_ora = '0'+tmp_ora;
+				   	tmp_min = ((i+30)%60).toString();
+				   if(tmp_min.length == 1)
+				   		tmp_min = '0'+tmp_min;
+				   tmp = tmp_ora+":"+tmp_min;
+				   $("#nuovo_ora option[value="+i+"]").text($("#nuovo_ora option[value="+i+"]").text()+" -- "+tmp);   				   
+			   }
+			   for(var i=0;data != null && i<data.length;i++)
+			   {	
+				   
+				   tmp = data[i]['inizio'].split(' ')[1];
+				   tmp_ora = tmp.split(':')[0];
+				   tmp_min = tmp.split(':')[1];
+				   tmp = parseInt(tmp_ora)*60+parseInt(tmp_min);
+				   start = tmp;
+				   tmp = data[i]['fine'].split(' ')[1];
+				   tmp_ora = tmp.split(':')[0];
+				   tmp_min = tmp.split(':')[1];
+				   tmp = parseInt(tmp_ora)*60+parseInt(tmp_min);
+				   stop = tmp
+				   for(var j = start ; j <= stop-30 ; j+=30){
+					   $("#nuovo_ora option[value="+j+"]").prop("disabled",true);
+					   $("#nuovo_ora option[value="+j+"]").text($("#nuovo_ora option[value="+j+"]").text() +"       " + data[i]['nominativo']);
+				   }
+				}
+			   $('select').material_select("update");
+
+			},
+		   error: function (XMLHttpRequest, textStatus, errorThrown){
+			   Materialize.toast('Errore di inserimento', 2000);
+			    return false;
+
+			}
+		});		
+}
+

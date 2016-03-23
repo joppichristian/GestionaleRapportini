@@ -20,7 +20,7 @@ $(document).ready(function(){
     $("#new_insert_item").hide();
     $("#elementi_materiali").hide();
 		$("#elementi_mezzi").hide();
-	id_utente = getUrlVars()["id"];
+	id_utente = getUrlVars()["id"].replace(/[^\d\.]/g, "");
 	var nome_utente = getUrlVars()["nome"];
 		//$("#nome_cliente").text(""+nome_utente);
 	var primoG = getFirstData();
