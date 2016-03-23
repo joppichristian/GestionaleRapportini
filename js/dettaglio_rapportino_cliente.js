@@ -21,19 +21,40 @@ $(document).ready(function(){
     $("#new_insert_item").hide();
     $("#elementi_materiali").hide();
 		$("#elementi_mezzi").hide();
-	id_utente = getUrlVars()["id"];
+	id_utente = getUrlVars()["id"].replace(/[^\d\.]/g, "");
 	var nome_utente = getUrlVars()["nome"];
 		//$("#nome_cliente").text(""+nome_utente);
 	var primoG = getFirstData();
 	var ultimoG = getCurrentData();
-	$("#data_fine").val(ultimoG);
-	$("#data_inizio").val(primoG);
+	var now = new Date();	
+	for(var i=2015;i<parseInt(now.getFullYear())+5;i++)
+	{
+		$("#filter_start_giorno_yy").append("<option value="+i+">"+i+"</option>");
+		$("#filter_stop_giorno_yy").append("<option value="+i+">"+i+"</option>");
+	}
+
+	
+	$("#filter_start_giorno_dd").val(primoG.split('-')[0]);
+	$("#filter_start_giorno_mm").val(primoG.split('-')[1]);
+	$("#filter_start_giorno_yy").val(primoG.split('-')[2]);
+
+	$("#filter_stop_giorno_dd").val(ultimoG.split('-')[0]);
+	$("#filter_stop_giorno_mm").val(ultimoG.split('-')[1]);
+	$("#filter_stop_giorno_yy").val(ultimoG.split('-')[2]);
+	$('select').material_select();
 	populateRapportino(id_utente);
 		//filtro data parametri default
 
 		$("#reset_filtro").on("click",function(){
-			$("#data_inizio").val(primoG);
-			$("#data_fine").val(ultimoG);
+			$("#filter_start_giorno_dd").val(primoG.split('-')[0]);
+			$("#filter_start_giorno_mm").val(primoG.split('-')[1]);
+			$("#filter_start_giorno_yy").val(primoG.split('-')[2]);
+		
+			$("#filter_stop_giorno_dd").val(ultimoG.split('-')[0]);
+			$("#filter_stop_giorno_mm").val(ultimoG.split('-')[1]);
+			$("#filter_stop_giorno_yy").val(ultimoG.split('-')[2]);
+			$('select').material_select();
+
 			lista_id_rap = new Array();
 			settaOra(0);
 			populateRapportino(id_utente);
@@ -522,9 +543,9 @@ function GetNumberDay(inizio, fine){
 
 function returnRangeDate(d1){
 
-	var inizio = $("#data_inizio").val();
+	var inizio = $("#filter_start_giorno_dd").val()+"-"+$("#filter_start_giorno_mm").val()+"-"+$("#filter_start_giorno_yy").val();
 	var dataInizio = inizio.split('-');
-	var fine  = $("#data_fine").val();
+	var fine  = $("#filter_stop_giorno_dd").val()+"-"+$("#filter_stop_giorno_mm").val()+"-"+$("#filter_stop_giorno_yy").val();	
 	var dataFine = fine.split('-');
 
 	var giorno="";

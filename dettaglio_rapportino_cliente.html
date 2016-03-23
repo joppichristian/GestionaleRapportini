@@ -54,26 +54,156 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
        <div class="col s12 m12">
          <div class="card">
            <div class="card-content" style="height:30%;">
-             <div class="input-field col s12 m6 l6">
-                   <i class="material-icons prefix orange-text">access_time</i>
-                   <input id="data_inizio" type="text" name="ora_inizio" class="validate" value="1-01-2016">
-                   <label class="orange-text" for="ora_inizio">Data Inizio</label>
-             </div>
+              <div class="col s12 m6 l6">
+							<div class="input-field col s1 m1 l1">
+								<i class="material-icons prefix orange-text">event</i>
+					        </div>
+	
+					        
+							<div class="input-field col s3 m3 l3">
+							    <select id="filter_start_giorno_dd" name="filter_start_giorno_dd">
+							      <option value="01" class="blue-text">01</option>
+							      <option value="02" class="blue-text">02</option>
+							      <option value="03" class="blue-text">03</option>
+							      <option value="04" class="blue-text">04</option>
+							      <option value="05" class="blue-text">05</option>
+							      <option value="06" class="blue-text">06</option>
+							      <option value="07" class="blue-text">07</option>
+							      <option value="08" class="blue-text">08</option>
+							      <option value="09" class="blue-text">09</option>
+							      <option value="10" class="blue-text">10</option>
+							      <option value="11" class="blue-text">11</option>
+							      <option value="12" class="blue-text">12</option>
+							      <option value="13" class="blue-text">13</option>
+							      <option value="14" class="blue-text">14</option>
+							      <option value="15" class="blue-text">15</option>
+							      <option value="16" class="blue-text">16</option>
+							      <option value="17" class="blue-text">17</option>
+							      <option value="18" class="blue-text">18</option>
+							      <option value="19" class="blue-text">19</option>
+							      <option value="20" class="blue-text">20</option>
+							      <option value="21" class="blue-text">21</option>
+							      <option value="22" class="blue-text">22</option>
+							      <option value="23" class="blue-text">23</option>
+							      <option value="24" class="blue-text">24</option>	
+							      <option value="25" class="blue-text">25</option>
+							      <option value="26" class="blue-text">26</option>
+							      <option value="27" class="blue-text">27</option>
+							      <option value="28" class="blue-text">28</option>
+							      <option value="29" class="blue-text">29</option>
+							      <option value="30" class="blue-text">30</option>
+							      <option value="31" class="blue-text">31</option>				      
+							    </select>
+							    <label>Inizio</label>
+							 </div>
+							 <div class="input-field col s1 m1 l1">
+								<label>/</label>
+					        </div>
+							<div class="input-field col s3 m3 l3">
+							    <select id="filter_start_giorno_mm" name="filter_start_giorno_mm">
+							      <option value="01" class="blue-text">01</option>
+							      <option value="02" class="blue-text">02</option>
+							      <option value="03" class="blue-text">03</option>
+							      <option value="04" class="blue-text">04</option>
+							      <option value="05" class="blue-text">05</option>
+							      <option value="06" class="blue-text">06</option>
+							      <option value="07" class="blue-text">07</option>
+							      <option value="08" class="blue-text">08</option>
+							      <option value="09" class="blue-text">09</option>
+							      <option value="10" class="blue-text">10</option>
+							      <option value="11" class="blue-text">11</option>
+							      <option value="12" class="blue-text">12</option>						      
+							    </select>
+							 </div>
+							 <div class="input-field col s1 m1 l1">
+								<label>/</label>
+					        </div>
+							<div class="input-field col s3 m3 l3">
+							    <select id="filter_start_giorno_yy" name="filter_start_giorno_yy">					      
+							    </select>
+							 </div>
+              </div>
 
-             <div class="input-field col s12 m6 l6">
-                   <i class="material-icons prefix orange-text">access_time</i>
-                   <input id="data_fine" type="text" name="ora_fine" class="validate" value="8-01-2016">
-                   <label class="orange-text" for="ora_fine">Data Fine</label>
-             </div>
+             <div class="col s12 m6 l6">
+							<div class="input-field col s1 m1 l1">
+								<i class="material-icons prefix orange-text">event</i>
+					        </div>
+	
+					        
+							<div class="input-field col s3 m3 l3">
+							    <select id="filter_stop_giorno_dd" name="filter_stop_giorno_dd">
+							      <option value="01" class="blue-text">01</option>
+							      <option value="02" class="blue-text">02</option>
+							      <option value="03" class="blue-text">03</option>
+							      <option value="04" class="blue-text">04</option>
+							      <option value="05" class="blue-text">05</option>
+							      <option value="06" class="blue-text">06</option>
+							      <option value="07" class="blue-text">07</option>
+							      <option value="08" class="blue-text">08</option>
+							      <option value="09" class="blue-text">09</option>
+							      <option value="10" class="blue-text">10</option>
+							      <option value="11" class="blue-text">11</option>
+							      <option value="12" class="blue-text">12</option>
+							      <option value="13" class="blue-text">13</option>
+							      <option value="14" class="blue-text">14</option>
+							      <option value="15" class="blue-text">15</option>
+							      <option value="16" class="blue-text">16</option>
+							      <option value="17" class="blue-text">17</option>
+							      <option value="18" class="blue-text">18</option>
+							      <option value="19" class="blue-text">19</option>
+							      <option value="20" class="blue-text">20</option>
+							      <option value="21" class="blue-text">21</option>
+							      <option value="22" class="blue-text">22</option>
+							      <option value="23" class="blue-text">23</option>
+							      <option value="24" class="blue-text">24</option>	
+							      <option value="25" class="blue-text">25</option>
+							      <option value="26" class="blue-text">26</option>
+							      <option value="27" class="blue-text">27</option>
+							      <option value="28" class="blue-text">28</option>
+							      <option value="29" class="blue-text">29</option>
+							      <option value="30" class="blue-text">30</option>
+							      <option value="31" class="blue-text">31</option>				      
+							    </select>
+							    <label>Fine</label>
+							 </div>
+							 <div class="input-field col s1 m1 l1">
+								<label>/</label>
+					        </div>
+							<div class="input-field col s3 m3 l3">
+							    <select id="filter_stop_giorno_mm" name="filter_stop_giorno_mm">
+							      <option value="01" class="blue-text">01</option>
+							      <option value="02" class="blue-text">02</option>
+							      <option value="03" class="blue-text">03</option>
+							      <option value="04" class="blue-text">04</option>
+							      <option value="05" class="blue-text">05</option>
+							      <option value="06" class="blue-text">06</option>
+							      <option value="07" class="blue-text">07</option>
+							      <option value="08" class="blue-text">08</option>
+							      <option value="09" class="blue-text">09</option>
+							      <option value="10" class="blue-text">10</option>
+							      <option value="11" class="blue-text">11</option>
+							      <option value="12" class="blue-text">12</option>						      
+							    </select>
+							 </div>
+							 <div class="input-field col s1 m1 l1">
+								<label>/</label>
+					        </div>
+							<div class="input-field col s3 m3 l3">
+							    <select id="filter_stop_giorno_yy" name="filter_stop_giorno_yy">					      
+							    </select>
+							 </div>
+              </div>
+
 
              <div style="margin-top: 5%;" class="col s12 m12 l12">
                <div class="col s6 m6 l6">
                    <a id="cerca_filtro"class="waves-effect waves-light orange btn"><i class="material-icons">search</i>  CERCA</a>
                </div>
                <div class="col s6 m6 l6">
-                   <a id="reset_filtro" class="waves-effect waves-light orange btn">RESET</a>
+                   <a id="reset_filtro" class="waves-effect waves-light orange btn"><i class="material-icons">reply</i>RESET</a>
                </div>
             </div>
+
             </div>
          </div>
       </div>
@@ -96,31 +226,96 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 
 
                  <li id="new_insert_item" class="grey lighten-3 collection-item avatar">
-				 	 <div class="input-field">
-				        <i class="material-icons prefix orange-text">event</i>
-                       <label class="orange-text" for="nuovo_giorno">Giorno (gg-mm-aaaa)</label>
-                       <input id="nuovo_giorno" type="text" name="nuovo_giorno" class="validate">
-				 	 </div>
-					<div class="input-field">
+	                 <div class="col s12 m12 l12">
+							<div class="input-field col s1 m1 l1">
+								<i class="material-icons prefix left orange-text">event</i>
+					        </div>
+	
+					        
+							<div class="input-field col s3 m3 l3">
+							    <select id="nuovo_giorno_dd" name="nuovo_giorno_dd">
+							      <option value="1" class="blue-text">01</option>
+							      <option value="2" class="blue-text">02</option>
+							      <option value="3" class="blue-text">03</option>
+							      <option value="4" class="blue-text">04</option>
+							      <option value="5" class="blue-text">05</option>
+							      <option value="6" class="blue-text">06</option>
+							      <option value="7" class="blue-text">07</option>
+							      <option value="8" class="blue-text">08</option>
+							      <option value="9" class="blue-text">09</option>
+							      <option value="10" class="blue-text">10</option>
+							      <option value="11" class="blue-text">11</option>
+							      <option value="12" class="blue-text">12</option>
+							      <option value="13" class="blue-text">13</option>
+							      <option value="14" class="blue-text">14</option>
+							      <option value="15" class="blue-text">15</option>
+							      <option value="16" class="blue-text">16</option>
+							      <option value="17" class="blue-text">17</option>
+							      <option value="18" class="blue-text">18</option>
+							      <option value="19" class="blue-text">19</option>
+							      <option value="20" class="blue-text">20</option>
+							      <option value="21" class="blue-text">21</option>
+							      <option value="22" class="blue-text">22</option>
+							      <option value="23" class="blue-text">23</option>
+							      <option value="24" class="blue-text">24</option>	
+							      <option value="25" class="blue-text">25</option>
+							      <option value="26" class="blue-text">26</option>
+							      <option value="27" class="blue-text">27</option>
+							      <option value="28" class="blue-text">28</option>
+							      <option value="29" class="blue-text">29</option>
+							      <option value="30" class="blue-text">30</option>
+							      <option value="31" class="blue-text">31</option>				      
+							    </select>
+							    <label>Giorno (gg-mm-aaaa)</label>
+							 </div>
+							 <div class="input-field col s1 m1 l1">
+								<label>/</label>
+					        </div>
+							<div class="input-field col s3 m3 l3">
+							    <select id="nuovo_giorno_mm" name="nuovo_giorno_mm">
+							      <option value="1" class="blue-text">01</option>
+							      <option value="2" class="blue-text">02</option>
+							      <option value="3" class="blue-text">03</option>
+							      <option value="4" class="blue-text">04</option>
+							      <option value="5" class="blue-text">05</option>
+							      <option value="6" class="blue-text">06</option>
+							      <option value="7" class="blue-text">07</option>
+							      <option value="8" class="blue-text">08</option>
+							      <option value="9" class="blue-text">09</option>
+							      <option value="10" class="blue-text">10</option>
+							      <option value="11" class="blue-text">11</option>
+							      <option value="12" class="blue-text">12</option>						      
+							    </select>
+							 </div>
+							 <div class="input-field col s1 m1 l1">
+								<label>/</label>
+					        </div>
+							<div class="input-field col s3 m3 l3">
+							    <select id="nuovo_giorno_yy" name="nuovo_giorno_yy">					      
+							    </select>
+							 </div>
+	                 </div>
+				 	 
+					<div class="input-field col s12">
 				        <i class="material-icons prefix orange-text">access_time</i>
                        <label class="orange-text" for="ora_inizio">Ora Inizio (hh:mm)</label>
                        <input id="nuovo_ora_inizio" type="text" name="nuovo_ora_inizio" class="validate">
 					</div>
-					<div class="input-field">
+					<div class="input-field col s12">
 				        <i class="material-icons prefix orange-text">access_time</i>
                        <label class="orange-text" for="ora_inizio">Ora Fine (hh:mm)</label>
                        <input id="nuovo_ora_fine" type="text" name="nuovo_ora_fine" class="validate">
 					</div>
-					<div class="input-field">
+					<div class="input-field col s12">
 				        <i class="material-icons prefix orange-text">local_cafe</i>
                        <label class="orange-text" for="ora_inizio">Pausa (in minuti)</label>
                        <input id="nuovo_pausa" type="text" name="nuovo_pausa" value="0" class="validate">
 					</div>
-					<div class="input-field">
+					<div class="input-field col s12">
 				        <i class="material-icons prefix orange-text">chat_bubble</i>
                        <label class="orange-text" for="ora_inizio">Descrizione</label>
                        <input id="nuovo_descrizione" type="text" name="nuovo_descrizione" class="validate">
-					</div>
+					</div class="col s12">
                        <label class="orange-text" for="data">Dipendente</label><br><br>
                        <!--<a id="aggiungi_dip" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
                        <label class="grey-text" for="data">Aggiungi dipendente  </label>
@@ -331,7 +526,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
       </div>
 
 
-        <div class="col s12 m6 l8">
+        <div class="section list col s12 m6 l8" style="max-height: 100%;">
 
             <div class="card">
               <div class="card-content" >
