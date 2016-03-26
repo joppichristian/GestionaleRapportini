@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET")
       $password = hash('sha512', $password.$salt);
 			//echo "username='".$username."' AND password='".$db_password."';";
       if($stmt->num_rows == 1) {
-				if(!possibile_attacco($user_id, $mysqli_generale)){
+				//if(!possibile_attacco($user_id, $mysqli_generale)){
 					if($db_password == $password){
 						$qry = "SELECT * FROM Azienda_utente AU JOIN Azienda_cliente AC ON AU.ID_azienda = AC.ID_azienda WHERE username='".$username."' AND password='".$db_password."';";
 						$mysqli_generale->query('SET CHARACTER SET utf8');
@@ -35,10 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET")
 						}
 					}else	{
 						//[LOG] Salvo il tenativo errato di login
-						$timeNow = time();
-						$mysqli_generale->query("INSERT INTO Tentativi_login (User_id, Time) VALUES ('$user_id', '$timeNow')");
+					//	$timeNow = time();
+					//	$mysqli_generale->query("INSERT INTO Tentativi_login (User_id, Time) VALUES ('$user_id', '$timeNow')");
 					}
-				}
+				//}
 			}
 	}
 /*
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET")
 		$result1->close();
 	}*/
 }
-
+/*
 function possibile_attacco($user_id, $mysqli) {
    $time_now = time();
    // dammi il time di 3 ore fa
@@ -64,6 +64,6 @@ function possibile_attacco($user_id, $mysqli) {
          return false;
       }
    }
-}
+}*/
 
 ?>
