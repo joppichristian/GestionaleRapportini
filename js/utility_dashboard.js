@@ -4,6 +4,11 @@ $(document).ready(function(){
 		$("#username").val(getCookie("username"));
 		$("#username").focus();
 	});
+	$("#edit_profile2").click(function(){
+		$("#modal_modifica").openModal();
+		$("#username").val(getCookie("username"));
+		$("#username").focus();
+	});
 	$("#yes_mod").click(function(){
 		updateProfile();
 	});
