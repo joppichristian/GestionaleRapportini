@@ -47,7 +47,7 @@ $(document).ready(function(){
 		});
 
 		$('#complete').click(function(){
-				if($('#nuovo_pausa').val() >= 0 && $('#nuovo_pausa').val() <= 120)
+				if($('#nuovo_pausa').val() >= 0 && $('#nuovo_pausa').val() <= 120 && !isNaN($('#nuovo_pausa').val()) && $('#nuovo_pausa').val() != "")
 					aggiungiRapportino();
 				else
 					Materialize.toast("Inserisci una pausa valida tra 0 e 120 minuti",2000);

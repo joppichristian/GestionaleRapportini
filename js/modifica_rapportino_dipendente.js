@@ -32,7 +32,7 @@ $(document).ready(function(){
 
 	$('#yes_modifica').click(function(){
 
-			if($('#mod_pausa').val() >= 0 && $('#mod_pausa').val() <= 120)
+			if($('#mod_pausa').val() >= 0 && $('#mod_pausa').val() <= 120 && !isNaN($('#mod_pausa').val()) && $('#mod_pausa').val() != "")
 				modificaRapportino();
 			else
 				Materialize.toast("Inserisci una pausa valida tra 0 e 120 minuti",2000);
