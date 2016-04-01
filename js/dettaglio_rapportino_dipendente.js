@@ -25,16 +25,16 @@ $(document).ready(function(){
 		//$("#nome_cliente").text(""+nome_utente);
 	var primoG = getFirstData();
 	var ultimoG = getCurrentData();
-	
-	
-	var now = new Date();	
+
+
+	var now = new Date();
 	for(var i=2015;i<parseInt(now.getFullYear())+5;i++)
 	{
 		$("#filter_start_giorno_yy").append("<option value="+i+">"+i+"</option>");
 		$("#filter_stop_giorno_yy").append("<option value="+i+">"+i+"</option>");
 	}
 
-	
+
 	$("#filter_start_giorno_dd").val(primoG.split('-')[0]);
 	$("#filter_start_giorno_mm").val(primoG.split('-')[1]);
 	$("#filter_start_giorno_yy").val(primoG.split('-')[2]);
@@ -51,7 +51,7 @@ $(document).ready(function(){
 		$("#filter_start_giorno_dd").val(primoG.split('-')[0]);
 		$("#filter_start_giorno_mm").val(primoG.split('-')[1]);
 		$("#filter_start_giorno_yy").val(primoG.split('-')[2]);
-	
+
 		$("#filter_stop_giorno_dd").val(ultimoG.split('-')[0]);
 		$("#filter_stop_giorno_mm").val(ultimoG.split('-')[1]);
 		$("#filter_stop_giorno_yy").val(ultimoG.split('-')[2]);
@@ -166,16 +166,16 @@ function populateRapportino(filter){
 					 var myDate="";
 					 var elem_data = new Array();
 					 for(var i = 0;i < data.length; i++) {
-	
+
 							conteggio = conteggio +1;
 							$("#nome_cliente").text(""+data[i]['nome']+" "+data[i]['cognome']);
-	
+
 							var dataTot= data[i]['inizio'];
 							var dataS = dataTot.split(' ');
 							var dataD =dataS[0];
 							var data_i = dataD.split('-');
 							myDate = ""+data_i[2]+"-"+data_i[1]+"-"+data_i[0];
-	
+
 							var dataDb = returnRangeDate(dataD);
 							if(dataDb == true){
 								elem_data.push(data[i]);
@@ -189,19 +189,19 @@ function populateRapportino(filter){
 								var p_min =elem_data[i]['pausa'];
 								var p = pausaCent(p_min);
 								var diff_lavoro = o-p;
-	
+
 								ore_totali_range = ore_totali_range + diff_lavoro;
 								settaOra(ore_totali_range);
-	
-	
+
+
 								var dataTot= elem_data[i]['inizio'];
 								var dataS = dataTot.split(' ');
 								var dataD =dataS[0];
 								var data_i = dataD.split('-');
 								myDate = ""+data_i[2]+"-"+data_i[1]+"-"+data_i[0];
-	
+
 								var ore_singolo_gg=0;
-	
+
 								if(i==0){
 									cont_ore= cont_ore+diff_lavoro;
 								}else{
@@ -213,7 +213,7 @@ function populateRapportino(filter){
 										cont_ore= cont_ore+diff_lavoro;
 										$("#lista_rap").append(ele_rap);
 										//$("#lista_rap").append(elementi[i]);
-	
+
 									}else{
 											elementi[i] = document.createElement('li');
 					        		elementi[i].className ="collection-item avatar";
@@ -223,7 +223,7 @@ function populateRapportino(filter){
 											$("#lista_rap").append(ele_rap);
 									}
 								}
-	
+
 								if(i == (elem_data.length)-1){
 									elementi[i] = document.createElement('li');
 									elementi[i].className ="collection-item avatar";
@@ -231,14 +231,14 @@ function populateRapportino(filter){
 									ele_rap = elementi[i];
 								}
 								$("#lista_rap").append(ele_rap);
-	
+
 								cont_index = cont_index+1;
 								oldDate=myDate;
-	
-	
-	
+
+
+
 						}
-	
+
 					//$("#ore_tot").innerHTML = "RIEPILOGO ORE: "+ore_totali_range;
 					if(elem_data.length != 0){
 						det_id = elem_data[0]['id'];
@@ -450,7 +450,7 @@ function differenzaOre(inizio, fine){
 	var secDiff = hourDiff / 1000; //in s
 	var minDiff = hourDiff / 60 / 1000; //in minutes
 	var hDiff = hourDiff / 3600 / 1000; //in hours
-	var numOre = Math.round(hDiff);
+	var numOre = hDiff.toFixed(2);//Math.round10(hDiff, -2);//Math.round(hDiff);
 	//alert("inizio "+inizio+"  fine "+fine+"   numero ore "+numOre );
 
 	return numOre;

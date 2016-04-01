@@ -148,7 +148,7 @@
     $cont_materiali=$inizio+1;
 
     //AGGIUNTA MATERIALI TABELLA
-    $qry = "SELECT r.id as id, r.inizio as inizio, m.codice as codice, m.descrizione as descrizione, m.prezzo as prezzo, m.note as note, u.quantita as quantita FROM rapportini AS r, utilizzo_risorse AS u, materiali AS m WHERE u.tipologia='ma' AND r.id=u.id_rapportino AND m.id=u.id_materiale_mezzo ORDER BY r.inizio ASC;";
+    $qry = "SELECT r.id as id, r.inizio as inizio, m.codice as codice, m.descrizione as descrizione, m.prezzo as prezzo, m.note as note, u.quantita as quantita FROM rapportini AS r, utilizzo_risorse AS u, materiali AS m WHERE r.id_dipendente='".$id_utente."' AND u.tipologia='ma' AND r.id=u.id_rapportino AND m.id=u.id_materiale_mezzo ORDER BY r.inizio ASC;";
     //$mysqli->query('SET CHARACTER SET utf8');
     $result = $mysqli->query($qry);
     $lista_mat="";
@@ -180,7 +180,7 @@
     $cont_mezzi=$cont_materiali+1;
 
     //AGGIUNTA MEZZI TABELLA
-    $qry = "SELECT r.id as id, r.inizio as inizio, m.descrizione as descrizione, u.quantita as quantita FROM rapportini AS r, utilizzo_risorse AS u, mezzi AS m WHERE u.tipologia='me' AND r.id=u.id_rapportino AND m.id=u.id_materiale_mezzo ORDER BY r.inizio ASC;";
+    $qry = "SELECT r.id as id, r.inizio as inizio, m.descrizione as descrizione, u.quantita as quantita FROM rapportini AS r, utilizzo_risorse AS u, mezzi AS m WHERE r.id_dipendente='".$id_utente."' AND u.tipologia='me' AND r.id=u.id_rapportino AND m.id=u.id_materiale_mezzo ORDER BY r.inizio ASC;";
     $result = $mysqli->query($qry);
     $lista_mez="";
     while($row = $result->fetch_array()) {

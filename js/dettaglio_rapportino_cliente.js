@@ -26,14 +26,14 @@ $(document).ready(function(){
 		//$("#nome_cliente").text(""+nome_utente);
 	var primoG = getFirstData();
 	var ultimoG = getCurrentData();
-	var now = new Date();	
+	var now = new Date();
 	for(var i=2015;i<parseInt(now.getFullYear())+5;i++)
 	{
 		$("#filter_start_giorno_yy").append("<option value="+i+">"+i+"</option>");
 		$("#filter_stop_giorno_yy").append("<option value="+i+">"+i+"</option>");
 	}
 
-	
+
 	$("#filter_start_giorno_dd").val(primoG.split('-')[0]);
 	$("#filter_start_giorno_mm").val(primoG.split('-')[1]);
 	$("#filter_start_giorno_yy").val(primoG.split('-')[2]);
@@ -49,7 +49,7 @@ $(document).ready(function(){
 			$("#filter_start_giorno_dd").val(primoG.split('-')[0]);
 			$("#filter_start_giorno_mm").val(primoG.split('-')[1]);
 			$("#filter_start_giorno_yy").val(primoG.split('-')[2]);
-		
+
 			$("#filter_stop_giorno_dd").val(ultimoG.split('-')[0]);
 			$("#filter_stop_giorno_mm").val(ultimoG.split('-')[1]);
 			$("#filter_stop_giorno_yy").val(ultimoG.split('-')[2]);
@@ -447,7 +447,7 @@ function differenzaOre(inizio, fine){
 	var secDiff = hourDiff / 1000; //in s
 	var minDiff = hourDiff / 60 / 1000; //in minutes
 	var hDiff = hourDiff / 3600 / 1000; //in hours
-	var numOre = Math.round(hDiff);
+	var numOre = hDiff.toFixed(2);//Math.round(hDiff);
 	//alert("inizio "+inizio+"  fine "+fine+"   numero ore "+numOre );
 
 	return numOre;
@@ -545,7 +545,7 @@ function returnRangeDate(d1){
 
 	var inizio = $("#filter_start_giorno_dd").val()+"-"+$("#filter_start_giorno_mm").val()+"-"+$("#filter_start_giorno_yy").val();
 	var dataInizio = inizio.split('-');
-	var fine  = $("#filter_stop_giorno_dd").val()+"-"+$("#filter_stop_giorno_mm").val()+"-"+$("#filter_stop_giorno_yy").val();	
+	var fine  = $("#filter_stop_giorno_dd").val()+"-"+$("#filter_stop_giorno_mm").val()+"-"+$("#filter_stop_giorno_yy").val();
 	var dataFine = fine.split('-');
 
 	var giorno="";
