@@ -399,9 +399,10 @@ function creazioneListaRapportino(dipendente, cliente, giorno){
 								load_SingleMezzi(data[i]['id']);
 								var arrayMe = mod_updateListUtilizziMeSingle();
 								var me=  '<div class="col s12" style="padding:2%;"><font color="orange">Mezzi:  </font>'+arrayMe+'</div>';
-
-								var ele = '</div><a class="btn-floating orange"><i id="'+i+'" class="edit_rap large material-icons">mode_edit</i></a><a style="margin-left:2%;" class="btn-floating orange"><i id="'+i+'" class="delete_rap large material-icons">delete</i></a>';
-
+								if(data[i]['bloccato']==0)
+									var ele = '</div><a class="btn-floating orange"><i id="'+i+'" class="edit_rap large material-icons">mode_edit</i></a><a style="margin-left:2%;" class="btn-floating orange"><i id="'+i+'" class="delete_rap large material-icons">delete</i></a><a style="margin-left:2%;" class="btn-floating orange"><i id="'+i+'" class="lock_rapp large material-icons">lock_open</i></a>';
+								else
+									var ele = '</div><a style="margin-left:2%;" class="btn-floating orange"><i id="'+i+'" class="unlock_rapp large material-icons">lock_outline</i></a>';
 								var tot_ele = inizio_ore+ele_dip+ele_ini+ele_fine+ele_pausa+ele_ore+ele_desc+ma+me+ele;
 								elementi[i].innerHTML = tot_ele;
 								$("#lista_singolo_rap").append(elementi[i]);
@@ -421,6 +422,19 @@ function creazioneListaRapportino(dipendente, cliente, giorno){
 						det_index = $(this).attr('id');
 						id_rap= data[det_index]['id'];
 						$('#modal2').openModal();
+					});
+					
+					$(".lock_rapp").click(function(){
+						det_index = $(this).attr('id');
+						id_rap= data[det_index]['id'];
+						lock_rapportino(id_rapp);
+					});
+					
+					
+					$(".unlock_rapp").click(function(){
+						det_index = $(this).attr('id');
+						id_rap= data[det_index]['id'];
+						unlock_rapportino(id_rapp);
 					});
 
 			},
@@ -764,4 +778,46 @@ var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,k
 vars[key] = value;
 });
 return vars;
+}
+
+
+function lock_rapportino(id){
+	$.ajax({
+		url: "script_php/confirmRapp.php", //Relative or absolute path to response.php file
+		type:"POST",
+				      data:{
+					      'id': id_rap,
+					      'lock':1,
+					      'db':getCookie('nomeDB')
+					      },
+				      success: function(data) {
+					      console.log(data);
+					      Materialize.toast('Rapportino bloccato', 2000,"",function(){populateRapportino(id_utente)});
+					      populateRapportino(id_utente);
+					  },
+				      error: function(xhr){
+					     console.log(xhr.status);
+				      }
+				    });
+}
+
+
+function unlock_rapportino(id){
+	$.ajax({
+		url: "script_php/confirmRapp.php", //Relative or absolute path to response.php file
+		type:"POST",
+				      data:{
+					      'id': id_rap,
+					      'lock':0,
+					      'db':getCookie('nomeDB')
+					      },
+				      success: function(data) {
+					      console.log(data);
+					      Materialize.toast('Rapportino bloccato', 2000,"",function(){populateRapportino(id_utente)});
+					      populateRapportino(id_utente);
+					  },
+				      error: function(xhr){
+					     console.log(xhr.status);
+				      }
+				    });
 }
