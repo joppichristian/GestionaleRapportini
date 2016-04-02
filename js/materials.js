@@ -67,7 +67,7 @@ function populateList(filter){
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item";
 	        
-	        elementi[i].innerHTML = '<div><i class="info small material-icons red-text">local_play</i>'+data[i]['codice']+' - '+data[i]['descrizione']+'<a href="#!" class="secondary-content"><i class="explode material-icons red-text">call_received</i></a></div>	';
+	        elementi[i].innerHTML = '<div class="explode" ><i class="info small material-icons red-text">format_paint</i>'+data[i]['codice']+' - '+data[i]['descrizione']+'<a href="#!" class="secondary-content"><i class="material-icons red-text">call_received</i></a></div>	';
 	    	
 	    	
 	    	$("#elenco").append(elementi[i]);
@@ -102,7 +102,7 @@ function explodeMateriale(materiale){
 	$("#note").empty();
 	$("#logo_materiale").empty();
 	
-	$("#logo_materiale").append('<i id="logo_materiale" class="large material-icons red-text">local_play</i>');
+	$("#logo_materiale").append('<i id="logo_materiale" class="large material-icons red-text">format_paint</i>');
 	$("#descrizione").append('<div class="red-text" style="margin-left:15%;">Descrizione </div><i class="info small material-icons red-text">dehaze</i>'+materiale['descrizione']);
     if(materiale['codice'] != null && materiale['codice'] != "")
        $("#codice").append('<div class="red-text" style="margin-left:15%;">Codice</div><i class="info small material-icons red-text">code</i>'+materiale['codice']);

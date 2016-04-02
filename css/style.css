@@ -61,3 +61,6 @@ margin-bottom: 0px;
   overflow: hidden;
   position: relative;
 }
+.explode{
+	cursor: hand;
+}

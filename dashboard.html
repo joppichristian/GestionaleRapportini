@@ -32,10 +32,12 @@
     <div class="nav-wrapper" style="padding-left: 2%;">
       <a href="#!" class="brand-logo"><img src="img/logo.png" style="height: 70%; margin-top: 20%;margin-right: 5%;" class="left" /></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
+	      <li><a id="manage_gestionale" ><i class="material-icons left">build</i>Impostazioni gestionale</a></li>
 	  	<li><a id="edit_profile" ><i class="material-icons left">edit</i>Modifica il tuo profilo</a></li>
         <li><a href="index.html"><i class="material-icons left">close</i>Logout</a></li>
       </ul>
       <ul id="slide-out" class="side-nav blue-grey darken-3">
+	      <li><a id="manage_gestionale2" ><i class="material-icons left">build</i>Impostazioni gestionale</a></li>
 	        <li><a id="edit_profile2" class="white-text">Modifica il tuo profilo</a></li>
 		    <li><a href="index.html" class="white-text">Logout</a></li>
 		  </ul>
@@ -74,7 +76,7 @@
 
 
 		  <div class="item-menu col s12 m4 l4 red-text" id="MA">
-		   	 <i class="large material-icons">local_grocery_store</i>
+		   	 <i class="large material-icons">format_paint</i>
 			  <h5>Materiali</h5>
 			  <h9>Gestisci il tuo catalogo dei materiali</h9>
 			   <div class="row" style="margin-top: 2%;padding: 2%;">
@@ -88,7 +90,7 @@
 			  <h9>Gestisci tutti i tuoi mezzi</h9>
 			   <div class="row" style="margin-top: 2%;padding: 2%;">
 				  <a id="vME" class="btn-floating btn-medium waves-effect waves-light brown" href="mezzi.html" title="Elenco Dipendenti"><i class="small material-icons">view_list</i></a>
-				  <a id="aME" class="btn-floating btn-medium waves-effect waves-light brown" href="addMezzi.html" title="Aggiungi Dipendente"><i class="small material-icons">add</i></a>
+				  <a id="aME" class="btn-floating btn-medium waves-effect waves-light brown" href="addMezzo.html" title="Aggiungi Dipendente"><i class="small material-icons">add</i></a>
 			  </div>
 		</div>
 		  <div class="item-menu col s12 m4 l4 green-text text-accent-4" id="DI">
@@ -135,9 +137,114 @@
 		          <label class="blue-grey-text text-darken-3" for="new_pass_conf">Conferma nuova password</label>
 		    </div>
           </div>
-          <div class="modal-footer class="blue-grey-text text-darken-3"">
+          <div class="modal-footer blue-grey-text text-darken-3">
             <a href="#!" id="no_mod" class="modal-action modal-close waves-effect waves-blue-grey waves-darken-3 btn-flat ">Annulla</a>
             <a href="#!" id="yes_mod" class=" modal-action modal-close waves-effect waves-blue-grey darken-3 btn-flat">Salva</a>
+          </div>
+        </div>
+         <div id="modal_impostazioni" class="modal ">
+          <div class="modal-content row">
+            <h4 class="blue-grey-text text-darken-3 section">Impostazioni Gestionale</h4>
+            <div class="input-field col s12 m12 l12 section">
+		          
+		        <div class="input-field col s1 m1 l1">
+					<i class="material-icons prefix">&#xE192;</i>
+				</div>
+	
+					        
+				<div class="input-field col s5 m5 l5">
+				    <select id="start_ora" name="start_ora">
+					    		<option value="00" class="blue-text">00</option>
+								<option value="01" class="blue-text">01</option>
+								<option value="02" class="blue-text">02</option>
+								<option value="03" class="blue-text">03</option>
+							    <option value="04" class="blue-text">04</option>
+							    <option value="05" class="blue-text">05</option>
+							    <option value="06" class="blue-text">06</option>
+							    <option value="07" class="blue-text">07</option>
+							    <option value="08" class="blue-text">08</option>
+							    <option value="09" class="blue-text">09</option>
+							    <option value="10" class="blue-text">10</option>
+							    <option value="11" class="blue-text">11</option>
+							    <option value="12" class="blue-text">12</option>
+							    <option value="13" class="blue-text">13</option>
+							    <option value="14" class="blue-text">14</option>
+							    <option value="15" class="blue-text">15</option>
+							    <option value="16" class="blue-text">16</option>
+							    <option value="17" class="blue-text">17</option>
+							    <option value="18" class="blue-text">18</option>
+							    <option value="19" class="blue-text">19</option>
+							    <option value="20" class="blue-text">20</option>
+							    <option value="21" class="blue-text">21</option>
+							    <option value="22" class="blue-text">22</option>
+							    <option value="23" class="blue-text">23</option>
+							    <option value="24" class="blue-text">24</option>				      
+							</select>
+							<label>Iniziamo la giornate alle...</label>
+				</div>
+							 <div class="input-field col s1 m1 l1">
+								<label>:</label>
+					        </div>
+							<div class="input-field col s5 m5 l5">
+							    <select id="start_min" name="start_min">
+							      <option value="00" class="blue-text">00</option>
+							      <option value="30" class="blue-text">30</option>					      
+							    </select>
+							 </div>
+		    </div>
+		    <div class="input-field col s12 m12 l12 section">
+		          
+		        <div class="input-field col s1 m1 l1">
+					<i class="material-icons prefix">&#xE192;</i>
+				</div>
+	
+					        
+				<div class="input-field col s5 m5 l5">
+				    <select id="fine_ora" name="fine_ora">
+					    	<option value="00" class="blue-text">00</option>
+									<option value="01" class="blue-text">01</option>
+									<option value="02" class="blue-text">02</option>
+									<option value="03" class="blue-text">03</option>
+							      <option value="04" class="blue-text">04</option>
+							      <option value="05" class="blue-text">05</option>
+							      <option value="06" class="blue-text">06</option>
+							      <option value="07" class="blue-text">07</option>
+							      <option value="08" class="blue-text">08</option>
+							      <option value="09" class="blue-text">09</option>
+							      <option value="10" class="blue-text">10</option>
+							      <option value="11" class="blue-text">11</option>
+							      <option value="12" class="blue-text">12</option>
+							      <option value="13" class="blue-text">13</option>
+							      <option value="14" class="blue-text">14</option>
+							      <option value="15" class="blue-text">15</option>
+							      <option value="16" class="blue-text">16</option>
+							      <option value="17" class="blue-text">17</option>
+							      <option value="18" class="blue-text">18</option>
+							      <option value="19" class="blue-text">19</option>
+							      <option value="20" class="blue-text">20</option>
+							      <option value="21" class="blue-text">21</option>
+							      <option value="22" class="blue-text">22</option>
+							      <option value="23" class="blue-text">23</option>
+							      <option value="24" class="blue-text">24</option>				      
+							    </select>
+							    <label>Finiamo la giornate alle...</label>
+							 </div>
+							 <div class="input-field col s1 m1 l1">
+								<label>:</label>
+					        </div>
+							<div class="input-field col s5 m5 l5">
+							    <select id="fine_min" name="fine_min">
+							      <option value="00" class="blue-text">00</option>
+							      <option value="30" class="blue-text">30</option>					      
+							    </select>
+							 </div>
+
+		    </div>
+
+          </div>
+          <div class="modal-footer class="blue-grey-text text-darken-3"">
+            <a href="#!" id="no_imp" class="modal-action modal-close waves-effect waves-blue-grey waves-darken-3 btn-flat ">Annulla</a>
+            <a href="#!" id="yes_imp" class=" modal-action modal-close waves-effect waves-blue-grey darken-3 btn-flat">Salva</a>
           </div>
         </div>
 	<script>

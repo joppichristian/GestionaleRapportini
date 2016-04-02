@@ -90,7 +90,7 @@ function populateList(filter){
 
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item";
-	        elementi[i].innerHTML = '<div><i class="info small material-icons green-text">directions_walk</i>'+data[i]['nome']+ ' ' +data[i]['cognome']+ '<a href="#!" class="secondary-content"><i class="explode material-icons green-text">call_received</i></a></div>	';
+	        elementi[i].innerHTML = '<div class="explode"><i class="info small material-icons green-text">directions_walk</i>'+data[i]['nome']+ ' ' +data[i]['cognome']+ '<a href="#!" class="secondary-content"><i class="material-icons green-text">call_received</i></a></div>	';
 
 
 	    	$("#elenco").append(elementi[i]);

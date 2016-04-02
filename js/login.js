@@ -32,6 +32,8 @@ function controlla_login(user,psw){
           var r_sociale="";
 		      var nomedb="";
 		      var username = "";
+		  var inzio = "";
+		  var fine = "";
 		      if((data != null)&&(data[0]!=null)){
             for(var i = 0; i < data.length; i++) {
                 id_a = data[i]['ID_azienda'];
@@ -40,6 +42,9 @@ function controlla_login(user,psw){
                 r_sociale = data[i]['ragione_sociale'];
                 nomedb = data[i]['nome_db'];
                 username = data[i]['username'];
+                inizio = data[i]['inizio'];
+                fine = data[i]['fine'];
+                
             }
             //alert("registrazione avvenuta con successo!! id azienda: "+id_a);
             setCookie("username", user, 30);
@@ -49,6 +54,8 @@ function controlla_login(user,psw){
             setCookie("nomeDB", nomedb, 30);
             setCookie("ragione_sociale", r_sociale, 30);
             setCookie("id_azienda", id_a, 30);
+            setCookie("inizio",inizio,30);
+            setCookie("fine",fine,30);
             Materialize.toast('Login avvenuto con successo!', 2000,'',function(){window.location.href = 'dashboard.html'});
           }else{
             Materialize.toast('Username e/o Password Errata', 2000);

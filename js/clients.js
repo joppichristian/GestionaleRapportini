@@ -68,9 +68,9 @@ function populateList(filter){
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item";
 	        if(data[i]['tipologia'] == 'p'){
-		        elementi[i].innerHTML = '<div><i class="info small material-icons blue-text">account_circle</i>'+data[i]['nominativo']+'<a href="#!" class="secondary-content"><i class="explode material-icons blue-text">call_received</i></a></div>	';
+		        elementi[i].innerHTML = '<div class="explode"><i class="info small material-icons blue-text">account_circle</i>'+data[i]['nominativo']+'<a href="#!" class="secondary-content"><i  class="material-icons blue-text">call_received</i></a></div>	';
 		    }else{
-		        elementi[i].innerHTML = '<div><i class="info small material-icons blue-text">business</i>'+data[i]['nominativo']+'<a href="#!" class="secondary-content"><i class="explode material-icons blue-text">call_received</i></a></div>	';
+		        elementi[i].innerHTML = '<div class="explode"><i class="info small material-icons blue-text">business</i>'+data[i]['nominativo']+'<a href="#!" class="secondary-content"><i class=" material-icons blue-text">call_received</i></a></div>	';
 	        }
 
 	    	$("#elenco").append(elementi[i]);

@@ -380,6 +380,8 @@ function populateListMezzi(filter){
  }
  
  function populateListFascieOrarie(){
+	var ini = hourTomin(getCookie("inizio"));
+	var fin = hourTomin(getCookie("fine"));
 	var occupato = false;
 	var start,stop;
 	var tmp_ora,tmp_min,tmp;
@@ -398,7 +400,7 @@ function populateListMezzi(filter){
 		   },
 		   success: function(data){	
 			   console.log(data);
-			   for(var i=0;i<1440;i+=30){
+			   for(var i=ini;i<fin;i+=30){
 				   occupato = false;
 				   tmp_ora = Math.round((i-1)/60).toString();
 				   if(tmp_ora.length == 1)

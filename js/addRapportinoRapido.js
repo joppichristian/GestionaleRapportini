@@ -134,9 +134,9 @@ function populateListClient(filter){
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item";
 	        if(data[i]['tipologia'] == 'p'){
-		        elementi[i].innerHTML = '<div><i class="info small material-icons purple-text">&#xE853;</i>'+data[i]['nominativo']+'<a href="#!" class="secondary-content"><i class="select_clients material-icons purple-text">&#xE0B5;</i></a></div>	';
+		        elementi[i].innerHTML = '<div class="select_clients"><i class="info small material-icons purple-text">&#xE853;</i>'+data[i]['nominativo']+'<a href="#!" class="secondary-content"><i  class="material-icons purple-text">&#xE0B5;</i></a></div>	';
 		    }else{
-		        elementi[i].innerHTML = '<div ><i class="info small material-icons purple-text">&#xE0AF;</i>'+data[i]['nominativo']+'<a href="#!" class="secondary-content"><i class="select_clients material-icons purple-text">&#xE0B5;</i></a></div>	';
+		        elementi[i].innerHTML = '<div class="select_clients"><i class="info small material-icons purple-text">&#xE0AF;</i>'+data[i]['nominativo']+'<a href="#!" class="secondary-content"><i class="material-icons purple-text">&#xE0B5;</i></a></div>	';
 	        }
 
 	    	$("#elenco_clienti").append(elementi[i]);
@@ -174,7 +174,7 @@ function populateListMaterials(filter){
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item";
 
-	        elementi[i].innerHTML = '<div><i class="info small material-icons purple-text">&#xE553;</i>'+(data[i]['codice']+' - '+data[i]['descrizione']).substr(0,18)+'...<a href="#!" class="secondary-content"><i class="select_materials material-icons purple-text">&#xE145;</i></a></div>	';
+	        elementi[i].innerHTML = '<div class="select_materials"><i class="info small material-icons purple-text">&#xE553;</i>'+(data[i]['codice']+' - '+data[i]['descrizione']).substr(0,18)+'...<a href="#!" class="secondary-content"><i class="material-icons purple-text">&#xE145;</i></a></div>	';
 
 
 	    	$("#elenco_materiali").append(elementi[i]);
@@ -228,7 +228,7 @@ function populateListMezzi(filter){
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item";
 
-	        elementi[i].innerHTML = '<div><i class="info small material-icons purple-text">&#xE530;</i>'+data[i]['descrizione'].substr(0,18)+'...<a href="#!" class="secondary-content"><i class="select_mezzi material-icons purple-text">&#xE145;</i></a></div>	';
+	        elementi[i].innerHTML = '<div class="select_mezzi" ><i class="info small material-icons purple-text">&#xE530;</i>'+data[i]['descrizione'].substr(0,18)+'...<a href="#!" class="secondary-content"><i class="material-icons purple-text">&#xE145;</i></a></div>	';
 
 
 	    	$("#elenco_mezzi").append(elementi[i]);
@@ -449,6 +449,10 @@ function populateListFascieOrarie(){
 	var occupato = false;
 	var start,stop;
 	var tmp_ora,tmp_min,tmp;
+	var ini = hourTomin(getCookie("inizio"));
+	var fin = hourTomin(getCookie("fine"));
+
+	
 	 $("#ora").append("<option value=-1 disabled>Seleziona gli orari del lavoro fatto</option>");
 	$.ajax({
 	      url: "script_php/getFascieOrarie.php", //Relative or absolute path to response.php file
@@ -460,7 +464,7 @@ function populateListFascieOrarie(){
 		   },
 		   success: function(data){	
 			   console.log(data);
-			   for(var i=0;i<1440;i+=30){
+			   for(var i=ini;i<fin;i+=30){
 				   occupato = false;
 				   tmp_ora = Math.round((i-1)/60).toString();
 				   if(tmp_ora.length == 1)
@@ -508,5 +512,7 @@ function populateListFascieOrarie(){
 		});		
 }
 
-
+function hourTomin(stringa){
+	return parseInt(stringa.split(":")[0])*60 + parseInt(stringa.split(":")[1]);
+}
 

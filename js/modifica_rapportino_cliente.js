@@ -409,6 +409,8 @@ function mod_controlloRapCliente(){
 	var start,stop;
 	var tmp_ora,tmp_min,tmp;
 	var toModify = new Array();
+	var ini = hourTomin(getCookie("inizio"));
+	var fin = hourTomin(getCookie("fine"));
 	$("#mod_ora").empty();
 	 $("#mod_ora").append("<option value=-1 disabled>Seleziona gli orari del lavoro fatto</option>");
 	$.ajax({
@@ -424,7 +426,7 @@ function mod_controlloRapCliente(){
 		   },
 		   success: function(data){	
 			   console.log(data);
-			   for(var i=0;i<1440;i+=30){
+			   for(var i=ini;i<fin;i+=30){
 				   occupato = false;
 				   tmp_ora = Math.round((i-1)/60).toString();
 				   if(tmp_ora.length == 1)

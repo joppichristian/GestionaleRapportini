@@ -121,6 +121,7 @@ function populateListEmployee(filter){
 	    }
 	    id = data[0]['id'];
 		$(".select_employee").click(function(){
+				 $(".nuovo_ora .select-dropdown").val("");
 				 index_Di = $(".select_employee").index(this);
 				 id_Di = json_dipendenti[index_Di]['id'];
 				 var duplicato = -1;
@@ -424,6 +425,8 @@ function removeDipendente(i){
  }
  
  function populateListFascieOrarie(){
+	var ini = hourTomin(getCookie("inizio"));
+	var fin = hourTomin(getCookie("fine"));
 	var occupato = false;
 	var start,stop;
 	var tmp_ora,tmp_min,tmp;
@@ -452,7 +455,7 @@ function removeDipendente(i){
 				   success: function(data){	
 					   console.log(data);
 					   if(index_fasce==0){
-						   for(var i=0;i<1440;i+=30){
+						   for(var i=ini;i<fin;i+=30){
 							   occupato = false;
 							   tmp_ora = Math.round((i-1)/60).toString();
 							   if(tmp_ora.length == 1)
