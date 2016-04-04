@@ -11,7 +11,7 @@ $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
 
-		
+
 		var now = new Date();
 		for(var i=parseInt(now.getYear())+1899;i<parseInt(now.getYear())+1901;i++)
 		{
@@ -48,23 +48,23 @@ $(document).ready(function(){
 			}
 
 		});
-		
+
 		populateListFascieOrarieModifica();
 
 	$("#mod_giorno_dd").on("change",function(){
 			populateListFascieOrarieModifica();
 		});
-		
+
 		$("#mod_giorno_mm").on("change",function(){
 			populateListFascieOrarieModifica();
 		});
-		
+
 		$("#mod_giorno_yy").on("change",function(){
 			populateListFascieOrarieModifica();
 		});
-		
-		
-		
+
+
+
 });
 
 function setVarRapp(index_rapp){
@@ -77,7 +77,7 @@ function setVarRapp(index_rapp){
   var dipendente_nome = datiCliente(det_json[index_rapp]['id_cliente']);
   cliente = det_json[index_rapp]['id_cliente'];
   mod_setDipendenti(dipendente_nome);
-    
+
   $("#mod_giorno_dd").val(data[0]);
   $("#mod_giorno_mm").val(data[1]);
   $("#mod_giorno_yy").val(data[2]);
@@ -85,10 +85,10 @@ function setVarRapp(index_rapp){
   $("#mod_pausa").val(pausa);
   $('select').material_select();
   populateListFascieOrarieModifica(inizio,fine);
-  
-  
 
-  
+
+
+
   $("#mod_descrizione").focus();
   $("#mod_pausa").focus();
   $("#mod_giorno").focus();
@@ -277,11 +277,11 @@ function mod_populateListMezzi(filter){
 		        mod_index_Me = $(".mod_select_mezzi").index(this);
 		        mod_id_Me = mod_json_mezzi[mod_index_Me]['id'];
 		        var duplicato = -1;
-		        var quantita_duplicato = -1;
+		        var mod_quantita_duplicato = -1;
 		        for(var i=0;i<mod_mezzi_selezionati.length;i++){
 			        if(mod_mezzi_selezionati[i]['id'] == mod_json_mezzi[mod_index_Me]['id']){
 			        	duplicato = i;
-			        	quantita_duplicato = mod_mezzi_selezionati[i]['quantita'];
+			        	mod_quantita_duplicato = mod_mezzi_selezionati[i]['quantita'];
 			        }
 		        }
 
@@ -312,13 +312,13 @@ function mod_controlloRapCliente(){
 
  function modificaRapportino(){
 	  var ar_ore = new Array();
-	
+
 	ar_ore = $(".mod_ora .select-dropdown").val().split(' ').join('').split(',').join(' ').split('--').join(' ').split(' ');
 	ar_ore.sort();
-	
+
 	var start = new Array();
 	var stop = new Array();
-	
+
 	var tmp_last;
 	var indice_mod = 0;
 	var result = true;
@@ -340,7 +340,8 @@ function mod_controlloRapCliente(){
 			}
 		}
 	}
-	for(var i=0;i<start.length;i++){
+
+ for(var i=0;i<start.length;i++){
 		if(i==indice_mod){
 			$.ajax({
 		       type:"POST",
@@ -359,7 +360,7 @@ function mod_controlloRapCliente(){
 		 	  },
 		       success: function(data) {
 		 	    console.log(data);
-		 	  	
+
 		 		},
 		 		error:function(data){
 			 		result = false;
@@ -399,10 +400,9 @@ function mod_controlloRapCliente(){
 		Materialize.toast("Rapportino modificato!",2000,"",function(){$("#modal1").closeModal();populateRapportino(id_utente);})
 	}
 
- 	
 
  }
- 
+
  function populateListFascieOrarieModifica(inizio,fine){
 	var occupato = false;
 	var start,stop;
@@ -423,7 +423,7 @@ function mod_controlloRapCliente(){
 			  'data_yy':$("#mod_giorno_yy").val(),
 		      'db':getCookie('nomeDB')
 		   },
-		   success: function(data){	
+		   success: function(data){
 			   console.log(data);
 			   for(var i=ini;i<fin;i+=30){
 				   occupato = false;
@@ -442,11 +442,11 @@ function mod_controlloRapCliente(){
 				   if(tmp_min.length == 1)
 				   		tmp_min = '0'+tmp_min;
 				   tmp = tmp_ora+":"+tmp_min;
-				   $("#mod_ora option[value="+i+"]").text($("#mod_ora option[value="+i+"]").text()+" -- "+tmp);   				   
+				   $("#mod_ora option[value="+i+"]").text($("#mod_ora option[value="+i+"]").text()+" -- "+tmp);
 			   }
 			   for(var i=0;data != null && i<data.length;i++)
-			   {	
-				   
+			   {
+
 				   tmp = data[i]['inizio'].split(' ')[1];
 				   tmp_ora = tmp.split(':')[0];
 				   tmp_min = tmp.split(':')[1];
@@ -471,17 +471,17 @@ function mod_controlloRapCliente(){
 			   for(var k = 0;k< toModify.length;k++)
 			   {
 				   $(".mod_ora .dropdown-content li:nth-child("+toModify[k]+") span").click();
-				   
+
 			   }
-			   
-			   
+
+
 			},
 		   error: function (XMLHttpRequest, textStatus, errorThrown){
 			   Materialize.toast('Errore di inserimento', 2000);
 			    return false;
 
 			}
-		});		
+		});
 }
 
 function hourTomin(stringa){
