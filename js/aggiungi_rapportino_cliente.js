@@ -22,7 +22,7 @@ $(document).ready(function(){
 		
 		$('select').material_select();
 		if(now.getDate().toString().length ==1)
-			$("#nuovo_giorno_dd").val("0"+(now.getDate()+1).toString());
+			$("#nuovo_giorno_dd").val("0"+(now.getDate()).toString());
 		else
 			$("#nuovo_giorno_dd").val(now.getDate());
 		if(now.getMonth().toString().length ==1)
@@ -93,7 +93,21 @@ $(document).ready(function(){
 			populateListFascieOrarie();
 		});
 
+		$("#all_select").on("click",function(){
 		
+			if($("#all_select").text()=="Seleziona tutto"){
+				$("#all_select").text("Deseleziona tutto");
+				populateListFascieOrarie();
+				$(".nuovo_ora .dropdown-content li span").each(function(){
+					this.click();
+				});
+			}
+			else{
+				$("#all_select").text("Seleziona tutto");
+				populateListFascieOrarie();
+			}
+	
+		});
 		
 
 });

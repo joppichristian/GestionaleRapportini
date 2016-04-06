@@ -118,6 +118,24 @@ $(document).ready(function(){
 		addCliente();
 
 	});
+	
+	
+	$("#all_select").on("click",function(){
+		
+		if($("#all_select").text()=="Seleziona tutto"){
+			$("#all_select").text("Deseleziona tutto");
+			populateListFascieOrarie();
+			$(".dropdown-content li span").each(function(){
+				this.click();
+			});
+		}
+		else{
+			$("#all_select").text("Seleziona tutto");
+			populateListFascieOrarie();
+		}
+
+	});
+
 })
 
 function populateListClient(filter){
@@ -451,8 +469,8 @@ function populateListFascieOrarie(){
 	var tmp_ora,tmp_min,tmp;
 	var ini = hourTomin(getCookie("inizio"));
 	var fin = hourTomin(getCookie("fine"));
-
 	
+	 $("#ora").empty();
 	 $("#ora").append("<option value=-1 disabled>Seleziona gli orari del lavoro fatto</option>");
 	$.ajax({
 	      url: "script_php/getFascieOrarie.php", //Relative or absolute path to response.php file

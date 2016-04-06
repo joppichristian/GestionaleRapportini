@@ -20,7 +20,7 @@ $(document).ready(function(){
 		
 		$('select').material_select();
 		if(now.getDate().toString().length ==1)
-			$("#nuovo_giorno_dd").val("0"+(now.getDate()+1).toString());
+			$("#nuovo_giorno_dd").val("0"+(now.getDate()).toString());
 		else
 			$("#nuovo_giorno_dd").val(now.getDate());
 		if(now.getMonth().toString().length ==1)
@@ -78,6 +78,22 @@ $(document).ready(function(){
 		$("#nuovo_giorno_yy").on("change",function(){
 			populateListFascieOrarie();
 		});
+		
+	$("#all_select").on("click",function(){
+		
+		if($("#all_select").text()=="Seleziona tutto"){
+			$("#all_select").text("Deseleziona tutto");
+			populateListFascieOrarie();
+			$(".nuovo_ora .dropdown-content li span").each(function(){
+				this.click();
+			});
+		}
+		else{
+			$("#all_select").text("Seleziona tutto");
+			populateListFascieOrarie();
+		}
+
+	});
 
 });
 
@@ -289,7 +305,7 @@ function populateListMezzi(filter){
 	 }
 	 var ar_ore = new Array();
 	
-	ar_ore = $(".ora .select-dropdown").val().split(' ').join('').split(',').join(' ').split('--').join(' ').split(' ');
+	ar_ore = $(".nuovo_ora .select-dropdown").val().split(' ').join('').split(',').join(' ').split('--').join(' ').split(' ');
 	ar_ore.sort();
 	
 	var inizio = new Array();
