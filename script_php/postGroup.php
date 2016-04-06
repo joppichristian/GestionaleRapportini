@@ -27,8 +27,10 @@
 												cancellazione_dipendente , 
 												modifica_privilegi ,  
 												rapportino_rapido ,  
-												visualizzazione_resoconti_rapportini   
-												) VALUES ('".$_POST['descrizione']. "' ,'".$_POST['vCL']. "' ,'".$_POST['aCL']. "' ,'".$_POST['mCL']. "' ,'".$_POST['cCL']. "' ,'".$_POST['vMA']. "' ,'".$_POST['aMA']. "' , '".$_POST['mMA']. "' , '".$_POST['cMA']. "' ,'".$_POST['vME']. "' ,'".$_POST['aME']. "' , '".$_POST['mME']. "' , '".$_POST['cME']. "' , '".$_POST['vDI']. "' ,	'".$_POST['aDI']. "' ,	'".$_POST['mDI']. "' , 	'".$_POST['cDI']. "' ,	'".$_POST['MP']. "' ,	'".$_POST['RR']. "','".$_POST['vRR']. "'   );" ;
+												visualizzazione_resoconti_rapportini,
+												impostazioni_app,
+												blocco_rapportini   
+												) VALUES ('".$_POST['descrizione']. "' ,'".$_POST['vCL']. "' ,'".$_POST['aCL']. "' ,'".$_POST['mCL']. "' ,'".$_POST['cCL']. "' ,'".$_POST['vMA']. "' ,'".$_POST['aMA']. "' , '".$_POST['mMA']. "' , '".$_POST['cMA']. "' ,'".$_POST['vME']. "' ,'".$_POST['aME']. "' , '".$_POST['mME']. "' , '".$_POST['cME']. "' , '".$_POST['vDI']. "' ,	'".$_POST['aDI']. "' ,	'".$_POST['mDI']. "' , 	'".$_POST['cDI']. "' ,	'".$_POST['MP']. "' ,	'".$_POST['RR']. "','".$_POST['vRR']. "',	'".$_POST['IMP']. "',	'".$_POST['LOCK']. "'   );" ;
 												  
 				if (!mysqli_query($mysqli,$sqlUpdate)){
 					echo mysqli_error($mysqli);

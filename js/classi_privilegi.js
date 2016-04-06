@@ -56,7 +56,7 @@ $(document).ready(function() {
 
 function populateList(filter){
 
-	var q = filter;
+	var q = filter ;
 	$.ajax({
       dataType: "json",
       url: "script_php/getGroups.php?q="+ q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
@@ -85,8 +85,8 @@ function populateList(filter){
 	        explodeGroup(json[index]);
         });
       },
-      error: function(xhr){
-	     console.log(xhr.status);
+      error: function(data){
+	     console.log(data);
         return false;
       }
     });
@@ -162,10 +162,17 @@ function explodeGroup(classe){
     	$("#privilegi").append('<div class="cyan-text" style="margin-left:15%;">Classi di dipendenti e privilegi associati</div><i class="info small material-icons cyan-text">security</i><div class="chip cyan">Gestione completa</div>');
     if(classe['visualizzazione_resoconti_rapportini'] != 0 )
     	$("#rapportino").append('<div class="cyan-text" style="margin-left:15%;">Rapportini</div><i class="info small material-icons cyan-text">content_paste</i><div class="chip cyan">Gestione completa</div>');
-    else if(classe['rapportino_rapido'] != 0 )
-    	$("#rapportino").append('<div class="cyan-text" style="margin-left:15%;">Rapportini</div><i class="info small material-icons cyan-text">content_paste</i><div class="chip cyan">Aggiunta rapida</div>');
-   
+    else if(classe['rapportino_rapido'] != 0 || classe['impostazioni_app'] != 0 || classe['blocco_rapportini'] != 0){
+	    $("#rapportino").append('<div class="cyan-text" style="margin-left:15%;">Rapportini</div><i class="info small material-icons cyan-text">content_paste</i>');
+	   if(classe['rapportino_rapido'] != 0 )
+    	$("#rapportino").append('<div class="chip cyan">Aggiunta rapida</div>');
+		if(classe['impostazioni_app'] != 0 )
+    	$("#rapportino").append('<div class="chip cyan">Impostazione inizio/fine giornata lavorativa</div>');
 
+	if(classe['blocco_rapportini'] != 0 )
+	    	$("#rapportino").append('<div class="chip cyan">Blocco/Sblocco rapportini</div>');
+
+	}
 
 }
 
@@ -366,9 +373,27 @@ function completaForm(){
 			if(getCookie("vRR")==1)
 				$("#rapportini_no_selected").append("<div class='chip cyan'>Gestione completa<i class='add_manage_rapp   material-icons right'>add</i></div>");	
 		}
-		
-		
+		if(json[index]["impostazioni_app"]==1){
+			$("#rapportini_selected").append("<div class='chip cyan'>Impostazione inizio/fine giornata lavorativa<i class='remove_imp_rapp  material-icons right'>remove</i></div>");	
+				
+		}
+		else{
+			if(getCookie("IMP")==1)
+				$("#rapportini_no_selected").append("<div class='chip cyan'>Impostazione inizio/fine giornata lavorativa<i class='add_imp_rapp  material-icons right'>add</i></div>");
+			
+		}
+		if(json[index]["blocco_rapportini"]==1){
+				$("#rapportini_selected").append("<div class='chip cyan'>Blocco/Sblocco rapportini<i class='remove_lock_rapp  material-icons right'>remove</i></div>");	
+			
+		}
+		else{
+			if(getCookie("LOCK")==1)
+				$("#rapportini_no_selected").append("<div class='chip cyan'>Blocco/Sblocco rapportini<i class='add_lock_rapp  material-icons right'>add</i></div>");
+		}
+				
 	}
+		
+	
 
 
 	
@@ -587,6 +612,8 @@ function completaForm(){
 	$(".add_manage_rapp").click(function(){
 		json[index]["rapportino_rapido"] = 1;
 		json[index]["visualizzazione_resoconti_rapportini"] = 1;
+		json[index]["impostazioni_app"] = 1;
+		json[index]["blocco_rapportini"] = 1;
 		completaForm();
 	});
 	
@@ -604,6 +631,30 @@ function completaForm(){
 	$(".remove_add_rapp").click(function(){
 		json[index]["visualizzazione_resoconti_rapportini"] = 0;
 		json[index]["rapportino_rapido"] = 0;
+		completaForm();
+		
+	});
+	
+	$(".add_imp_rapp").click(function(){
+		json[index]["impostazioni_app"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_imp_rapp").click(function(){
+		json[index]["visualizzazione_resoconti_rapportini"] = 0;
+		json[index]["impostazioni_app"] = 0;
+		completaForm();
+		
+	});
+
+	$(".add_lock_rapp").click(function(){
+		json[index]["blocco_rapportini"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_lock_rapp").click(function(){
+		json[index]["visualizzazione_resoconti_rapportini"] = 0;
+		json[index]["blocco_rapportini"] = 0;
 		completaForm();
 		
 	});

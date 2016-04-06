@@ -38,6 +38,8 @@ $(document).ready(function(){
 		setCookie("RR",data[0]["rapportino_rapido"],30);
         setCookie("vRR",data[0]["visualizzazione_resoconti_rapportini"],30);
         
+        setCookie("IMP",data[0]["impostazioni_app"],30);
+        setCookie("LOCK",data[0]["blocco_rapportini"],30);
         
         if(getCookie("vCL")==0 && getCookie("aCL")==0)
         	$("#CL").hide();
@@ -91,6 +93,11 @@ $(document).ready(function(){
 
 		if(getCookie("MP")==0)
 	        $("#MP").hide();
+	        
+	    
+	    
+	    if(getCookie("IMP") == 0)
+	    	$("#manage_gestionale").hide();
 
 			
     },

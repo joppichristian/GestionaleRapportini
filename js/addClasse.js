@@ -53,7 +53,8 @@ $(document).ready(function(){
 	arr['visualizzazione_resoconti_rapportini'] = 0;
 	arr['rapportino_rapido'] = 0;
 	arr['gestione_privilegi'] = 0;
-	
+	arr['impostazioni_app'] = 0;
+	arr['blocco_rapportini'] = 0;
 	completaForm();
 	
 });
@@ -214,9 +215,25 @@ function completaForm(){
 			if(getCookie("vRR")==1)
 				$("#rapportini_no_selected").append("<div class='chip cyan'>Gestione completa<i class='add_manage_rapp   material-icons right'>add</i></div>");	
 		}
-		
-		
+				
 	}
+		if(arr["impostazioni_app"]==1){
+			$("#rapportini_selected").append("<div class='chip cyan'>Impostazione inizio/fine giornata lavorativa<i class='remove_imp_rapp  material-icons right'>remove</i></div>");	
+				
+		}
+		else{
+			if(getCookie("IMP")==1)
+				$("#rapportini_no_selected").append("<div class='chip cyan'>Impostazione inizio/fine giornata lavorativa<i class='add_imp_rapp  material-icons right'>add</i></div>");
+			
+		}
+		if(arr["blocco_rapportini"]==1){
+				$("#rapportini_selected").append("<div class='chip cyan'>Blocco/Sblocco rapportini<i class='remove_lock_rapp  material-icons right'>remove</i></div>");	
+			
+		}
+		else{
+			if(getCookie("LOCK")==1)
+				$("#rapportini_no_selected").append("<div class='chip cyan'>Blocco/Sblocco rapportini<i class='add_lock_rapp  material-icons right'>add</i></div>");
+		}
 	
 	
 	
@@ -433,6 +450,8 @@ function completaForm(){
 	$(".add_manage_rapp").click(function(){
 		arr["rapportino_rapido"] = 1;
 		arr["visualizzazione_resoconti_rapportini"] = 1;
+		arr["impostazioni_app"] = 1;
+		rr["blocco_rapportini"] = 1;
 		completaForm();
 	});
 	
@@ -453,7 +472,30 @@ function completaForm(){
 		completaForm();
 		
 	});
+	
+	$(".add_imp_rapp").click(function(){
+		arr["impostazioni_app"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_imp_rapp").click(function(){
+		arr["visualizzazione_resoconti_rapportini"] = 0;
+		arr["impostazioni_app"] = 0;
+		completaForm();
+		
+	});
 
+	$(".add_lock_rapp").click(function(){
+		arr["blocco_rapportini"] = 1;
+		completaForm();
+	});
+	
+	$(".remove_lock_rapp").click(function(){
+		arr["visualizzazione_resoconti_rapportini"] = 0;
+		arr["blocco_rapportini"] = 0;
+		completaForm();
+		
+	});
 	
 	
 }
@@ -486,6 +528,8 @@ function addClasse(){
 		      'RR': arr["rapportino_rapido"],
 		      'vRR':arr["visualizzazione_resconti_rapportini"],
 		      'MP':arr["modifica_privilegi"],
+		      'IMP':arr["impostazioni_app"],
+		      'LOCK':arr["blocco_rapportini"],
 		      'db':getCookie('nomeDB')
 		   },
 		   success: function(data){
