@@ -106,6 +106,7 @@ $(document).ready(function(){
       if(stato_materiali==1){
         $("#elementi_materiali").hide();
         stato_materiali=0;
+				mod_materiali_tot=[];
 				mod_materiali_tot = new Array();
       }else{
         $("#elementi_materiali").show();
@@ -138,7 +139,7 @@ function populateRapportino(filter){
       dataType: "json",
       url: "script_php/getRapportinoDipendente.php?q="+q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
-	  async:false,
+	  	async:false,
       success: function(data) {
 
 	    det_json = data;
@@ -278,7 +279,7 @@ function clone(obj) {
 
 function pausaCent(minuti){
 	var in_ora= minuti/60;
-	var min = roundToTwo(in_ora);
+	var min = in_ora.toFixed(2);//roundToTwo(in_ora);
 	return min;
 }
 
@@ -385,7 +386,8 @@ function creazioneListaRapportino(dipendente, cliente, giorno){
 								var ele_pausa ='<div class=" col s6" style="padding:2%;"><font color="orange">Pausa:  </font>'+pausa+' minuti</div>';
 								var diff =differenzaOre(inizio, fine);
 								var pa = pausaCent(pausa);
-								var diff_lavoro = diff-pa;
+								var diff_lavoro = (diff)-(pa);
+								diff_lavoro =diff_lavoro.toFixed(2);
 								var ele_ore = '<div class=" col s6" style="padding:2%;"><font color="orange">ORE TOTALI:  </font><b>'+diff_lavoro+'</b></div>';
 								var note = data[i]['note'];
 								var ele_desc = '<div class="col s12" style="padding:2%;"><font color="orange">Descrizione:  </font>'+note+'</div>';
@@ -399,7 +401,7 @@ function creazioneListaRapportino(dipendente, cliente, giorno){
 								load_SingleMezzi(data[i]['id']);
 								var arrayMe = mod_updateListUtilizziMeSingle();
 								var me=  '<div class="col s12" style="padding:2%;"><font color="orange">Mezzi:  </font>'+arrayMe+'</div>';
-								
+
 								if(getCookie("LOCK") ==1){
 									if(data[i]['bloccato']==0)
 										var ele = '</div><a class="btn-floating orange"><i id="'+i+'" class="edit_rap large material-icons">mode_edit</i></a><a style="margin-left:2%;" class="btn-floating orange"><i id="'+i+'" class="delete_rap large material-icons">delete</i></a><a style="margin-left:2%;" class="btn-floating orange"><i id="'+i+'" class="lock_rapp large material-icons">lock_open</i></a>';
@@ -432,14 +434,14 @@ function creazioneListaRapportino(dipendente, cliente, giorno){
 						id_rap= data[det_index]['id'];
 						$('#modal2').openModal();
 					});
-					
+
 					$(".lock_rapp").click(function(){
 						det_index = $(this).attr('id');
 						id_rap= data[det_index]['id'];
 						lock_rapportino(id_rap);
 					});
-					
-					
+
+
 					$(".unlock_rapp").click(function(){
 						det_index = $(this).attr('id');
 						id_rap= data[det_index]['id'];

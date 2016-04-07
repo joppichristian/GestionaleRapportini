@@ -28,6 +28,8 @@
 		</style>
 </head>
 <body class="blue-grey lighten-5">
+	<div id="loading" style="position: absolute; width: 100%; height: 100%; background: url('img/loader.gif') no-repeat center center;"></div>
+
 	<nav class="blue-grey darken-3">
     <div class="nav-wrapper" style="padding-left: 2%;">
       <a href="#!" class="brand-logo"><img src="img/logo.png" style="height: 70%; margin-top: 20%;margin-right: 5%;" class="left" /></a>
@@ -52,7 +54,7 @@
 			  <h5>Oggi al lavoro</h5>
 			  <h9>Aggiungi un rapportino per oggi</h9>
 			   <div class="row" style="margin-top: 2%;padding: 2%;">
-				  <a class="btn-floating btn-medium waves-effect waves-light purple" href="addRapportinoToday.html" title="Aggiungi Dipendente"><i class="small material-icons">add</i></a>
+				  <a class="btn-floating btn-medium waves-effect waves-light purple" id="btn_load" href="addRapportinoToday.html" title="Aggiungi Dipendente"><i class="small material-icons">add</i></a>
 			  </div>
 		</div>
 		  <div class="item-menu col s12 m4 l4 light-blue-text text-accent-3" id="CL">
@@ -60,8 +62,8 @@
 			  <h5>Gestione Clienti</h5>
 			  <h9>Gestisci i dati di tutti i tuoi clienti</h9>
 			  <div class="row"  style="margin-top: 2%;padding: 2%;">
-				  <a id="vCL" class="btn-floating btn-medium waves-effect waves-light blue" href="clienti.html" title="Elenco Clienti"><i class="small material-icons">view_list</i></a>
-				  <a id="aCL" class="btn-floating btn-medium waves-effect waves-light blue" href="addCliente.html" title="Aggiungi Cliente"><i class="small material-icons">add</i></a>
+				  <a id="vCL" class="btn-floating btn-medium waves-effect waves-light blue" id="btn_load" href="clienti.html" title="Elenco Clienti"><i class="small material-icons">view_list</i></a>
+				  <a id="aCL" class="btn-floating btn-medium waves-effect waves-light blue" id="btn_load" href="addCliente.html" title="Aggiungi Cliente"><i class="small material-icons">add</i></a>
 			  </div>
 		  </div>
 		  <div class="item-menu col s12 m4 l4 orange-text" >
@@ -69,7 +71,7 @@
 			  <h5>Rapportini</h5>
 			   <h9>Gestisci i rapportini di ogni cliente</h9>
 			   <div class="row" style="margin-top: 2%;padding: 2%;">
-				  <a id="vRR" class="btn-floating btn-medium waves-effect waves-light orange" href="rapportini.html" title="Elenco Commesse"><i class="small material-icons">view_list</i></a>
+				  <a id="vRR" class="btn-floating btn-medium waves-effect waves-light orange" id="btn_load" href="rapportini.html" title="Elenco Commesse"><i class="small material-icons">view_list</i></a>
 				  <!--<a class="btn-floating btn-medium waves-effect waves-light orange" href="addRapportino.html" title="Aggiungi Commessa"><i class="small material-icons">add</i></a>-->
 			  </div>
 		  </div>
@@ -80,8 +82,8 @@
 			  <h5>Materiali</h5>
 			  <h9>Gestisci il tuo catalogo dei materiali</h9>
 			   <div class="row" style="margin-top: 2%;padding: 2%;">
-				  <a id="vMA" class="btn-floating btn-medium waves-effect waves-light red" href="materiali.html" title="Elenco Materiali"><i class="small material-icons">view_list</i></a>
-				  <a id="aMA" class="btn-floating btn-medium waves-effect waves-light red" href="addMateriale.html" title="Aggiungi Materiale"><i class="small material-icons">add</i></a>
+				  <a id="vMA" class="btn-floating btn-medium waves-effect waves-light red" id="btn_load" href="materiali.html" title="Elenco Materiali"><i class="small material-icons">view_list</i></a>
+				  <a id="aMA" class="btn-floating btn-medium waves-effect waves-light red" id="btn_load" href="addMateriale.html" title="Aggiungi Materiale"><i class="small material-icons">add</i></a>
 			  </div>
 		  </div>
 		  <div class="item-menu col s12 m4 l4 brown-text" id="ME">
@@ -89,8 +91,8 @@
 			  <h5>Mezzi</h5>
 			  <h9>Gestisci tutti i tuoi mezzi</h9>
 			   <div class="row" style="margin-top: 2%;padding: 2%;">
-				  <a id="vME" class="btn-floating btn-medium waves-effect waves-light brown" href="mezzi.html" title="Elenco Dipendenti"><i class="small material-icons">view_list</i></a>
-				  <a id="aME" class="btn-floating btn-medium waves-effect waves-light brown" href="addMezzo.html" title="Aggiungi Dipendente"><i class="small material-icons">add</i></a>
+				  <a id="vME" class="btn-floating btn-medium waves-effect waves-light brown" id="btn_load" href="mezzi.html" title="Elenco Dipendenti"><i class="small material-icons">view_list</i></a>
+				  <a id="aME" class="btn-floating btn-medium waves-effect waves-light brown" id="btn_load" href="addMezzo.html" title="Aggiungi Dipendente"><i class="small material-icons">add</i></a>
 			  </div>
 		</div>
 		  <div class="item-menu col s12 m4 l4 green-text text-accent-4" id="DI">
@@ -98,8 +100,8 @@
 			  <h5>Gestione Dipendenti</h5>
 			  <h9>Gestisci i dati di tutti i tuoi dipendenti</h9>
 			   <div class="row" style="margin-top: 2%;padding: 2%;">
-				  <a  id="vDI" class="btn-floating btn-medium waves-effect waves-light green" href="dipendenti.html" title="Elenco Dipendenti"><i class="small material-icons">view_list</i></a>
-				  <a id="aDI" class="btn-floating btn-medium waves-effect waves-light green" href="addDipendente.html" title="Aggiungi Dipendente"><i class="small material-icons">add</i></a>
+				  <a  id="vDI" class="btn-floating btn-medium waves-effect waves-light green" id="btn_load" href="dipendenti.html" title="Elenco Dipendenti"><i class="small material-icons">view_list</i></a>
+				  <a id="aDI" class="btn-floating btn-medium waves-effect waves-light green" id="btn_load" href="addDipendente.html" title="Aggiungi Dipendente"><i class="small material-icons">add</i></a>
 			  </div>
 		</div>
 		<div class="item-menu col s12 m4 l4 cyan-text " id="MP">
@@ -107,12 +109,12 @@
 			  <h5>Modifica Privilegi</h5>
 			  <h9>Gestisci i privilegi che ha ogni classe di dipendenti</h9>
 			   <div class="row" style="margin-top: 2%;padding: 2%;">
-				  <a  class="btn-floating btn-medium waves-effect waves-light cyan" href="classi_privilegi.html" title="Elenco Privilegi"><i class="small material-icons">build</i></a>
+				  <a  class="btn-floating btn-medium waves-effect waves-light cyan" id="btn_load" href="classi_privilegi.html" title="Elenco Privilegi"><i class="small material-icons">build</i></a>
 			  </div>
 		</div>
 
 	</div>
-	 
+
         <div id="modal_modifica" class="modal ">
           <div class="modal-content">
             <h4 class="blue-grey-text text-darken-3 section">Modifica Profilo</h4>
@@ -146,12 +148,12 @@
           <div class="modal-content row">
             <h4 class="blue-grey-text text-darken-3 section">Impostazioni Gestionale</h4>
             <div class="input-field col s12 m12 l12 section">
-		          
+
 		        <div class="input-field col s1 m1 l1">
 					<i class="material-icons prefix">&#xE192;</i>
 				</div>
-	
-					        
+
+
 				<div class="input-field col s5 m5 l5">
 				    <select id="start_ora" name="start_ora">
 					    		<option value="00" class="blue-text">00</option>
@@ -178,7 +180,7 @@
 							    <option value="21" class="blue-text">21</option>
 							    <option value="22" class="blue-text">22</option>
 							    <option value="23" class="blue-text">23</option>
-							    <option value="24" class="blue-text">24</option>				      
+							    <option value="24" class="blue-text">24</option>
 							</select>
 							<label>Iniziamo la giornate alle...</label>
 				</div>
@@ -188,17 +190,17 @@
 							<div class="input-field col s5 m5 l5">
 							    <select id="start_min" name="start_min">
 							      <option value="00" class="blue-text">00</option>
-							      <option value="30" class="blue-text">30</option>					      
+							      <option value="30" class="blue-text">30</option>
 							    </select>
 							 </div>
 		    </div>
 		    <div class="input-field col s12 m12 l12 section">
-		          
+
 		        <div class="input-field col s1 m1 l1">
 					<i class="material-icons prefix">&#xE192;</i>
 				</div>
-	
-					        
+
+
 				<div class="input-field col s5 m5 l5">
 				    <select id="fine_ora" name="fine_ora">
 					    	<option value="00" class="blue-text">00</option>
@@ -225,7 +227,7 @@
 							      <option value="21" class="blue-text">21</option>
 							      <option value="22" class="blue-text">22</option>
 							      <option value="23" class="blue-text">23</option>
-							      <option value="24" class="blue-text">24</option>				      
+							      <option value="24" class="blue-text">24</option>
 							    </select>
 							    <label>Finiamo la giornate alle...</label>
 							 </div>
@@ -235,7 +237,7 @@
 							<div class="input-field col s5 m5 l5">
 							    <select id="fine_min" name="fine_min">
 							      <option value="00" class="blue-text">00</option>
-							      <option value="30" class="blue-text">30</option>					      
+							      <option value="30" class="blue-text">30</option>
 							    </select>
 							 </div>
 

@@ -105,6 +105,7 @@ $(document).ready(function(){
 			if(stato_materiali==1){
 				$("#elementi_materiali").hide();
 				stato_materiali=0;
+				mod_materiali_tot=[];
 				mod_materiali_tot = new Array();
 			}else{
 				$("#elementi_materiali").show();
@@ -278,7 +279,7 @@ function clone(obj) {
 
 function pausaCent(minuti){
 	var in_ora= minuti/60;
-	var min = roundToTwo(in_ora);
+	var min = in_ora.toFixed(2);
 	return min;
 }
 
@@ -397,6 +398,7 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 								var arrayMe = mod_updateListUtilizziMeSingle();
 								var me=  '<div class="col s12" style="padding:2%;"><font color="orange">Mezzi:  </font>'+arrayMe+'</div>';
 
+<<<<<<< Updated upstream
 								if(getCookie("LOCK") ==1){
 									if(data[i]['bloccato']==0)
 										var ele = '</div><a class="btn-floating orange"><i id="'+i+'" class="edit_rap large material-icons">mode_edit</i></a><a style="margin-left:2%;" class="btn-floating orange"><i id="'+i+'" class="delete_rap large material-icons">delete</i></a><a style="margin-left:2%;" class="btn-floating orange"><i id="'+i+'" class="lock_rapp large material-icons">lock_open</i></a>';
@@ -409,10 +411,21 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 									else
 										var ele = '';
 								}
-								
-								
-								
-									
+
+
+
+
+=======
+								if(data[i]['bloccato']==0)
+									var ele = '</div><a class="btn-floating orange"><i id="'+i+'" class="edit_rap large material-icons">mode_edit</i></a><a style="margin-left:2%;" class="btn-floating orange"><i id="'+i+'" class="delete_rap large material-icons">delete</i></a><a style="margin-left:2%;" class="btn-floating orange"><i id="'+i+'" class="lock_rapp large material-icons">lock_open</i></a>';
+								else
+									var ele = '</div><a style="margin-left:2%;" class="btn-floating orange"><i id="'+i+'" class="unlock_rapp large material-icons">lock_outline</i></a>';
+
+
+
+
+
+>>>>>>> Stashed changes
 								var tot_ele = inizio_ore+ele_dip+ele_ini+ele_fine+ele_pausa+ele_ore+ele_desc+ma+me+ele;
 								elementi[i].innerHTML = tot_ele;
 								$("#lista_singolo_rap").append(elementi[i]);
@@ -433,20 +446,20 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 						id_rap= data[det_index]['id'];
 						$('#modal2').openModal();
 					});
-					
+
 					$(".lock_rapp").click(function(){
 						det_index = $(this).attr('id');
 						id_rap= data[det_index]['id'];
 						lock_rapportino(id_rap);
 					});
-					
-					
+
+
 					$(".unlock_rapp").click(function(){
 						det_index = $(this).attr('id');
 						id_rap= data[det_index]['id'];
 						unlock_rapportino(id_rap);
 					});
-					
+
 			},
 			error: function(xhr){
 			 console.log(xhr.status);

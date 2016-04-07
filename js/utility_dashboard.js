@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	$('#loading').hide();
 	$("#edit_profile").click(function(){
 		$("#modal_modifica").openModal();
 		$("#username").val(getCookie("username"));
@@ -18,17 +19,22 @@ $(document).ready(function(){
 	$("#yes_mod").click(function(){
 		updateProfile();
 	});
-	
+
 	$("#yes_imp").click(function(){
 		updateLimitiOrari();
 	});
-	
+
+	$("#btn_load").on("click",function(){
+		$('#loading').hide();
+		Loading();
+	});
+
 	$("#start_ora").val(getCookie("inizio").split(':')[0]);
 	$("#start_min").val(getCookie("inizio").split(':')[1]);
-	
+
 	$("#fine_ora").val(getCookie("fine").split(':')[0]);
 	$("#fine_min").val(getCookie("fine").split(':')[1]);
-	
+
 	$('select').material_select();
 
 });
@@ -110,4 +116,7 @@ function updateLimitiOrari(){
 
 
 	}
+}
+function Loading(){
+	$('#loading').show();
 }

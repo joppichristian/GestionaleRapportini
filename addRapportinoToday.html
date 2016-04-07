@@ -33,8 +33,11 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 	</head>
 
 	<body class="blue-grey lighten-5">
-		<nav class="section blue-grey darken-3">
-
+	<div id="loading" style="position: absolute; width: 100%; height: 100%; background: url('img/loader.gif') no-repeat center center;"></div>
+		<nav class="section blue-grey darken-3" id="header_page">
+			<div class="col s12 m12 l12" id="button_Fine" align="right" style="width:100%; position:absolute; padding-right:3%; padding-top:4%;">
+				<button class="btn waves-effect waves-light purple white-text" href="#!" type="button" >Fine Selezione</button>
+			</div>
 		    <div class="nav-wrapper">
 		      <div class="col s12">
 		        <a href="dashboard.html" class="breadcrumb">Home</a>
@@ -42,34 +45,38 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 		      </div>
 		    </div>
 	  	</nav>
-	  		  
 		 <div id="schermata_dati">
 		 	<div class="row section">
 			 	<div class="col s12 m12 l12"><div class="col s12 m12 l12"><a class="purple-text" id="all_select" style="text-decoration: underline;cursor: hand;" >Seleziona tutto</a></div></div>
 
-					<div class="col s12 m12 l12">
-							
+					<div class="col s12 m12 l12" id="cont_or">
 						<div class="input-field col s1 m1 l1 right prefix">
 							<i class="material-icons prefix purple-text">&#xE192;</i>
-				        </div>
-				        
+				    </div>
 						<div class="input-field col s11 m11 l11">
 						    <select id="ora" name="ora" multiple>
-						      		      
 						    </select>
 						    <label>Ore di lavoro </label>
 						</div>
-						
 					</div>
-										<div class="col s12 m12 l12">
-						<div class="input-field col s1 m1 l1 right prefix">
-							<i class="material-icons prefix  purple-text">&#xE541;</i>
-				        </div>
-						<div class="input-field col s11 m11 l11">
-				          <input id="pausa" type="number" name="pausa" maxlength="3" step="5" min="0" value="0" max="120" class="validate">
-				          <label class="purple-text" for="note">Pausa (in minuti)</label>
-				       </div>
-
+					<div class="col s12 m12 l12">
+							<div class="input-field col s1 m1 l1 right prefix">
+								<i class="material-icons prefix  purple-text">&#xE541;</i>
+					    </div>
+							<div class="input-field col s11 m11 l11">
+									<select id="pausa" name="pausa">
+											<option value="0" class="blue-text">0</option>
+								      <option value="5" class="blue-text">5</option>
+								      <option value="10" class="blue-text">10</option>
+								      <option value="15" class="blue-text">15</option>
+								      <option value="30" class="blue-text">30</option>
+								      <option value="45" class="blue-text">45</option>
+								      <option value="60" class="blue-text">60 (1 ora)</option>
+								      <option value="90" class="blue-text">90</option>
+								      <option value="120" class="blue-text">120 (2 ore)</option>
+										</select>
+										<label>Pausa (in MINUTI)</label>
+					       </div>
 					</div>
 					<div class="col s12 m12 l12">
 						<div class="input-field col s1 m1 l1 right prefix">
@@ -82,7 +89,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 				       </div>
 					</div>
 				</div>
-				
+
 				 <div class="row">
 					<div class="input-field col s12 m12 l12">
 					 <button class="btn waves-effect waves-light purple white-text" id="show_materiali" type="button" >
@@ -139,7 +146,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 
 						  	<div class="input-field col s12" style="text-align: right;margin-bottom: 2%;">
 						        <button class="btn waves-effect waves-light purple white-text" id="conferma_mezzi" type="button" >
-						        <i class="material-icons right">&#xE80B;</i>Chiudi 
+						        <i class="material-icons right">&#xE80B;</i>Chiudi
 							</button>
 			        	</div>
 					</div>
@@ -151,7 +158,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 				</div>
 	  		</div>
 	  		</div>
-	  			
+
 			 </div>
 
 		</div>
@@ -189,7 +196,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 			        </div>
 			        <a class="input-field btn-floating btn-medium waves-effect waves-light purple" title="Aggiunta rapida cliente" style="float:right;" id="addClient"><i class="small material-icons">&#xE145;</i></a>
 		  	</div>
-		  	
+
 		  	<div class="divider"></div>
 				 <div class="row section">
 					 <div class="purple-text">Resoconto:</div>
@@ -197,21 +204,21 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 					 <div id="elenco_utilizzi_materiali"></div>
 					<div  id="elenco_utilizzi_mezzi"> </div>
 				 </div>
-				 
-		  	
+
+
 			  		<div class="row">
 				  		<div class="input-field col s12" style="text-align: right;margin-bottom: 2%;">
 						    <button class="btn waves-effect waves-light purple white-text" id="back_data" type="button" >Indietro
 								</button>
 						        <button class="btn waves-effect waves-light purple white-text" id="complete" type="button" >Completa
 								</button>
-		
+
 						</div>
 			  		</div>
-				 
+
 				 </div>
-		  	
-	
-		 
+
+
+
 	</body>
 </html>

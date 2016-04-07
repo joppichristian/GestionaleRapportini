@@ -17,7 +17,7 @@ $(document).ready(function(){
 	if(getCookie('vMA')==0)
 		$("#show_materiali").hide();
 	if(getCookie('vME')==0)
-		$("#show_mezzi").hide();	
+		$("#show_mezzi").hide();
 	$('select').material_select();
 	$('#schermata_clienti').hide();
 	$("#rapida_cliente").hide();
@@ -26,6 +26,10 @@ $(document).ready(function(){
 	$('#cliente_selezionato_new_page').hide();
 	$("#elenco_utilizzi_materiali").hide();
 	$("#elenco_utilizzi_mezzi").hide();
+	$("#button_Fine").hide();
+	$("#button_Fine").click(function(){
+		$("#button_Fine").hide();
+	});
 	$("#to_clienti").click(function(){
 		if($('#pausa').val() < 0 || $('#pausa').val() > 120){
 			Materialize.toast("Inserisci una pausa valida tra 0 e 120 minuti",2000);
@@ -89,7 +93,7 @@ $(document).ready(function(){
 		$(".mezzi").hide();
 		console.log(mezzi_selezionati);
 	});
-	
+
 	$('#pausa').focusout(function(){
 		if($('#pausa').val() < 0 || $('#pausa').val() > 120){
 			Materialize.toast("Inserisci una pausa valida tra 0 e 120 minuti",2000);
@@ -97,12 +101,17 @@ $(document).ready(function(){
 		}
 
 	});
-	
+
+	$('#header_page').on("click",function(){
+		$("#button_Fine").hide();
+	});
+	$('#loading').hide();
+
 	if(getCookie('aCL') ==0)
 	{
 		$("#show_add_cliente").hide();
 	}
-	
+
 	$("#show_add_cliente").on("click",function(){
 		if(rapida_cliente ==0){
 			$("#rapida_cliente").show();
@@ -118,10 +127,10 @@ $(document).ready(function(){
 		addCliente();
 
 	});
-	
-	
+
+
 	$("#all_select").on("click",function(){
-		
+
 		if($("#all_select").text()=="Seleziona tutto"){
 			$("#all_select").text("Deseleziona tutto");
 			populateListFascieOrarie();
@@ -173,7 +182,7 @@ function populateListClient(filter){
 				cliente_chip.className= "chip";
 				cliente_chip.innerHTML=json_clienti[index_Cl]['nominativo'];
 				$("#cliente_selezionato").append(cliente_chip);
-				
+
 	        });
 		}
 	});
@@ -328,15 +337,15 @@ function removeMezzo(i){
 }
 function aggiungiRapportino(){
 	var ar_ore = new Array();
-	
+
 	ar_ore = $(".select-dropdown").val().split(' ').join('').split(',').join(' ').split('--').join(' ').split(' ');
 	ar_ore.sort();
-	
+
 	var inizio = new Array();
 	var fine = new Array();
-	
+
 	var tmp_last;
-	
+
 	inizio.push(ar_ore[0]);
 	fine.push(ar_ore[1]);
 	tmp_last = ar_ore[0];
@@ -418,7 +427,7 @@ function addCliente(){
 			return false;
 		}
 		var nominativo = $("#nominativo").val();
-				
+
 		$.ajax({
 	      url: "script_php/postClients.php", //Relative or absolute path to response.php file
 	      type:"POST",
@@ -428,7 +437,7 @@ function addCliente(){
 		      'tipologia':'p',
 		      'db':getCookie('nomeDB')
 		   },
-		   success: function(data){		   
+		   success: function(data){
 		   		Materialize.toast('Cliente inserito', 2000,'',function(){populateListClient("")});
 		   		$("#rapida_cliente").hide();
 		   		$.ajax({
@@ -436,7 +445,7 @@ function addCliente(){
 			      url: "script_php/getClients.php?q="+nominativo+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
 			      data:"",
 			      success: function(data) {
-				    
+
 				    		$("#cliente_selezionato").empty();
 					    	$("#cliente_selezionato_new_page").empty();
 					        id_Cl = data[0]['id'];
@@ -449,7 +458,7 @@ function addCliente(){
 							cliente_chip_2.className= "chip";
 							cliente_chip_2.innerHTML=data[0]['nominativo'];
 							$("#cliente_selezionato_new_page").append(cliente_chip_2);
-				      
+
 					}
 				});
 
@@ -460,7 +469,7 @@ function addCliente(){
 			    return false;
 
 			}
-		});		
+		});
 		return false;
 }
 function populateListFascieOrarie(){
@@ -469,7 +478,7 @@ function populateListFascieOrarie(){
 	var tmp_ora,tmp_min,tmp;
 	var ini = hourTomin(getCookie("inizio"));
 	var fin = hourTomin(getCookie("fine"));
-	
+
 	 $("#ora").empty();
 	 $("#ora").append("<option value=-1 disabled>Seleziona gli orari del lavoro fatto</option>");
 	$.ajax({
@@ -480,7 +489,7 @@ function populateListFascieOrarie(){
 		      'dip': getCookie('id_dipendente'),
 		      'db':getCookie('nomeDB')
 		   },
-		   success: function(data){	
+		   success: function(data){
 			   console.log(data);
 			   for(var i=ini;i<fin;i+=30){
 				   occupato = false;
@@ -499,11 +508,11 @@ function populateListFascieOrarie(){
 				   if(tmp_min.length == 1)
 				   		tmp_min = '0'+tmp_min;
 				   tmp = tmp_ora+":"+tmp_min;
-				   $("#ora option[value="+i+"]").text($("#ora option[value="+i+"]").text()+" -- "+tmp);   				   
+				   $("#ora option[value="+i+"]").text($("#ora option[value="+i+"]").text()+" -- "+tmp);
 			   }
 			   for(var i=0;data != null && i<data.length;i++)
-			   {	
-				   
+			   {
+
 				   tmp = data[i]['inizio'].split(' ')[1];
 				   tmp_ora = tmp.split(':')[0];
 				   tmp_min = tmp.split(':')[1];
@@ -520,17 +529,24 @@ function populateListFascieOrarie(){
 				   }
 				}
 			   $('select').material_select("update");
-
+				 $('#ora').on('change',function() {
+					  showButtom();
+					});
 			},
 		   error: function (XMLHttpRequest, textStatus, errorThrown){
 			   Materialize.toast('Errore di inserimento', 2000);
 			    return false;
 
 			}
-		});		
+		});
+}
+function showButtom(){
+	$("#button_Fine").show();
 }
 
 function hourTomin(stringa){
 	return parseInt(stringa.split(":")[0])*60 + parseInt(stringa.split(":")[1]);
 }
-
+function Loading(){
+	$('#loading').show();
+}
