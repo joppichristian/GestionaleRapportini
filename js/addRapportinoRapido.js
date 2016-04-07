@@ -35,7 +35,7 @@ $(document).ready(function(){
 			Materialize.toast("Inserisci una pausa valida tra 0 e 120 minuti",2000);
 			$('#pausa').focus();
 		}
-		else if($('.select-dropdown').val()== "Seleziona gli orari del lavoro fatto")
+		else if($('.select-dropdown').val()== "Seleziona gli orari")
 		{
 			Materialize.toast("Inserisci qualche fascia oraria di lavoro",2000);
 			$('#ore').focus();
@@ -480,7 +480,7 @@ function populateListFascieOrarie(){
 	var fin = hourTomin(getCookie("fine"));
 
 	 $("#ora").empty();
-	 $("#ora").append("<option value=-1 disabled>Seleziona gli orari del lavoro fatto</option>");
+	 $("#ora").append("<option value=-1 disabled>Seleziona gli orari</option>");
 	$.ajax({
 	      url: "script_php/getFascieOrarie.php", //Relative or absolute path to response.php file
 	      type:"POST",

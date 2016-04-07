@@ -34,7 +34,6 @@ $(document).ready(function(){
 		$("#filter_stop_giorno_yy").append("<option value="+i+">"+i+"</option>");
 	}
 
-
 	$("#filter_start_giorno_dd").val(primoG.split('-')[0]);
 	$("#filter_start_giorno_mm").val(primoG.split('-')[1]);
 	$("#filter_start_giorno_yy").val(primoG.split('-')[2]);
@@ -77,6 +76,7 @@ $(document).ready(function(){
 	$("#cerca_filtro").on("click",function(){
 		lista_id_rap = new Array();
 		settaOra(0);
+		Loading();
 		populateRapportino(id_utente);
     });
 
@@ -139,7 +139,7 @@ function populateRapportino(filter){
       dataType: "json",
       url: "script_php/getRapportinoDipendente.php?q="+q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
-	  	async:false,
+	  	//async:false,
       success: function(data) {
 
 	    det_json = data;
@@ -254,9 +254,12 @@ function populateRapportino(filter){
 					}
 					$(".dettaglio_list").click(function(){
 						det_index = $(".dettaglio_list").index(this);
+						Loading();
 						explodeRapportino(elem_data[det_index]);
+
 					});
 			}
+			NoLoading();
       },
       error: function(xhr){
 	     console.log(xhr.status);
@@ -339,7 +342,6 @@ function populateRapportinoVuoto(filter){
 }
 
 function explodeRapportino(rapportino){
-
 	var id_cli = rapportino['id_cliente'];
 	var id_dip = rapportino['id_dipendente'];
 	var data_i= rapportino['inizio'];
@@ -353,7 +355,7 @@ function creazioneListaRapportino(dipendente, cliente, giorno){
 			dataType: "json",
 			url: "script_php/getSingoloRapportinoDipendente.php?d="+dipendente+"&c="+cliente+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
 			data:"",
-			async:false,
+			//async:false,
 			success: function(data) {
 				det_json = data;
 					console.log(data);
@@ -447,7 +449,7 @@ function creazioneListaRapportino(dipendente, cliente, giorno){
 						id_rap= data[det_index]['id'];
 						unlock_rapportino(id_rap);
 					});
-
+					NoLoading();
 			},
 			error: function(xhr){
 			 console.log(xhr.status);
@@ -497,7 +499,7 @@ function datiCliente(id){
 	      dataType: "json",
 	      url: "script_php/getClienteRapp.php?id="+id+"&db="+getCookie('nomeDB'),//Relative or absolute path to response.php file
 	      data:"",
-				async:false,
+				//async:false,
 	      success: function(data) {
 
 				//alert("chiamata avvenuta con successo");
@@ -831,4 +833,13 @@ function unlock_rapportino(id){
 					     console.log(xhr.status);
 				      }
 				    });
+}
+
+function Loading(){
+	$('#loading').show();
+	//alert("si loading");
+}
+function NoLoading(){
+	$('#loading').hide();
+	//alert("no loading");
 }
