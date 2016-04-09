@@ -1,7 +1,7 @@
 var json = new Array();
 var index=0;
 var id=0;
-
+var rapp = new Array();
 $(document).ready(function() {
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
@@ -41,11 +41,20 @@ $(document).ready(function() {
 	});
 	$("#yes").click(function(){
 		$("#modal_cancellazione").closeModal();
-		deleteCliente();
+		deleteCheck();
 	});
 	$("#no").click(function(){
 		$("#modal_cancellazione").closeModal();
 	});
+	$("#no_del").click(function(){
+		$("#modal_check").closeModal();
+	});
+	$("#yes_del").click(function(){
+		$("#modal_check").closeModal();
+		deleteCliente();
+		deleteRapportino();
+	});
+	
 	populateList("");
 
 });
@@ -137,11 +146,61 @@ function explodeClient(cliente){
        $("#note").append('<div class="blue-text" style="margin-left:15%;">Note </div><i class="info small material-icons blue-text">chat_bubble</i>'+cliente['note']);
 
 }
-
-function deleteCliente(){
-	
+function deleteCheck(){
 	if(getCookie("cCL")==0)
 		return;
+	
+	$.ajax({
+		url: "script_php/check.php", //Relative or absolute path to response.php file
+	      type:"POST",	
+	      data:{
+		      'slVLS': "rapportini.id",
+		      'tb1': "clienti",
+		      'tb2':"rapportini",
+		      'fl1':"clienti.id",
+		      'fl2':"id_cliente",
+		      'flWH':"clienti.id",
+		      'vlWH':id,
+		      'db':getCookie('nomeDB')
+		   },
+		  success: function(data) {
+		    rapp = data;
+		    if(data == null){
+			    deleteCliente();
+		    }
+		    else{
+			    $("#modal_check").openModal();
+		    }
+		  
+		    
+		  },
+	      error: function(data){
+		     console.log(data);
+	      }
+    });
+
+}
+
+function deleteRapportino(){
+	for(var i=0;i<rapp.length;i++)
+			$.ajax({
+				url: "script_php/deleteRapportino.php", //Relative or absolute path to response.php file
+				type:"POST",
+						      data:{'id': rapp[i]['id'],'db':getCookie('nomeDB')},
+						      success: function(data) {
+							  },
+						      error: function(xhr){
+							     console.log(xhr.status);
+						      }
+				    });
+}
+
+function deleteCliente(){
+	if(getCookie("cCL")==0)
+		return;
+	
+	
+	
 	$.ajax({
 		url: "script_php/deleteClient.php", //Relative or absolute path to response.php file
 	      type:"POST",	

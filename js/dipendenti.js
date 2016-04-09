@@ -1,4 +1,5 @@
 var json = new Array();
+var rapp = new Array();
 var index=0;
 var id=0;
 var gruppo;
@@ -62,7 +63,7 @@ $(document).ready(function() {
 	});
 	$("#yes").click(function(){
 		$("#modal_cancellazione").closeModal();
-		deleteDipendente();
+		deleteCheck();
 	});
 	$("#no").click(function(){
 		$("#modal_cancellazione").closeModal();
@@ -71,6 +72,15 @@ $(document).ready(function() {
 		resetPwd();
 	});
 
+	$("#no_del").click(function(){
+		$("#modal_check").closeModal();
+	});
+	$("#yes_del").click(function(){
+		$("#modal_check").closeModal();
+		deleteDipendente();
+		deleteRapportino();
+	});
+	
 	populateList("");
 
 });
@@ -176,6 +186,55 @@ function explodeDipendente(dipendente){
     });
 
 }
+
+function deleteCheck(){
+	if(getCookie("cCL")==0)
+		return;
+	
+	$.ajax({
+		url: "script_php/check.php", //Relative or absolute path to response.php file
+	      type:"POST",	
+	      data:{
+		      'slVLS': "rapportini.id",
+		      'tb1': "dipendenti",
+		      'tb2':"rapportini",
+		      'fl1':"dipendenti.id",
+		      'fl2':"id_dipendente",
+		      'flWH':"dipendenti.id",
+		      'vlWH':id,
+		      'db':getCookie('nomeDB')
+		   },
+		  success: function(data) {
+		    rapp = data;
+		    if(data == null){
+			    deleteDipendente();
+		    }
+		    else{
+			    $("#modal_check").openModal();
+		    }
+		  
+		    
+		  },
+	      error: function(data){
+		     console.log(data);
+	      }
+    });
+
+}
+function deleteRapportino(){
+	for(var i=0;i<rapp.length;i++)
+			$.ajax({
+				url: "script_php/deleteRapportino.php", //Relative or absolute path to response.php file
+				type:"POST",
+						      data:{'id': rapp[i]['id'],'db':getCookie('nomeDB')},
+						      success: function(data) {
+							  },
+						      error: function(xhr){
+							     console.log(xhr.status);
+						      }
+				    });
+}
+
 
 function deleteDipendente(){
 if(getCookie("cDI")==0)
