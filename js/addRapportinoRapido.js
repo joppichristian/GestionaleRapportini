@@ -1,7 +1,7 @@
 var json_clienti = new Array();
 var json_materiali = new Array();
 var json_mezzi = new Array();
-
+var select_string = "Seleziona tutto";
 
 var id_Cl,id_Me,id_Ma;
 var index_Cl,index_Me,index_Ma;
@@ -44,7 +44,7 @@ $(document).ready(function(){
 			$('#cliente_selezionato_new_page').show();
 			$('#schermata_clienti').show();
 			$('#schermata_dati').hide();
-			$("#ore_new_page").append("<div class='chip' >"+$(".select-dropdown").val()+"</div>");
+			$("#ore_new_page").append("<div class='chip' >"+$(".select-dropdown").val().substring(0,150)+" ... </div>");
 		}
 	});
 	$("#back_data").click(function(){
@@ -129,21 +129,7 @@ $(document).ready(function(){
 	});
 
 
-	$("#all_select").on("click",function(){
-
-		if($("#all_select").text()=="Seleziona tutto"){
-			$("#all_select").text("Deseleziona tutto");
-			populateListFascieOrarie();
-			$(".dropdown-content li span").each(function(){
-				this.click();
-			});
-		}
-		else{
-			$("#all_select").text("Seleziona tutto");
-			populateListFascieOrarie();
-		}
-
-	});
+	
 
 })
 
@@ -338,7 +324,7 @@ function removeMezzo(i){
 function aggiungiRapportino(){
 	var ar_ore = new Array();
 
-	ar_ore = $(".select-dropdown").val().split(' ').join('').split(',').join(' ').split('--').join(' ').split(' ');
+	ar_ore = $(".ora .select-dropdown").val().split(' ').join('').split(',').join(' ').split('--').join(' ').split(' ');
 	ar_ore.sort();
 
 	var inizio = new Array();
@@ -481,6 +467,8 @@ function populateListFascieOrarie(){
 
 	 $("#ora").empty();
 	 $("#ora").append("<option value=-1 disabled>Seleziona gli orari</option>");
+	 $("#ora").append("<option value=-2 id='all_select'>"+select_string+"</option>");
+	 
 	$.ajax({
 	      url: "script_php/getFascieOrarie.php", //Relative or absolute path to response.php file
 	      type:"POST",
@@ -532,6 +520,24 @@ function populateListFascieOrarie(){
 				 $('#ora').on('change',function() {
 					  showButtom();
 					});
+				 $(".ora .dropdown-content li:nth-child(2) span").on("click",function(){
+		
+					if($("#all_select").text()=="Seleziona tutto"){
+						select_string = "Deseleziona tutto";					
+						populateListFascieOrarie();
+						$(".ora .dropdown-content li span").each(function(i){
+							if(i>1)
+								this.click();
+						});
+					}
+					else{
+						$("#all_select").text("Seleziona tutto");
+						select_string = "Seleziona tutto";
+
+						populateListFascieOrarie();
+					}
+			
+				});	
 			},
 		   error: function (XMLHttpRequest, textStatus, errorThrown){
 			   Materialize.toast('Errore di inserimento', 2000);

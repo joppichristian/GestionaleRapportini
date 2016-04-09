@@ -7,6 +7,7 @@ var materiali_selezionati = new Array();
 var mezzi_selezionati = new Array();
 var dipendenti_selezionati = new Array();
 var index_fasce = 0;
+var select_string="Seleziona tutto";
 $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
@@ -93,21 +94,6 @@ $(document).ready(function(){
 			populateListFascieOrarie();
 		});
 
-		$("#all_select").on("click",function(){
-		
-			if($("#all_select").text()=="Seleziona tutto"){
-				$("#all_select").text("Deseleziona tutto");
-				populateListFascieOrarie();
-				$(".nuovo_ora .dropdown-content li span").each(function(){
-					this.click();
-				});
-			}
-			else{
-				$("#all_select").text("Seleziona tutto");
-				populateListFascieOrarie();
-			}
-	
-		});
 		
 
 });
@@ -454,6 +440,8 @@ function removeDipendente(i){
 	else{
 	$("#nuovo_ora").prop("disabled",false);
 	 $("#nuovo_ora").append("<option value=-1 disabled>Seleziona gli orari del lavoro fatto</option>");
+	 $("#nuovo_ora").append("<option value=-2 id='all_select'>"+select_string+"</option>");
+
 	 for(index_fasce=0;index_fasce<dipendenti_selezionati.length;index_fasce++)
 			$.ajax({
 			      url: "script_php/getFascieOrarieMoreDays.php", //Relative or absolute path to response.php file
@@ -534,6 +522,8 @@ function removeDipendente(i){
 							   }
 							}
 							$('select').material_select("update");
+							
+
 					   }
 		
 					},
@@ -544,6 +534,25 @@ function removeDipendente(i){
 					}
 				});	
 				
+				
 			}	
+			$(".nuovo_ora .dropdown-content li:nth-child(2) span").on("click",function(){
+		
+								if($("#nuovo_ora #all_select").text()=="Seleziona tutto"){
+									select_string = "Deseleziona tutto";					
+									populateListFascieOrarie();
+									$(".nuovo_ora .dropdown-content li span").each(function(i){
+										if(i>1)
+											this.click();
+									});
+								}
+								else{
+									$("#nuovo_ora #all_select").text("Seleziona tutto");
+									select_string = "Seleziona tutto";
+			
+									populateListFascieOrarie();
+								}
+						
+							});	
 }
 

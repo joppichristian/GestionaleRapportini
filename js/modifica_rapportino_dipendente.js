@@ -17,7 +17,7 @@ $(document).ready(function(){
 		{
 			$("#mod_giorno_yy").append("<option value="+i+">"+i+"</option>");
 		}
-		$('select').material_select();
+		$('#mod_giorno_yy').material_select();
 
 
     mod_populateListMaterials("");
@@ -83,7 +83,10 @@ function setVarRapp(index_rapp){
   $("#mod_giorno_yy").val(data[2]);
   $("#mod_descrizione").val(descr);
   $("#mod_pausa").val(pausa);
-  $('select').material_select();
+  $("#mod_giorno_dd").material_select();
+  $("#mod_giorno_mm").material_select();
+  $("#mod_giorno_yy").material_select();
+  $("#mod_giorno_pausa").material_select();
   populateListFascieOrarieModifica(inizio,fine);
 
 
@@ -467,7 +470,7 @@ function mod_controlloRapCliente(){
 					   }
 				   }
 				}
-			  $('select').material_select();
+			  $('#mod_ora').material_select();
 			   for(var k = 0;k< toModify.length;k++)
 			   {
 				   $(".mod_ora .dropdown-content li:nth-child("+toModify[k]+") span").click();

@@ -6,6 +6,7 @@ var json_mezzi = new Array();
 var materiali_selezionati = new Array();
 var mezzi_selezionati = new Array();
 var cliente_selezionato =0;
+var select_string = "Seleziona tutto";
 
 $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
@@ -63,37 +64,21 @@ $(document).ready(function(){
 			}
 
 		});
-		
-		populateListFascieOrarie();
+		$('select').material_select();
+		populateListFascieOrarieAdd();
 		
 		
 		$("#nuovo_giorno_dd").on("change",function(){
-			populateListFascieOrarie();
+			populateListFascieOrarieAdd();
 		});
 		
 		$("#nuovo_giorno_mm").on("change",function(){
-			populateListFascieOrarie();
+			populateListFascieOrarieAdd();
 		});
 		
 		$("#nuovo_giorno_yy").on("change",function(){
-			populateListFascieOrarie();
+			populateListFascieOrarieAdd();
 		});
-		
-	$("#all_select").on("click",function(){
-		
-		if($("#all_select").text()=="Seleziona tutto"){
-			$("#all_select").text("Deseleziona tutto");
-			populateListFascieOrarie();
-			$(".nuovo_ora .dropdown-content li span").each(function(){
-				this.click();
-			});
-		}
-		else{
-			$("#all_select").text("Seleziona tutto");
-			populateListFascieOrarie();
-		}
-
-	});
 
 });
 
@@ -395,7 +380,7 @@ function populateListMezzi(filter){
 
  }
  
- function populateListFascieOrarie(){
+ function populateListFascieOrarieAdd(){
 	var ini = hourTomin(getCookie("inizio"));
 	var fin = hourTomin(getCookie("fine"));
 	var occupato = false;
@@ -403,6 +388,7 @@ function populateListMezzi(filter){
 	var tmp_ora,tmp_min,tmp;
 	$("#nuovo_ora").empty();
 	 $("#nuovo_ora").append("<option value=-1 disabled>Seleziona gli orari del lavoro fatto</option>");
+	 $("#nuovo_ora").append("<option value=-2 id='all_select'>"+select_string+"</option>");
 	$.ajax({
 	      url: "script_php/getFascieOrarieMoreDays.php", //Relative or absolute path to response.php file
 	      type:"POST",
@@ -453,7 +439,25 @@ function populateListMezzi(filter){
 					   $("#nuovo_ora option[value="+j+"]").text($("#nuovo_ora option[value="+j+"]").text() +"       " + data[i]['nominativo']);
 				   }
 				}
-			   $('select').material_select("update");
+			   $('#nuovo_ora').material_select("update");
+			   $(".nuovo_ora .dropdown-content li:nth-child(2) span").on("click",function(){
+		
+								if($("#nuovo_ora #all_select").text()=="Seleziona tutto"){
+									select_string = "Deseleziona tutto";					
+									populateListFascieOrarieAdd();
+									$(".nuovo_ora .dropdown-content li span").each(function(i){
+										if(i>1)
+											this.click();
+									});
+								}
+								else{
+									$("#nuovo_ora #all_select").text("Seleziona tutto");
+									select_string = "Seleziona tutto";
+			
+									populateListFascieOrarieAdd();
+								}
+						
+							});	
 
 			},
 		   error: function (XMLHttpRequest, textStatus, errorThrown){
@@ -461,6 +465,13 @@ function populateListMezzi(filter){
 			    return false;
 
 			}
-		});		
+		});	
+		
+		console.log("Ciccio");
+		
+		
 }
 
+function hourTomin(stringa){
+	return parseInt(stringa.split(":")[0])*60 + parseInt(stringa.split(":")[1]);
+}
