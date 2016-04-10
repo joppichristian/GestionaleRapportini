@@ -10,7 +10,7 @@
 				include 'connessione-db.php';
 				
 				
-				$qry = "SELECT ".$_POST["slVLS"]." FROM ".$_POST["tb1"]." JOIN ".$_POST["tb2"]." ON ".$_POST["fl1"]." = ".$_POST["fl2"]." WHERE ".$_POST["flWH"]." = ".$_POST["vlWH"].";";
+				$qry = "SELECT ".$_POST["slVLS"]." FROM ".$_POST["tb1"]." JOIN ".$_POST["tb2"]." ON ".$_POST["fl1"]." = ".$_POST["fl2"]." WHERE ".$_POST["WH"].";";
 				$mysqli->query('SET CHARACTER SET utf8');
 		    	$result = $mysqli->query($qry);
 		    	while($row = $result->fetch_assoc()) {

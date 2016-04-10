@@ -188,7 +188,7 @@ function explodeDipendente(dipendente){
 }
 
 function deleteCheck(){
-	if(getCookie("cCL")==0)
+	if(getCookie("cDI")==0)
 		return;
 	
 	$.ajax({
@@ -200,8 +200,7 @@ function deleteCheck(){
 		      'tb2':"rapportini",
 		      'fl1':"dipendenti.id",
 		      'fl2':"id_dipendente",
-		      'flWH':"dipendenti.id",
-		      'vlWH':id,
+		      'WH':"dipendenti.id = " + id,
 		      'db':getCookie('nomeDB')
 		   },
 		  success: function(data) {

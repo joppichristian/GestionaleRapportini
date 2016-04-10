@@ -1,6 +1,7 @@
 var json = new Array();
 var index=0;
 var id=0;
+var rapp = new Array();
 
 $(document).ready(function() {
 	if(getCookie('nomeDB')=="")
@@ -41,10 +42,19 @@ $(document).ready(function() {
 	});
 	$("#yes").click(function(){
 		$("#modal_cancellazione").closeModal();
-		deleteMateriale();
+		deleteCheck();
 	});
 	$("#no").click(function(){
 		$("#modal_cancellazione").closeModal();
+	});	
+	
+	$("#no_del").click(function(){
+		$("#modal_check").closeModal();
+	});
+	$("#yes_del").click(function(){
+		$("#modal_check").closeModal();
+		deleteMateriale();
+		deleteUtilizzo();
 	});
 
 	populateList("");
@@ -113,6 +123,56 @@ function explodeMateriale(materiale){
     if(materiale['note'] != null && materiale['note'] != "")
        $("#note").append('<div class="red-text" style="margin-left:15%;">Note</div><i class="info small material-icons red-text">chat_bubble</i>'+materiale['note']);
 }
+
+
+function deleteCheck(){
+	if(getCookie("cMA")==0)
+		return;
+	
+	$.ajax({
+		url: "script_php/check.php", //Relative or absolute path to response.php file
+	      type:"POST",	
+	      data:{
+		      'slVLS': "utilizzo_risorse.id_materiale_mezzo",
+		      'tb1': "materiali",
+		      'tb2':"utilizzo_risorse",
+		      'fl1':"materiali.id",
+		      'fl2':"id_materiale_mezzo",
+		      'WH':"materiali.id = "+id +" and utilizzo_risorse.tipologia = 'ma'",
+		      'db':getCookie('nomeDB')
+		   },
+		  success: function(data) {
+		    rapp = data;
+		    if(data == null){
+				deleteMezzo();
+		    }
+		    else{
+			    $("#modal_check").openModal();
+		    }
+		  
+		    
+		  },
+	      error: function(data){
+		     console.log(data);
+	      }
+    });
+
+}
+
+function deleteUtilizzo(){
+	for(var i=0;i<rapp.length;i++)
+			$.ajax({
+				url: "script_php/deleteUtilizzo.php", //Relative or absolute path to response.php file
+				type:"POST",
+						      data:{'id': rapp[i]['id'],'tipo':'ma','db':getCookie('nomeDB')},
+						      success: function(data) {
+							  },
+						      error: function(xhr){
+							     console.log(xhr.status);
+						      }
+				    });
+}
+
 
 function deleteMateriale(){
 if(getCookie("cMA")==0)

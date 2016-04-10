@@ -159,8 +159,7 @@ function deleteCheck(){
 		      'tb2':"rapportini",
 		      'fl1':"clienti.id",
 		      'fl2':"id_cliente",
-		      'flWH':"clienti.id",
-		      'vlWH':id,
+		      'WH':"clienti.id = " +id,
 		      'db':getCookie('nomeDB')
 		   },
 		  success: function(data) {
