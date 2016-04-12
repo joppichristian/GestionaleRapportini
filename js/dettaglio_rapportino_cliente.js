@@ -103,11 +103,13 @@ $(document).ready(function(){
 
 		$("#pulsante_materiali").on("click",function(){
 			if(stato_materiali==1){
+				document.getElementById("pulsante_materiali").className = "btn-floating orange";
 				$("#elementi_materiali").hide();
 				stato_materiali=0;
 				mod_materiali_tot=[];
 				mod_materiali_tot = new Array();
 			}else{
+				document.getElementById("pulsante_materiali").className = "btn-floating grey";
 				$("#elementi_materiali").show();
 				stato_materiali=1;
 				setteRiepilogoMateriali();
@@ -116,10 +118,12 @@ $(document).ready(function(){
 
 		$("#pulsante_mezzi").on("click",function(){
 			if(stato_mezzi==1){
+				document.getElementById("pulsante_materiali").className = "btn-floating orange";
 				$("#elementi_mezzi").hide();
 				stato_mezzi=0;
 				mod_mezzi_tot = new Array();
 			}else{
+				document.getElementById("pulsante_materiali").className = "btn-floating grey";
 				$("#elementi_mezzi").show();
 				stato_mezzi=1;
 				setteRiepilogoMezzi();
@@ -139,7 +143,7 @@ function populateRapportino(filter){
       dataType: "json",
       url: "script_php/getRapportinoCliente.php?q="+q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
-	  async:false,
+	    //async:false,
       success: function(data) {
 
 	    det_json = data;
