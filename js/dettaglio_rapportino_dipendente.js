@@ -119,12 +119,12 @@ $(document).ready(function(){
 
 		$("#pulsante_mezzi").on("click",function(){
       if(stato_mezzi==1){
-				document.getElementById("pulsante_materiali").className = "btn-floating orange";
+				document.getElementById("pulsante_mezzi").className = "btn-floating orange";
         $("#elementi_mezzi").hide();
         stato_mezzi=0;
 				mod_mezzi_tot = new Array();
       }else{
-				document.getElementById("pulsante_materiali").className = "btn-floating grey";
+				document.getElementById("pulsante_mezzi").className = "btn-floating grey";
         $("#elementi_mezzi").show();
         stato_mezzi=1;
 				setteRiepilogoMezzi();
