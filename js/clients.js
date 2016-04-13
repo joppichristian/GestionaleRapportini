@@ -46,14 +46,7 @@ $(document).ready(function() {
 	$("#no").click(function(){
 		$("#modal_cancellazione").closeModal();
 	});
-	$("#no_del").click(function(){
-		$("#modal_check").closeModal();
-	});
-	$("#yes_del").click(function(){
-		$("#modal_check").closeModal();
-		deleteCliente();
-		deleteRapportino();
-	});
+	
 	
 	populateList("");
 
@@ -65,7 +58,7 @@ function populateList(filter){
 	var q = filter;
 	$.ajax({
       dataType: "json",
-      url: "script_php/getClients.php?q="+ q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "script_php/getClients.php?q="+ q+"&db="+getCookie('nomeDB')+"&all=0", //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
 	    json = data;
@@ -168,7 +161,7 @@ function deleteCheck(){
 			    deleteCliente();
 		    }
 		    else{
-			    $("#modal_check").openModal();
+			    disattivaCliente();
 		    }
 		  
 		    
@@ -180,18 +173,24 @@ function deleteCheck(){
 
 }
 
-function deleteRapportino(){
-	for(var i=0;i<rapp.length;i++)
-			$.ajax({
-				url: "script_php/deleteRapportino.php", //Relative or absolute path to response.php file
-				type:"POST",
-						      data:{'id': rapp[i]['id'],'db':getCookie('nomeDB')},
-						      success: function(data) {
-							  },
-						      error: function(xhr){
-							     console.log(xhr.status);
-						      }
-				    });
+function disattivaCliente(){
+	if(getCookie("cCL")==0)
+		return;
+	
+	
+	
+	$.ajax({
+		url: "script_php/disableClient.php", //Relative or absolute path to response.php file
+	      type:"POST",	
+	      data:{'id': id,'db':getCookie('nomeDB')},
+		  success: function(data) {
+		    Materialize.toast('Cliente eliminato! Il suo storico rapportini viene comunque mantenuto!', 2000);
+			populateList("");
+		  },
+	      error: function(xhr){
+		     console.log(xhr.status);
+	      }
+    });
 }
 
 function deleteCliente(){

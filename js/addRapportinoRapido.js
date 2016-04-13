@@ -136,7 +136,7 @@ $(document).ready(function(){
 function populateListClient(filter){
 	$.ajax({
       dataType: "json",
-      url: "script_php/getClients.php?q="+filter+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "script_php/getClients.php?q="+filter+"&db="+getCookie('nomeDB')+"&all=0", //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
 	    json_clienti = data;

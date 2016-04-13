@@ -69,7 +69,7 @@ function populateListClient(filter){
 	var q=filter;
 	$.ajax({
       dataType: "json",
-      url: "script_php/getClients.php?q="+ q+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "script_php/getClients.php?q="+ q+"&db="+getCookie('nomeDB')+"&all=1", //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
 	    json = data;
