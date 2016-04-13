@@ -2,22 +2,23 @@ var json = new Array();
 
 function check(form)
 {
-    if(form.user.value != "" || form.password.value != ""){
+    if(form.user.value != "" || form.password.value != "" || form.azienda.value != ""){
       var username = form.user.value;
       var password = form.password.value;
-      controlla_login(username, password);
+      var azienda = form.azienda.value;
+      controlla_login(username, password,azienda);
     }else{
       Materialize.toast('Non hai compilato tutti i campi', 2000);
     }
 }
 
-function controlla_login(user,psw){
+function controlla_login(user,psw,azienda){
   //alert("fino a qui la psw :"+psw);
   //psw = SHA512(psw);
 
   //alert("psw: "+psw);
   var psw = SHA512(psw);
-  var stringaR = "u="+user+"&p="+psw;
+  var stringaR = "u="+user+"&p="+psw + "&a=" + azienda;
   var query = "script_php/login.php?"+stringaR ;
   $.ajax({
       url: query,

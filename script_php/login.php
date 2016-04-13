@@ -5,6 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET")
 
 	$username=  $_GET['u'];
 	$password= $_GET['p'];
+	$azienda= $_GET['a'];
 		//$qry = "SELECT * FROM Azienda_utente AU JOIN Azienda_cliente AC ON AU.ID_azienda = AC.ID_azienda WHERE username='".$user."' AND password='".$psw."';";
     //prevengo attacco SQL injection con prepared statement
   if ($stmt = $mysqli_generale->prepare("SELECT ID_utente, username, password, salt FROM Azienda_utente WHERE username = ? LIMIT 1")) {
@@ -21,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET")
       if($stmt->num_rows == 1) {
 				//if(!possibile_attacco($user_id, $mysqli_generale)){
 					if($db_password == $password){
-						$qry = "SELECT * FROM Azienda_utente AU JOIN Azienda_cliente AC ON AU.ID_azienda = AC.ID_azienda WHERE username='".$username."' AND password='".$db_password."';";
+						$qry = "SELECT * FROM Azienda_utente AU JOIN Azienda_cliente AC ON AU.ID_azienda = AC.ID_azienda WHERE username='".$username."' AND password='".$db_password."' AND codice = '".$azienda."';";
 						$mysqli_generale->query('SET CHARACTER SET utf8');
 						$result1 = $mysqli_generale->query($qry);
 						while($row = $result1->fetch_assoc())
