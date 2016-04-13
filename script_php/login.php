@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET")
       if($stmt->num_rows == 1) {
 				//if(!possibile_attacco($user_id, $mysqli_generale)){
 					if($db_password == $password){
-						$qry = "SELECT * FROM Azienda_utente AU JOIN Azienda_cliente AC ON AU.ID_azienda = AC.ID_azienda WHERE username='".$username."' AND password='".$db_password."' AND codice = '".$azienda."';";
+						$qry = "SELECT * FROM Azienda_utente AU JOIN Azienda_cliente AC ON AU.ID_azienda = AC.ID_azienda WHERE username='".$username."' AND password='".$db_password."' AND codice = '".$azienda."' AND attivo = 1;";
 						$mysqli_generale->query('SET CHARACTER SET utf8');
 						$result1 = $mysqli_generale->query($qry);
 						while($row = $result1->fetch_assoc())

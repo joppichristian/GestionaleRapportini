@@ -72,14 +72,7 @@ $(document).ready(function() {
 		resetPwd();
 	});
 
-	$("#no_del").click(function(){
-		$("#modal_check").closeModal();
-	});
-	$("#yes_del").click(function(){
-		$("#modal_check").closeModal();
-		deleteDipendente();
-		deleteRapportino();
-	});
+	
 	
 	populateList("");
 
@@ -89,7 +82,7 @@ $(document).ready(function() {
 function populateList(filter){
 	$.ajax({
       dataType: "json",
-      url: "script_php/getEmployee.php?q="+ filter+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "script_php/getEmployee.php?q="+ filter+"&db="+getCookie('nomeDB')+"&all=0", //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
 	    json = data;
@@ -209,7 +202,7 @@ function deleteCheck(){
 			    deleteDipendente();
 		    }
 		    else{
-			    $("#modal_check").openModal();
+			    disableDipendente();
 		    }
 		  
 		    
@@ -236,7 +229,7 @@ function deleteRapportino(){
 
 
 function deleteDipendente(){
-if(getCookie("cDI")==0)
+	if(getCookie("cDI")==0)
 		return;
 					$.ajax({
 				      url: "script_php/deleteEmployee.php", //Relative or absolute path to response.php file
@@ -252,6 +245,25 @@ if(getCookie("cDI")==0)
 				    });
 
 }
+
+function disableDipendente(){
+	if(getCookie("cDI")==0)
+		return;
+					$.ajax({
+				      url: "script_php/disableEmployee.php", //Relative or absolute path to response.php file
+				      type:"POST",
+				      data:{'id': id,'db':getCookie('nomeDB'),'azienda':getCookie("id_azienda")},
+				      success: function(data) {
+					      Materialize.toast('Dipendente eliminato. Il suo storico rapportini viene comunque mantenuto!', 2000);
+					      populateList("");
+					  },
+				      error: function(xhr){
+					     console.log(xhr.status);
+				      }
+				    });
+
+}
+
 
 function completaForm(){
 	$("#rules").hide();

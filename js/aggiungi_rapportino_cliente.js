@@ -102,7 +102,7 @@ $(document).ready(function(){
 function populateListEmployee(filter){
 	$.ajax({
       dataType: "json",
-      url: "script_php/getEmployee.php?q="+ filter+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "script_php/getEmployee.php?q="+ filter+"&db="+getCookie('nomeDB')+"&all=0", //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
 	    json_dipendenti = data;
