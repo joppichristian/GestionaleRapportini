@@ -2,23 +2,22 @@ var json = new Array();
 
 function check(form)
 {
-    if(form.user.value != "" || form.password.value != "" || form.azienda.value != ""){
+    if(form.user.value != "" || form.password.value != "" ){
       var username = form.user.value;
       var password = form.password.value;
-      var azienda = form.azienda.value;
-      controlla_login(username, password,azienda);
+      controlla_login(username, password);
     }else{
       Materialize.toast('Non hai compilato tutti i campi', 2000);
     }
 }
 
-function controlla_login(user,psw,azienda){
+function controlla_login(user,psw){
   //alert("fino a qui la psw :"+psw);
   //psw = SHA512(psw);
 
   //alert("psw: "+psw);
   var psw = SHA512(psw);
-  var stringaR = "u="+user+"&p="+psw + "&a=" + azienda;
+  var stringaR = "u="+user+"&p="+psw;
   var query = "script_php/login.php?"+stringaR ;
   $.ajax({
       url: query,
@@ -35,6 +34,7 @@ function controlla_login(user,psw,azienda){
 		      var username = "";
 		  var inzio = "";
 		  var fine = "";
+		  var dbs = "";
 		      if((data != null)&&(data[0]!=null)){
             for(var i = 0; i < data.length; i++) {
                 id_a = data[i]['ID_azienda'];
@@ -45,6 +45,7 @@ function controlla_login(user,psw,azienda){
                 username = data[i]['username'];
                 inizio = data[i]['inizio'];
                 fine = data[i]['fine'];
+                dbs += data[i]['nome_db']+":"+r_sociale+"-";
                 
             }
             //alert("registrazione avvenuta con successo!! id azienda: "+id_a);
@@ -57,6 +58,7 @@ function controlla_login(user,psw,azienda){
             setCookie("id_azienda", id_a, 30);
             setCookie("inizio",inizio,30);
             setCookie("fine",fine,30);
+            setCookie("dbs",dbs,30);
             Materialize.toast('Login avvenuto con successo!', 2000,'',function(){window.location.href = 'dashboard.html'});
           }else{
             Materialize.toast('Username e/o Password Errata', 2000);
