@@ -36,7 +36,6 @@ $(document).ready(function(){
 	$("#fine_min").val(getCookie("fine").split(':')[1]);
 	
 	var dbs  = getCookie("dbs").split('-');
-	setCookie("nomeDB",dbs[0].split(':')[0],30);
 	for(var i=0;i<dbs.length-1;i++){
 		$("#aziende_associate").append('<li class="blue-grey darken-3"><a href="#!" id="'+dbs[i].split(':')[0]+'"class="blue-grey-text text-lighten-5">'+dbs[i].split(':')[1]+'</a></li><li class="divider"></li>');
 		
@@ -46,8 +45,17 @@ $(document).ready(function(){
 			$("#text-db").append($(this).text()+ '<i class="material-icons right">arrow_drop_down</i>');
 		})
 	}	
+	if(getCookie("inizialized")==0){
+		setCookie("nomeDB",dbs[0].split(':')[0],30);
+		setCookie("inizialized",1,30);
+		$("#text-db").append(dbs[0].split(':')[1]+ '<i class="material-icons right">arrow_drop_down</i>');
+	}
+	else{
+		$("#text-db").append($("#"+getCookie("nomeDB")).text()+ '<i class="material-icons right">arrow_drop_down</i>');
+	}
 	
-	$("#text-db").append(dbs[0].split(':')[1]+ '<i class="material-icons right">arrow_drop_down</i>');
+	
+	
 	$(".dropdown-button").dropdown();
 	$('select').material_select();
 

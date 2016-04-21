@@ -41,7 +41,7 @@ function controlla_login(user,psw){
                 id_dip = data[i]['id_dipendente'];
                 admin = data[i]['classe_privilegi'];
                 r_sociale = data[i]['ragione_sociale'];
-                nomedb = data[i]['nome_db'];
+                nomedb = data[0]['nome_db'];
                 username = data[i]['username'];
                 inizio = data[i]['inizio'];
                 fine = data[i]['fine'];
@@ -49,6 +49,7 @@ function controlla_login(user,psw){
                 
             }
             //alert("registrazione avvenuta con successo!! id azienda: "+id_a);
+            setCookie("inizialized",0,30);
             setCookie("username", user, 30);
             setCookie("password", psw, 30);
             setCookie("id_dipendente", id_dip, 30);
