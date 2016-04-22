@@ -13,7 +13,7 @@
 				$cellulare = str_replace("'", "\'",$_POST['cellulare']);
 				$iban = str_replace("'", "\'",$_POST['iban']);
 				$note = str_replace("'", "\'",$_POST['note']);
-				$codicefiscale = str_replace("'", "\'",$_POST['codicefiscale']);
+				$codicefiscale = str_replace("'", "\'",$_POST['cod']);
 				$classe_pr = $_POST['classe_pr'];
 				$username = $_POST['username'];
 				$password = $_POST['password'];

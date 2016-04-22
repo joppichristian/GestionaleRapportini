@@ -292,6 +292,8 @@ function modifyDipendente(){
 	var cognome = $("#form_cognome").val();
 	var telefono = $("#form_telephone").val();
 	var cellulare = $("#form_mobile").val();
+	var codicefiscale = $("#codicefiscale").val();
+
 	var iban = $("#form_iban").val();
 	var note = $("#form_note").val();
 	var user = $("#form_username").val();
@@ -307,6 +309,7 @@ function modifyDipendente(){
 		      'cellulare':cellulare,
 		      'iban':iban,
 		      'note':note,
+		      'cod': codicefiscale,
 		      'id':json[index]['id'],
 		      'username':user,
 		      'classe':classe,

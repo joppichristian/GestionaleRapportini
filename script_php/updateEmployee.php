@@ -10,6 +10,7 @@
 				$iban = str_replace("'", "\'",$_POST['iban']);
 				$note = str_replace("'", "\'",$_POST['note']);
 				$username = str_replace("'", "\'",$_POST['username']);
+				$codicefiscale = str_replace("'", "\'",$_POST['cod']);
 				$classe= $_POST['classe'];
 				$db = $_POST['db'];
 				include 'connessione-db.php';
@@ -19,7 +20,8 @@
 				$sqlUpdate = "UPDATE dipendenti SET nome = '".$nome. "' , 
 												cognome = '".$cognome. "' , 
 												telefono = '".$telefono."' , 
-												cellulare = '".$cellulare."' , 
+												cellulare = '".$cellulare."' ,
+												codicefiscale = '".$codicefiscale."', 
 												iban = '".$iban."' , 
 												note = '".$note."'
 												WHERE id = '".$_POST['id']."' ;" ;
@@ -32,15 +34,22 @@
 				
 
 				
-					$sqlUpdate = "UPDATE Azienda_utente SET username = '".$username. "' , 
-													classe_privilegi = ".$classe. " 
-													WHERE id_dipendente = ".$_POST['id']." and ID_azienda= ".$_POST['azienda']." ;" ;
+					$sqlUpdate = "UPDATE Azienda_utente SET username = '".$username. "' 
+													WHERE ID_Utente = (SELECT id_utente FROM utente_azienda ua WHERE id_dipendente = ".$_POST['id']." and id_azienda= ".$_POST['azienda']." );" ;
 					$mysqli_generale->query('SET CHARACTER SET utf8');	  
 					if (!mysqli_query($mysqli_generale,$sqlUpdate)){
 						echo mysqli_error($mysqli_generale);
 					}
 					else{
-						echo json_encode("success");
+						
+						$sqlUpdate = "UPDATE utente_azienda SET classe_privilegi = ".$classe. " 
+														WHERE id_dipendente = ".$_POST['id']." and id_azienda= ".$_POST['azienda'].";" ;
+						$mysqli_generale->query('SET CHARACTER SET utf8');	  
+						if (!mysqli_query($mysqli_generale,$sqlUpdate)){
+							echo mysqli_error($mysqli_generale);
+						}
+						
+							echo json_encode("success");
 					}
 				}
 				

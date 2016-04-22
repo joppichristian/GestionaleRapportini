@@ -17,7 +17,7 @@
 				else{
 					include 'connessione-db-generale.php';
 					
-					$sql = "UPDATE Azienda_utente SET attivo = 0 WHERE id_dipendente = ".$id. " and ID_azienda=".$azienda.";" ;
+					$sql = "UPDATE Azienda_utente SET attivo = 0 WHERE ID_Utente = (SELECT id_utente FROM utente_azienda ua WHERE id_dipendente = ".$id." and id_azienda= ".$azienda." );" ;
 					$mysqli_generale->query('SET CHARACTER SET utf8');
 
 					if (!mysqli_query($mysqli_generale,$sql)){
