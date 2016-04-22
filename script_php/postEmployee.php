@@ -13,6 +13,7 @@
 				$cellulare = str_replace("'", "\'",$_POST['cellulare']);
 				$iban = str_replace("'", "\'",$_POST['iban']);
 				$note = str_replace("'", "\'",$_POST['note']);
+				$codicefiscale = str_replace("'", "\'",$_POST['codicefiscale']);
 				$classe_pr = $_POST['classe_pr'];
 				$username = $_POST['username'];
 				$password = $_POST['password'];
@@ -25,7 +26,7 @@
 
 				include 'connessione-db.php';
 
-				$sql = "INSERT INTO dipendenti (nome,cognome,telefono,cellulare,iban,note) VALUES ('".$nome."','".$cognome."','".$telefono."','".$cellulare."','".$iban."','".$note."');";
+				$sql = "INSERT INTO dipendenti (nome,cognome,telefono,cellulare,iban,note,codicefiscale) VALUES ('".$nome."','".$cognome."','".$telefono."','".$cellulare."','".$iban."','".$note."','".$codicefiscale."');";
 				$mysqli->query('SET CHARACTER SET utf8');
 
 				if (!mysqli_query($mysqli,$sql)){
@@ -35,14 +36,23 @@
 					include 'connessione-db-generale.php';
 
 					$salt = $random_salt;
-					$sql = "INSERT INTO Azienda_utente (salt,username,password,ID_Azienda,ID_dipendente,classe_privilegi) VALUES ('".$salt."','".$username."','".$password."',".$id_azienda.",".$insertId.",".$classe_pr.");" ;
+					$sql = "INSERT INTO Azienda_utente (salt,username,password) VALUES ('".$salt."','".$username."','".$password."');" ;
 					$mysqli_generale->query('SET CHARACTER SET utf8');
 
 					if (!mysqli_query($mysqli_generale,$sql)){
 						echo mysqli_error($mysqli_generale);
 					}
-					else
-						echo json_encode("success");
+					else{
+						$insertIdUser = $mysqli_generale->insert_id;
+						$sql = "INSERT INTO utente_azienda (id_azienda,id_utente,classe_privilegi,id_dipendente) VALUES (".$id_azienda.",".$insertIdUser.",".$classe_pr.",".$insertId.");" ;
+						$mysqli_generale->query('SET CHARACTER SET utf8');
+						
+						if (!mysqli_query($mysqli_generale,$sql)){
+							echo mysqli_error($mysqli_generale);
+						}
+						else
+							echo json_encode("success");
+						}
 				}
 
 			}else{

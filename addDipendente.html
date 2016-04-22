@@ -52,6 +52,12 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 		          <input id="cognome" type="text" name="nominativo" class="validate">
 		          <label class="green-text" for="cognome">Cognome</label>
 		        </div>
+				<div class="input-field col s12 m6 l6">
+		          <i class="material-icons prefix green-text">code</i>
+		          <input id="codicefiscale" type="text" name="codicefiscale" class="validate">
+		          <label class="green-text" for="codicefiscale">Codice Fiscale</label>
+		        </div>
+
 		        <div class="input-field col s12 m6 l6">
 		          <i class="material-icons prefix green-text">phone</i>
 		          <input id="telephone" type="tel" name="telefono" class="validate">
@@ -67,16 +73,18 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 		          <input id="iban" type="text" name="iban" class="validate">
 		          <label class="green-text" for="iban">IBAN</label>
 		        </div>
-		        <div class="input-field col s12 m6 l6">
-				    <select id="privilegi" name="privilegi">
-				    </select>
-				    <label>Gruppo di appartenenza</label>
-				 </div>
 		        <div class="input-field col s12 m12 l12">
 			      <i class="material-icons prefix green-text">chat_bubble</i>
 		          <textarea id="note" name="note" class="materialize-textarea"></textarea>
 		          <label class="green-text" for="note">Note</label>
 		        </div>
+		        
+		        <div class="section input-field col s12 m12 l12" >
+				    <select id="privilegi" name="privilegi">
+				    </select>
+				    <label>Gruppo di appartenenza</label>
+				 </div>
+		        
 		        <div class="input-field col s12 m6 l6">
 		          <i class="material-icons prefix green-text">person</i>
 		          <input id="username" type="text" name="username" class="validate">

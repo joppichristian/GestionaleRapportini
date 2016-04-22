@@ -37,15 +37,15 @@ function controlla_login(user,psw){
 		  var dbs = "";
 		      if((data != null)&&(data[0]!=null)){
             for(var i = 0; i < data.length; i++) {
-                id_a = data[i]['ID_azienda'];
+                id_a = data[0]['ID_azienda'];
                 id_dip = data[i]['id_dipendente'];
-                admin = data[i]['classe_privilegi'];
+                admin = data[0]['classe_privilegi'];
                 r_sociale = data[i]['ragione_sociale'];
                 nomedb = data[0]['nome_db'];
                 username = data[i]['username'];
                 inizio = data[i]['inizio'];
                 fine = data[i]['fine'];
-                dbs += data[i]['nome_db']+":"+r_sociale+"-";
+                dbs += data[i]['nome_db']+":"+r_sociale+":"+data[i]['ID_azienda']+":"+data[i]['classe_privilegi']+"-";
                 
             }
             //alert("registrazione avvenuta con successo!! id azienda: "+id_a);

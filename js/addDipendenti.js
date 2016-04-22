@@ -36,6 +36,7 @@ function addDipendente(){
 		var cellulare = $("#mobile").val();
 		var iban = $("#iban").val();
 		var classe_pr = $("#privilegi").val();
+		var codicefiscale = $("#codicefiscale").val();
 		var note = $("#note").val();
 		var username = $("#username").val();
 		var password = $("#password").val();
@@ -54,6 +55,7 @@ function addDipendente(){
 		      'note':note,
 		      'classe_pr':classe_pr,
 		      'azienda':getCookie('id_azienda'),
+		      'cod':codicefiscale,
 		      'username':username,
 		      'password':password,
 		      'db':getCookie('nomeDB')
