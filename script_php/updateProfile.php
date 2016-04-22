@@ -24,7 +24,7 @@
 				$password = hash('sha512', $password.$salt);
 
 					$sqlUpdate = "UPDATE Azienda_utente SET password = '".$password. "', salt = '".$salt. "'
-												WHERE id_dipendente = ".$_POST['id']." and ID_azienda= ".$_POST['azienda']." ;" ;
+												WHERE ID_Utente = (SELECT id_utente FROM utente_azienda ua WHERE id_dipendente = ".$_POST['id']." and id_azienda= ".$_POST['azienda']." );" ;
 					$mysqli_generale->query('SET CHARACTER SET utf8');
 
 				if (!mysqli_query($mysqli_generale,$sqlUpdate)){

@@ -64,7 +64,8 @@ function addDipendente(){
 		   success: function(data){
 		   		Materialize.toast('Dipendente inserito', 2000,'',function(){
 			   		if(!checkInserted())
-						Materialize.toast('Hai raggiunto il limite di utenze massimo!\n Contatta l\'amministratore per poter aggiungere altri utenti!', 5000,"",function(){window.location.href = 'dipendenti.html'});	
+						Materialize.toast('Hai raggiunto il limite di utenze massimo!\n Contatta l\'amministratore per poter aggiungere altri utenti!', 5000,"",function(){window.location.href = 'dipendenti.html'});
+						window.location.href = 'dipendenti.html'}	
 			   		});
 			   return false;
 			},
