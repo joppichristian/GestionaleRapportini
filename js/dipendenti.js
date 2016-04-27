@@ -4,6 +4,7 @@ var index=0;
 var id=0;
 var gruppo;
 var username;
+var old_username;
 
 $(document).ready(function() {
 	if(getCookie('nomeDB')=="")
@@ -46,6 +47,9 @@ $(document).ready(function() {
 	$("#modify").click( function() {
 		completaForm();
 	});
+	$("#modify2").click( function() {
+		completaForm();
+	});
 	$("#modify_pr").click( function() {
 		completaForm();
 	});
@@ -56,6 +60,9 @@ $(document).ready(function() {
 		explodeDipendente(json[0]);
 	});
 	$("#delete").click( function() {
+		$("#modal_cancellazione").openModal();
+	});
+	$("#delete2").click( function() {
 		$("#modal_cancellazione").openModal();
 	});
 	$("#delete_pr").click( function() {
@@ -284,7 +291,7 @@ function completaForm(){
 	$("#form_username").val(username);
 	$("#form_username").focus();
 	$("#form_nome").focus();
-
+	old_username = $("#form_username").val();
 	populateGroups();
 }
 function modifyDipendente(){
@@ -297,6 +304,15 @@ function modifyDipendente(){
 	var iban = $("#form_iban").val();
 	var note = $("#form_note").val();
 	var user = $("#form_username").val();
+	
+	
+	if(!checkUsernameInserted(user) && old_username != user)
+		{
+			Materialize.toast('Errore! Username gi&agrave; utilizzato!', 5000);
+			return false;
+
+		}
+	
 	var classe=$("select").val();
 	$.ajax({
 	     url: "script_php/updateEmployee.php", //Relative or absolute path to response.php file
@@ -327,6 +343,29 @@ function modifyDipendente(){
 
 			}
 		});
+}
+
+
+function checkUsernameInserted(username){
+	var result = false;
+	
+	$.ajax({
+		url: "script_php/check_username_inseriti.php", //Relative or absolute path to response.php file
+	      type:"POST",
+	      async:false,	
+	      data:{
+		      'us':username
+		   },
+		  success: function(data) {
+		    	if(data[0]['inserted'] > 0)
+		    		result = false;
+		    	else result = true; 
+		  },
+	      error: function(data){
+		     console.log(data);
+	      }
+    });
+	return result;
 }
 function populateGroups(){
 	$("select").empty();
