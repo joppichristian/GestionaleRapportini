@@ -30,6 +30,15 @@ function addDipendente(){
 			Materialize.toast('Username e Password obbligatori', 2000);
 			return false;
 		}
+		
+		if(!checkUsernameInserted($("#username").val()))
+		{
+			Materialize.toast('Errore! Username gi&agrave; utilizzato!', 5000);
+			return false;
+
+		}
+
+		
 		var nome = $("#nome").val();
 		var cognome = $("#cognome").val();
 		var telefono = $("#telephone").val();
@@ -91,6 +100,29 @@ function checkInserted(){
 		   },
 		  success: function(data) {
 		    	if(data[0]['remained'] == 0)
+		    		result = false;
+		    	else result = true; 
+		  },
+	      error: function(data){
+		     console.log(data);
+	      }
+    });
+	return result;
+}
+
+
+function checkUsernameInserted(username){
+	var result = false;
+	
+	$.ajax({
+		url: "script_php/check_username_inseriti.php", //Relative or absolute path to response.php file
+	      type:"POST",
+	      async:false,	
+	      data:{
+		      'us':username
+		   },
+		  success: function(data) {
+		    	if(data[0]['inserted'] > 0)
 		    		result = false;
 		    	else result = true; 
 		  },
