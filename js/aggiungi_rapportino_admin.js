@@ -1,39 +1,48 @@
-var json_dipendenti = new Array();
+var json_clienti = new Array();
 var index=0;
 var id=0;
 var json_materiali = new Array();
 var json_mezzi = new Array();
 var materiali_selezionati = new Array();
 var mezzi_selezionati = new Array();
-var dipendenti_selezionati = new Array();
-var index_fasce = 0;
-var select_string="Seleziona tutto";
+var cliente_selezionato =0;
+var select_string = "Seleziona tutto";
+
 $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
 
-    $("#lista_sel_dip").hide();
 
-		var now = new Date();
-		console.log(now);
+		/*
 		for(var i=parseInt(now.getYear())+1899;i<parseInt(now.getYear())+1901;i++)
 		{
 			$("#nuovo_giorno_yy").append("<option value="+i+">"+i+"</option>");
 		}
 
 		$('select').material_select();
+		*/
+		var now = new Date();
+		console.log(now);
+		var dd_nuovo="";
+		var mm_nuovo="";
 		if(now.getDate().toString().length ==1)
-			$("#nuovo_giorno_dd").val("0"+(now.getDate()).toString());
+			dd_nuovo="0"+(now.getDate()).toString();
 		else
-			$("#nuovo_giorno_dd").val(now.getDate());
+			dd_nuovo=now.getDate();
 		if(now.getMonth().toString().length ==1)
-			$("#nuovo_giorno_mm").val("0"+(now.getMonth()+1).toString());
+			mm_nuovo="0"+(now.getMonth()+1).toString();
 		else
-			$("#nuovo_giorno_mm").val(now.getMonth()+1);
-		$("#nuovo_giorno_yy").val(now.getFullYear());
+			mm_nuovo= now.getMonth()+1;
+
+		var yy_nuovo = now.getFullYear();
+
+		var data_set_nuovo= yy_nuovo+"/"+mm_nuovo+"/"+dd_nuovo;
+
+		$("#nuovo_giorno").val(data_set_nuovo);
+		//alert("data_set_nuovo"+data_set_nuovo);
+		document.getElementById('lblNuovo').innerHTML = takeNameDayFull(data_set_nuovo);
+
 		$('select').material_select("update");
-
-
 
     populateListEmployee("");
     $("#search_dip").on('input',function() {
@@ -68,51 +77,36 @@ $(document).ready(function(){
 			}
 
 		});
-
-
-
-		var now = new Date();
-		for(var i=parseInt(now.getYear())+1899;i<parseInt(now.getYear())+1901;i++)
-		{
-			$("#nuovo_giorno_yy").append("<option value="+i+">"+i+"</option>");
-		}
-
 		$('select').material_select();
+		populateListFascieOrarieAdd();
 
-		populateListFascieOrarie();
 
-
-		$("#nuovo_giorno_dd").on("change",function(){
-			populateListFascieOrarie();
+		$("#nuovo_giorno").on("change",function(){
+			populateListFascieOrarieAdd();
 		});
-
-		$("#nuovo_giorno_mm").on("change",function(){
-			populateListFascieOrarie();
-		});
-
-		$("#nuovo_giorno_yy").on("change",function(){
-			populateListFascieOrarie();
-		});
-
-
 
 });
 
+function setLabelFilterNuovo(){
+	var inizio = $("#nuovo_giorno").val();
+	var dataInizio = inizio.split('/');
+	document.getElementById('lblNuovo').innerHTML = takeNameDayFull(dataInizio[0]+"/"+dataInizio[1]+"/"+dataInizio[2]);
+}
 
 function populateListEmployee(filter){
 	$.ajax({
       dataType: "json",
-      url: "script_php/getEmployee.php?q="+ filter+"&db="+getCookie('nomeDB')+"&all=0", //Relative or absolute path to response.php file
+      url: "script_php/getClients.php?q="+ filter+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
-	    json_dipendenti = data;
+	    json_clienti = data;
         var elementi = new Array();
          $("#elenco_dip").empty();
         for(var i = 0; i < data.length; i++) {
 
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item blue-grey lighten-5";
-	        elementi[i].innerHTML = '<div><i class="info small material-icons orange-text">directions_walk</i>'+data[i]['nome']+ ' ' +data[i]['cognome']+ '<a href="#!" style="position: absolute; right: 16px;" class=""><i class="select_employee material-icons orange-text">add</i></a></div>	';
+	        elementi[i].innerHTML = '<div><i class="info small material-icons orange-text">directions_walk</i>'+data[i]['nominativo']+ '<a href="#!" style="position: absolute; right: 16px;" class=""><i class="select_employee material-icons orange-text">add</i></a></div>	';
 
 
 	    	$("#elenco_dip").append(elementi[i]);
@@ -121,22 +115,17 @@ function populateListEmployee(filter){
 	    }
 	    id = data[0]['id'];
 		$(".select_employee").click(function(){
-				 $(".nuovo_ora .select-dropdown").val("");
-				 index_Di = $(".select_employee").index(this);
-				 id_Di = json_dipendenti[index_Di]['id'];
-				 var duplicato = -1;
-		        for(var i=0;i<dipendenti_selezionati.length;i++){
-			        if(dipendenti_selezionati[i]['id'] == json_dipendenti[index_Di]['id']){
-			        	duplicato = i;
-			        }
-		        }
-		        if(duplicato < 0){
-		            dipendenti_selezionati.push({'id':id_Di,'descrizione':json_dipendenti[index_Di]['nome']+ ' ' +json_dipendenti[index_Di]['cognome']});
-		        updateListUtilizzi();
-		        populateListFascieOrarie();
-		        Materialize.toast("Dipendente aggiunto!",2000);
+				$("#lista_sel_dip").show();
+				$("#lista_sel_dip").empty();
+				var index_Di = $(".select_employee").index(this);
+				var id_Di = json_clienti[index_Di]['id'];
+		        var chip= document.createElement('div');
+				chip.className= "chip";
+				chip.innerHTML=json_clienti[index_Di]['nominativo'];
+		  		$("#lista_sel_dip").append(chip);
+		  		cliente_selezionato = id_Di;
+		        Materialize.toast("Cliente aggiunto!",2000);
 
-		    }
 		});
       },
       error: function(xhr){
@@ -145,7 +134,6 @@ function populateListEmployee(filter){
       }
     });
 
-    //return false;
 
 }
 
@@ -208,17 +196,13 @@ function populateListMaterials(filter){
 function updateListUtilizzi(){
 	$("#elenco_utilizzi_materiali").show();
 	$("#elenco_utilizzi_mezzi").show();
-	$("#lista_sel_dip").show();
 
 	if(materiali_selezionati.length == 0)
 		$("#elenco_utilizzi_materiali").hide();
 	if(mezzi_selezionati.length == 0)
 		$("#elenco_utilizzi_mezzi").hide();
-	if(dipendenti_selezionati.length == 0)
-		$("#lista_sel_dip").hide();
 	$("#elenco_utilizzi_materiali").empty();
 	$("#elenco_utilizzi_mezzi").empty();
-	$("#lista_sel_dip").empty();
 	var chip = new Array();
 	for(var i=0; i < materiali_selezionati.length ;i++){
 		chip[i] = document.createElement('div');
@@ -234,18 +218,7 @@ function updateListUtilizzi(){
   		$("#elenco_utilizzi_mezzi").append(chip[i]);
 
 	}
-	for(var i=0; i < dipendenti_selezionati.length ;i++){
-		chip[i] = document.createElement('div');
-		chip[i].className= "chip";
-		chip[i].innerHTML=dipendenti_selezionati[i]['descrizione']+'<a href="#!" ><i class="remove_dipendente material-icons orange-text">remove_circle</i></a>';
-  		$("#lista_sel_dip").append(chip[i]);
 
-	}
-	$(".remove_dipendente").click(function(){
-		removeDipendente($(".remove_dipendente").index(this));
-		updateListUtilizzi();
-		populateListFascieOrarie();
-	});
 	$(".remove_materiale").click(function(){
 		removeMateriale($(".remove_materiale").index(this));
 		updateListUtilizzi();
@@ -318,13 +291,10 @@ function populateListMezzi(filter){
  function removeMezzo(i){
  		 mezzi_selezionati.splice(i,1);
  }
-function removeDipendente(i){
- 		 dipendenti_selezionati.splice(i,1);
- }
 
  function aggiungiRapportino(){
-	 if(dipendenti_selezionati.length==0){
-		Materialize.toast("Nessun dipendente aggiunto",2000);
+	 if(cliente_selezionato==0){
+		Materialize.toast("Nessun cliente aggiunto",2000);
 		return false;
 
 	 }
@@ -358,24 +328,23 @@ function removeDipendente(i){
 	}
 
 	 var result = true;
-	 for(var j=0;j<dipendenti_selezionati.length;j++){
-
-
-		for(var i=0;i<inizio.length;i++){
-		if(i==0 && j==0 )
+	for(var i=0;i<inizio.length;i++){
+		if(i==0)
 		{
+			var data_mod = $("#nuovo_giorno").val();
+			var data_m = changeFormatData(data_mod);
 			$.ajax({
 		       type:"POST",
 		       url: "script_php/postRapportinoCliente.php", //Relative or absolute path to response.php file
 		       async:false,
 		       data:{
-			    'data': $("#nuovo_giorno_dd").val()+"-"+$("#nuovo_giorno_mm").val()+"-"+$("#nuovo_giorno_yy").val(),
+			    'data': data_m,
 		 	  	'ora_inizio': inizio[i],
 		 	  	'ora_fine': fine[i],
 		 	  	'pausa': $('#nuovo_pausa').val(),
 		 	  	'note':$('#nuovo_descrizione').val(),
-		 	  	'cliente':id_utente,
-		 	  	'dipendente':dipendenti_selezionati[j]['id'],
+		 	  	'cliente':cliente_selezionato,
+		 	  	'dipendente':id_utente,
 		 	  	'db':getCookie('nomeDB'),
 		 	  	'materiali':materiali_selezionati,
 		 	  	'mezzi':mezzi_selezionati
@@ -389,18 +358,20 @@ function removeDipendente(i){
 
 		}
 		else{
+			var data_mod = $("#nuovo_giorno").val();
+			var data_m = changeFormatData(data_mod);
 			$.ajax({
 		       type:"POST",
 		       url: "script_php/postRapportinoCliente.php", //Relative or absolute path to response.php file
 		       async:false,
 		       data:{
-			    'data': $("#nuovo_giorno_dd").val()+"-"+$("#nuovo_giorno_mm").val()+"-"+$("#nuovo_giorno_yy").val(),
+			    'data': data_m,
 		 	  	'ora_inizio': inizio[i],
 		 	  	'ora_fine': fine[i],
 		 	  	'pausa': 0,
 		 	  	'note':$('#nuovo_descrizione').val(),
-		 	  	'cliente':id_utente,
-		 	  	'dipendente':dipendenti_selezionati[j]['id'],
+		 	  	'cliente':cliente_selezionato,
+		 	  	'dipendente':id_utente,
 		 	  	'db':getCookie('nomeDB'),
 		 	  	'materiali':null,
 		 	  	'mezzi':null
@@ -412,7 +383,6 @@ function removeDipendente(i){
 		 		}
 		 	});
 
-			}
 		}
 	}
 	if(result){
@@ -424,123 +394,73 @@ function removeDipendente(i){
 
  }
 
- function populateListFascieOrarie(){
+ function populateListFascieOrarieAdd(){
+	if(isNaN(id_utente)!=true){
 	var ini = hourTomin(getCookie("inizio"));
 	var fin = hourTomin(getCookie("fine"));
 	var occupato = false;
 	var start,stop;
 	var tmp_ora,tmp_min,tmp;
 	$("#nuovo_ora").empty();
-	if(dipendenti_selezionati.length == 0)
-	{
-		$("#nuovo_ora").append("<option value=-1 disabled>Seleziona almeno un dipendente</option>");
-		$("#nuovo_ora").prop("disabled",true);
-		$('select').material_select("update");
-	}
-	else{
-	$("#nuovo_ora").prop("disabled",false);
 	 $("#nuovo_ora").append("<option value=-1 disabled>Seleziona gli orari del lavoro fatto</option>");
 	 $("#nuovo_ora").append("<option value=-2 id='all_select'>"+select_string+"</option>");
+	 var gg= $("#nuovo_giorno").val();
+	$.ajax({
+	      url: "script_php/getFascieOrarieMoreDays.php", //Relative or absolute path to response.php file
+	      type:"POST",
+	      async:false,
+	      data:{
+		    'dip': id_utente,
+			  'data_dd':gg.split('/')[2],
+				'data_mm':gg.split('/')[1],
+				'data_yy':gg.split('/')[0],
+		    'db':getCookie('nomeDB')
+		   },
+		   success: function(data){
+			   console.log(data);
+			   for(var i=ini;i<fin;i+=30){
+				   occupato = false;
+				   tmp_ora = Math.round((i-1)/60).toString();
+				   if(tmp_ora.length == 1)
+				   		tmp_ora = '0'+tmp_ora;
+				   	tmp_min = (i%60).toString();
+				   if(tmp_min.length == 1)
+				   		tmp_min = '0'+tmp_min;
+				   tmp = tmp_ora+":"+tmp_min;
+				   $("#nuovo_ora").append("<option value="+i+">"+tmp+"</option>");
+				   tmp_ora = Math.round((i+29)/60).toString();
+				   if(tmp_ora.length == 1)
+				   		tmp_ora = '0'+tmp_ora;
+				   	tmp_min = ((i+30)%60).toString();
+				   if(tmp_min.length == 1)
+				   		tmp_min = '0'+tmp_min;
+				   tmp = tmp_ora+":"+tmp_min;
+				   $("#nuovo_ora option[value="+i+"]").text($("#nuovo_ora option[value="+i+"]").text()+" -- "+tmp);
+			   }
+			   for(var i=0;data != null && i<data.length;i++)
+			   {
 
-	 for(index_fasce=0;index_fasce<dipendenti_selezionati.length;index_fasce++)
-			$.ajax({
-			      url: "script_php/getFascieOrarieMoreDays.php", //Relative or absolute path to response.php file
-			      type:"POST",
-			      async:false,
-			      data:{
-				      'dip': dipendenti_selezionati[index_fasce]['id'],
-					  'data_dd':$("#nuovo_giorno_dd").val(),
-					  'data_mm':$("#nuovo_giorno_mm").val(),
-					  'data_yy':$("#nuovo_giorno_yy").val(),
-				      'db':getCookie('nomeDB')
-				   },
-				   success: function(data){
-					   console.log(data);
-					   if(index_fasce==0){
-						   for(var i=ini;i<fin;i+=30){
-							   occupato = false;
-							   tmp_ora = Math.round((i-1)/60).toString();
-							   if(tmp_ora.length == 1)
-							   		tmp_ora = '0'+tmp_ora;
-							   	tmp_min = (i%60).toString();
-							   if(tmp_min.length == 1)
-							   		tmp_min = '0'+tmp_min;
-							   tmp = tmp_ora+":"+tmp_min;
-							   $("#nuovo_ora").append("<option value="+i+">"+tmp+"</option>");
-							   tmp_ora = Math.round((i+29)/60).toString();
-							   if(tmp_ora.length == 1)
-							   		tmp_ora = '0'+tmp_ora;
-							   	tmp_min = ((i+30)%60).toString();
-							   if(tmp_min.length == 1)
-							   		tmp_min = '0'+tmp_min;
-							   tmp = tmp_ora+":"+tmp_min;
-							   $("#nuovo_ora option[value="+i+"]").text($("#nuovo_ora option[value="+i+"]").text()+" -- "+tmp);
-						   }
-						   for(var i=0;data != null && i<data.length;i++)
-						   {
-
-							   tmp = data[i]['inizio'].split(' ')[1];
-							   tmp_ora = tmp.split(':')[0];
-							   tmp_min = tmp.split(':')[1];
-							   tmp = parseInt(tmp_ora)*60+parseInt(tmp_min);
-							   start = tmp;
-							   tmp = data[i]['fine'].split(' ')[1];
-							   tmp_ora = tmp.split(':')[0];
-							   tmp_min = tmp.split(':')[1];
-							   tmp = parseInt(tmp_ora)*60+parseInt(tmp_min);
-							   stop = tmp
-							   for(var j = start ; j <= stop-30 ; j+=30){
-								   $("#nuovo_ora option[value="+j+"]").prop("disabled",true);
-								   $("#nuovo_ora option[value="+j+"]").text($("#nuovo_ora option[value="+j+"]").text() +"\t" + data[i]['nominativo']);
-							   }
-							}
-						   $('select').material_select("update");
-					   }else{
-						   	for(var i=0;data != null && i<data.length;i++)
-						   	{
-
-							   tmp = data[i]['inizio'].split(' ')[1];
-							   tmp_ora = tmp.split(':')[0];
-							   tmp_min = tmp.split(':')[1];
-							   tmp = parseInt(tmp_ora)*60+parseInt(tmp_min);
-							   start = tmp;
-							   tmp = data[i]['fine'].split(' ')[1];
-							   tmp_ora = tmp.split(':')[0];
-							   tmp_min = tmp.split(':')[1];
-							   tmp = parseInt(tmp_ora)*60+parseInt(tmp_min);
-							   stop = tmp
-							   for(var j = start ; j <= stop-30 ; j+=30){
-								   if($("#nuovo_ora option[value="+j+"]").prop("disabled")){
-									   $("#nuovo_ora option[value="+j+"]").prop("disabled",true);
-									   $("#nuovo_ora option[value="+j+"]").text($("#nuovo_ora option[value="+j+"]").text() +", " + data[i]['nominativo']);
-								   }else{
-								   		$("#nuovo_ora option[value="+j+"]").prop("disabled",true);
-								   		$("#nuovo_ora option[value="+j+"]").text($("#nuovo_ora option[value="+j+"]").text()+" " + data[i]['nominativo']);
-
-								   }
-
-							   }
-							}
-							$('select').material_select("update");
-
-
-					   }
-
-					},
-				   error: function (XMLHttpRequest, textStatus, errorThrown){
-					   Materialize.toast('Errore di inserimento', 2000);
-					    return false;
-
-					}
-				});
-
-
-			}
-			$(".nuovo_ora .dropdown-content li:nth-child(2) span").on("click",function(){
+				   tmp = data[i]['inizio'].split(' ')[1];
+				   tmp_ora = tmp.split(':')[0];
+				   tmp_min = tmp.split(':')[1];
+				   tmp = parseInt(tmp_ora)*60+parseInt(tmp_min);
+				   start = tmp;
+				   tmp = data[i]['fine'].split(' ')[1];
+				   tmp_ora = tmp.split(':')[0];
+				   tmp_min = tmp.split(':')[1];
+				   tmp = parseInt(tmp_ora)*60+parseInt(tmp_min);
+				   stop = tmp
+				   for(var j = start ; j <= stop-30 ; j+=30){
+					   $("#nuovo_ora option[value="+j+"]").prop("disabled",true);
+					   $("#nuovo_ora option[value="+j+"]").text($("#nuovo_ora option[value="+j+"]").text() +"       " + data[i]['nominativo']);
+				   }
+				}
+			   $('#nuovo_ora').material_select("update");
+			   $(".nuovo_ora .dropdown-content li:nth-child(2) span").on("click",function(){
 
 								if($("#nuovo_ora #all_select").text()=="Seleziona tutto"){
 									select_string = "Deseleziona tutto";
-									populateListFascieOrarie();
+									populateListFascieOrarieAdd();
 									$(".nuovo_ora .dropdown-content li span").each(function(i){
 										if(i>1)
 											this.click();
@@ -550,8 +470,24 @@ function removeDipendente(i){
 									$("#nuovo_ora #all_select").text("Seleziona tutto");
 									select_string = "Seleziona tutto";
 
-									populateListFascieOrarie();
+									populateListFascieOrarieAdd();
 								}
 
 							});
+
+			},
+		   error: function (XMLHttpRequest, textStatus, errorThrown){
+			   Materialize.toast('Errore di inserimento', 2000);
+			    return false;
+
+			}
+		});
+
+		console.log("Ciccio");
+	}
+
+}
+
+function hourTomin(stringa){
+	return parseInt(stringa.split(":")[0])*60 + parseInt(stringa.split(":")[1]);
 }

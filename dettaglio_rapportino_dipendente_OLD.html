@@ -1,0 +1,700 @@
+<html><head>
+    <meta name="viewport" content="width=device-width, user-scalable=no,
+initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+  <title>GestionaleClj</title>
+		<link rel="icon" href="img/icon.ico" />
+
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+  <link rel="stylesheet" href="css/style.css">
+   <link rel="stylesheet" href="css/form_orange.css">
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/pace.css">
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+  <!--<script src="js/clients.js" type="text/javascript" ></script>-->
+
+ <script src="js/manageCookie.js" type="text/javascript" ></script>
+ <script src="js/dettaglio_rapportino_dipendente.js" type="text/javascript" ></script>
+ <script src="js/aggiungi_rapportino_dipendente.js" type="text/javascript" ></script>
+ <script src="js/modifica_rapportino_dipendente.js" type="text/javascript" ></script>
+ <script src="js/stampa_rapportino_dipendente.js" type="text/javascript" ></script>
+		<script src="js/pace.min.js" type="text/javascript"></script>
+
+</head>
+
+	<body class="blue-grey lighten-5">
+    <div id="loading" style="position: fixed; width: 100%; height: 100%; z-index:999; background: url('img/loader.gif') no-repeat center center;"></div>
+
+    <!--sezione header menu-->
+  <nav class="section blue-grey darken-3">
+    <div class="nav-wrapper">
+      <div class="col s12">
+        <a href="dashboard.html" class="breadcrumb">Home</a>
+        <a id="vRR" href="rapportini.html" class="breadcrumb">Rapportini</a>
+        <a href="#!" class="breadcrumb">Dettaglio</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+       <div class="col s12 m12">
+         <div class="card">
+           <div class="card-content">
+              <h5 id="nome_cliente" class="center-align">Nome Cliente</h5>
+            </div>
+         </div>
+      </div>
+    </div>
+
+    <div class="row">
+       <div class="col s12 m12">
+         <div class="card">
+           <div class="card-content" style="height:30%;">
+              <div class="col s12 m6 l6">
+							<div class="input-field col s1 m1 l1">
+								<i class="material-icons prefix orange-text">event</i>
+					        </div>
+
+
+							<div class="input-field col s3 m3 l3">
+							    <select id="filter_start_giorno_dd" name="filter_start_giorno_dd">
+							      <option value="01" class="blue-text">01</option>
+							      <option value="02" class="blue-text">02</option>
+							      <option value="03" class="blue-text">03</option>
+							      <option value="04" class="blue-text">04</option>
+							      <option value="05" class="blue-text">05</option>
+							      <option value="06" class="blue-text">06</option>
+							      <option value="07" class="blue-text">07</option>
+							      <option value="08" class="blue-text">08</option>
+							      <option value="09" class="blue-text">09</option>
+							      <option value="10" class="blue-text">10</option>
+							      <option value="11" class="blue-text">11</option>
+							      <option value="12" class="blue-text">12</option>
+							      <option value="13" class="blue-text">13</option>
+							      <option value="14" class="blue-text">14</option>
+							      <option value="15" class="blue-text">15</option>
+							      <option value="16" class="blue-text">16</option>
+							      <option value="17" class="blue-text">17</option>
+							      <option value="18" class="blue-text">18</option>
+							      <option value="19" class="blue-text">19</option>
+							      <option value="20" class="blue-text">20</option>
+							      <option value="21" class="blue-text">21</option>
+							      <option value="22" class="blue-text">22</option>
+							      <option value="23" class="blue-text">23</option>
+							      <option value="24" class="blue-text">24</option>
+							      <option value="25" class="blue-text">25</option>
+							      <option value="26" class="blue-text">26</option>
+							      <option value="27" class="blue-text">27</option>
+							      <option value="28" class="blue-text">28</option>
+							      <option value="29" class="blue-text">29</option>
+							      <option value="30" class="blue-text">30</option>
+							      <option value="31" class="blue-text">31</option>
+							    </select>
+							    <label>Inizio</label>
+							 </div>
+							 <div class="input-field col s1 m1 l1">
+								<label>/</label>
+					        </div>
+							<div class="input-field col s3 m3 l3">
+							    <select id="filter_start_giorno_mm" name="filter_start_giorno_mm">
+							      <option value="01" class="blue-text">01</option>
+							      <option value="02" class="blue-text">02</option>
+							      <option value="03" class="blue-text">03</option>
+							      <option value="04" class="blue-text">04</option>
+							      <option value="05" class="blue-text">05</option>
+							      <option value="06" class="blue-text">06</option>
+							      <option value="07" class="blue-text">07</option>
+							      <option value="08" class="blue-text">08</option>
+							      <option value="09" class="blue-text">09</option>
+							      <option value="10" class="blue-text">10</option>
+							      <option value="11" class="blue-text">11</option>
+							      <option value="12" class="blue-text">12</option>
+							    </select>
+							 </div>
+							 <div class="input-field col s1 m1 l1">
+								<label>/</label>
+					        </div>
+							<div class="input-field col s3 m3 l3">
+							    <select id="filter_start_giorno_yy" name="filter_start_giorno_yy">
+							    </select>
+							 </div>
+              </div>
+
+             <div class="col s12 m6 l6">
+							<div class="input-field col s1 m1 l1">
+								<i class="material-icons prefix orange-text">event</i>
+					        </div>
+
+
+							<div class="input-field col s3 m3 l3">
+							    <select id="filter_stop_giorno_dd" name="filter_stop_giorno_dd">
+							      <option value="01" class="blue-text">01</option>
+							      <option value="02" class="blue-text">02</option>
+							      <option value="03" class="blue-text">03</option>
+							      <option value="04" class="blue-text">04</option>
+							      <option value="05" class="blue-text">05</option>
+							      <option value="06" class="blue-text">06</option>
+							      <option value="07" class="blue-text">07</option>
+							      <option value="08" class="blue-text">08</option>
+							      <option value="09" class="blue-text">09</option>
+							      <option value="10" class="blue-text">10</option>
+							      <option value="11" class="blue-text">11</option>
+							      <option value="12" class="blue-text">12</option>
+							      <option value="13" class="blue-text">13</option>
+							      <option value="14" class="blue-text">14</option>
+							      <option value="15" class="blue-text">15</option>
+							      <option value="16" class="blue-text">16</option>
+							      <option value="17" class="blue-text">17</option>
+							      <option value="18" class="blue-text">18</option>
+							      <option value="19" class="blue-text">19</option>
+							      <option value="20" class="blue-text">20</option>
+							      <option value="21" class="blue-text">21</option>
+							      <option value="22" class="blue-text">22</option>
+							      <option value="23" class="blue-text">23</option>
+							      <option value="24" class="blue-text">24</option>
+							      <option value="25" class="blue-text">25</option>
+							      <option value="26" class="blue-text">26</option>
+							      <option value="27" class="blue-text">27</option>
+							      <option value="28" class="blue-text">28</option>
+							      <option value="29" class="blue-text">29</option>
+							      <option value="30" class="blue-text">30</option>
+							      <option value="31" class="blue-text">31</option>
+							    </select>
+							    <label>Fine</label>
+							 </div>
+							 <div class="input-field col s1 m1 l1">
+								<label>/</label>
+					        </div>
+							<div class="input-field col s3 m3 l3">
+							    <select id="filter_stop_giorno_mm" name="filter_stop_giorno_mm">
+							      <option value="01" class="blue-text">01</option>
+							      <option value="02" class="blue-text">02</option>
+							      <option value="03" class="blue-text">03</option>
+							      <option value="04" class="blue-text">04</option>
+							      <option value="05" class="blue-text">05</option>
+							      <option value="06" class="blue-text">06</option>
+							      <option value="07" class="blue-text">07</option>
+							      <option value="08" class="blue-text">08</option>
+							      <option value="09" class="blue-text">09</option>
+							      <option value="10" class="blue-text">10</option>
+							      <option value="11" class="blue-text">11</option>
+							      <option value="12" class="blue-text">12</option>
+							    </select>
+							 </div>
+							 <div class="input-field col s1 m1 l1">
+								<label>/</label>
+					        </div>
+							<div class="input-field col s3 m3 l3">
+							    <select id="filter_stop_giorno_yy" name="filter_stop_giorno_yy">
+							    </select>
+							 </div>
+              </div>
+
+
+             <div style="margin-top: 5%;" class="col s12 m12 l12">
+               <div class="col s6 m6 l6">
+                   <a id="cerca_filtro"class="waves-effect waves-light orange btn"><i class="material-icons">search</i>  CERCA</a>
+               </div>
+               <div class="col s6 m6 l6">
+                   <a id="reset_filtro" class="waves-effect waves-light orange btn"><i class="material-icons">reply</i>RESET</a>
+               </div>
+            </div>
+            </div>
+         </div>
+      </div>
+    </div>
+
+    <div class="row">
+
+
+         <div class="col s12 m12">
+           <div class="card">
+             <div class="card-content">
+               <!--<span>Aggiungi nuova giornata </span><a id="pulsante_list" style="position: absolute; top: 16px; right: 5%;" class="btn-floating orange"><i class="material-icons">add</i></a>-->
+               <ul class="collection" style="border: 4px solid orange">
+                 <li class="collection-item avatar">
+                       <label class="orange-text" for="ora_inizio">Nuovo Rapportino</label>
+                       <p>Clicca sul pulsante e compila i campi</p>
+                       <a id="add_list" style="position: absolute; top: 16px; right: 5%;" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
+                       <!--<i class="material-icons circle">access_time</i>-->
+                 </li>
+
+
+                 <li id="new_insert_item" class="grey lighten-3 collection-item avatar">
+				 	 <div class="col s12 m12 l12">
+							<div class="input-field col s1 m1 l1">
+								<i class="material-icons prefix orange-text">event</i>
+					        </div>
+
+
+							<div class="input-field col s3 m3 l3">
+							    <select id="nuovo_giorno_dd" name="nuovo_giorno_dd">
+							      <option value="01" class="blue-text">01</option>
+							      <option value="02" class="blue-text">02</option>
+							      <option value="03" class="blue-text">03</option>
+							      <option value="04" class="blue-text">04</option>
+							      <option value="05" class="blue-text">05</option>
+							      <option value="06" class="blue-text">06</option>
+							      <option value="07" class="blue-text">07</option>
+							      <option value="08" class="blue-text">08</option>
+							      <option value="09" class="blue-text">09</option>
+							      <option value="10" class="blue-text">10</option>
+							      <option value="11" class="blue-text">11</option>
+							      <option value="12" class="blue-text">12</option>
+							      <option value="13" class="blue-text">13</option>
+							      <option value="14" class="blue-text">14</option>
+							      <option value="15" class="blue-text">15</option>
+							      <option value="16" class="blue-text">16</option>
+							      <option value="17" class="blue-text">17</option>
+							      <option value="18" class="blue-text">18</option>
+							      <option value="19" class="blue-text">19</option>
+							      <option value="20" class="blue-text">20</option>
+							      <option value="21" class="blue-text">21</option>
+							      <option value="22" class="blue-text">22</option>
+							      <option value="23" class="blue-text">23</option>
+							      <option value="24" class="blue-text">24</option>
+							      <option value="25" class="blue-text">25</option>
+							      <option value="26" class="blue-text">26</option>
+							      <option value="27" class="blue-text">27</option>
+							      <option value="28" class="blue-text">28</option>
+							      <option value="29" class="blue-text">29</option>
+							      <option value="30" class="blue-text">30</option>
+							      <option value="31" class="blue-text">31</option>
+							    </select>
+							    <label>Giorno (gg-mm-aaaa)</label>
+							 </div>
+							 <div class="input-field col s1 m1 l1">
+								<label>/</label>
+					        </div>
+							<div class="input-field col s3 m3 l3">
+							    <select id="nuovo_giorno_mm" name="nuovo_giorno_mm">
+							      <option value="01" class="blue-text">01</option>
+							      <option value="02" class="blue-text">02</option>
+							      <option value="03" class="blue-text">03</option>
+							      <option value="04" class="blue-text">04</option>
+							      <option value="05" class="blue-text">05</option>
+							      <option value="06" class="blue-text">06</option>
+							      <option value="07" class="blue-text">07</option>
+							      <option value="08" class="blue-text">08</option>
+							      <option value="09" class="blue-text">09</option>
+							      <option value="10" class="blue-text">10</option>
+							      <option value="11" class="blue-text">11</option>
+							      <option value="12" class="blue-text">12</option>
+							    </select>
+							 </div>
+							 <div class="input-field col s1 m1 l1">
+								<label>/</label>
+					        </div>
+							<div class="input-field col s3 m3 l3">
+							    <select id="nuovo_giorno_yy" name="nuovo_giorno_yy">
+							    </select>
+							 </div>
+	                 </div>
+					<div class="col s12 m12 l12">
+						<div class="input-field col s1 m1 l1 left prefix">
+							<i class="material-icons prefix orange-text">access_time</i>
+				        </div>
+
+						<div class="nuovo_ora input-field col s11 m11 l11">
+						    <select id="nuovo_ora" name="nuovo_ora" multiple>
+
+						    </select>
+						    <label>Ore di lavoro </label>
+						 </div>
+
+					</div>
+
+					<div class="col s12">
+						<div class="col s1 input-field">
+				        	<i class="material-icons prefix orange-text">local_cafe</i>
+						</div>
+            <div class="input-field col s11 m11 l11">
+                <select id="nuovo_pausa" name="nuovo_pausa">
+                    <option value="0" class="blue-text">0</option>
+                    <option value="5" class="blue-text">5</option>
+                    <option value="10" class="blue-text">10</option>
+                    <option value="15" class="blue-text">15</option>
+                    <option value="30" class="blue-text">30</option>
+                    <option value="45" class="blue-text">45</option>
+                  </select>
+                  <label>Pausa (in MINUTI)</label>
+               </div>
+					</div>
+					<div class="col s12">
+						<div class="col s1 input-field">
+				        	<i class="material-icons prefix orange-text">chat_bubble</i>
+						</div>
+						<div class="col s11 input-field">
+	                       <label class="orange-text" for="ora_inizio">Descrizione</label>
+						   <input id="nuovo_descrizione" type="text" name="nuovo_descrizione" class="validate">
+						</div>
+
+
+					</div class="col s12">
+                       <label class="orange-text" for="data">Cliente</label><br><br>
+                       <!--<a id="aggiungi_dip" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
+                       <label class="grey-text" for="data">Aggiungi dipendente  </label>
+                        -->
+                        <!--inizio dipendente-->
+                       <div class="col s12 m12 l12" id="sezione_clienti" >
+                         <div class="col s12 m12 l12" >
+                  		        <div class="input-field">
+                  		          <input id="search_dip" type="text" required>
+                  		          <label for="search"><i class="material-icons orange-text">search</i></label>
+                  		         </div>
+                  	  	  </div>
+                  	  	  <div class="section list col s12 m12 l12" style="max-height: 45%;">
+                  		       <ul class="col s12 m12 l12 collection with-header" id="elenco_dip" style="border: 2px solid orange;" ></ul>
+                  	  	  </div>
+                       </div>
+
+                        <!--fine dipendente-->
+
+                        <div class="section" id="lista_sel_dip">
+                        </div>
+
+                       <label class="orange-text" for="data">Materiale</label><br><br>
+                       <!--<a id="aggiungi_mat" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
+                       <label class="grey-text" for="data">Aggiungi materiale  </label>
+                        -->
+                        <!--inizio materiale-->
+                        <div class="col s12 m12 l12" id="sezione_mat" class="row section materiali">
+                          <div class="col s12 m12 l12" >
+                              <div class="input-field col s12 m12 l12">
+                                 <i class="material-icons prefix orange-text">keyboard_arrow_right</i>
+                                 <input id="quantita_materiale" type="text" value="1" name="quantita" class="validate">
+                                 <label class="orange-text" for="quantita_materiale">Quantit&agrave;</label>
+                              </div>
+                              <div class="input-field col s12 m12 l12">
+              							      <input id="search_materiale" type="text" requiorange>
+              							      <label for="search_materiale"><i class="material-icons orange-text">search</i></label>
+              						    </div>
+                              <div class="section list col s12 m12 l12" style="max-height: 35%;">
+              							      <ul class="col s12 m12 l12 collection with-header" id="elenco_materiali" style="border: 2px solid orange;" ></ul>
+              						    </div>
+                          </div>
+
+              					</div>
+
+                        <!--fine materiale-->
+
+                        <div class="section" id="elenco_utilizzi_materiali">
+                        </div>
+
+                        <label class="orange-text" for="data">Mezzi</label><br><br>
+                        <!--<a id="aggiungi_mezzi" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
+                        <label class="grey-text" for="data">Aggiungi mezzi  </label>
+                       -->
+                        <!--inizio mezzi-->
+                        <div class="col s12 m12 l12" id="sezione_mezzi" class="row section mezzi">
+                          <div class="col s12 m12 l12" >
+                              <div class="input-field col s12 m12 l12">
+                                  <i class="material-icons prefix orange-text">keyboard_arrow_right</i>
+                                  <input id="quantita_mezzo" type="text" name="quantita" value="1" class="validate">
+                                  <label class="orange-text" for="quantita_mezzo">Numero Ore</label>
+                              </div>
+                              <div class="input-field col s12 m12 l12">
+                                  <input id="search_mezzo" type="text" requiorange>
+                                  <label for="search_mezzo"><i class="material-icons orange-text">search</i></label>
+                              </div>
+                              <div class="section list col s12 m12 l12" style="max-height: 45%;">
+                                  <ul class="col s12 m12 l12 collection with-header" id="elenco_mezzi" style="border: 2px solid orange;" ></ul>
+                              </div>
+
+                            </div>
+                        </div>
+                        <!--fine mezzi-->
+
+                        <div class="section" id="elenco_utilizzi_mezzi">
+                        </div>
+
+                        <div align="right">
+                        </button>
+                            <button style=" right: 5%;" class="btn waves-effect waves-light orange white-text" id="complete" type="button" >Inserisci
+                        </button>
+                          <!--  <a class="btn-floating orange" style=" right: 5%;"><i class="large material-icons">done</i></a>-->
+                        </div>
+					       </li>
+               </ul>
+              </div>
+           </div>
+        </div>
+
+        <!-- Modifiche RAPPORTINO-->
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal modal-fixed-footer" style="max-height: 85%; width: 85%;">
+          <div class="modal-content">
+            <h4 class="section orange-text">Modifica il Rapportino</h4>
+
+
+             		<div class="col s12 m12 l12">
+							<div class="input-field col s1 m1 l1">
+								<i class="material-icons prefix orange-text">event</i>
+					        </div>
+
+
+							<div class="input-field col s3 m3 l3">
+							    <select id="mod_giorno_dd" name="mod_giorno_dd">
+							      <option value="01" class="blue-text">01</option>
+							      <option value="02" class="blue-text">02</option>
+							      <option value="03" class="blue-text">03</option>
+							      <option value="04" class="blue-text">04</option>
+							      <option value="05" class="blue-text">05</option>
+							      <option value="06" class="blue-text">06</option>
+							      <option value="07" class="blue-text">07</option>
+							      <option value="08" class="blue-text">08</option>
+							      <option value="09" class="blue-text">09</option>
+							      <option value="10" class="blue-text">10</option>
+							      <option value="11" class="blue-text">11</option>
+							      <option value="12" class="blue-text">12</option>
+							      <option value="13" class="blue-text">13</option>
+							      <option value="14" class="blue-text">14</option>
+							      <option value="15" class="blue-text">15</option>
+							      <option value="16" class="blue-text">16</option>
+							      <option value="17" class="blue-text">17</option>
+							      <option value="18" class="blue-text">18</option>
+							      <option value="19" class="blue-text">19</option>
+							      <option value="20" class="blue-text">20</option>
+							      <option value="21" class="blue-text">21</option>
+							      <option value="22" class="blue-text">22</option>
+							      <option value="23" class="blue-text">23</option>
+							      <option value="24" class="blue-text">24</option>
+							      <option value="25" class="blue-text">25</option>
+							      <option value="26" class="blue-text">26</option>
+							      <option value="27" class="blue-text">27</option>
+							      <option value="28" class="blue-text">28</option>
+							      <option value="29" class="blue-text">29</option>
+							      <option value="30" class="blue-text">30</option>
+							      <option value="31" class="blue-text">31</option>
+							    </select>
+							    <label>Giorno (gg-mm-aaaa)</label>
+							 </div>
+							 <div class="input-field col s1 m1 l1">
+								<label>/</label>
+					        </div>
+							<div class="input-field col s3 m3 l3">
+							    <select id="mod_giorno_mm" name="mod_giorno_mm">
+							      <option value="01" class="blue-text">01</option>
+							      <option value="02" class="blue-text">02</option>
+							      <option value="03" class="blue-text">03</option>
+							      <option value="04" class="blue-text">04</option>
+							      <option value="05" class="blue-text">05</option>
+							      <option value="06" class="blue-text">06</option>
+							      <option value="07" class="blue-text">07</option>
+							      <option value="08" class="blue-text">08</option>
+							      <option value="09" class="blue-text">09</option>
+							      <option value="10" class="blue-text">10</option>
+							      <option value="11" class="blue-text">11</option>
+							      <option value="12" class="blue-text">12</option>
+							    </select>
+							 </div>
+							 <div class="input-field col s1 m1 l1">
+								<label>/</label>
+					        </div>
+							<div class="input-field col s3 m3 l3">
+							    <select id="mod_giorno_yy" name="mod_giorno_yy">
+							    </select>
+							 </div>
+	                 </div>
+
+					<div class="col s12 m12 l12">
+						<div class="input-field col s1 m1 l1 left prefix">
+							<i class="material-icons prefix orange-text">access_time</i>
+				        </div>
+
+						<div class="mod_ora input-field col s11 m11 l11">
+						    <select id="mod_ora" name="mod_ora" multiple>
+
+						    </select>
+						    <label>Ore di lavoro </label>
+						 </div>
+
+					</div>
+					<div class="col s12">
+						<div class="col s1 input-field">
+				        	<i class="material-icons prefix orange-text">local_cafe</i>
+						</div>
+            <div class="input-field col s11 m11 l11">
+                <select id="mod_pausa" name="mod_pausa">
+                    <option value="0" class="blue-text">0</option>
+                    <option value="5" class="blue-text">5</option>
+                    <option value="10" class="blue-text">10</option>
+                    <option value="15" class="blue-text">15</option>
+                    <option value="30" class="blue-text">30</option>
+                    <option value="45" class="blue-text">45</option>
+                  </select>
+                  <label>Pausa (in MINUTI)</label>
+               </div>
+					</div>
+					<div class="col s12">
+						<div class="col s1 input-field">
+				        	<i class="material-icons prefix orange-text">chat_bubble</i>
+						</div>
+						<div class="col s11 input-field">
+	                       <label class="orange-text" for="ora_inizio">Descrizione</label>
+						   <input id="mod_descrizione" type="text" name="mod_descrizione" class="validate">
+						</div>
+					</div>
+
+
+             <label class="orange-text" for="data">Cliente</label><br><br>
+
+              <div id="mod_lista_sel_dip">
+              </div>
+
+             <label class="orange-text" for="data">Materiale</label><br><br>
+             <!--<a id="mod_aggiungi_mat" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
+             <label class="grey-text" for="data">Aggiungi materiale  </label>
+
+             <br><br>-->
+              <!--inizio materiale-->
+              <div class="col s12 m12 l12" id="mod_sezione_mat" class="row section materiali">
+                <div class="col s12 m12 l12" >
+                    <div class="input-field col s12 m12 l12">
+                       <i class="material-icons prefix orange-text">keyboard_arrow_right</i>
+                       <input id="mod_quantita_materiale" type="text" value="1" name="mod_quantita" class="validate">
+                       <label class="orange-text" for="quantita_materiale">Quantit&agrave;</label>
+                    </div>
+                    <div class="input-field col s12 m12 l12">
+                        <input id="mod_search_materiale" type="text" requiorange>
+                        <label for="search_materiale"><i class="material-icons orange-text">search</i></label>
+                    </div>
+                    <div class="section list col s12 m12 l12" style="max-height: 35%;">
+                        <ul class="col s12 m12 l12 collection with-header" id="mod_elenco_materiali" style="border: 2px solid orange;" ></ul>
+                    </div>
+                </div>
+
+              </div>
+
+              <!--fine materiale-->
+
+              <div class="row section" id="mod_elenco_utilizzi_materiali">
+              </div>
+
+              <label class="orange-text" for="data">Mezzi</label><br><br>
+              <!--<a id="mod_aggiungi_mezzi" class="btn-floating waves-effect waves-light orange"><i class="material-icons">add</i></a>
+              <label class="grey-text" for="data">Aggiungi mezzi  </label>
+              <br><br>-->
+              <!--inizio mezzi-->
+              <div class="col s12 m12 l12" id="mod_sezione_mezzi" class="row section mezzi">
+                <div class="col s12 m12 l12">
+                    <div class="input-field col s12 m12 l12">
+                        <i class="material-icons prefix orange-text">keyboard_arrow_right</i>
+                        <input id="mod_quantita_mezzo" type="text" name="mod_quantita" value="1" class="validate">
+                        <label class="orange-text" for="quantita_mezzo">Numero Ore</label>
+                    </div>
+                    <div class="input-field col s12 m12 l12">
+                        <input id="mod_search_mezzo" type="text" requiorange>
+                        <label for="search_mezzo"><i class="material-icons orange-text">search</i></label>
+                    </div>
+                    <div class="section list col s12 m12 l12" style="max-height: 45%;">
+                        <ul class="col s12 m12 l12 collection with-header" id="mod_elenco_mezzi" style="border: 2px solid orange;"></ul>
+                    </div>
+
+                  </div>
+              </div>
+              <!--fine mezzi-->
+
+              <div class="row section" id="mod_elenco_utilizzi_mezzi">
+              </div>
+
+              <br>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat " id="no_modifica">Annulla</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat " id="yes_modifica">Conferma</a>
+          </div>
+        </div>
+        <!--FINE Elimina RAPPORTINO-->
+
+        <!-- Elimina RAPPORTINO -->
+        <div id="modal2" class="modal">
+          <div class="modal-content">
+            <h4 class="orange-text">Conferma Eliminazione</h4>
+            <p>Sei sicuro di voler eliminare il rapportino?</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat " id="no_delete">No</a>
+            <a href="#!" class=" modal-action modal-close waves-effect waves-orange btn-flat" id="yes_delete">Si</a>
+          </div>
+        </div>
+
+      <div class="section list col s12 m6 l4" style="max-height: 80%;">
+        <ul id="lista_rap" class="collection">
+        </ul>
+      </div>
+
+
+        <div class="section list col s12 m6 l8"  style="max-height: 80%;">
+
+            <div class="card">
+              <div class="card-content" >
+
+                <ul id="lista_singolo_rap" class="collection">
+
+
+                </ul>
+              </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+      <div class="col s12 m12">
+        <div class="orange card">
+          <div class="card-content">
+            <h6 id="ore_tot" class="center-align">RIEPILOGO ORE: </h6>
+            <!--<p id="" class="center-align">RIEPILOGO ORE: </p>-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+       <div class="col s12 m12">
+         <div class=" card">
+            <div class="card-content">
+              <p class="center-align">RIEPILOGO MATERIALI</p> <a id="pulsante_materiali" style="position: absolute; top: 16px; right: 5%;" class="btn-floating orange"><i class="large mdi-navigation-menu"></i></a>
+            </div>
+            <div id="elementi_materiali" class="card-content">
+              <div id="lista_materiali_tot">
+              </div>
+            </div>
+         </div>
+      </div>
+    </div>
+
+    <div class="row">
+       <div class="col s12 m12">
+         <div class=" card">
+            <div class="card-content">
+              <p class="center-align">RIEPILOGO MEZZI</p> <a id="pulsante_mezzi" style="position: absolute; top: 16px; right: 5%;" class="btn-floating orange"><i class="large mdi-navigation-menu"></i></a>
+            </div>
+            <div id="elementi_mezzi" class="card-content">
+              <div id="lista_mezzi_tot">
+              </div>
+            </div>
+         </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-bottom:3%;">
+       <div class="col s12 m12">
+         <div class="col s12 m12 l12 center-align">
+             <a id="download_file" class="waves-effect waves-light orange btn"><i class="material-icons">play_for_work</i>  SCARICA</a>
+         </div>
+         <!--<div class="col s6 m6 l6 center-align">
+             <a class="waves-effect waves-light  orange btn">STAMPA</a>
+         </div>-->
+      </div>
+    </div>
+
+  </div>
+  </body>
+
+  </html>

@@ -16,24 +16,36 @@ $(document).ready(function(){
 
 		var now = new Date();
 		console.log(now);
+		/*
 		for(var i=parseInt(now.getYear())+1899;i<parseInt(now.getYear())+1901;i++)
 		{
 			$("#nuovo_giorno_yy").append("<option value="+i+">"+i+"</option>");
 		}
 
 		$('select').material_select();
+		*/
+		var now = new Date();
+		console.log(now);
+		var dd_nuovo="";
+		var mm_nuovo="";
 		if(now.getDate().toString().length ==1)
-			$("#nuovo_giorno_dd").val("0"+(now.getDate()).toString());
+			dd_nuovo="0"+(now.getDate()).toString();
 		else
-			$("#nuovo_giorno_dd").val(now.getDate());
+			dd_nuovo=now.getDate();
 		if(now.getMonth().toString().length ==1)
-			$("#nuovo_giorno_mm").val("0"+(now.getMonth()+1).toString());
+			mm_nuovo="0"+(now.getMonth()+1).toString();
 		else
-			$("#nuovo_giorno_mm").val(now.getMonth()+1);
-		$("#nuovo_giorno_yy").val(now.getFullYear());
+			mm_nuovo= now.getMonth()+1;
+
+		var yy_nuovo = now.getFullYear();
+
+		var data_set_nuovo= yy_nuovo+"/"+mm_nuovo+"/"+dd_nuovo;
+
+		$("#nuovo_giorno").val(data_set_nuovo);
+		//alert("data_set_nuovo"+data_set_nuovo);
+		document.getElementById('lblNuovo').innerHTML = takeNameDayFull(data_set_nuovo);
+
 		$('select').material_select("update");
-
-
 
     populateListEmployee("");
     $("#search_dip").on('input',function() {
@@ -82,27 +94,21 @@ $(document).ready(function(){
 		populateListFascieOrarie();
 
 
-		$("#nuovo_giorno_dd").on("change",function(){
+		$("#nuovo_giorno").on("change",function(){
 			populateListFascieOrarie();
 		});
-
-		$("#nuovo_giorno_mm").on("change",function(){
-			populateListFascieOrarie();
-		});
-
-		$("#nuovo_giorno_yy").on("change",function(){
-			populateListFascieOrarie();
-		});
-
-
-
 });
 
+function setLabelFilterNuovo(){
+	var inizio = $("#nuovo_giorno").val();
+	var dataInizio = inizio.split('/');
+	document.getElementById('lblNuovo').innerHTML = takeNameDayFull(dataInizio[0]+"/"+dataInizio[1]+"/"+dataInizio[2]);
+}
 
 function populateListEmployee(filter){
 	$.ajax({
       dataType: "json",
-      url: "script_php/getEmployee.php?q="+ filter+"&db="+getCookie('nomeDB')+"&all=0", //Relative or absolute path to response.php file
+      url: "script_php/getEmployee.php?q="+ filter+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
 	    json_dipendenti = data;
@@ -364,12 +370,14 @@ function removeDipendente(i){
 		for(var i=0;i<inizio.length;i++){
 		if(i==0 && j==0 )
 		{
+			var data_mod = $("#nuovo_giorno").val();
+			var data_m = changeFormatData(data_mod);
 			$.ajax({
 		       type:"POST",
 		       url: "script_php/postRapportinoCliente.php", //Relative or absolute path to response.php file
 		       async:false,
 		       data:{
-			    'data': $("#nuovo_giorno_dd").val()+"-"+$("#nuovo_giorno_mm").val()+"-"+$("#nuovo_giorno_yy").val(),
+			    'data': data_m,
 		 	  	'ora_inizio': inizio[i],
 		 	  	'ora_fine': fine[i],
 		 	  	'pausa': $('#nuovo_pausa').val(),
@@ -389,12 +397,14 @@ function removeDipendente(i){
 
 		}
 		else{
+			var data_mod = $("#nuovo_giorno").val();
+			var data_m = changeFormatData(data_mod);
 			$.ajax({
 		       type:"POST",
 		       url: "script_php/postRapportinoCliente.php", //Relative or absolute path to response.php file
 		       async:false,
 		       data:{
-			    'data': $("#nuovo_giorno_dd").val()+"-"+$("#nuovo_giorno_mm").val()+"-"+$("#nuovo_giorno_yy").val(),
+			    'data': data_m,
 		 	  	'ora_inizio': inizio[i],
 		 	  	'ora_fine': fine[i],
 		 	  	'pausa': 0,
@@ -441,7 +451,7 @@ function removeDipendente(i){
 	$("#nuovo_ora").prop("disabled",false);
 	 $("#nuovo_ora").append("<option value=-1 disabled>Seleziona gli orari del lavoro fatto</option>");
 	 $("#nuovo_ora").append("<option value=-2 id='all_select'>"+select_string+"</option>");
-
+	 var gg= $("#nuovo_giorno").val();
 	 for(index_fasce=0;index_fasce<dipendenti_selezionati.length;index_fasce++)
 			$.ajax({
 			      url: "script_php/getFascieOrarieMoreDays.php", //Relative or absolute path to response.php file
@@ -449,9 +459,9 @@ function removeDipendente(i){
 			      async:false,
 			      data:{
 				      'dip': dipendenti_selezionati[index_fasce]['id'],
-					  'data_dd':$("#nuovo_giorno_dd").val(),
-					  'data_mm':$("#nuovo_giorno_mm").val(),
-					  'data_yy':$("#nuovo_giorno_yy").val(),
+							'data_dd':gg.split('/')[2],
+							'data_mm':gg.split('/')[1],
+							'data_yy':gg.split('/')[0],
 				      'db':getCookie('nomeDB')
 				   },
 				   success: function(data){

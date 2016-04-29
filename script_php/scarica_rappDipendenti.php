@@ -197,7 +197,6 @@
         $result->close();
     }
 
-
     outputCSV($arrayRap);
 
 

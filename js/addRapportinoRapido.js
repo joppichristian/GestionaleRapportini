@@ -129,7 +129,7 @@ $(document).ready(function(){
 	});
 
 
-	
+
 
 })
 
@@ -154,7 +154,6 @@ function populateListClient(filter){
 
 	    	$("#elenco_clienti").append(elementi[i]);
 	    	id_Cl = data[0]['id'];
-
 
 
 	    	}
@@ -468,7 +467,7 @@ function populateListFascieOrarie(){
 	 $("#ora").empty();
 	 $("#ora").append("<option value=-1 disabled>Seleziona gli orari</option>");
 	 $("#ora").append("<option value=-2 id='all_select'>"+select_string+"</option>");
-	 
+
 	$.ajax({
 	      url: "script_php/getFascieOrarie.php", //Relative or absolute path to response.php file
 	      type:"POST",
@@ -521,9 +520,9 @@ function populateListFascieOrarie(){
 					  showButtom();
 					});
 				 $(".ora .dropdown-content li:nth-child(2) span").on("click",function(){
-		
+
 					if($("#all_select").text()=="Seleziona tutto"){
-						select_string = "Deseleziona tutto";					
+						select_string = "Deseleziona tutto";
 						populateListFascieOrarie();
 						$(".ora .dropdown-content li span").each(function(i){
 							if(i>1)
@@ -536,8 +535,8 @@ function populateListFascieOrarie(){
 
 						populateListFascieOrarie();
 					}
-			
-				});	
+
+				});
 			},
 		   error: function (XMLHttpRequest, textStatus, errorThrown){
 			   Materialize.toast('Errore di inserimento', 2000);

@@ -1,0 +1,220 @@
+<html>
+	<head>
+
+		<title>GestionaleClj</title>
+		<link rel="icon" href="img/icon.ico" />
+		<meta name="viewport" content="width=device-width, user-scalable=no,
+initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+
+		<!-- Compiled and minified CSS -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+	  	<link rel="stylesheet" href="css/style.css">
+	  	<link rel="stylesheet" href="css/form_purple.css">
+	    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	    <link rel="stylesheet" type="text/css" href="css/jquery-confirm.css">
+		<link rel="stylesheet" type="text/css" href="css/pace.css">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<!-- Compiled and minified JavaScript -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+		<script src="js/addRapportinoRapido.js" type="text/javascript" ></script>
+		<script type="text/javascript" src="js/jquery-confirm.js"></script>
+		<script type="text/javascript" src="js/manageCookie.js"></script>
+		<script src="js/pace.min.js" type="text/javascript"></script>
+
+		<style>
+		.row {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1%;
+}
+		</style>
+
+	</head>
+
+	<body class="blue-grey lighten-5">
+	<div id="loading" style="position: absolute; width: 100%; height: 100%; background: url('img/loader.gif') no-repeat center center;"></div>
+		<nav class="section blue-grey darken-3" id="header_page">
+			<div class="col s12 m12 l12" id="button_Fine" align="right" style="width:100%; position:absolute; padding-right:3%; padding-top:3%;">
+				<button class="btn waves-effect waves-light purple white-text" href="#!" type="button" >Fine Selezione</button>
+			</div>
+		    <div class="nav-wrapper">
+		      <div class="col s12">
+		        <a href="dashboard.html" class="breadcrumb">Home</a>
+		        <a href="#!" class="breadcrumb">Aggiungi Rapportino</a>
+		      </div>
+		    </div>
+	  	</nav>
+		 <div id="schermata_dati">
+		 	<div class="row section">
+
+					<div class="col s12 m12 l12" id="cont_or">
+						<div class="input-field col s1 m1 l1 right prefix">
+							<i class="material-icons prefix purple-text">&#xE192;</i>
+				    </div>
+						<div class="input-field col s11 m11 l11 ora" >
+						    <select id="ora" name="ora" multiple>
+						    </select>
+						    <label>Ore di lavoro </label>
+						</div>
+					</div>
+					<div class="col s12 m12 l12">
+							<div class="input-field col s1 m1 l1 right prefix">
+								<i class="material-icons prefix  purple-text">&#xE541;</i>
+					    </div>
+							<div class="input-field col s11 m11 l11">
+									<select id="pausa" name="pausa">
+											<option value="0" class="blue-text">0 minuti</option>
+								      <option value="5" class="blue-text">5 minuti</option>
+								      <option value="10" class="blue-text">10 minuti</option>
+								      <option value="15" class="blue-text">15 minuti</option>
+								      <option value="30" class="blue-text">30 minuti</option>
+								      <option value="45" class="blue-text">45 minuti</option>
+										</select>
+										<label>Pausa (in MINUTI)</label>
+					       </div>
+					</div>
+					<div class="col s12 m12 l12">
+						<div class="input-field col s1 m1 l1 right prefix">
+							<i class="material-icons prefix   purple-text">&#xE0CA;</i>
+				        </div>
+
+						<div class="input-field col s11 m11 l11">
+				          <input id="note" name="note"type="text">
+				          <label class="purple-text" for="note">Descrizione</label>
+				       </div>
+					</div>
+				</div>
+
+				 <div class="row">
+					<div class="input-field col s12 m12 l12">
+					 <button class="btn waves-effect waves-light purple white-text" id="show_materiali" type="button" >
+					        <i class="small material-icons">&#xE145;</i>
+					        <i class="small material-icons">format_paint</i>
+					</button>
+					 <button class="btn waves-effect waves-light purple white-text" id="show_mezzi" type="button" >
+					 		<i class="small material-icons">&#xE145;</i>
+					     <i class="small material-icons">directions_bus</i>
+					</button>
+					</div>
+				 </div>
+				 <div class="row">
+					<div class="row section materiali">
+						  <div class="input-field col s12 m12 l12">
+								<i class="material-icons prefix purple-text">&#xE315;</i>
+								<input id="quantita_materiale" type="text" value="1" name="quantita" class="validate">
+								<label class="purple-text" for="quantita_materiale">Quantit&agrave;</label>
+					    </div>
+
+							<div class="input-field col s12 m12 l12">
+							  <input id="search_materiale" type="text" required>
+							  <label for="search_materiale"><i class="material-icons purple-text">&#xE8B6;</i></label>
+						 </div>
+
+						 <div class="section list col s12 m12 l12" style="max-height: 35%;">
+							  <ul class="col s12 m12 l12 collection with-header" id="elenco_materiali" ></ul>
+						 </div>
+
+
+						 <div class="input-field col s12" style="text-align: right;margin-bottom: 2%;">
+					        <button class="btn waves-effect waves-light purple white-text" id="conferma_materiali" type="button" >
+					        <i class="material-icons right">&#xE80B;</i>Chiudi
+							</button>
+			        	</div>
+					</div>
+					<div class="row section mezzi">
+
+						  <div class="input-field col s12 m12 l12">
+								 <i class="material-icons prefix purple-text">&#xE315;</i>
+								 <input id="quantita_mezzo" type="text" name="quantita" value="1" class="validate">
+								 <label class="purple-text" for="quantita_mezzo">Numero Ore</label>
+						   </div>
+
+					     <div class="input-field col s12 m12 l12">
+					          <input id="search_mezzo" type="text" required>
+							      <label for="search_mezzo"><i class="material-icons purple-text">&#xE8B6;</i></label>
+						   </div>
+
+
+						  	<div class="section list col s12 m12 l12" style="max-height: 35%;">
+							  <ul class="col s12 m12 l12 collection with-header" id="elenco_mezzi" ></ul>
+						  	</div>
+
+						  	<div class="input-field col s12" style="text-align: right;margin-bottom: 2%;">
+						        <button class="btn waves-effect waves-light purple white-text" id="conferma_mezzi" type="button" >
+						        <i class="material-icons right">&#xE80B;</i>Chiudi
+							</button>
+			        	</div>
+					</div>
+				 </div>
+				 <div class="row">
+		  		<div class="input-field col s12" style="text-align: right;margin-bottom: 2%;">
+				        <button class="btn waves-effect waves-light purple white-text" id="to_clienti" type="button" >Avanti
+						</button>
+				</div>
+	  		</div>
+	  		</div>
+
+			 </div>
+
+		</div>
+		</div>
+		<div class="row section" id="schermata_clienti">
+			<div class="col s12 m12 l12">
+			  	<div class="section purple-text">Clienti</div>
+			  	<div class="section col s12 m12 l12">
+				  	<form>
+					        <div class="input-field">
+					          <input id="search_cliente" type="text" required>
+					          <label for="search_cliente"><i class="material-icons purple-text">&#xE8B6;</i></label>
+					         </div>
+					 </form>
+				</div>
+				<div class="row section" id="cliente_selezionato"></div>
+
+			  	<div class="section list col s12 m12 l12" style="max-height: 35%;">
+			  		<ul class="collection with-header" id="elenco_clienti" ></ul>
+		  		</div>
+		  	</div>
+		  	 <div class="row">
+					<div class="input-field col s12 m12 l12">
+					 <button class="btn waves-effect waves-light purple white-text" id="show_add_cliente" type="button" >
+					        <i class="small material-icons">&#xE145;</i>
+					        Nuovo Cliente
+					</button>
+				</div>
+		  	 </div>
+		  	<div class="col s12 m12 l12" id="rapida_cliente">
+			  	<div class="input-field col s10 m10 l10">
+			          <i class="material-icons prefix purple-text">&#xE853;</i>
+			          <input id="nominativo" type="text" name="text" class="validate">
+			          <label class="purple-text" for="nominativo">Nominativo</label>
+			        </div>
+			        <a class="input-field btn-floating btn-medium waves-effect waves-light purple" title="Aggiunta rapida cliente" style="float:right;" id="addClient"><i class="small material-icons">&#xE145;</i></a>
+		  	</div>
+
+		  	<div class="divider"></div>
+				 <div class="row section">
+					 <div class="purple-text">Resoconto:</div>
+					 <div id="ore_new_page"></div>
+					 <div id="elenco_utilizzi_materiali"></div>
+					<div  id="elenco_utilizzi_mezzi"> </div>
+				 </div>
+
+
+			  		<div class="row">
+				  		<div class="input-field col s12" style="text-align: right;margin-bottom: 2%;">
+						    <button class="btn waves-effect waves-light purple white-text" id="back_data" type="button" >Indietro
+								</button>
+						        <button class="btn waves-effect waves-light purple white-text" id="complete" type="button" >Completa
+								</button>
+
+						</div>
+			  		</div>
+
+				 </div>
+
+
+
+	</body>
+</html>
