@@ -35,11 +35,11 @@ $(document).ready(function(){
 	id_utente = getUrlVars()["id"];
 	var ii="";
 	var ff="";
-	var iii=(getUrlVars()["f_ini"]);
+	var iii=(getUrlVars()["f_ini"].replace(/[^\d\.\/]/g, ""));
 	if(undefined != iii){
-		ii= getUrlVars()["f_ini"];
+		ii= getUrlVars()["f_ini"].replace(/[^\d\.\/]/g, "");
 		$("#filter_start_giorno").val(ii);
-		ff=getUrlVars()["f_end"];
+		ff=getUrlVars()["f_end"].replace(/[^\d\.\/]/g, "");
 		$("#filter_stop_giorno").val(ff);
 	}else{
 		setDateDefault();
@@ -150,14 +150,15 @@ function buttonCerca(){
 				$("#ora_selezionato").append(cliente_chip_ore);
 				$("#ora_selezionato").show();
 				var iii=(getUrlVars()["f_ini"]);
-				if(undefined != iii){
-				var cliente_chip = document.createElement('div');
-				//cliente_chip.className= "chip";
-				cliente_chip.style= "margin-top:2%;";
-				var nameurl =getUrlVars()["nome"];
-				cliente_chip.innerHTML="Dipendente: <b>"+nameurl.replace(/%20/g, " ")+"</b>";
-				$("#utente_selezionato").append(cliente_chip);
-				//$("#utente_selezionato").show();
+				if(undefined != iii ){
+					var cliente_chip = document.createElement('div');
+					//cliente_chip.className= "chip";
+					cliente_chip.style= "margin-top:2%;";
+					var nameurl =getUrlVars()["nome"];
+					cliente_chip.innerHTML="Dipendente: <b>"+nameurl.replace(/%20/g, " ")+"</b>";
+					$("#utente_selezionato").empty();
+					$("#utente_selezionato").append(cliente_chip);
+					//$("#utente_selezionato").show();
 				}
 				lista_id_rap = new Array();
 				settaOra(0);
