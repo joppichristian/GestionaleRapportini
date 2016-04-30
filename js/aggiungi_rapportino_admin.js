@@ -13,14 +13,6 @@ $(document).ready(function(){
 		window.location.replace("index.html");
 
 
-		/*
-		for(var i=parseInt(now.getYear())+1899;i<parseInt(now.getYear())+1901;i++)
-		{
-			$("#nuovo_giorno_yy").append("<option value="+i+">"+i+"</option>");
-		}
-
-		$('select').material_select();
-		*/
 		var now = new Date();
 		console.log(now);
 		var dd_nuovo="";

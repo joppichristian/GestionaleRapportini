@@ -10,7 +10,7 @@ var cliente_selezionato = -1;
 var materiali_selezionati = new Array();
 var mezzi_selezionati = new Array();
 var rapida_cliente = 0;
-
+var giorni = ["Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica"];
 $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
@@ -128,8 +128,9 @@ $(document).ready(function(){
 
 	});
 
-
-
+	var date = new Date();
+	var data_oggi = giorni[date.getDay()-1]+" "+date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
+	$("#today").append(data_oggi);
 
 })
 
