@@ -134,9 +134,43 @@ $(document).ready(function(){
 window.onload = function () {
 	var iii=(getUrlVars()["f_ini"]);
 	if (undefined != iii){
-		 buttonCerca();
+		 buttonCercaAuto();
 	}
 }
+function buttonCercaAuto(){
+			if(isNaN(id_utente)!=true){
+				$("#filtro_selezionato").show();
+				$("#ora_selezionato").empty();
+				//alert("OOOOOOOOHHH");
+				var inizio = $("#filter_start_giorno").val();
+				var fine  = $("#filter_stop_giorno").val();
+				var cliente_chip_ore = document.createElement('div');
+				//cliente_chip_ore.className= "chip";
+				cliente_chip_ore.innerHTML="dal <b>"+inizio+"</b> al <b>"+ fine+"</b>" ;
+				$("#ora_selezionato").append(cliente_chip_ore);
+				$("#ora_selezionato").show();
+				var iii=(getUrlVars()["f_ini"]);
+				$("#utente_selezionato").empty();
+				var cliente_chip = document.createElement('div');
+				//cliente_chip.className= "chip";
+				cliente_chip.style= "margin-top:2%;";
+				var nameurl =getUrlVars()["nome"];
+				cliente_chip.innerHTML="Dipendente: <b>"+nameurl.replace(/%20/g, " ")+"</b>";
+				$("#utente_selezionato").append(cliente_chip);
+					//$("#utente_selezionato").show();
+				lista_id_rap = new Array();
+				settaOra(0);
+				Loading();
+				populateRapportino(id_utente);
+				$("#filtro_selezionato").show();
+				$("#sez_insermento_rapportino").show();
+				$("#download_file").show();
+			}else{
+				Materialize.toast('Prima seleziona un dipendente o un cliente!', 2000);
+			}
+
+}
+
 function buttonCerca(){
 			if(isNaN(id_utente)!=true){
 				$("#filtro_selezionato").show();
@@ -150,16 +184,7 @@ function buttonCerca(){
 				$("#ora_selezionato").append(cliente_chip_ore);
 				$("#ora_selezionato").show();
 				var iii=(getUrlVars()["f_ini"]);
-				if(undefined != iii ){
-					var cliente_chip = document.createElement('div');
-					//cliente_chip.className= "chip";
-					cliente_chip.style= "margin-top:2%;";
-					var nameurl =getUrlVars()["nome"];
-					cliente_chip.innerHTML="Dipendente: <b>"+nameurl.replace(/%20/g, " ")+"</b>";
-					$("#utente_selezionato").empty();
-					$("#utente_selezionato").append(cliente_chip);
-					//$("#utente_selezionato").show();
-				}
+				$("#utente_selezionato").empty();
 				lista_id_rap = new Array();
 				settaOra(0);
 				Loading();

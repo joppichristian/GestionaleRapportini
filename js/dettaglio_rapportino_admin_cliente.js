@@ -62,7 +62,7 @@ $(document).ready(function(){
 	}
 
 	window.onload = function () {
-	        buttonCerca();
+	        buttonCercaAuto();
 	}
 
 	$('select').material_select();
@@ -140,6 +140,35 @@ $(document).ready(function(){
     });
 
 });
+function buttonCercaAuto(){
+	if(isNaN(id_utente)!=true){
+		$("#filtro_selezionato").show();
+		$("#ora_selezionato").empty();
+		//alert("OOOOOOOOHHH");
+		var inizio = $("#filter_start_giorno").val();
+		var fine  = $("#filter_stop_giorno").val();
+		var cliente_chip_ore = document.createElement('div');
+		//cliente_chip_ore.className= "chip";
+		cliente_chip_ore.innerHTML="dal <b>"+inizio+"</b> al <b>"+ fine+"</b>" ;
+		$("#ora_selezionato").append(cliente_chip_ore);
+		$("#ora_selezionato").show();
+		var cliente_chip = document.createElement('div');
+		//cliente_chip.className= "chip";
+		cliente_chip.style= "margin-top:2%;";
+		cliente_chip.id= "cclick";
+		cliente_chip.innerHTML="Cliente: <b>"+nome_sel.replace(/%20/g, " ")+"</b>";
+		$("#utente_selezionato").append(cliente_chip);
+		lista_id_rap = new Array();
+		settaOra(0);
+		Loading();
+		populateRapportino(id_utente);
+		$("#filtro_selezionato").show();
+		$("#sez_insermento_rapportino").show();
+		$("#download_file").show();
+	}else{
+		Materialize.toast('Prima seleziona un dipendente o un cliente!', 2000);
+	}
+}
 
 function buttonCerca(){
 	if(isNaN(id_utente)!=true){
@@ -153,14 +182,6 @@ function buttonCerca(){
 		cliente_chip_ore.innerHTML="dal <b>"+inizio+"</b> al <b>"+ fine+"</b>" ;
 		$("#ora_selezionato").append(cliente_chip_ore);
 		$("#ora_selezionato").show();
-
-		var cliente_chip = document.createElement('div');
-		//cliente_chip.className= "chip";
-		cliente_chip.style= "margin-top:2%;";
-		cliente_chip.id= "cclick";
-		cliente_chip.innerHTML="Cliente: <b>"+nome_sel.replace(/%20/g, " ")+"</b>";
-		$("#utente_selezionato").append(cliente_chip);
-
 		lista_id_rap = new Array();
 		settaOra(0);
 		Loading();
