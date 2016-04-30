@@ -41,9 +41,7 @@ $(document).ready(function(){
 		$("#filter_start_giorno").val(ii);
 		ff=getUrlVars()["f_end"];
 		$("#filter_stop_giorno").val(ff);
-		alert("ii "+ii+"  ff "+ff);
 	}else{
-		alert("setDateDefault");
 		setDateDefault();
 	}
 	//$("#nome_cliente").text(""+nome_utente);
