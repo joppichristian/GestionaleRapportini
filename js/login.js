@@ -45,7 +45,7 @@ function controlla_login(user,psw){
                 username = data[i]['username'];
                 inizio = data[i]['inizio'];
                 fine = data[i]['fine'];
-                dbs += data[i]['nome_db']+":"+r_sociale+":"+data[i]['ID_azienda']+":"+data[i]['classe_privilegi']+"-";
+                dbs += data[i]['nome_db']+"?"+r_sociale+"?"+data[i]['ID_azienda']+"?"+data[i]['classe_privilegi']+"?"+data[i]['inizio']+"?"+data[i]['fine']+"-----";
                 
             }
             //alert("registrazione avvenuta con successo!! id azienda: "+id_a);

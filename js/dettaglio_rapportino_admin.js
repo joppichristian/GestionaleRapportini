@@ -35,7 +35,7 @@ $(document).ready(function(){
 	id_utente = getUrlVars()["id"];
 	var ii="";
 	var ff="";
-	var iii=(getUrlVars()["f_ini"].replace(/[^\d\.\/]/g, ""));
+	var iii=getUrlVars()["f_ini"];
 	if(undefined != iii){
 		ii= getUrlVars()["f_ini"].replace(/[^\d\.\/]/g, "");
 		$("#filter_start_giorno").val(ii);
