@@ -129,7 +129,7 @@ function mod_populateListMaterials(filter){
 	    mod_json_materiali = data;
         var elementi = new Array();
          $("#mod_elenco_materiali").empty();
-        for(var i = 0; i < data.length; i++) {
+        for(var i = 0;data != null &&  i < data.length ; i++) {
 
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item blue-grey lighten-5";
@@ -227,7 +227,7 @@ function mod_populateListMezzi(filter){
 	    mod_json_mezzi = data;
         var elementi = new Array();
          $("#mod_elenco_mezzi").empty();
-        for(var i = 0; i < data.length; i++) {
+        for(var i = 0;data != null &&   i < data.length; i++) {
 
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item blue-grey lighten-5";
@@ -474,9 +474,9 @@ function setLabelFilterModifica(){
 }
 
 function changeFormatData(mdata){
-	var d = mdata.split('/')[0];
+	var d = mdata.split('/')[2];
 	var m = mdata.split('/')[1];
-	var y = mdata.split('/')[2];
+	var y = mdata.split('/')[0];
 	return ""+d+"-"+m+"-"+y;
 //cambiare data da 2016/01/01
 // in 01-01-2016

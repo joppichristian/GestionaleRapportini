@@ -88,7 +88,7 @@ function setLabelFilterNuovo(){
 function populateListEmployee(filter){
 	$.ajax({
       dataType: "json",
-      url: "script_php/getClients.php?q="+ filter+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "script_php/getClients.php?q="+ filter+"&db="+getCookie('nomeDB')+"&all=0", //Relative or absolute path to response.php file
       data:"",
       success: function(data) {
 	    json_clienti = data;
@@ -139,7 +139,7 @@ function populateListMaterials(filter){
 	    json_materiali = data;
         var elementi = new Array();
          $("#elenco_materiali").empty();
-        for(var i = 0; i < data.length; i++) {
+        for(var i = 0; data != null &&  i < data.length; i++) {
 
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item blue-grey lighten-5";
@@ -235,7 +235,7 @@ function populateListMezzi(filter){
 	    json_mezzi = data;
         var elementi = new Array();
          $("#elenco_mezzi").empty();
-        for(var i = 0; i < data.length; i++) {
+        for(var i = 0;data != null &&   i < data.length; i++) {
 
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item blue-grey lighten-5";
