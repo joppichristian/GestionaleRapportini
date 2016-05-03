@@ -174,11 +174,9 @@ function buttonCerca(){
 	if(isNaN(id_utente)!=true){
 		$("#filtro_selezionato").show();
 		$("#ora_selezionato").empty();
-		//alert("OOOOOOOOHHH");
 		var inizio = $("#filter_start_giorno").val();
 		var fine  = $("#filter_stop_giorno").val();
 		var cliente_chip_ore = document.createElement('div');
-		//cliente_chip_ore.className= "chip";
 		cliente_chip_ore.innerHTML="dal <b>"+inizio+"</b> al <b>"+ fine+"</b>" ;
 		$("#ora_selezionato").append(cliente_chip_ore);
 		$("#ora_selezionato").show();

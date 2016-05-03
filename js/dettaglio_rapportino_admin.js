@@ -184,7 +184,6 @@ function buttonCerca(){
 				$("#ora_selezionato").append(cliente_chip_ore);
 				$("#ora_selezionato").show();
 				var iii=(getUrlVars()["f_ini"]);
-				$("#utente_selezionato").empty();
 				lista_id_rap = new Array();
 				settaOra(0);
 				Loading();
