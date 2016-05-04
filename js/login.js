@@ -35,18 +35,39 @@ function controlla_login(user,psw){
 		  var inzio = "";
 		  var fine = "";
 		  var dbs = "";
+		  
+		  var scadenza;
+		  var today = new Date();
+		  var n_aziende_abilitate = 0;
+		  var min = 0;
 		      if((data != null)&&(data[0]!=null)){
+			      n_aziende_abilitate = data.length;
             for(var i = 0; i < data.length; i++) {
-                id_a = data[0]['ID_azienda'];
-                id_dip = data[i]['id_dipendente'];
-                admin = data[0]['classe_privilegi'];
-                r_sociale = data[i]['ragione_sociale'];
-                nomedb = data[0]['nome_db'];
-                username = data[i]['username'];
-                inizio = data[i]['inizio'];
-                fine = data[i]['fine'];
-                dbs += data[i]['nome_db']+"?"+r_sociale+"?"+data[i]['ID_azienda']+"?"+data[i]['classe_privilegi']+"?"+data[i]['inizio']+"?"+data[i]['fine']+"-----";
-                
+	            scadenza = new Date(data[i]['scadenza']);
+	            if(scadenza.getTime()-today.getTime() < 0)
+	            {
+		        	n_aziende_abilitate--;   
+		        	min ++;
+	            }else{
+	                id_a = data[min]['ID_azienda'];
+	                id_dip = data[i]['id_dipendente'];
+	                admin = data[min]['classe_privilegi'];
+	                r_sociale = data[i]['ragione_sociale'];
+	                nomedb = data[min]['nome_db'];
+	                username = data[i]['username'];
+	                inizio = data[i]['inizio'];
+	                fine = data[i]['fine'];
+	                dbs += data[i]['nome_db']+"?"+r_sociale+"?"+data[i]['ID_azienda']+"?"+data[i]['classe_privilegi']+"?"+data[i]['inizio']+"?"+data[i]['fine']+"-----";
+                }
+            }
+            if(n_aziende_abilitate <= 0)
+            {
+	            Materialize.toast('Abbonamento scaduto! Rinnova!', 4000);
+	            return false;
+            }
+            if(n_aziende_abilitate != data.length)
+            {
+	            Materialize.toast('Attenzione! Alcune tue aziende hanno l\'abbonamento scaduto! Rinnova!', 4000);
             }
             //alert("registrazione avvenuta con successo!! id azienda: "+id_a);
             setCookie("inizialized",0,30);
@@ -60,9 +81,9 @@ function controlla_login(user,psw){
             setCookie("inizio",inizio,30);
             setCookie("fine",fine,30);
             setCookie("dbs",dbs,30);
-            Materialize.toast('Login avvenuto con successo!', 2000,'',function(){window.location.href = 'dashboard.html'});
+            Materialize.toast('Login avvenuto con successo!', 4000,'',function(){window.location.href = 'dashboard.html'});
           }else{
-            Materialize.toast('Username e/o Password Errata', 2000);
+            Materialize.toast('Username e/o Password Errata', 4000);
             //alert("username e/o password errata!! i valori trovati sono: "+ cont);
           }
     },
