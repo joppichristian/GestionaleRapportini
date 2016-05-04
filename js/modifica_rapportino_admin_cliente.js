@@ -310,10 +310,11 @@ function mod_controlloRapCliente(){
 			}
 		}
 	}
+	var data_mod = $("#mod_giorno").val();
+	var data_m = changeFormatData(data_mod);
 	for(var i=0;i<start.length;i++){
 		if(i==indice_mod){
-      var data_mod = $("#mod_giorno").val();
-			var data_m = changeFormatData(data_mod);
+      
 			$.ajax({
 		       type:"POST",
 		       url: "script_php/updateRapportino.php", //Relative or absolute path to response.php file
@@ -347,6 +348,7 @@ function mod_controlloRapCliente(){
 		       async:false,
 		       data:{
 			    'data': data_m,
+			    'ora_inizio': start[i],
 		 	  	'ora_fine': stop[i],
 		 	  	'pausa':0,
 		 	  	'note':$('#mod_descrizione').val(),
@@ -437,7 +439,7 @@ function mod_controlloRapCliente(){
 						   $("#mod_ora option[value="+j+"]").text($("#mod_ora option[value="+j+"]").text() +"       " + data[i]['nominativo']);
 					   }
 					   else{
-						  toModify.push((j+60)/30);
+						  toModify.push((j+60-hourTomin(getCookie("inizio")))/30);
 					   }
 				   }
 				}
@@ -466,9 +468,9 @@ function setLabelFilterModifica(){
 }
 
 function changeFormatData(mdata){
-	var d = mdata.split('/')[0];
+	var d = mdata.split('/')[2];
 	var m = mdata.split('/')[1];
-	var y = mdata.split('/')[2];
+	var y = mdata.split('/')[0];
 	return ""+d+"-"+m+"-"+y;
 //cambiare data da 2016/01/01
 // in 01-01-2016

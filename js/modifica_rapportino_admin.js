@@ -443,7 +443,7 @@ function mod_controlloRapCliente(){
 						   $("#mod_ora option[value="+j+"]").text($("#mod_ora option[value="+j+"]").text() +"       " + data[i]['nominativo']);
 					   }
 					   else{
-						  toModify.push((j+60)/30);
+						  toModify.push((j+60-hourTomin(getCookie("inizio")))/30);
 					   }
 				   }
 				}

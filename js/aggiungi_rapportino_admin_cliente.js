@@ -565,3 +565,7 @@ function removeDipendente(i){
 
 							});
 }
+
+function hourTomin(stringa){
+	return parseInt(stringa.split(":")[0])*60 + parseInt(stringa.split(":")[1]);
+}
