@@ -95,7 +95,7 @@ $(document).ready(function(){
 		$("#cerca_filtro").on("change",function(){
 
 			if($("#tipologia").val() == 'd'){
-				document.location.href = "dettaglio_rapportino_amministratore.html?id="+id_utente+"&nome="+nome_dipendente+"&f_ini="+$("#filter_start_giorno").val()+"&f_end="+$("#filter_stop_giorno").val();
+				document.location.href = "dettaglio_rapportino_amministratore.html?id="+id_utente+"&nome="+nome_dipendente+"&f_ini="+$("#filter_start_giorno").val()+"&f_end="+$("#filter_stop_giorno").val()+"&";
 			}else{
 				setLabelFilter();
 			}
@@ -109,7 +109,7 @@ $(document).ready(function(){
 
 		$("#cerca_filtro").on("click",function(){
 			if($("#tipologia").val() == 'd'){
-					document.location.href = "dettaglio_rapportino_amministratore.html?id="+id_utente+"&nome="+nome_dipendente+"&f_ini="+$("#filter_start_giorno").val()+"&f_end="+$("#filter_stop_giorno").val();
+					document.location.href = "dettaglio_rapportino_amministratore.html?id="+id_utente+"&nome="+nome_dipendente+"&f_ini="+$("#filter_start_giorno").val()+"&f_end="+$("#filter_stop_giorno").val()+"&";
 					//dettaglio_rapportino_admin_cliente.html?id='+data[i]['id']+'&nome='+data[i]['nominativo']+'&f_ini='+$("#filter_start_giorno").val()+'&f_end='+$("#filter_stop_giorno").val()+'
 			}else{
 					buttonCerca();
@@ -161,6 +161,8 @@ function buttonCercaAuto(){
 		lista_id_rap = new Array();
 		settaOra(0);
 		Loading();
+		$("#lista_materiali_tot").empty();
+		$("#lista_mezzi_tot").empty();
 		populateRapportino(id_utente);
 		$("#filtro_selezionato").show();
 		$("#sez_insermento_rapportino").show();
@@ -183,6 +185,8 @@ function buttonCerca(){
 		lista_id_rap = new Array();
 		settaOra(0);
 		Loading();
+		$("#lista_materiali_tot").empty();
+		$("#lista_mezzi_tot").empty();
 		populateRapportino(id_utente);
 		$("#filtro_selezionato").show();
 		$("#sez_insermento_rapportino").show();
@@ -325,7 +329,7 @@ function populateRapportino(filter){
 								}
 
 								if(i == ((elem_data.length)-1)){
-									var format_data = dataGiorniSfalsata(oldDate);
+									var format_data = dataGiorniSfalsata(myDate);
 									var NameDate = takeNameDay(format_data);
 									var NameOldDate= NameDate+" "+format_data;
 									elementi[i] = document.createElement('li');
@@ -363,8 +367,7 @@ function populateRapportino(filter){
 						onClickDetteglioList();
 					});
 			}
-			createListMateriali();
-			createListMezzi();
+
 			NoLoading();
       },
       error: function(xhr){
@@ -373,7 +376,8 @@ function populateRapportino(filter){
         return false;
       }
     });
-
+		createListMateriali();
+		createListMezzi();
 }
 function onClickDetteglioList(){
 	window.location.href = "#lista_dettagli_rapportino";
@@ -763,11 +767,14 @@ function returnRangeDate(d1){
 }
 
 function setteRiepilogoMateriali(){
-		//lista_id_rap
+	if(lista_id_rap.length==0){
+		$("#lista_materiali_tot").empty();
+	}else{
 		for(var i = 0; i < lista_id_rap.length; i++) {
 			load_AllMaterials(lista_id_rap[i]);
 		}
 		mod_updateListUtilizziMaterialiTot();
+	}
 }
 
 function load_AllMaterials(id_rapportino){
@@ -832,11 +839,14 @@ function mod_updateListUtilizziMaterialiTot(){
 }
 
 function setteRiepilogoMezzi(){
-		//lista_id_rap
-		for(var i = 0; i < lista_id_rap.length; i++) {
-			load_AllMezzi(lista_id_rap[i]);
-		}
-		mod_updateListUtilizziMezziTot();
+	if(lista_id_rap.length==0){
+		$("#lista_mezzi_tot").empty();
+	}else{
+			for(var i = 0; i < lista_id_rap.length; i++) {
+				load_AllMezzi(lista_id_rap[i]);
+			}
+				mod_updateListUtilizziMezziTot();
+	}
 }
 
 function load_AllMezzi(id_rapportino){
