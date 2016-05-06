@@ -367,7 +367,8 @@ function populateRapportino(filter){
 						onClickDetteglioList();
 					});
 			}
-
+			createListMateriali();
+			createListMezzi();
 			NoLoading();
       },
       error: function(xhr){
@@ -376,8 +377,7 @@ function populateRapportino(filter){
         return false;
       }
     });
-		createListMateriali();
-		createListMezzi();
+
 }
 function onClickDetteglioList(){
 	window.location.href = "#lista_dettagli_rapportino";
@@ -785,6 +785,7 @@ function load_AllMaterials(id_rapportino){
 	var dataFine = fine.split('/');
 	var filtro_inizio = dataInizio[2]+"-"+dataInizio[1]+"-"+dataInizio[0];
 	var filtro_fine  = dataFine[2]+"-"+dataFine[1]+"-"+dataFine[0];
+
 	$.ajax({
       dataType: "json",
       url: "script_php/getMaterialsRapportinoAdmin.php?id="+ id_utente+"&inizio="+filtro_inizio+"&fine="+filtro_fine+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
