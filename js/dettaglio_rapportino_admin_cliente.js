@@ -142,6 +142,8 @@ $(document).ready(function(){
 });
 function buttonCercaAuto(){
 	if(isNaN(id_utente)!=true){
+		euroMateriali=0;
+		euroMezzi=0;
 		$("#filtro_selezionato").show();
 		$("#ora_selezionato").empty();
 		//alert("OOOOOOOOHHH");
@@ -174,6 +176,8 @@ function buttonCercaAuto(){
 
 function buttonCerca(){
 	if(isNaN(id_utente)!=true){
+		euroMateriali=0;
+		euroMezzi=0;
 		$("#filtro_selezionato").show();
 		$("#ora_selezionato").empty();
 		var inizio = $("#filter_start_giorno").val();
@@ -788,7 +792,7 @@ function load_AllMaterials(id_rapportino){
 
 	$.ajax({
       dataType: "json",
-      url: "script_php/getMaterialsRapportinoAdmin.php?id="+ id_utente+"&inizio="+filtro_inizio+"&fine="+filtro_fine+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "script_php/getMaterialsRapportinoAdminCliente.php?id="+ id_utente+"&inizio="+filtro_inizio+"&fine="+filtro_fine+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
       async:false,
       success: function(data) {
@@ -861,7 +865,7 @@ function load_AllMezzi(id_rapportino){
 
 	$.ajax({
       dataType: "json",
-      url: "script_php/getMezziRapportinoAdmin.php?id="+id_utente+"&inizio="+filtro_inizio+"&fine="+filtro_fine+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
+      url: "script_php/getMezziRapportinoAdminCliente.php?id="+id_utente+"&inizio="+filtro_inizio+"&fine="+filtro_fine+"&db="+getCookie('nomeDB'), //Relative or absolute path to response.php file
       data:"",
       async:false,
       success: function(data) {

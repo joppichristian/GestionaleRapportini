@@ -139,6 +139,8 @@ window.onload = function () {
 }
 function buttonCercaAuto(){
 			if(isNaN(id_utente)!=true){
+				euroMateriali=0;
+				euroMezzi=0;
 				$("#filtro_selezionato").show();
 				$("#ora_selezionato").empty();
 				//alert("OOOOOOOOHHH");
@@ -175,6 +177,8 @@ function buttonCercaAuto(){
 
 function buttonCerca(){
 			if(isNaN(id_utente)!=true){
+				euroMateriali=0;
+				euroMezzi=0;
 				$("#filtro_selezionato").show();
 				$("#ora_selezionato").empty();
 				//alert("OOOOOOOOHHH");
