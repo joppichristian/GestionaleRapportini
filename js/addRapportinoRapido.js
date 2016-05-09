@@ -10,7 +10,7 @@ var cliente_selezionato = -1;
 var materiali_selezionati = new Array();
 var mezzi_selezionati = new Array();
 var rapida_cliente = 0;
-var giorni = ["Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica"];
+var giorni = ["Luned&igrave;","Marted&igrave;","Mercoled&igrave;","Gioved&igrave;","Venerd&igrave;","Sabato","Domenica"];
 $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
