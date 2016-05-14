@@ -52,7 +52,7 @@ $(document).ready(function(){
 			window.location.reload();
 		})
 		$("#"+dbs[i].split('?')[0]+"-mobile").click(function(){
-			setCookie("nomeDB",$(this).attr("id"),30);
+			setCookie("nomeDB",$(this).attr("id").replace("-mobile", ""),30);
 			setCookie("id_azienda",$(this).attr("value").split('?')[0],30);
 			setCookie("classe_privilegi",$(this).attr("value").split('?')[1],30);
 			setCookie("inizio",$(this).attr("value").split('?')[2],30);
@@ -78,6 +78,8 @@ $(document).ready(function(){
 	
 	$(".dropdown-button").dropdown();
 	$('select').material_select();
+	
+	
 
 });
 

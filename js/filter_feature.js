@@ -40,6 +40,19 @@ $(document).ready(function(){
 
         setCookie("IMP",data[0]["impostazioni_app"],30);
         setCookie("LOCK",data[0]["blocco_rapportini"],30);
+        
+        
+        
+        if(jQuery.browser.mobile){
+			setCookie("vDI",0,30);
+	        setCookie("aDI",0,30);
+	        setCookie("cDI",0,30);
+	        setCookie("mDI",0,30);
+	        setCookie("MP",0,30);
+	        setCookie("vRR",0,30);
+	        $("#ResRapp").hide();
+		}
+
 
         if(getCookie("vCL")==0 && getCookie("aCL")==0)
         	$("#CL").hide();
@@ -99,8 +112,8 @@ $(document).ready(function(){
 	    if(getCookie("IMP") == 0)
 	    	$("#manage_gestionale").hide();
 
-
-    },
+		
+	    },
       error: function(xhr){
        alert("errore: "+xhr.status);
       }

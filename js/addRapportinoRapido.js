@@ -143,7 +143,7 @@ function populateListClient(filter){
 	    json_clienti = data;
         var elementi = new Array();
          $("#elenco_clienti").empty();
-        for(var i = 0; i < data.length; i++) {
+        for(var i = 0;data != null && i < data.length; i++) {
 
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item";
@@ -182,7 +182,7 @@ function populateListMaterials(filter){
 	    json_materiali = data;
         var elementi = new Array();
          $("#elenco_materiali").empty();
-        for(var i = 0; i < data.length; i++) {
+        for(var i = 0; data != null && i < data.length; i++) {
 
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item";
@@ -236,7 +236,7 @@ function populateListMezzi(filter){
 	    json_mezzi = data;
         var elementi = new Array();
          $("#elenco_mezzi").empty();
-        for(var i = 0; i < data.length; i++) {
+        for(var i = 0;data != null && i < data.length; i++) {
 
 	        elementi[i] = document.createElement('li');
 	        elementi[i].className ="collection-item";
