@@ -38,8 +38,20 @@ $(document).ready(function(){
 	var dbs  = getCookie("dbs").split('-----');
 	for(var i=0;i<dbs.length-1;i++){
 		$("#aziende_associate").append('<li class="blue-grey darken-3"><a href="#!" value="'+dbs[i].split('?')[2]+'?'+dbs[i].split('?')[3]+'?'+dbs[i].split('?')[4]+ '?'+dbs[i].split('?')[5]+'" id="'+dbs[i].split('?')[0]+'"class="blue-grey-text text-lighten-5">'+dbs[i].split('?')[1]+'</a></li><li class="divider"></li>');
+		$("#slide-out").prepend('<li><a value="'+dbs[i].split('?')[2]+'?'+dbs[i].split('?')[3]+'?'+dbs[i].split('?')[4]+ '?'+dbs[i].split('?')[5]+'" id="'+dbs[i].split('?')[0]+'-mobile"class="blue-grey-text text-lighten-5"><b>'+dbs[i].split('?')[1]+'</b></a></li>');
+		
 		
 		$("#"+dbs[i].split('?')[0]).click(function(){
+			setCookie("nomeDB",$(this).attr("id"),30);
+			setCookie("id_azienda",$(this).attr("value").split('?')[0],30);
+			setCookie("classe_privilegi",$(this).attr("value").split('?')[1],30);
+			setCookie("inizio",$(this).attr("value").split('?')[2],30);
+			setCookie("fine",$(this).attr("value").split('?')[3],30);
+			$("#text-db").empty();
+			$("#text-db").append($(this).text()+ '<i class="material-icons right">arrow_drop_down</i>');
+			window.location.reload();
+		})
+		$("#"+dbs[i].split('?')[0]+"-mobile").click(function(){
 			setCookie("nomeDB",$(this).attr("id"),30);
 			setCookie("id_azienda",$(this).attr("value").split('?')[0],30);
 			setCookie("classe_privilegi",$(this).attr("value").split('?')[1],30);

@@ -69,7 +69,7 @@ function controlla_login(user,psw){
             {
 	            Materialize.toast('Attenzione! Alcune tue aziende hanno l\'abbonamento scaduto! Rinnova!', 4000);
             }
-            //alert("registrazione avvenuta con successo!! id azienda: "+id_a);
+			
             setCookie("inizialized",0,30);
             setCookie("username", user, 30);
             setCookie("password", psw, 30);
