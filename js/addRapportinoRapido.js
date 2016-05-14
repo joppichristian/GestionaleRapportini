@@ -44,7 +44,8 @@ $(document).ready(function(){
 			$('#cliente_selezionato_new_page').show();
 			$('#schermata_clienti').show();
 			$('#schermata_dati').hide();
-			$("#ore_new_page").append("<div class='chip' >"+$(".select-dropdown").val().substring(0,150)+" ... </div>");
+			$("#ore_new_page").empty();
+			$("#ore_new_page").append("<div class='chip' >"+$(".select-dropdown").val().substring(0,50)+" ... </div>");
 		}
 	});
 	$("#back_data").click(function(){
