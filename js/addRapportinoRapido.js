@@ -10,7 +10,7 @@ var cliente_selezionato = -1;
 var materiali_selezionati = new Array();
 var mezzi_selezionati = new Array();
 var rapida_cliente = 0;
-var giorni = ["Luned&igrave;","Marted&igrave;","Mercoled&igrave;","Gioved&igrave;","Venerd&igrave;","Sabato","Domenica"];
+var giorni = ["Domenica","Luned&igrave;","Marted&igrave;","Mercoled&igrave;","Gioved&igrave;","Venerd&igrave;","Sabato"];
 $(document).ready(function(){
 	if(getCookie('nomeDB')=="")
 		window.location.replace("index.html");
@@ -130,7 +130,7 @@ $(document).ready(function(){
 	});
 
 	var date = new Date();
-	var data_oggi = giorni[date.getDay()-1]+" "+date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
+	var data_oggi = giorni[date.getDay()]+" "+date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
 	$("#today").append(data_oggi);
 
 })
@@ -519,7 +519,8 @@ function populateListFascieOrarie(){
 				}
 			   $('select').material_select("update");
 				 $('#ora').on('change',function() {
-					  showButtom();
+					  if(jQuery.browser.mobile)
+					  	showButtom();
 					});
 				 $(".ora .dropdown-content li:nth-child(2) span").on("click",function(){
 
