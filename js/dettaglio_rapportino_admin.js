@@ -778,6 +778,7 @@ function returnRangeDate(d1){
 }
 
 function setteRiepilogoMateriali(){
+	euroMateriali=0;
 		if(lista_id_rap.length==0){
 			$("#lista_materiali_tot").empty();
 		}else{
@@ -850,6 +851,7 @@ function mod_updateListUtilizziMaterialiTot(){
 }
 
 function setteRiepilogoMezzi(){
+	euroMezzi=0;
 	if(lista_id_rap.length==0){
 		$("#lista_mezzi_tot").empty();
 	}else{
