@@ -110,7 +110,7 @@ function updateProfile(){
 									'azienda': getCookie("id_azienda")
 							 	 },
 							 	 success: function(data){
-										Materialize.toast('Il tuo profilo è stato modificato', 2000,"",function(){setCookie("nomeDB","");
+										Materialize.toast('Il tuo profilo &egrave; stato modificato', 2000,"",function(){setCookie("nomeDB","");
 										window.location.replace("index.html");});
 								 		return true;
 									},
