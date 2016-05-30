@@ -106,7 +106,6 @@ $(document).ready(function(){
 	$('#header_page').on("click",function(){
 		$("#button_Fine").hide();
 	});
-	$('#loading').hide();
 
 	if(getCookie('aCL') ==0)
 	{
@@ -554,7 +553,4 @@ function showButtom(){
 
 function hourTomin(stringa){
 	return parseInt(stringa.split(":")[0])*60 + parseInt(stringa.split(":")[1]);
-}
-function Loading(){
-	$('#loading').show();
 }

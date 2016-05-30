@@ -162,7 +162,6 @@ function buttonCercaAuto(){
 		$("#utente_selezionato").append(cliente_chip);
 		lista_id_rap = new Array();
 		settaOra(0);
-		Loading();
 		$("#lista_materiali_tot").empty();
 		$("#lista_mezzi_tot").empty();
 		populateRapportino(id_utente);
@@ -188,7 +187,6 @@ function buttonCerca(){
 		$("#ora_selezionato").show();
 		lista_id_rap = new Array();
 		settaOra(0);
-		Loading();
 		$("#lista_materiali_tot").empty();
 		$("#lista_mezzi_tot").empty();
 		populateRapportino(id_utente);
@@ -373,7 +371,6 @@ function populateRapportino(filter){
 			}
 			createListMateriali();
 			createListMezzi();
-			NoLoading();
       },
       error: function(xhr){
 	     console.log(xhr.status);
@@ -387,7 +384,6 @@ function onClickDetteglioList(){
 	window.location.href = "#lista_dettagli_rapportino";
 	$("#lista_dettagli_rapportino").show();
 	$('#dettaglio_contenitore').addClass('noscroll');
-	Loading();
 	explodeRapportino(rapportinoClick);
 }
 function takeNameDay(day){
@@ -621,7 +617,6 @@ function creazioneListaRapportino(cliente, dipendente, giorno){
 						unlock_rapportino(id_rap);
 						explodeRapportino(rapportinoClick);
 					});
-					NoLoading();
 			},
 			error: function(xhr){
 			 console.log(xhr.status);
@@ -1050,13 +1045,4 @@ function unlock_rapportino(id){
 					     console.log(xhr.status);
 				      }
 				    });
-}
-
-function Loading(){
-	$('#loading').show();
-	//alert("si loading");
-}
-function NoLoading(){
-	$('#loading').hide();
-	//alert("no loading");
 }
